@@ -1,0 +1,11 @@
+新建github仓库的流程。
+1.在远端库上新建仓库，网页操作。
+2.本地创建本地仓库。clone方式。
+git clone git@github.com:github3929/daydaybetter.git
+git remote add origin git@github.com:github3929/daydaybetter.git
+git push -u origin master -----》这个就是关联本地分支和远端分支
+3.添加相应的修改后。
+  git add .
+  git commit
+  git push
+
