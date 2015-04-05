@@ -1,0 +1,1000 @@
+ 1028  git status 
+ 1029  git commit 
+ 1030  git log
+ 1031  git status 
+ 1032  git commit 
+ 1033  git commit -m "del test_del.txt"
+ 1034  git log
+ 1035  git status 
+ 1036  git reflog 
+ 1037  git checkout -- text_del.txt
+ 1038  git checkout -- test_del.txt
+ 1039  git remote add origin git@github.com:github3929/learngit.git
+ 1040  git push -u origin master
+ 1041  echo "# learngit" >> README.md
+ 1042  git add README.md
+ 1043  git commit -m "add README.md"
+ 1044  git remote add origin https://github.com:github3929/learngit.git
+ 1045  git push -u origin master
+ 1046  cd ..
+ 1047  cd ./.ssh/
+ 1048  ls
+ 1049  cat id_rsa.pub 
+ 1050  cd ~/learngit/
+ 1051  git remote add origin https://github.com:github3929/learngit.git
+ 1052  git push -u origin master
+ 1053  cd ..
+ 1054  git clone git@github.com:github3929/gitskills.git
+ 1055  cd gitskills/
+ 1056  ls
+ 1057  touch test.c
+ 1058  ls
+ 1059  git add test.c
+ 1060  git status 
+ 1061  git commit test.c -m "add new file test.c"
+ 1062  git status 
+ 1063  git log
+ 1064  git push master
+ 1065  git push gitskills
+ 1066  git push origin 
+ 1067  cd ..
+ 1068  cd ./sprdroid4.4prime_3.10_14a_dualos/
+ 1069  ls
+ 1070  cd ..
+ 1071  cd ./gitskills/
+ 1072  cd ..
+ 1073  ls
+ 1074  cd ./learngit/
+ 1075  ls
+ 1076  cd ..
+ 1077  cd ./gitskills/
+ 1078  git status 
+ 1079  git log
+ 1080  cd ..
+ 1081  mkdir clone_gitskills
+ 1082  cd ./clone_gitskills/
+ 1083  ls
+ 1084  git clone git@github.com:github3929/gitskills.git
+ 1085  ls
+ 1086  cd ./gitskills/
+ 1087  ls
+ 1088  git status 
+ 1089  git log
+ 1090  cd ..
+ 1091  ls
+ 1092  git branch 
+ 1093  cd ./gitskills/
+ 1094  git branch 
+ 1095  ls
+ 1096  git log
+ 1097  git pull
+ 1098  git log
+ 1099  git pull
+ 1100  git branch 
+ 1101  ls
+ 1102  vi ./test_add_file.c 
+ 1103  git add ./test_add_file.c
+ 1104  git status 
+ 1105  git commit ./test_add_file.c -m "clone_user mod"
+ 1106  git log
+ 1107  git push git@github.com:github3929/gitskills
+ 1108  git reflog 
+ 1109  git pull
+ 1110  vi ./test_add_file.c 
+ 1111  git log
+ 1112  git status 
+ 1113  git log --pretty=oneline 
+ 1114  ls
+ 1115  vi ./test_add_file.c 
+ 1116  cat ./test_add_file.c 
+ 1117  git diff
+ 1118  git diff help
+ 1119  git diff HEAD^ ./test_add_file.c
+ 1120  git diff HEAD ./test_add_file.c
+ 1121  vi ./test_add_file.c 
+ 1122  git status 
+ 1123  git add ./test_add_file.c
+ 1124  git commit ./test_add_file.c -m "test diff local mod"
+ 1125  git reflog 
+ 1126  git diff HEAD ./test_add_file.c
+ 1127  git diff HEAD^ ./test_add_file.c
+ 1128  vi ./test_add_file.c 
+ 1129  git diff HEAD ./test_add_file.c
+ 1130  ls
+ 1131  vi ./test.c
+ 1132  ls
+ 1133  git diff HEAD
+ 1134  git add ./
+ 1135  git status 
+ 1136  git commit -m "test user2 & user1 mod the same file at the same time"
+ 1137  git log
+ 1138  git reflog 
+ 1139  git push git@github.com:github3929/gitsklls
+ 1140  git push git@github.com:github3929/gitskills
+ 1141  git remote 
+ 1142  ll
+ 1143  history > his.txt
+ 1144  cat his.txt 
+ 1145  git status
+ 1146  ls
+ 1147  git diff HEAD^
+ 1148  git reflog
+ 1149  git status
+ 1150  git remote
+ 1151  git remote -v 
+ 1152  git branch 
+ 1153  git status
+ 1154  vi ./test_add_file.c 
+ 1155  git status 
+ 1156  vi ./test.c
+ 1157  git status 
+ 1158  vi ./test.c
+ 1159  ls
+ 1160  vi ./test_add_file.c 
+ 1161  git merge
+ 1162  git merge help
+ 1163  git checkout master
+ 1164  git status 
+ 1165  vi ./test_add_file.c 
+ 1166  git status 
+ 1167  ls
+ 1168  vi ./test_add_file.c 
+ 1169  git remote
+ 1170  history > his_clone_20150309.txt
+ 1171  ls
+ 1172  git status 
+ 1173  git branch 
+ 1174  git reflog 
+ 1175  ls
+ 1176  git status 
+ 1177  git push origin master
+ 1178  git push --help
+ 1179  git pull --help
+ 1180  git rebase --help
+ 1181  git fetch
+ 1182  vi ./test_add_file.c 
+ 1183  git merge
+ 1184  git status 
+ 1185  git branch 
+ 1186  git checkout tmp
+ 1187  git branch 
+ 1188  git checkout tmp
+ 1189  vi ./test_add_file.c 
+ 1190  ls
+ 1191  vi ./test.c
+ 1192  git branch master 
+ 1193  git branch 
+ 1194  git checkout master 
+ 1195  git status 
+ 1196  git rebase --help
+ 1197  git push origin master
+ 1198  git checkout 
+ 1199  git checkout HEAD
+ 1200  git checkout -f
+ 1201  git checkout master
+ 1202  git merge
+ 1203  git config branch.master.remote origin 
+ 1204  git config branch.master.merge refs/heads/master 
+ 1205  vi .git/config 
+ 1206  ls
+ 1207  cd ./.git/
+ 1208  ls
+ 1209  cd ..
+ 1210  ls
+ 1211  git merge
+ 1212  source .git/config 
+ 1213  git merge
+ 1214  git pull
+ 1215  ls
+ 1216  vi ./test_add_file.c 
+ 1217  vi ./test.c 
+ 1218  git branch 
+ 1219  git checkout tmp 
+ 1220  vi ./test_add_file.c 
+ 1221  git checkout master 
+ 1222  git branch 
+ 1223  vi ./test_add_file.c 
+ 1224  vi ./.git/config 
+ 1225  git diff
+ 1226  ls
+ 1227  git diff tmp
+ 1228  git diff master
+ 1229  git branch 
+ 1230  git push origin master
+ 1231  git branch 
+ 1232  git push origin/master master
+ 1233  git branch -r
+ 1234  git branch -merged
+ 1235  git branch --merged
+ 1236  git branch --no-merged
+ 1237  git bra
+ 1238  git status 
+ 1239  git branch 
+ 1240  git pull origin 
+ 1241  vi ./test_add_file.c 
+ 1242  ls
+ 1243  vi ./test.c 
+ 1244  ls
+ 1245  vi ./test_add_file.c 
+ 1246  git reflog 
+ 1247  git  status 
+ 1248  ls
+ 1249  vi ./test_add_file.c 
+ 1250  git status 
+ 1251  git add ./test_add_file.c
+ 1252  git commit ./test_add_file.c -m "mod by user2"
+ 1253  git status 
+ 1254  git reflog 
+ 1255  git push origin 
+ 1256  git remote -b
+ 1257  git remote -v 
+ 1258  git reflog 
+ 1259  vi ./test_add_file.c 
+ 1260  ifconfig
+ 1261  ping 10.0.66.119
+ 1262  ping 10.0.66.69
+ 1263  ping 10.0.66.119
+ 1264  cd /
+ 1265  vi /home/likewise-open/SPREADTRUM/jason.jiang/.gitconfig 
+ 1266  pwd
+ 1267  cd ~/
+ 1268  cp ./.gitconfig ./.gitconfig_bak_20150309_wrong
+ 1269  ls
+ 1270  ll
+ 1271  vi ./.gitconfig~
+ 1272  cat /proc/cpuinfo | grep vmx
+ 1273  cat /proc/cpuinfo | grep svm
+ 1274  cat /proc/cpuinfo | grep vmx
+ 1275  git xxdiff
+ 1276  cd ./gitskills/
+ 1277  ls
+ 1278  git diff
+ 1279  git diff HEAD~4
+ 1280  cd ..
+ 1281  cd ./sprdroid4.4prime_3.10_14a_dualos/
+ 1282  ls
+ 1283  find . -name ApplicationContext.java
+ 1284  find . -name *.java
+ 1285  pwd
+ 1286  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1287  cp ~/Downloads/scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug-native_3592CF.pac.gz ./Disk_Server_ToInternal/
+ 1288  sudo cp ~/Downloads/scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug-native_3592CF.pac.gz ./Disk_Server_ToInternal/
+ 1289  sudo cp ~/Downloads/scx35l_sp9630ea3mn_dt_plus_cmccspec3_UUI-userdebug-native.tar.gz ./Disk_Server_ToInternal/
+ 1290  cd ./gitskills/
+ 1291  ls
+ 1292  ll
+ 1293  ls
+ 1294  git diff HEAD~5
+ 1295  git xxdiff
+ 1296  sudo apt-get install xxdiff
+ 1297  git xxdiff
+ 1298  xxdiff 
+ 1299  xxdiff HEAD~5
+ 1300  xxdiff --H
+ 1301  xxdiff --
+ 1302  xxdiff --help
+ 1303  git xxdiff HEAD~5
+ 1304  git bc3
+ 1305  sudo cp ~/Downloads/scx35l_sp9630ea3mn_dt_plus_cmccspec3_UUI-userdebug-native_3592CF_Marlin.pac.gz ~/Disk_Server_ToInternal/
+ 1306  git difftool HEAD~5
+ 1307  ls
+ 1308  cd ./sprdroid4.4prime_3.10_14a_dualos/
+ 1309  ls
+ 1310  source build/envsetup.sh 
+ 1311  sudo adb shell
+ 1312  ls
+ 1313  pwd
+ 1314  locate id_rsa
+ 1315  ls
+ 1316  ping 10.0.1.183
+ 1317  cd ./multi-os/
+ 1318  source build/envsetup.sh 
+ 1319  lunch  scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1320  cd ./vendor/sprd/qemu/hw/input/
+ 1321  git status 
+ 1322  git branch 
+ 1323  git status 
+ 1324  git add .
+ 1325  git status 
+ 1326  git commit
+ 1327  git branch 
+ 1328  git status 
+ 1329  repo upload
+ 1330  git branch 
+ 1331  git br -r
+ 1332  git status 
+ 1333  cd ../../
+ 1334  cd ..
+ 1335  repo upload ../vendor/sprd/qemu/
+ 1336  sudo adb shell
+ 1337  lsusb
+ 1338  sudo adb root
+ 1339  sudo adb shell
+ 1340  cd ~/multi-os/kernel/
+ 1341  cd ./drivers/
+ 1342  ls
+ 1343  cd ./input/
+ 1344  ls
+ 1345  cd ./virtsensor/
+ 1346  ls
+ 1347  astyle sprd_virt_gsensor.c 
+ 1348  astyle sprd_virt_lpsensor.c 
+ 1349  git status 
+ 1350  git branch 
+ 1351  git reset --hard HEAD^
+ 1352  git status 
+ 1353  git branch 
+ 1354  git log
+ 1355  git status 
+ 1356  git br -r
+ 1357  git br
+ 1358  git checkout sprdroid4.4_3.10_multios 
+ 1359  git branch 
+ 1360  git status 
+ 1361  astyle sprd_virt_gsensor.c
+ 1362  astyle sprd_virt_lpsensor.c
+ 1363  git status 
+ 1364  git add .
+ 1365  git commit
+ 1366  git status 
+ 1367  git log
+ 1368  git status 
+ 1369  repo upload
+ 1370  cd ../../..
+ 1371  cd ..
+ 1372  repo upload
+ 1373  repo upload --help
+ 1374  repo upload
+ 1375  repo upload kernel/
+ 1376  cd vendor/sprd/qemu/
+ 1377  cd ./hw/input/
+ 1378  git status 
+ 1379  git branch 
+ 1380  git add .
+ 1381  git commit
+ 1382  repo upload
+ 1383  cd ~/
+ 1384  cd ./multi-os/
+ 1385  ls
+ 1386  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1387  sudo cp -r -f  ~/02_TEAM_DOC ../Disk_Server_ToInternal/
+ 1388  sudo cp -r -f  ~/07_DUAL-OS ../Disk_Server_ToInternal/
+ 1389  cd ./vendor/sprd/qemu/hw/backlight/
+ 1390  git reflog 
+ 1391  git log
+ 1392  lsusb
+ 1393  sudo adb shell
+ 1394  ls
+ 1395  vi ./Desktop/log20150316.txt 
+ 1396  cd ./multi-os/
+ 1397  ls
+ 1398  cd kernel/
+ 1399  cd drivers/input/virtsensor/
+ 1400  ll
+ 1401  git status 
+ 1402  git add .
+ 1403  git commit
+ 1404  git branch 
+ 1405  git status 
+ 1406  repo upload
+ 1407  ls
+ 1408  ll
+ 1409  git log
+ 1410  git reflog 
+ 1411  git reset --hard ef00b6e
+ 1412  git branch 
+ 1413  git status 
+ 1414  git branch -r
+ 1415  ls
+ 1416  cp ~/sprd_virt_gsensor.c ./
+ 1417  cp ~/sprd_virt_lpsensor.c ./
+ 1418  git status 
+ 1419  git add .
+ 1420  git commit
+ 1421  git status 
+ 1422  repo upload
+ 1423  cd ../../..
+ 1424  sudo adb shell
+ 1425  cd ..
+ 1426  locate virtio.c
+ 1427  cd ~/
+ 1428  cd ./multi-os/
+ 1429  source build/envsetup.sh 
+ 1430  lunch  scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug && make
+ 1431  locate sprd_virt_gsensor.c
+ 1432  sudo adb shell
+ 1433  locate toolbox
+ 1434  locate sendevent
+ 1435  source build/envsetup.sh 
+ 1436  lunch  scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug && make
+ 1437  cd kernel/drivers/input/virtsensor/
+ 1438  ls
+ 1439  cp ./sprd_virt_gsensor.c ~/
+ 1440  cp ./sprd_virt_lpsensor.c ~/
+ 1441  cd ~/
+ 1442  cd ./multi-os/
+ 1443  cd vendor/sprd/qemu/
+ 1444  ls
+ 1445  cd /hw
+ 1446  cd hw/input/
+ 1447  ls
+ 1448  cp ./sprd_gsensor.c ~/
+ 1449  cp ./sprd_lpsensor.c ~/
+ 1450  git reflog
+ 1451  git reset --hard bf1ea67
+ 1452  git branch 
+ 1453  git status 
+ 1454  git branch -r
+ 1455  ls
+ 1456  cp ~/sprd_lpsensor.c ./
+ 1457  cp ~/sprd_gsensor.c ./
+ 1458  git status 
+ 1459  git add .
+ 1460  git commit
+ 1461  git status 
+ 1462  repo upload
+ 1463  ls
+ 1464  vi ./sprd_lpsensor.c
+ 1465  ls
+ 1466  cd ../../
+ 1467  cd ../open-source/apps/scripts/
+ 1468  ls
+ 1469  vi ./qemu_start.sh 
+ 1470  cd ./Downloads/
+ 1471  cd ./ast/
+ 1472  ll
+ 1473  ls
+ 1474  cd ./DEBS/
+ 1475  ll
+ 1476  ls
+ 1477  sudo dpkg -i *.deb
+ 1478  cd ./desktop-integration/
+ 1479  sudo dpkg -i openoffice4.1-debian-menus_4.1.1-9775_all.deb 
+ 1480  locate openoffice
+ 1481  cd /opt/
+ 1482  cd ./openoffice4/
+ 1483  ls
+ 1484  cd ./program/
+ 1485  ls
+ 1486  soffice -writer
+ 1487  soffice --writer
+ 1488  soffice --help
+ 1489  cd ../..
+ 1490  ls
+ 1491  cd ./openoffice4/program/
+ 1492  cd ./multi-os/
+ 1493  ls
+ 1494  source build/envsetup.sh 
+ 1495  trace --help
+ 1496  sudo adb shell
+ 1497  dtrace
+ 1498  ftrace
+ 1499  trace
+ 1500  which dtrace
+ 1501  dtrace 
+ 1502  dtrace --h
+ 1503  dtrace -h
+ 1504  dtrace --help
+ 1505  getenforce
+ 1506  iptables -L
+ 1507  sudo iptables -L
+ 1508  which apt-get
+ 1509  which aptitude
+ 1510  exit
+ 1511  sudo adb forward tcp:1235 tcp:1235
+ 1512  telnet 127.0.0.1 1235
+ 1513  lsubs
+ 1514  lsusb
+ 1515  telnet 127.0.0.1 1236
+ 1516  adb forward tcp:1234 tcp:1234
+ 1517  adb forward tcp:1237 tcp:1237
+ 1518  telnet 127.0.0.1 1237
+ 1519  iperf -c 10.0.66.54 -t 10
+ 1520  cp ~/.astylerc ~/.astylerc_bak_tab_changeto_4workspace
+ 1521  exit
+ 1522  iperf -s
+ 1523  iperf -c 127.0.0.1 -t 1
+ 1524  sudo adb shell
+ 1525  cd ..
+ 1526  cd ./kvm-code/
+ 1527  git clone git://git.kernel.org/pub/scm/virt/kvm/kvm.git
+ 1528  sudo adb shell
+ 1529  lsusb
+ 1530  sudo adb shell
+ 1531  lsusb
+ 1532  sudo adb shell
+ 1533  cd ..
+ 1534  cd ./sprdroid5.0prime_3.10_lsk/
+ 1535  ls
+ 1536  source build/envsetup.sh 
+ 1537  lunch sp7731geabase_dt_native-userdebug 
+ 1538  sudo adb shell
+ 1539  cd ./multi-os/
+ 1540  source build/envsetup.sh 
+ 1541  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1542  sudo adb shell
+ 1543  sudo apt-get install minicom 
+ 1544  sudo minicom 
+ 1545  cd ~/.wine/
+ 1546  cd drive_c/
+ 1547  ls
+ 1548  cd ./Program\ Files
+ 1549  ls
+ 1550  ll
+ 1551  ls
+ 1552  cd ./Common\ Files/
+ 1553  ls
+ 1554  cd ..
+ 1555  ls
+ 1556  cd ..
+ 1557  ls
+ 1558  cd ./Program\ Files (x86)
+ 1559  cd ./Program\ Files\ (x86)
+ 1560  sudo add-apt-repository ppa:ubuntu-wine/ppa
+ 1561  sudo apt-get update
+ 1562  wine --version
+ 1563  sudo apt-get install evernote-mode 
+ 1564  sudo add-apt-repository ppa:nvbn-rm/ppa
+ 1565  sudo apt-get update 
+ 1566  sudo apt-get install everpad 
+ 1567  sudo apt-get remove everpad 
+ 1568  wine uninstaller
+ 1569  ls /dev/tty
+ 1570  ls /dev
+ 1571  sudo minicom -s
+ 1572  ifconfig
+ 1573  cd ./multi-os/
+ 1574  source build/envsetup.sh 
+ 1575  ifconfig
+ 1576  ping 192.168.1.3
+ 1577  source build/envsetup.sh 
+ 1578  sudo adb shell
+ 1579  cd ../Downloads/
+ 1580  sudo adb push iperf.apk sdcard/
+ 1581  sudo adb install iperf.apk 
+ 1582  sudo adb shell
+ 1583  ifconfig
+ 1584  ping 192.168.1.3
+ 1585  cd ./iperf-2.0.5/
+ 1586  ls
+ 1587  cd ..
+ 1588  cd ./jperf-2.0.2/
+ 1589  ls
+ 1590  ./jperf.sh
+ 1591  cd ./multi-os/
+ 1592  source build/envsetup.sh 
+ 1593  sudo adb root
+ 1594  sudo adb shell
+ 1595  cd ./multi-os/
+ 1596  source build/envsetup.sh 
+ 1597  sudo adb root
+ 1598  lsusb
+ 1599  sudo adb root
+ 1600  sudo adb shell
+ 1601  sudo minicom 
+ 1602  cd ./jperf-2.0.2/
+ 1603  ls
+ 1604  ./jperf.sh 
+ 1605  pwd
+ 1606  exit
+ 1607  ls
+ 1608  cd ./multi-os/
+ 1609  git remote -v
+ 1610  ls
+ 1611  ifconfig
+ 1612  ifconfig release
+ 1613  ifconfig --h
+ 1614  ifconfig -h
+ 1615  ifconfig eth0 -h
+ 1616  ifconfig eth0 release
+ 1617  ls
+ 1618  mkdir study_doc
+ 1619  cd study_doc
+ 1620  ls
+ 1621  ll
+ 1622  echo "# spreadtrum_work" >> README.md
+ 1623  git init
+ 1624  git add README.md
+ 1625  git commit -m "first commit"
+ 1626  git remote add upstream git@github.com:studydoc/spreadtrum_work
+ 1627  git remote -v
+ 1628  git branch -r
+ 1629  git branch 
+ 1630  git branch -r
+ 1631  git push git@github.com:studydoc/spreadtrum_work
+ 1632  git push -u origin master
+ 1633  ls
+ 1634  ll
+ 1635  git log
+ 1636  git remote add origin https://github.com/studydoc/spreadtrum_work.git
+ 1637  git remote -v
+ 1638  git push -u origin master
+ 1639  ls
+ 1640  cd ..
+ 1641  mv ./study_doc ./spreadtrum_work
+ 1642  cd ./spreadtrum_work/
+ 1643  ll
+ 1644  ls
+ 1645  git add .
+ 1646  git commit
+ 1647  git push
+ 1648  ls
+ 1649  cd ./01_Note/
+ 1650  ls
+ 1651  git status 
+ 1652  git branch 
+ 1653  git branch -v
+ 1654  git remote -r
+ 1655  git remote -v
+ 1656  cd ..
+ 1657  git add .
+ 1658  git commit
+ 1659  git push
+ 1660  git add .
+ 1661  git commit .
+ 1662  git push
+ 1663  cd ..
+ 1664  cd ./spreadtrum_work/
+ 1665  find . -name *.* | grep include "qemu"
+ 1666  find . -name *.* | grep "qemu"
+ 1667  find . -name *.* | grep "qemu*"
+ 1668  find . -name *.* | grep "*qemu*"
+ 1669  sudo apt-get install catfish
+ 1670  find -iname '*.c' | xargs grep 'qemu'
+ 1671  find -iname '*.*' | xargs grep 'qemu'
+ 1672  find -iname '*.*' | xargs grep -nHR 'qemu'
+ 1673  ls
+ 1674  cd ./01_Note/
+ 1675  ls
+ 1676  touch name.txt
+ 1677  vi ./name.txt 
+ 1678  ls
+ 1679  mv ./name.txt ./search.txt
+ 1680  ls
+ 1681  git add .
+ 1682  git commit .
+ 1683  git commit
+ 1684  git status 
+ 1685  git push
+ 1686  ls
+ 1687  cd ..
+ 1688  ls
+ 1689  cd ..
+ 1690  cd ..\
+ 1691  cp -r -f ./spreadtrum_work ./spreadtrum_work_bak
+ 1692  rm -r -f ./spreadtrum_work_bak/
+ 1693  cd ..
+ 1694  ls
+ 1695  cd ./spreadtrum_work/
+ 1696  ls
+ 1697  cd ./01_Note/
+ 1698  ll
+ 1699  vi ./search.txt 
+ 1700  cd ~/multi-os/kernel/drivers/gpu/drm/nouveau/core/subdev/i2c/
+ 1701  vi ./aux.c 
+ 1702  cd ./spreadtrum_work/
+ 1703  ls
+ 1704  git status 
+ 1705  git add .
+ 1706  git commit
+ 1707  git push
+ 1708  ssh -T git@github.com
+ 1709  ssh
+ 1710  git status 
+ 1711  git branch 
+ 1712  git reflog
+ 1713  cd ~/.ssh/
+ 1714  ls
+ 1715  cat id_rsa.pub 
+ 1716  cat id_rsa
+ 1717  exit
+ 1718  cd ./qemu-code/
+ 1719  ls
+ 1720  cd ./qemu-2.0.2/
+ 1721  git remote -v
+ 1722  ls
+ 1723  cd ..
+ 1724  ls
+ 1725  cd ..
+ 1726  cd ./multi-os/
+ 1727  ls
+ 1728  cd ./kernel/
+ 1729  ls
+ 1730  cd ./drivers/
+ 1731  ls
+ 1732  cd  virtio/
+ 1733  ls
+ 1734  vi virtio_ring.c 
+ 1735  ls
+ 1736  ll
+ 1737  cd ..
+ 1738  cd..
+ 1739  cd ..
+ 1740  find . -name *.c | grep -nHR 'vritio*'
+ 1741  cd ..
+ 1742  pwd
+ 1743  cd /sys/class/
+ 1744  ls
+ 1745  cd ./backlight/
+ 1746  ls
+ 1747  ll
+ 1748  cd /sys/devices/
+ 1749  ls
+ 1750  cd ./platform/
+ 1751  ls
+ 1752  cd ./power/
+ 1753  ls
+ 1754  ll
+ 1755  cat control 
+ 1756  exit
+ 1757  ifconfig
+ 1758  ifconfig eth0 up
+ 1759  sudo ifconfig eth0 up
+ 1760  cd ./spreadtrum_work/
+ 1761  ls
+ 1762  git fetch 
+ 1763  git status 
+ 1764  git branch -r
+ 1765  git branch
+ 1766  git diff origin/master HEAD
+ 1767  git merge origin/master 
+ 1768  exit
+ 1769  iwconfig --h
+ 1770  iwconfig 
+ 1771  iwconfig eth0 
+ 1772  cd ./spreadtrum_work/
+ 1773  ls
+ 1774  cd ./01_Note/
+ 1775  ls
+ 1776  vi ./ser
+ 1777  ls
+ 1778  vi ./search.txt 
+ 1779  find -iname '*.*' | xargs grep -nHR 'qemu'
+ 1780  cd ../../..
+ 1781  cd ..
+ 1782  adb forward tcp:1235 tcp:1235
+ 1783  telnet 127.0.0.1 1235
+ 1784  sudo adb shell
+ 1785  telnet 127.0.0.1 1235
+ 1786  sudo adb shell
+ 1787  telnet 127.0.0.1 1235
+ 1788  adb forward 127.0.0.1:1234 1234
+ 1789  adb forward 127.0.0.1:1235 1235
+ 1790  telnet 127.0.0.1 1234
+ 1791  adb forward tcp:1234 tcp:1234
+ 1792  telnet 127.0.0.1 1234
+ 1793  sudo adb shell
+ 1794  adb forward tcp:1234 tcp:1234
+ 1795  telnet 127.0.0.1 1234
+ 1796  iwconfig
+ 1797  cd ../multi-os/
+ 1798  cd ./kernel/drivers/net/wireless/
+ 1799  ls
+ 1800  sudo minicom 
+ 1801  cd ./sprdroid5.0prime_3.10_lsk/
+ 1802  ls
+ 1803  source build/envsetup.sh 
+ 1804  lunch sp7731geabase_dt_native-userdebug
+ 1805  sudo adb shell
+ 1806  cd ..
+ 1807  ls
+ 1808  cd ./spreadtrum_work/
+ 1809  ls
+ 1810  git status 
+ 1811  git add ./01_Note/worklog
+ 1812  git add 01_Note/Virtual_Net代码分析
+ 1813  git commit
+ 1814  git push
+ 1815  git status 
+ 1816  cd ./spreadtrum_work/
+ 1817  ls
+ 1818  git fetch
+ 1819  git diff origin/master HEAD^
+ 1820  ls
+ 1821  cat /proc/meminfo 
+ 1822  git diff origin/master HEAD --stat
+ 1823  git merge origin/master 
+ 1824  git status 
+ 1825  gedit ~/.bashrc
+ 1826  cd /etc/openvpn/
+ 1827  ls
+ 1828  gedit client.conf 
+ 1829  sudo gedit client.conf 
+ 1830  l
+ 1831  ll
+ 1832  open --daemon --config client.conf
+ 1833  openvpn --daemon --config client.conf
+ 1834  openvpn --h
+ 1835  openvpn -h
+ 1836  openvpn --help
+ 1837  openvpn --
+ 1838  ll
+ 1839  rm ./client.conf~
+ 1840  sudo rm ./client.conf~
+ 1841  ll
+ 1842  mv client.conf ~/
+ 1843  sudo mv client.conf ~/
+ 1844  ll
+ 1845  cd ~/
+ 1846  ls
+ 1847  pwd
+ 1848  ls
+ 1849  exit
+ 1850  cd /usr/bin/
+ 1851  ls
+ 1852  locate openvpn
+ 1853  which openvpn
+ 1854  openvpn
+ 1855  cd /
+ 1856  which openvpn
+ 1857  locate --h
+ 1858  locate -w openvpn
+ 1859  locate sample-config
+ 1860  cd /etc/openvpn/
+ 1861  ls
+ 1862  ll
+ 1863  cd /usr/share/doc/openvpn/examples/sample-config-files/
+ 1864  ls
+ 1865  vi README 
+ 1866  cp client.conf /etc/openvpn/
+ 1867  sudo cp client.conf /etc/openvpn/
+ 1868  ll
+ 1869  cd ..
+ 1870  pwd
+ 1871  cd /
+ 1872  sudo apt-get remove openvpn 
+ 1873  sudo rm -r -f /etc/openvpn
+ 1874  cd ./spreadtrum_work/
+ 1875  ls
+ 1876  git status 
+ 1877  cd ..
+ 1878  sudo umount sdb
+ 1879  cd /dev/
+ 1880  ls
+ 1881  sudo umount sdb1
+ 1882  sudo umount sdb
+ 1883  cat /proc/partitions 
+ 1884  sudo fdisk -l
+ 1885  umount /dev/sdb1 
+ 1886  cd ..
+ 1887  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1888  cd ./Disk_Server_ToInternal/
+ 1889  ls
+ 1890  ll
+ 1891  sudo cp ~/Downloads/scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug-native_3592CF.pac.gz ~/Disk_Server_ToInternal/
+ 1892  lsusb
+ 1893  locate mkffos.sh
+ 1894  cd /home/likewise-open/SPREADTRUM/jason.jiang/multi-os/vendor/sprd/open-source/tools/mkffos/
+ 1895  sudo sh -x mkffos.sh /dev/sdb ~/root.tgz ~/system.tgz ~/vImage 
+ 1896  cd ~/Downloads/multi_os_guestos_03.09/
+ 1897  ls
+ 1898  sudo sh -x mkffos.sh
+ 1899  sudo sh -x /dev/sdb1 mkffos.sh root.tgz system.tgz vImage 
+ 1900  sudo sh -x /dev/sdb mkffos.sh root.tgz system.tgz vImage 
+ 1901  sudo sh -x mkffos.sh /devsdb1 root.tgz system.tgz vImage 
+ 1902  sudo sh -x mkffos.sh /dev/sdb root.tgz system.tgz vImage 
+ 1903  sudo sh -x mkffos.sh /dev/sdb1 root.tgz system.tgz vImage 
+ 1904  sudo umount /dev/sdb1
+ 1905  locate mkffos.sh
+ 1906  cd /home/likewise-open/SPREADTRUM/jason.jiang/multi-os/vendor/sprd/open-source/tools/mkffos/
+ 1907  sudo sh -x mkffos.sh /dev/sdb1 ~/Downloads/multi_os_guestos_03.09/root.tgz ~/Downloads/multi_os_guestos_03.09/system.tgz ~/Downloads/multi_os_guestos_03.09/vImage 
+ 1908  locate mkffos.sh
+ 1909  cd /home/likewise-open/SPREADTRUM/jason.jiang/sprdroid4.4prime_3.10_14a_dualos/vendor/sprd/open-source/tools/
+ 1910  ll
+ 1911  cd ./mkffos/
+ 1912  ll
+ 1913  sudo sh -x mkffos.sh /dev/sdb ~/root.tgz ~/system.tgz ~/vImage 
+ 1914  sudo sh -x mkffos.sh /dev/sdb1 ~/root.tgz ~/system.tgz ~/vImage 
+ 1915  sudo sh -x mkffos.sh /dev/sdb ~/root.tgz ~/system.tgz ~/vImage 
+ 1916  ll
+ 1917  diff
+ 1918  diff mkffos.sh bak_20150302_mkffos.sh 
+ 1919  cd ../../../..
+ 1920  cd ..
+ 1921  source build/envsetup.sh 
+ 1922  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1923  lunch vsharkffos-userdebug
+ 1924  vendor/sprd/open-source/tools/
+ 1925  cd vendor/sprd/open-source/tools/
+ 1926  ls
+ 1927  cd ./mkffos/
+ 1928  ll
+ 1929  sudo sh -x ./mkffos.sh /dev/sdb1 ~/root.tgz ~/system.tgz ~/vImage 
+ 1930  sudo sh -x ./mkffos.sh /dev/sdb ~/root.tgz ~/system.tgz ~/vImage 
+ 1931  history
+ 1932  cd ~/
+ 1933  which openvpn
+ 1934  whereis openvpn
+ 1935  ifconfig
+ 1936  sudo nslookup 
+ 1937  cd ./spreadtrum_work/
+ 1938  git status 
+ 1939  git fetch 
+ 1940  git diff origin/master HEAD --stat
+ 1941  git merge origin/master 
+ 1942  git status 
+ 1943  git reflog 
+ 1944  git status 
+ 1945  git add .
+ 1946  git status 
+ 1947  git commit 
+ 1948  git push
+ 1949  git status 
+ 1950  ifconfig
+ 1951  vi /etc/resolv.conf
+ 1952  ping spreadtrum.com
+ 1953  ifconfig
+ 1954  ping 10.0.66.169
+ 1955  sudo apt-get install traceroute 
+ 1956  vi /etc/resolv.conf
+ 1957  ping spreadtrum.com
+ 1958  sudo gedit /etc/pptpd.conf
+ 1959  sudo gedit /etc/ppp/chap-secrets 
+ 1960  sudo gedit /etc/sysctl.conf 
+ 1961  sudo gedit /etc/ppp/pptpd-options 
+ 1962  sudo /etc/init.d/pptpd restart
+ 1963  sudo chkconfig
+ 1964  chkconfig
+ 1965  service iptables stop
+ 1966  sudo service iptables stop
+ 1967  ufw disable
+ 1968  sudo ufw disable
+ 1969  iptables -P INPUT ACCEPT
+ 1970  sudo iptables -P INPUT ACCEPT
+ 1971  sudo iptables -P FORWARD ACCEPT 
+ 1972  sudo iptables -P OUTPUT ACCEPT
+ 1973  sudo iptables -F 
+ 1974  history
+ 1975  ufw disable 
+ 1976  pptpd 
+ 1977  pptpd --help
+ 1978  sudo nano /etc/pptpd.conf
+ 1979  sudo gedit /etc/pptpd.conf
+ 1980  sudo gedit /etc/ppp/chap-secrets 
+ 1981  sudo /etc/init.d/pptpd restart
+ 1982  gedit /etc/sysctl.conf 
+ 1983  sudo gedit /etc/sysctl.conf 
+ 1984  sudo sysctl -p
+ 1985  sudo gedit /etc/pptpd.conf
+ 1986  sudo gedit /etc/ppp/chap-secrets 
+ 1987  sudo gedit /etc/pptpd.conf
+ 1988  sudo /etc/init.d/pptpd restart
+ 1989  sudo gedit /etc/ppp/chap-secrets 
+ 1990  ifconfig
+ 1991  sudo gedit /etc/pptpd.conf
+ 1992  sudo gedit /etc/ppp/chap-secrets 
+ 1993  sudo gedit /etc/sysctl.conf 
+ 1994  sudo gedit /etc/ppp/pptpd-options 
+ 1995  sudo gedit /etc/ppp/chap-secrets 
+ 1996  sudo /etc/init.d/pptpd restart
+ 1997  sudo sysctl -p
+ 1998  history
+ 1999  sudo gedit /etc/pptpd.conf
+ 2000  cd ..
+ 2001  ufw disable
+ 2002  sudo ufw disable
+ 2003  iptables -P INPUT ACCEPT
+ 2004  sudo iptables -P INPUT ACCEPT
+ 2005  sudo iptables -P FORWARD ACCEPT
+ 2006  sudo iptables -P OUTPUT ACCEPT
+ 2007  sudo iptables -F
+ 2008  sudo gedit /etc/pptpd.conf
+ 2009  sudo /etc/init.d/pptpd restart
+ 2010  ifconfig
+ 2011  pptp --ver
+ 2012  ifconfig
+ 2013  sudo gedit /etc/pptpd.conf
+ 2014  sudo /etc/init.d/pptpd restart
+ 2015  sudo gedit /etc/ppp/chap-secrets 
+ 2016  sudo gedit /etc/sysctl.conf
+ 2017  sudo gedit /etc/ppp/pptpd-options
+ 2018  ping 10.0.66.169
+ 2019  sudo gedit /etc/pptpd.conf
+ 2020  sudo /etc/init.d/pptpd restart
+ 2021  iptables -t nat –F
+ 2022  sudo iptables -t nat –F
+ 2023  iptables --help
+ 2024  iptables -t nat -F
+ 2025  sudo iptables -t nat -F
+ 2026  sudo iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -j SNAT --to 10.0.66.115
+ 2027  history > vpn_server_config_log.txt

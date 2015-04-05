@@ -1,0 +1,13 @@
+1.host登录guest的2种方法：
+一种是telnet到gueset的ip地址2323????
+一种是telnet到127.0.0.1:1235?这种方式可能打印的东西会比较多
+
+
+2.qemu命令行有个info命令，可以看很多东西
+
+3.把文件推送到guest的方法，因为你从qemu_start.sh中看到启动时，qemu打开了一个tftp的server
+所以你如果要把东西送到guest的文件系统中，你可以把文件先push到host的文件系统，然后再拷贝
+一份到host的tftp server的目录(在qemu_start.sh中有描述)，然后在guest端可以tftp get的命令方式
+去host端获取。
+
+另：把东西送到host的文件系统，就是按照push普通bin文件一样。

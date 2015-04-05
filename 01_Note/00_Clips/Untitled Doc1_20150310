@@ -1,0 +1,23 @@
+
+
+~/gitskills$ git branch -v ----》查看各个分支最后一次提交------------》之前的显示，是有问题的
+* (no branch) 53bed22 Merge branch 'master' of github.com:github3929/gitskills
+  master      53bed22 Merge branch 'master' of github.com:github3929/gitskills
+  tmp         48e2957 test user2 & user1 mod the same file at the same time
+~/gitskills$ 
+
+~/gitskills$ git checkout tmp 
+Previous HEAD position was 53bed22... Merge branch 'master' of github.com:github3929/gitskills
+Switched to branch 'tmp'
+
+
+~/clone_gitskills/gitskills$ git branch -v------------》之后的显示，没有问题了
+* master 53bed22 Merge branch 'master' of github.com:github3929/gitskills
+  tmp    48e2957 test user2 & user1 mod the same file at the same time
+~/clone_gitskills/gitskills$ 
+
+
+~/clone_gitskills/gitskills$ git branch --merged
+* master
+  tmp
+~/clone_gitskills/gitskills$ 

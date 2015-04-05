@@ -1,0 +1,171 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+﻿★kvm qemu 虚拟化代码分析
+﻿★任务一：虚拟系统是如何将设置下发到Host OS的寄存器上的。
+﻿★任务二：虚拟系统是如何创建虚拟设备的。
+
+﻿★首先列出几个比较重要的文件名：
+○guide文档中 ---》这个里边的一堆代码描述更像是 说qemu是怎么模拟出一个虚拟系统的各个设备的。所以跟你想搞明白的虚拟OS如何设置声音背光等寄存器无关。
+
+device 部分
+hw/core/qdev.c
+include/hw/sysbus.h
+
+memory 操作部分
+memory.c
+
+实现虚拟设备部分
+hw/input/sprd-input.c
+hw/arm/vexpress.c
+
+......
+......
+
+
+○design文档中
+
+void memory_region_init_io();
+sysbus_init_mmio();
+sysbuf_init_irq();
+
+void memory_region_init_ram_ptr()
+
+virtio_blk.c
+virtio_net.c
+virtio_pci.c
+virtio_balloon.c
+virtio_console.c
+
+virtio.c
+virtio_ring.c
+
+★以设置背光为例，描述一下guest设置背光 ---》 qemu ----》host设置背光，整个调用的过程。
+
+这其中涉及如下几个c文件:
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/kernel/drivers/video/backlight/sprd_backlight.c --->Host OS
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/vendor/sprd/qemu/hw/backlight/sprd_backlight.c --->qemu
+
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/kernel/drivers/video/backlight/sprd_virt_backlight.c --->虚拟OS
+
+◇第一个问题，前2个文件，一模一样，是什么关系？
+前者是host端设置背光， 后者是qemu模拟出来的设置背光的函数接口。
+
+◇一个正常的host端设置背光的过程调用为：
+
+sprd_bl_pwm_update_status ---》设置背光函数
+sprd_bl_pwm_get_brightness ---》读取函数
+
+sprd_backlight_probe ---》探测，并根据不同CPU型号挂接对应寄存器数组。
+
+◇一个正常的qemu端设置背光的过程调用为：--》其实就是划定一片内存，然后里面放几个变量，每个变量对应真实模式下一个寄存器。
+
+sprd_backlight_read ---》设置背光函数
+sprd_backlight_write ---》读取函数
+
+◇sprd_virt_backlight.c这个文件又是干嘛的？
+
+static const struct backlight_ops sprd_virt_backlight_ops = {
+    .update_status = sprd_virt_bl_update_status,  -----》设置背光接口
+    .get_brightness = sprd_virt_bl_get_brightness,   -----》读取背光接口
+};
+
+这就是向平台注册了一个qemu虚拟出来的设备的背光drvier，类比，在Sprd_backlight.c这个文件里有真实的设备的背光driver的挂接platform_driver_register(&sprd_backlight_driver)
+
+◇guest设置背光，如何设置了host背光????????????/?????????????? -----》！！！！！！20150326重要提示，这个可以参考Design文档 4.8. Backlight Virtualization
+
+------------》重大发现，这个问题，可以参考guide文档的  5.5. 实现虚拟设备  章节。
+
+△我看到guide文档中有当 Guest OS 执行 IO 指令时,会发生指令异常,虚拟机退出。所以我想了一下，虚拟背光的设置的流程我猜想
+
+虚拟操作系统的背光设置（理解之前有误，虚拟操作系统和Host操作系统运行的是一套代码，所以代码同host linux一样应该也是在kernel/drivers/video/sprd_backlight.c） 
+       -----》Guest 挂起自己，跳转到kvm(Host Kernel) 
+               ---> 应该是 kernel/drivers/video/backlight/sprd_virt_backlight.c(这是KVM部分的代码) ---》 怎么回调到qemu的？
+                        ---》 QEMU的qemu/hw/sprd_backlight.c  ---》 MMIO映射，QEMU是Host的程序有权读取Host的寄存器，
+                              ----》跑到Host Linux的kernel/drivers/video/sprd_backlight.c，处理完毕后 
+                                    ---》 返回KVM --》 返回Guest OS
+
+
+△看了一下Design文档 4.8. Backlight Virtualization这部分，然后终于明白了这个memory map&mem region东西的作用。
+
+如下这些地方都调用来memory_region_init_io()函数来实现这种机制。
+Sprd-input.c (z:\home\apuser\multi-os\vendor\sprd\qemu\hw\input):    memory_region_init_io(&s->iomem, OBJECT(s), &sprd_input_ops, s, "sprdinput", 0x1000);
+Sprd_backlight.c (z:\home\apuser\multi-os\vendor\sprd\qemu\hw\backlight):    memory_region_init_io(&s->iomem, OBJECT(s), &sprd_backlight_ops, s, "sprdbacklight", 0x1000);//0x1000 ????
+Sprd_buffer_share.c (z:\home\apuser\multi-os\vendor\sprd\qemu\hw\buffer_share):    memory_region_init_io(&s->iomem, OBJECT(s), &sprd_buffer_share_ops, s, "sprd_buffer_share", 0x1000);
+Sprd_framebuffer.c (z:\home\apuser\multi-os\vendor\sprd\qemu\hw\display):	memory_region_init_io(&s->iomem, OBJECT(s),
+Sprd_gsensor.c (z:\home\apuser\multi-os\vendor\sprd\qemu\hw\input):    memory_region_init_io(&s->iomem, OBJECT(s), &sprd_sensor_ops, s, "accelerometer", 0x1000);
+Sprd_lpsensor.c (z:\home\apuser\multi-os\vendor\sprd\qemu\hw\input):    memory_region_init_io(&s->iomem, OBJECT(s), &sprd_lpsensor_ops, s, TYPE_SPRD_LPSENSOR, 0x1000);
+Sprd_pipe.c (z:\home\apuser\multi-os\vendor\sprd\qemu\hw\pipe):    memory_region_init_io(&s->iomem, OBJECT(s), &sprd_pipe_ops, s, "sprdpipe", 0x1000);
+
+此机制的核心意思就是：guest read or write这块qemu映射给他的内存地址，那么就会触发中断，中断的回调函数就是qemu挂接给guest的ops->read or ops->write接口。
+
+
+◆下面先以SPRD_INPUT.C为例，讲解一下这个过程，然后背光的部分就类比一下就可以了。----》！！！！！！20150326重要提示，这个可以参考Design文档4.5. Input Virtualization章节描述
+
+
+sprd/qemu/hw/arm/Vexpress.c
+static void vexpress_common_init(VEDBoardInfo *daughterboard, QEMUMachineInitArgs *args) ---》这个函数就是负责创建虚拟设备的入口。
+{
+	sysbus_create_simple("sprdinput", map[VE_SPRD_INPUT], pic[20]); ---》在此创建了一个虚拟的input设备。
+        sysbus_create_simple("sprdbacklight", map[VE_SPRD_BACKLIGHT], NULL); ----》在这创建了一个虚拟的backlight设备。
+}
+
+◇这里的中断上报是怎么触发的，触发后的响应函数又是谁？？？？？？？？？？？？
+  对于像backlight这样没有挂接中断的，是否就是不需要返回的？
+
+sysbus_create_simple ---》 DeviceState *sysbus_try_create_varargs()
+{
+	在这个函数里，创建了一个dev结构体并对它赋初值，然后返回指针
+        sysbus_connect_irq(s, n, irq); ---》在这里将dev的结构体指针和中断号捆绑起来。其实就是将中断号填入到dev结构体中。
+}
+
+
+◇你这样捋，你在正常的单系统手机上，对比一下，处理input操作的请求，然后看在双os上是多了些什么处理？
+
+
+
+★如何将上面的这堆分析和virtio.c virtio_ring.c联系起来呢？  ---------》这么分析过来，感觉这个跟上面一堆分析好像没有关系？？---》应该没有关系。即和那些sprd-***.c这样定义的文件(比如sprd-input.c sprd_backlight.c sprd_net.c)
+◇注意virtio.c(同理，virtio.h也有2个)有2个重名文件，位置如下：
+
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/vendor/sprd/qemu/hw/virtio/virtio.c ---》这个是假的
+
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/kernel/drivers/virtio/virtio.c ---》这个是真的
+
+◇先过一遍virtio.c，看一下一堆的virtual设备是如何被probe到并且挂接上的。
+
+static int virtio_init(void)
+{
+	if (bus_register(&virtio_bus) != 0) ----》将这个c文件中定义的bus(所有虚拟设备都挂在这个bus上)挂接到系统bus上，然后系统bus开始初始化的时候，自然会调用这个bus的探测函数，然后将探测到虚拟设备挨个挂接上去。
+		panic("virtio bus registration failed");
+	return 0;
+}
+
+
+int register_virtio_device(struct virtio_device *dev)
+{
+	err = device_register(&dev->dev);
+}
+
+◇virtio_net.c 以这个文件为例，在这文件内，就想virtio虚拟设备列表中挂接了一个net设备，设备驱动为virtio_net_driver
+
+static struct virtio_driver virtio_net_driver = {
+	.feature_table = features,
+	.feature_table_size = ARRAY_SIZE(features),
+	.driver.name =	KBUILD_MODNAME,
+	.driver.owner =	THIS_MODULE,
+	.id_table =	id_table,
+	.probe =	virtnet_probe,
+	.remove =	virtnet_remove,
+	.config_changed = virtnet_config_changed,
+#ifdef CONFIG_PM
+	.freeze =	virtnet_freeze,
+	.restore =	virtnet_restore,
+#endif
+};
+
+◇any other question？？？？？？？
+
+★更多关于qemu kvm代码解析的网页资料，参考收藏夹里信息。
+
+★在dual的guide文档中，有一个RIL-proxy的概念，RIL的分析详见如下文章：
+http://wenku.baidu.com/link?url=hPIVTkMbXRypit_nNNE-hqOe5Yl0cOx5mgnVy4NjIesn_-fbR7XPMNAcshjnunVVGKBohSzcFgeOnUdg7H_Bx7fN3OKmbMPEIWIlVENKFz7
+

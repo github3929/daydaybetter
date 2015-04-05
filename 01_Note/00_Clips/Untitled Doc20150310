@@ -1,0 +1,293 @@
+~/gitskills$ git branch 
+* master
+  tmp
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	his_tmp.txt
+nothing added to commit but untracked files present (use "git add" to track)
+~/gitskills$ 
+~/gitskills$ ls
+his_tmp.txt  README.md  test_add_file.c  test.c
+~/gitskills$ rm ./his_tmp.txt 
+~/gitskills$ ls
+README.md  test_add_file.c  test.c
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git sta
+git: 'sta' is not a git command. See 'git --help'.
+
+Did you mean one of these?
+	status
+	stage
+	stash
+~/gitskills$ git stage
+Nothing specified, nothing added.
+Maybe you wanted to say 'git add .'?
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#
+nothing to commit (working directory clean)
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git branch 
+* master
+  tmp
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+nothing to commit (working directory clean)
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+nothing to commit (working directory clean)
+~/gitskills$ 
+~/gitskills$ git branch 
+* master
+  tmp
+~/gitskills$ 
+~/gitskills$ git branch -r
+  origin/HEAD -> origin/master
+  origin/master
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ git checkout origin
+Note: checking out 'origin'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b new_branch_name
+
+HEAD is now at 53bed22... Merge branch 'master' of github.com:github3929/gitskills
+~/gitskills$ 
+~/gitskills$ git branch -r
+  origin/HEAD -> origin/master
+  origin/master
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git branch --merged 
+* (no branch)
+  master
+  tmp
+~/gitskills$ 
+~/gitskills$ git branch --no-merged 
+~/gitskills$ git branch -v
+* (no branch) 53bed22 Merge branch 'master' of github.com:github3929/gitskills
+  master      53bed22 Merge branch 'master' of github.com:github3929/gitskills
+  tmp         48e2957 test user2 & user1 mod the same file at the same time
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ vi ./test.c
+~/gitskills$ ls
+README.md  test_add_file.c  test.c
+~/gitskills$ 
+~/gitskills$ git branch master 
+fatal: A branch named 'master' already exists.
+~/gitskills$ git branch tmp 
+fatal: A branch named 'tmp' already exists.
+~/gitskills$ git checkout tmp 
+Previous HEAD position was 53bed22... Merge branch 'master' of github.com:github3929/gitskills
+Switched to branch 'tmp'
+~/gitskills$ git branch master 
+fatal: A branch named 'master' already exists.
+~/gitskills$ git checkout master 
+Switched to branch 'master'
+~/gitskills$ 
+~/gitskills$ git branch -v
+* master 53bed22 Merge branch 'master' of github.com:github3929/gitskills
+  tmp    48e2957 test user2 & user1 mod the same file at the same time
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ git checkout tmp 
+Switched to branch 'tmp'
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ git branch --merged 
+* tmp
+~/gitskills$ 
+~/gitskills$ git branch --no-merged 
+  master
+~/gitskills$ git checkout master 
+Switched to branch 'master'
+~/gitskills$ 
+~/gitskills$ git push origin master
+Everything up-to-date
+~/gitskills$ git remote 
+origin
+~/gitskills$ git fetch origin 
+From github.com:github3929/gitskills
+ * [new branch]      tmp        -> origin/tmp
+~/gitskills$ 
+~/gitskills$ git push origin 
+Everything up-to-date
+~/gitskills$ git fetch origin 
+~/gitskills$ 
+~/gitskills$ git merge --help
+~/gitskills$ 
+~/gitskills$ git merge tmp 
+Already up-to-date.
+~/gitskills$ 
+~/gitskills$ git push origin:tmp tmp
+The authenticity of host 'origin (216.92.247.197)' can't be established.
+ECDSA key fingerprint is 16:ac:9b:ac:cf:fe:0e:ea:82:a3:e5:6f:3a:a5:d0:37.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'origin,216.92.247.197' (ECDSA) to the list of known hosts.
+SPREADTRUM\jason.jiang@origin's password: 
+Permission denied, please try again.
+SPREADTRUM\jason.jiang@origin's password: 
+Permission denied, please try again.
+SPREADTRUM\jason.jiang@origin's password: 
+Permission denied (publickey,password,keyboard-interactive).
+fatal: The remote end hung up unexpectedly
+~/gitskills$ 
+~/gitskills$ git branch -r
+  origin/HEAD -> origin/master
+  origin/master
+  origin/tmp
+~/gitskills$ 
+~/gitskills$ git merge --help
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git branch 
+* master
+  tmp
+~/gitskills$ 
+~/gitskills$ git merge tmp
+Already up-to-date.
+~/gitskills$ git merge master 
+Already up-to-date.
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ git branch 
+* master
+  tmp
+~/gitskills$ 
+~/gitskills$ git push origin tmp
+Everything up-to-date
+~/gitskills$ 
+~/gitskills$ git pull 
+Already up-to-date.
+~/gitskills$ 
+~/gitskills$ git branch 
+* master
+  tmp
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ git push origin : tmp
+Everything up-to-date
+~/gitskills$ 
+~/gitskills$ git push origin :tmp
+To git@github.com:github3929/gitskills.git
+ - [deleted]         tmp
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git branch -r
+  origin/HEAD -> origin/master
+  origin/master
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git branch 
+* master
+  tmp
+~/gitskills$ 
+~/gitskills$ git branch -d tmp
+Deleted branch tmp (was 48e2957).
+~/gitskills$ 
+~/gitskills$ git branch 
+* master
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ cd ..
+~$ ls
+01_WORK_INFO            eclipse                                   qemu-system-arm
+02_DEVELOP              eclipse_sprdroid4.4prime_3.10_14a_dualos  root.tgz
+and5.0prime_3.10_lsk    examples.desktop                          sdk
+BackUpFirefoxBat        gatord                                    Source Insight
+bin                     gator-daemon                              sprdroid4.4prime_3.10_14a_dualos
+clone_gitskills         gator-driver                              sprdroid5.0_3.10
+crash-7.1.0             gator.ko                                  sprdroid5.0prime_3.10_lsk
+debug_test_ftrace       gitskills                                 system.tgz
+Desktop                 learngit                                  temp_copy
+Disk_Per                log_20150303.log                          Templates
+Disk_Pub                manifest.xml                              test_crash
+Disk_Server_ToInternal  Music                                     tmp_gitlog
+Documents               Pictures                                  Videos
+Downloads               Public                                    vImage
+DS-5-Workspace          qemu-code                                 workspace
+~$ cd ./gitskills/
+~/gitskills$ 
+~/gitskills$ cp ../tmp_gitlog/
+his_20150309.txt        his_clone_20150309.txt  his.txt                 tmp_gitskills
+~/gitskills$ cp ../tmp_gitlog/tmp_gitskills 
+.git/            README.md        test_add_file.c  test.c           
+~/gitskills$ cd ../tmp_gitlog/tmp_gitskills 
+bash: cd: ../tmp_gitlog/tmp_gitskills: Not a directory
+~/gitskills$ cd ../tmp_gitlog/
+~/tmp_gitlog$ ls
+his_20150309.txt  his_clone_20150309.txt  his.txt  tmp_gitskills
+~/tmp_gitlog$ 
+~/tmp_gitlog$ ls
+his_20150309.txt  his_clone_20150309.txt  his.txt  tmp_gitskills
+~/tmp_gitlog$ ll
+total 120
+drwxr-xr-x  2 SPREADTRUM\jason.jiang SPREADTRUM\domain^users  4096 Mar 10 08:45 ./
+drwxr-xr-x 79 SPREADTRUM\jason.jiang SPREADTRUM\domain^users  4096 Mar 10 17:20 ../
+-rw-r--r--  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 27254 Mar 10 08:37 his_20150309.txt
+-rw-r--r--  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 26724 Mar 10 08:38 his_clone_20150309.txt
+-rw-r--r--  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 27036 Mar  9 12:07 his.txt
+-rw-r--r--  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 27051 Mar  9 12:07 tmp_gitskills
+~/tmp_gitlog$ 
+~/tmp_gitlog$ cd ../gitskills/
+~/gitskills$ ls
+README.md  test_add_file.c  test.c
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   test_add_file.c
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+~/gitskills$ 
+~/gitskills$ git add test_add_file.c
+~/gitskills$ git commit test_add_file.c -m "test_diff"
+[master b325708] test_diff
+ 1 file changed, 1 insertion(+)
+~/gitskills$ 
+~/gitskills$ git push origin 
+Counting objects: 5, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 273 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To git@github.com:github3929/gitskills.git
+   53bed22..b325708  master -> master
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ 
+

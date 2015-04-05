@@ -1,0 +1,1075 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+=========================================================Day:20150205 start=========================================================
+
+
+▲Spreadtrum_Arch_Group_New_Staff_Guide文档（FAQ）
+
+▲DualOS_KVM_Design.doc----》这个也蛮不错，讲的是 如何在Spreadtrum ARM platform平台上构建 Dual-OS system。
+
+▲下载一套自己到代码到本地并搭建编译和编辑代码到环境
+
+▲[1]	http://10.0.64.31/AP-Android/wiki/WikiStart
+答：这个就是android整个系统的一些介绍 -------》这个info有很多东西，可以细细看一下！！！！！！
+
+▲[5]	http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/SYSSW/development/systemarch/
+答：上面的SVN代码服务器的子分支-------->这里有很多ppt培训文档，看看有用不！！！！！---------------------------------------------------》》》》》优先看一下，最高优先级别的
+
+▲学习一下 “使用电脑前请先看这里文档”，谢谢 这个目录下到ubuntu使用指南
+
+
+
+========================================================================================
+▲下载代码到工具是？上哪里下到最新的代码？
+
+▲下载完毕后，如何编译？编译最终得到的结果（生成到app文件）是？
+
+▲编辑代码的工具是？
+
+▲如何查看系统上是否安装了哪个app
+
+▲在linux文件系统上查看文件到具体位置的命令
+
+▲具体编译android的命令，过程中使用到的各个命令含义，参考下边的网页 ----》这个得仔细看看，没细看
+http://blog.csdn.net/zmnqazqaz/article/details/37559177
+
+▲下载5.0的代码，操作如下：
+
+
+repo init -u gitosis@sprdroid.git.spreadtrum.com.cn:android/platform/manifest.git -b sprdroid5.0_3.10_lsk
+
+repo sync -d -c -q -j8
+
+
+▲在下载了5.0的代码后，然后按照 http://10.0.64.31/AP-Android/wiki/Kernel30ICS 的网页提示来进行编译
+
+▲编译android5.0的时候，需要将JAVA_HOME & PATH这两个环境变量从jdk1.6变更为jdk1.7，如下：----->注意这个方法只对当前terminal窗口有效。
+
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+export PATH=/usr/lib/jvm/java-7-openjdk-amd64/bin:/usr/lib/jvm/java-7-openjdk-amd64/jre/bin:$PATH
+
+即要添加上如下两个目录：
+/usr/lib/jvm/java-7-openjdk-amd64/bin
+/usr/lib/jvm/java-7-openjdk-amd64/jre/bin
+
+▲编译指令 make -j4 or make都会提示如下的错误：
+PRODUCT_COPY_FILES device/sprd/scx35/media_profiles.xml:system/etc/media_profiles.xml ignored.
+PRODUCT_COPY_FILES vendor/sprd/open-source/res/productinfo/default_connectivity_configure.ini:system/etc/connectivity_configure.ini ignored.
+No private recovery resources for TARGET_DEVICE scx35_sp7731gea
+mkdir -p out/target/product/scx35_sp7731gea/obj/KERNEL
+make -C kernel O=../out/target/product/scx35_sp7731gea/obj/KERNEL ARCH=arm CROSS_COMPILE=arm-eabi- headers_install
+
+make -C kernel O=../out/target/product/scx35_sp7731gea/obj/KERNEL ARCH=arm CROSS_COMPILE=arm-eabi- headers_install
+make[1]: Entering directory `/home/likewise-open/SPREADTRUM/jason.jiang/sprdroid5.0_3.10/kernel'
+make[1]: Entering directory `/home/likewise-open/SPREADTRUM/jason.jiang/sprdroid5.0_3.10/kernel'
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/uapi/linux/version.h
+  UPD     include/generated/uapi/linux/version.h
+mv: cannot stat `include/generated/uapi/linux/version.h.tmp': No such file or directory
+make[2]: *** [include/generated/uapi/linux/version.h] Error 1
+make[1]: *** [sub-make] Error 2
+make[1]: Leaving directory `/home/likewise-open/SPREADTRUM/jason.jiang/sprdroid5.0_3.10/kernel'
+make[1]: Leaving directory `/home/likewise-open/SPREADTRUM/jason.jiang/sprdroid5.0_3.10/kernel'
+make: *** [out/target/product/scx35_sp7731gea/obj/KERNEL/arch/arm/boot/Image] Error 2
+make: INTERNAL: Exiting with 5 jobserver tokens available; should be 4!
+
+#### make failed to build some targets (47 seconds) ####
+
+~/sprdroid5.0_3.10$
+
+
+▲编译指令 make systemimage 会提示如下的错误：
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.location.gps.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.touchscreen.multitouch.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.touchscreen.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.telephony.gsm.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.usb.accessory.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.wifi.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/apns-conf.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/tiny_hw.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/codec_pga.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/audio_hw.xml
+Copy: out/target/product/scx35_sp7731gea/system/etc/audio_para
+Copy: out/target/product/scx35_sp7731gea/system/etc/audio_policy.conf
+Copy: out/target/product/scx35_sp7731gea/system/usr/idc/focaltech_ts.idc
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.sensor.light.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.sensor.proximity.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.camera.front.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.camera.autofocus.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.camera.flash-autofocus.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/permissions/android.hardware.wifi.direct.xml
+Copy: out/target/product/scx35_sp7731gea/system/lib/hw/gps.default.so
+Copy: out/target/product/scx35_sp7731gea/system/lib/libsupl.so
+Copy: out/target/product/scx35_sp7731gea/system/etc/HiMap.db
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/GPSenseEngine.xml
+Copy xml: out/target/product/scx35_sp7731gea/system/etc/supl.xml
+Copy: out/target/product/scx35_sp7731gea/system/lib/modules/pskey_bt.txt
+Target buildinfo: out/target/product/scx35_sp7731gea/system/build.prop
+Target buildinfo from: device/sprd/scx35_sp7731gea/system.prop
+error: ro.build.fingerprint cannot exceed 91 bytes: SPRD/sp7731geaplus_dt_oversea/scx35_sp7731gea:5.0/LRX21M/SPRD.20150209.11:userdebug/test-keys (93)
+make: *** [out/target/product/scx35_sp7731gea/system/build.prop] Error 1
+make: *** Deleting file `out/target/product/scx35_sp7731gea/system/build.prop'
+
+#### make failed to build some targets (13:32 (mm:ss)) ####
+
+~/sprdroid5.0_3.10$ make systemimage
+
+
+
+▲编译指令 make recoveryimage 会提示如下的错误：
+
+
+target StaticLib: libfusesideload (out/target/product/scx35_sp7731gea/obj/STATIC_LIBRARIES/libfusesideload_intermediates/libfusesideload.a)
+Import includes file: out/target/product/scx35_sp7731gea/obj/STATIC_LIBRARIES/librecovery_ui_sp8830_intermediates/import_includes
+target thumb C++: librecovery_ui_sp8830 <= vendor/sprd/open-source/libs/librecovery_ui_sp8830/default_device.cpp
+In file included from bootable/recovery/device.h:20:0,
+                 from vendor/sprd/open-source/libs/librecovery_ui_sp8830/default_device.cpp:20:
+bootable/recovery/ui.h:34:18: warning: unused parameter 'current' [-Wunused-parameter]
+     virtual void SetStage(int current, int max) { }
+                  ^
+bootable/recovery/ui.h:34:18: warning: unused parameter 'max' [-Wunused-parameter]
+bootable/recovery/ui.h:37:18: warning: unused parameter 'locale' [-Wunused-parameter]
+     virtual void SetLocale(const char* locale) { }
+                  ^
+target StaticLib: librecovery_ui_sp8830 (out/target/product/scx35_sp7731gea/obj/STATIC_LIBRARIES/librecovery_ui_sp8830_intermediates/librecovery_ui_sp8830.a)
+target StaticExecutable: recovery (out/target/product/scx35_sp7731gea/obj/EXECUTABLES/recovery_intermediates/LINKED/recovery)
+target Symbolic: recovery (out/target/product/scx35_sp7731gea/symbols/system/bin/recovery)
+Export includes file: bootable/recovery/Android.mk -- out/target/product/scx35_sp7731gea/obj/EXECUTABLES/recovery_intermediates/export_includes
+target Strip: recovery (out/target/product/scx35_sp7731gea/obj/EXECUTABLES/recovery_intermediates/recovery)
+out/host/linux-x86/bin/checkpolicy:  loading policy configuration from out/target/product/scx35_sp7731gea/obj/ETC/sepolicy.recovery_intermediates/policy_recovery.conf
+external/sepolicy/domain.te:175:WARNING 'unrecognized character' at token ''' on line 5163:
+
+'
+external/sepolicy/domain.te:175:WARNING 'unrecognized character' at token ''' on line 5167:
+#line 175
+'
+external/sepolicy/domain.te:249:WARNING 'unrecognized character' at token ''' on line 5239:
+
+'
+external/sepolicy/domain.te:249:WARNING 'unrecognized character' at token ''' on line 5243:
+#line 249
+'
+device/sprd/scx35/sepolicy/debuggerd.te:6:WARNING 'unrecognized character' at token ''' on line 11328:
+'
+
+device/sprd/scx35/sepolicy/debuggerd.te:5:WARNING 'unrecognized character' at token ''' on line 11332:
+'
+#line 5
+device/sprd/scx35/sepolicy/init_shell.te:5:WARNING 'unrecognized character' at token ''' on line 11363:
+
+'
+device/sprd/scx35/sepolicy/init_shell.te:4:WARNING 'unrecognized character' at token ''' on line 11367:
+#line 4
+'
+external/sepolicy/domain.te:175:WARNING 'unrecognized character' at token ''' on line 5163:
+'
+
+external/sepolicy/domain.te:175:WARNING 'unrecognized character' at token ''' on line 5167:
+'
+#line 175
+external/sepolicy/domain.te:249:WARNING 'unrecognized character' at token ''' on line 5239:
+'
+
+external/sepolicy/domain.te:249:WARNING 'unrecognized character' at token ''' on line 5243:
+'
+#line 249
+device/sprd/scx35/sepolicy/debuggerd.te:6:WARNING 'unrecognized character' at token ''' on line 11328:
+
+'
+device/sprd/scx35/sepolicy/debuggerd.te:5:WARNING 'unrecognized character' at token ''' on line 11332:
+#line 5
+'
+device/sprd/scx35/sepolicy/init_shell.te:5:WARNING 'unrecognized character' at token ''' on line 11363:
+'
+
+device/sprd/scx35/sepolicy/init_shell.te:4:WARNING 'unrecognized character' at token ''' on line 11367:
+'
+#line 4
+out/host/linux-x86/bin/checkpolicy:  policy configuration loaded
+out/host/linux-x86/bin/checkpolicy:  writing binary representation (version 26) to out/target/product/scx35_sp7731gea/obj/ETC/sepolicy.recovery_intermediates/sepolicy.recovery
+Target buildinfo: out/target/product/scx35_sp7731gea/system/build.prop
+Target buildinfo from: device/sprd/scx35_sp7731gea/system.prop
+error: ro.build.fingerprint cannot exceed 91 bytes: SPRD/sp7731geaplus_dt_oversea/scx35_sp7731gea:5.0/LRX21M/SPRD.20150209.12:userdebug/test-keys (93)
+make: *** [out/target/product/scx35_sp7731gea/system/build.prop] Error 1
+make: *** Deleting file `out/target/product/scx35_sp7731gea/system/build.prop'
+
+#### make failed to build some targets (01:00 (mm:ss)) ####
+
+~/sprdroid5.0_3.10$ 
+
+▲如何修改ubuntu的软件更新源：
+解决方法：http://forum.ubuntu.org.cn/viewtopic.php?f=52&t=177997
+
+▲sudo apt-get update的时候，提示如下错误：
+W: GPG error: http://ppa.launchpad.net precise Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY FB5DF26925396B8E
+
+解决方法：在安装更新时，即在运行，命令行sudo apt-get update 或者运行更新管理器的时候，出现W: GPG 
+错误：http://ppa.launchpad.net lucid Release: 由于没有公钥，无法验证下列签名： NO_PUBKEY 
+FAF69C646FF368B7的问题，可以在终端中运行：sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FB5DF26925396B8E
+
+
+
+=========================================================Day:20150209 start=========================================================
+上午
+1.回复roc的邮件----》ok
+2.学习下载的三个文档。职业规划.pdf 展讯产品技术及芯片设计流程.ppt----》ok
+3.整理外网机的linux的桌面和windows桌面，规范化文件夹的常用习惯使用方式----》ok
+4.补上20150206的工作日志--------？？？
+5.整理目前急需完成到工作----》ok
+6.寻思了一下，以后开发环境到安排，两台PC同时使用
+  内网机可以安装windows的软件，然后手机调试可以在这个上面做。
+  外网机就是收邮件，最好邮件搞到本地比较好。编辑linux的代码，编译linux代码----》ok
+7.中午的休息时间，按照编译指南，把所有编译命令走一下----》编译有错误？？？？
+8.将windows下的几个网络磁盘，在linux下进行挂接和映射----》ok
+
+下午
+0.熟悉了一下linux下wine的使用，linux下软件如何更新，如何设置新的软件更新源----》ok
+1.赶过去问一下linux的编辑开发环境配置，为什么自己下载的代码会出现编译错误
+2.问一下linux调试的手机哪里申请，配套下载的软件是什么，USB连线有特殊要求么？
+3.继续看完小组总结的文档
+
+=========================================================Day:20150210 start=========================================================
+上午：
+1.安装byondcompare和sourceinsight软件，创建source工程，同步代码。
+2.让IT给解决内网安装下载手机app的软件
+3.查看hou.yu发过来到bug问题，尝试如何使用crash工具
+4.让tian借给一个调试手机，并告知这个手机使用到匹配的代码，以及对应到lunch选项
+
+下午：
+1.编译tian.zhizhou给的代码，但是直到晚上7点半，代码尚未编译完成。
+2.熟悉7731设备，ssh登录到7731设备上，即远程登录7731的linux系统。
+3.将远程服务器上to_internal的目录挂接到linux下。
+
+---》按照下述操作，即可将服务器上的tointernel目录挂载到linux下
+sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+
+备注：在挂载完毕后，发现拷贝文件到该文件夹无写权限，定位是文件夹是root所有的，需要root权限才可以拷贝，所以使用sudo cp命令即可。
+      而为什么文件的所有者变为root呢，因为你在执行mount的时候，用的是sudo mount。
+      fix方法：所有操作都使用sudo 前缀。
+
+----》后来更改为在文件浏览器窗口，ctrl+l调出location地址栏，输入smb://10.0.64.42/to_internal/jason.jiang 
+输入对应到用户名spreadtrum\jason.jiang，域名spreadtrum，和密码即可打开。
+
+注意：ll -g -o可以显示结果省去group name 和 user name。
+
+=========================================================Day:20150211 start=========================================================
+上午：
+1.尝试烧写从版本服务器上下载下来的image，结果烧进去就坏了。因为我下载的image是hd版本的，而我的手机是qhd版本的。
+
+2.问了一下tianzhizhou，是我的版本不对导致的。但是仍然没有搞明白版本服务器上 N多的目录，究竟哪个目录下的版本可以
+下载到哪个类型的手机上。
+
+下午：
+1.从版本服务器上下载prime版本，重烧写死掉的手机。---》折腾了3个版本后，终于搞定了，时间截至到下午4:22
+a.一开始从guide文档中所指示的版本服务器获取的pac文件，然后以为把编出来的boot.img替换掉，烧就好了。
+  结果烧坏了
+b.后来把自己编译邮件了tian，告知我自己下载的pac文件不对，然后按照他提示在jenkins上找到了对应的版本
+
+后记：正确的下载和编译方式：
+  770  cd ./sprdroid5.0prime_3.10_lsk/
+  771  ls
+  772  ll
+  773  repo init -u gitosis@sprdroid.git.spreadtrum.com.cn:android/platform/manifest -b sprdroid5.0prime_3.10_lsk
+  774  repo sync -d -c -q -j8
+  793  source build/envsetup.sh 
+  794  lunch
+  795  lunch sp7731geabase_dt_native-userdebug 
+
+
+2.SourceInsight修改部分kernel的代码，然后烧入手机，验证修改是否能上传到手机上。
+  a.仅修改kernel代码，然后增量仅仅编译kernel代码的命令：
+
+3.使用crash工具来分析houyu的问题单。学习一下如何使用crash
+
+4.如何安装adb，然后如何使用adb
+
+
+总结下载prime代码并编译的所有步骤：
+  768  mkdir sprdroid5.0prime_3.10_lsk
+  769  cd ./sprdroid5.0
+  770  cd ./sprdroid5.0prime_3.10_lsk/
+  771  ls
+  772  ll
+  773  repo init -u gitosis@sprdroid.git.spreadtrum.com.cn:android/platform/manifest -b sprdroid5.0prime_3.10_lsk
+  774  repo sync -d -c -q -j8
+  775  ll
+  776  source ./build/envsetup.sh 
+  777  lunch
+  778  ll
+  779  lunch sp7731geabase_dt_native-userdebug 
+  780  pwd
+  781  make
+  782  echo $JAVA_HOME
+  783  echo $PATH
+  784  make
+  785  pwd
+  786  cd ./kernel/
+  787  git remote -v
+  788  pwd
+  789  history
+~/sprdroid5.0prime_3.10_lsk/kernel$ 
+
+然后编译完成后，从外网向内网拷贝的过程如下：---》按照下述操作，即可将服务器上的tointernel目录挂载到linux下
+Step1:
+sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+Step2:
+sudo cp拷贝即可
+
+备注：在挂载完毕后，发现拷贝文件到该文件夹无写权限，定位是文件夹是root所有的，需要root权限才可以拷贝，所以使用sudo cp命令即可。
+      而为什么文件的所有者变为root呢，因为你在执行mount的时候，用的是sudo mount。
+      fix方法：所有操作都使用sudo 前缀。
+
+
+=========================================================Day:20150212 start=========================================================
+上午：
+1.查询bugzilla系统，分析别人是怎么解决问题单的。
+  找到系统crash问题，然后尝试用crash工具分析。
+
+2.分析android kernel代码的内部结构，具体模块划分，并输出总结。
+
+3.找hr拍照下kpi指标内容
+
+4.熟悉effective on board系统，看hr需要我完成什么东西，补上自己的工作日志。
+
+
+
+下午：
+1.上公司的培训网站，按照新员工入职流程，参加新员工网上培训等活动。
+
+2.下午练习使用gdb，发现执行gdbclient /system/bin/mediaserver命令的时候，一定要在代码工程的如下目录：
+~/sprdroid5.0prime_3.10_lsk/out$ pwd
+/home/likewise-open/SPREADTRUM/jason.jiang/sprdroid5.0prime_3.10_lsk/out
+
+
+=========================================================Day:20150213 start=========================================================
+上午：
+1.补充完善guide文档
+2.接着昨天分析一下crash文件
+
+下午：
+1.sina邮箱有android的资料，你自己再分析一下代码
+
+=========================================================Day:20150215 start=========================================================
+上午：
+1.下载了一下crash文件，尝试使用crash分析工具分析一下。---这个不便再写入worklog
+2.学习arch目录下的文档，走读一下问题单库上的问题单，分析一下都改了哪些代码。
+
+备注1：需要留意crash工具，最新的crash-7.1.0，无法正常配合如下两个文件使用，提示说 “crash: sysdump.bin: not a supported file format” 这个错误
+而sysdump.bin文件是通过cat sysdump.core.0* > sysdump.bin，其中slog文件是取自ftp://ftp.spreadtrum.com/From_India/India_Logs/PDLogs/7731/spdroid5.0_3.10_lsk_gms/20141229/white_Screen.rar
+
+symbols/vmlinux文件则取自 http://10.0.64.32:8080/jenkins/job/sprdroid5.0_3.10_lsk/22/artifact/SYMBOLS/symbols.vmlinux.sp7731geahdplusoversea_userdebug_gms.tgz
+
+备注2：
+让gedit软件里，文本默认不回车换行的方法，gedit 编辑->首选项-查看-文字折行
+vim里可以用 set wrap set nowrap 来切换。
+
+备注3：
+ubuntu deb文件怎么安装？
+答：从软件中心安装 GDebi Package Installer (gdebi) 软件。安装完这个软件后，直接点击你下载的*.deb文件就可以自动解析出这个软件包的依赖关系，然后正确安装上来。
+
+下午：
+1.sina邮箱有android的资料，你自己再分析一下代码
+
+
+=========================================================Day:20150216 start=========================================================
+1.安装DS-5
+2.将DS-5的路径添加到PATH里边，参考下边的方法。
+
+安装完毕后，具体使用DS-5的方法，可以参考如下几个文档：
+1）guide文档中DS-5章节
+2）DS-5环境搭建.odt
+
+需要注意的是guide文档没有声明重要的一点，你的手机里的app版本必须是在kernel里重新配置完毕后，从新编译生成的app，默认系统编译的app
+传到手机后，你会发现system\bin这个目录是read-only的，而你要使用gatord，必须将文件拷贝到system\bin这个目录，并且在手机上运行gatord才可以。
+具体怎么编译具有DS-5调试功能的内核，可以参考文档DS-5环境搭建.odt最开始的地方描述。
+备注：
+我在/home/likewise-open/SPREADTRUM/jason.jiang/sprdroid5.0prime_3.10_lsk/kernel/arch/arm/configs目录中搜罗各个config文件，就觉得
+如下2个配置文件最相近：（2者区别就是界面不同（猜测）native是原生态）
+sp7731gea_qhd-dt_defconfig
+sp7731gea_qhd-native_defconfig
+
+
+3.我们的代码编译最终生成的结果有哪些，这些文件对应的是什么东西。
+  代码目录中，哪些是kernel，哪些是framework，其它目录都是什么。
+  关于这点可以参考如下文档：
+  a.http://10.0.64.31/AP-Android/wiki/Device%20driver
+  b.http://10.0.64.31/AP-Android/wiki/AndroidProductingDesignGuide
+  c.http://10.0.64.31/AP-Android/wiki/LinuxProgrammingDesignGuide
+  d.Spreadtrum_Linux_Android_Development_Guide.doc ---》重点
+  e./home/likewise-open/SPREADTRUM/jason.jiang/01_WORK_INFO/02_TEAM_DOC目录下的文档
+
+4.linux的目录的结构可以参考
+  a.http://blog.csdn.net/dyllove98/article/details/8915754
+  b.
+
+
+备注1：发现全局的profile和用户的/.bashrc文件是在系统启动时，先后下发的，因为从下边看source profile后，.bashrc配置里关于命令行前去除主机名和用户名的配置失效了。
+~$ source /etc/profile
+SPREADTRUM\jason.jiang@taojiangubtpc:~$ 
+SPREADTRUM\jason.jiang@taojiangubtpc:~$ pwd
+/home/likewise-open/SPREADTRUM/jason.jiang
+SPREADTRUM\jason.jiang@taojiangubtpc:~$ 
+SPREADTRUM\jason.jiang@taojiangubtpc:~$ source ~/.bashrc
+ 2846 ?        Ss     0:00 ssh-agent
+ssh-agent added
+~$ 
+
+
+备注2：
+添加路径到PATH的方法：
+1.export PATH=$PATH:/etc/apache/bin
+使用这种方法,只对当前会话有效，也就是说每当登出或注销系统以后，PATH 设置就会失效
+ 
+2.#vi /etc/profile
+在适当位置添加 PATH=$PATH:/etc/apache/bin （注意：＝ 即等号两边不能有任何空格）
+这种方法最好,除非你手动强制修改PATH的值,否则将不会被改变
+ 
+3.#vi ~/.bash_profile
+修改PATH行,把/etc/apache/bin添加进去
+这种方法是针对用户起作用的
+ 
+注意：想改变PATH，必须重新登陆才能生效，以下方法可以简化工作：
+如果修改了/etc/profile，那么编辑结束后执行source profile 或 执行点命令 ./profile,PATH的值就会立即生效了。
+这个方法的原理就是再执行一次/etc/profile shell脚本，注意如果用sh /etc/profile是不行的，因为sh是在子shell进程中执行的，即使PATH改变了也不会反应到当前环境中，但是source是在当前 shell进程中执行的，所以我们能看到PATH的改变。
+这样你就学会Linux系统下修改环境变量PATH路径的方法。
+=========================================================Day:20150217 start=========================================================
+1.继续昨天未竟的任务。
+
+1./kernel --》linux内核
+
+=========================================================Day:20150224 start=========================================================
+work_info_20150224::
+mount公司windows服务器的PC共享文件夹，用于拷贝数据到本地：
+sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/Dept_Folder/Andr_Framwork/Google_Android_BootCamp/2015/  ~/temp_copy/
+
+
+=========================================================Day:20150225 start=========================================================
+
+上午
+1.补齐日志
+2.aux.c文件无法添加到sourceinsight工程并正确打开的问题，是因为aux.c是linux下的一个模块名，具体解释参考：
+http://bbs.csdn.net/topics/10025834
+3.guide文档学习
+4.linux代码和framework代码位置学习，问题单库内问题单的学习---》to be finished
+5.arch目录下文档的学习---》to be finished
+6.将以前的工作日志整理为一个大的log文件---ok
+
+下午：
+1.guide文档学习，学习fastboot下载，git代码上传，可以尝试创建一个分支，然后修改点东西上传到编译服务器编译试试
+2.arch目录下文档的学习
+3.公司代码目录的识别，学习
+
+备注1：
+参照guide的文档，想试一下adb，通过usb线连接上手机u口，然后执行adb命令，提示device没有找到。
+~$ adb root
+error: device not found
+~$
+然后通过查看adb位置，发现位置搞错了。
+~$ whereis adb
+adb: /usr/bin/adb /sbin/adb /usr/bin/X11/adb
+
+解决方案：
+执行一下source ./build/envsetup.sh和lunch操作。然后要保证2点
+
+~/sprdroid5.0prime_3.10_lsk$ lsusb-------------》第一点，usb连接ok
+Bus 001 Device 002: ID 8087:8008 Intel Corp. 
+Bus 002 Device 002: ID 8087:8000 Intel Corp. 
+Bus 003 Device 006: ID 1782:5d24 Spreadtrum Communications Inc. 
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+~/sprdroid5.0prime_3.10_lsk$ 
+~/sprdroid5.0prime_3.10_lsk$ 
+~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea$ which adb -----》adb的版本必须是下边这个相对位置的
+/home/likewise-open/SPREADTRUM/jason.jiang/sprdroid5.0prime_3.10_lsk/out/host/linux-x86/bin/adb
+~/sprdroid5.0prime_3.10_lsk$ sudo adb root----》启动正确--->一定要留意不能用adb root否则会导致找不到手机device
+adb server is out of date.  killing...
+* daemon started successfully *
+restarting adbd as root
+~/sprdroid5.0prime_3.10_lsk$ sudo adb shell
+root@scx35_sp7731gea:/ # adb version
+Android Debug Bridge version 1.0.32 ---------->第二点，版本必须是这个32的，系统自带的是31的
+root@scx35_sp7731gea:/ # 
+
+
+如果提示找不到device，那么按照下边的步骤来处理：
+1.lsusb看是否有usb设备，如果插入usb线，等了1分钟没有找到，则是电脑的问题，重启电脑，或者更换u口。
+2.如果lsusb有，则是手机在插入usb线后，没有打开调试模式。建议拔电池，重启手机，或者更换手机。
+3.还有一种情况，你在adb root的时候，没有加sudo在前面，sudo adb root 还有sudo adb start-server/kill-server都要加sudo
+4.再有，你没有执行lunch 操作。
+5.你上次执行push操作的时候，没有加sudo，一定要用 sudo adb push......命令
+6.你在sudo adb shell登录到手机的console后，使用了tab来补齐文件名，这会导致串口异常。----》切记，这就异常退出串口了。
+
+然后可以pc的terminal里执行push操作，如下：---》注意这个命令是在手机设备的console口还是电脑的terminal执行？
+sudo adb push your_file sdcard/ ---》但是注意，push的文件名不能是boot.img即有后缀的文件，可以名字是bootimg
+
+
+Fastboot更新的实践部分：按住home键，然后开机，7731型的手机可以进入fastboot模式，然后 ---》注意这些操作都是在执行了source build/envsetup.sh命令之后。 
+
+执行fastboot flash  boot boot.img 提示 < waiting for device >
+
+执行sudo fastboot devices 提示 no permissions	fastboot
+
+然后参照如下网页的介绍，即可修复
+http://blog.csdn.net/jk198310/article/details/17524763
+概括起来，就是如下几步：
+1. 将fastboot的所有者属性改成root
+
+用which fastboot命令找到fastboot所在的目录，然后进入此目录；再用命令chown改其属性:
+
+sudo chown root:root fastboot
+
+2. 将其权限更改一下：
+
+sudo chmod +s fastboot ----》这个步骤作用就是在文件执行时把进程的属主或组ID置为该文件的文件属主。
+      				方式“u＋s”设置文件的用户ID位，“g＋s”设置组ID位。
+
+题外话：找fastboot的位置的时候，用which命令比whereis好使。
+题外话：正常的话，会是如下输出：
+~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea$ fastboot devices
+15516476947222	fastboot
+~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea$ fastboot flash boot boot.img 
+sending 'boot' (10010 KB)...
+OKAY [  2.867s]
+writing 'boot'...
+OKAY [  0.475s]
+finished. total time: 3.342s
+~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea$ 
+
+题外话：fastboot help可以查看命令使用方法。
+
+=========================================================Day:20150226 start=========================================================
+
+1.继续学习arch公共目录下的学习资料
+2.尝试使用DS-5等调试内核的工具
+3.亟待理解我们的代码目录结构，各主要模块大体位置
+4.说可以将自己分支的代码上传到服务器上进行编译---》问houyu比较好
+
+=========================================================Day:20150227 start=========================================================
+1.DS-5工具的使用尝试---》结果DS-5的gatord倒是编出来也传到手机上了（往手机传的时候还遇到adb devices老是找不到），但是人家让传到system\bin目录，而这个目录是read-only的，所以要编一个DS-5可用的app版本，然后就发生了倒腾config文件倒腾了2个小时，config文件配置不知道该修改哪个才能最终影响到编译结果lunch sp7731geabase_dt_native-userdebug。结果是将所有可能的config都改完后，发现编译不过，结果定位是拷贝过来的gator-daemon目录导致的，删掉就编过了。
+2.dual-os系统了解，先从文档开始了解吧
+3.adb devices老是提示手机没有connect上电脑的usb口，定位这个问题的解决方法。
+
+
+
+=========================================================Day:20150228 start=========================================================
+1.我编译了一个lunch sp7731gea_qhdplus_dt-userdebug的版本，下到prime手机上，起不来了。看来lunch务必精准，连相似的选项也不能选。
+
+~/and5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea_qhd$ sudo /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot flash system system.img 
+sending 'system' (449216 KB)...
+OKAY [128.593s]
+writing 'system'...
+OKAY [159.065s]
+finished. total time: 287.657s
+~/and5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea_qhd$ 
+
+
+=========================================================Day:20150302 start=========================================================
+1.研读完dual-os的guide文档
+2.把dual-os的sd卡重刷一下，手机也重刷一下
+3.对比houyu那个将dual-os的代码从老分支上移到新分支的问题单，看看都修改了哪些代码，即merge的代码都有哪些
+4.你下载的dual-os的代码是否和houyu的分支是一个分支？
+5.编译qemu
+
+
+备注1：
+编译dual-os的host和guest端软件版本，使用两条不同命令，编译出的结果存放在不同的目录，编完host不需要清理就可以接着编guest
+编不同的产品我觉的也不需要clean中间件。
+
+
+=========================================================Day:20150303 start=========================================================
+1.研读完dual-os的guide文档 -----》已经读完，但是后半篇都是讲qemu调试，而我自己按照树上说的执行qemu_start.sh提示如下错误，
+
+		1|shell@scx35l_sp9630ea:/system/bin $ su     
+		shell@scx35l_sp9630ea:/system/bin # 
+		shell@scx35l_sp9630ea:/system/bin # ./qemu_start.sh                            
+		qemu-system-arm: -monitor telnet::1234,server,nowait: Failed to bind socket: Address already in use
+		qemu-system-arm: -monitor telnet::1234,server,nowait: chardev: opening backend "socket" failed
+		1|shell@scx35l_sp9630ea:/system/bin # 
+
+在实际操作过程中发现的问题：
+	1）.向sd卡中烧入guest_os，需要注意sd卡事先必须是空的即格式化过，并且执行mkffos.sh时必须先source build/envsetup.sh & lunch  scx35_sp8830ecbase-userdebug
+	2）.烧入sd卡guest-os后，按上后，需要重启手机等待5分钟，等待其初始化ok
+	3）.运行qemu_start.sh，脚本位置在/system/bin，提示上面提到的错误，因为在qemu新的代码中已经加入了内核启动的时候，qemu_start.sh所以就提示你已经绑定了。
+	4）.在pc上运行telnet 127.0.0.1 1234无法连接到手机，提示failed，原因是必须先
+		使用这种方式，qemu会建立一个server端，host可用telnet client连接上去。或者用adb forward重定向host端的1234端口到PC端，可在PC端telnet连接到monitor。
+		adb forward tcp:1234 tcp:1234
+		telnet 127.0.0.1 1234
+		然后就可以通过telnet进入qemu命令行了，然后就可以执行(qemu) x/16x 0xc0000000这样的操作了。
+	5）.GDB调试Qemu，具体步骤参考guide章节，需要注意的是，调试Qemu不同与调试手机Host端OS，Host os的调试步骤和调试prime手机的步骤是雷同的。
+	6）.GDB调试Guest OS，具体步骤参考guide章节
+
+2.把dual-os的sd卡重刷一下，手机也重刷一下 ----》这个已经完成
+
+3.对比houyu那个将dual-os的代码从老分支上移到新分支的问题单，看看都修改了哪些代码，即merge的代码都有哪些----》
+
+4.你下载的dual-os的代码是否和houyu的分支是一个分支？----》
+
+5.编译qemu----》未完成，因为不需要调试qemu，所以就不修改qemu代码并编译了。
+
+6.今天小组例会透露，dual-os是刚刚兴起之时，每个模块没有具体安排，自己可以主动要求负责。
+  安全将是系统中涉及面比较全的一个部分，看来会要求hou介入，这个模块会接触整个系统的方方面面。
+  所以你当务之急也是找到一个这样的模块，或者说从总体上对dual-os有一个提纲性的认识。
+
+=========================================================Day:20150304 start=========================================================
+
+1.在eclipse上安装调试qemu的cdt插件（即Debug Qemu with Eclipse），然后打开看看怎么用？-----》不知到怎么使用eclipse调试qemu？？？？
+
+观看linaro视频培训教程：
+Open Embedded  Koen Kooi https://bluejeans.com/s/86mg/ http://youtu.be/vZwYXqbOi0s 1/22/2015
+
+2.下午分析一下从muti-os向dual-os移植了哪些文件（今天务必完成）？？？？？？？？？
+
+
+2.1 学习如何在本地创建一个git仓库，然后做自己本地代码的管理。
+
+3.晚上参加小组dual-os的例会
+
+○从侯雨的问题单http://review.source.spreadtrum.com/gitweb/?p=vendor/sprd/open-source.git;h=c358d1380d8820fe12176a2e1f4af813d6794f77
+可以看出从dual-os向multi-os移植的有关switch的全部代码，这些代码是dual-os的全部代码么？
+答：？？？？？？？？？----》duals-os-stt01
+
+○侯雨移植步骤的dual-os的基础版本是哪个？multi-os的移入版本是哪个？
+答：？？？？？？？？？----》duals-os-stt02
+
+○你从网上找一下qemu的代码，对比我们的代码看是移植进到哪个目录了？
+答：移植到了sprdroid4.4prime_3.10_14a_dualos\vendor\sprd\open-source\apps\qemu
+
+○搜索dual-os共享资料文件夹，看有无讲解代码相关的资料？
+答：？？？？？？？？？----》duals-os-stt03
+
+○从网上找一下dual-os kvm qemu都有哪些代码？---》提示一下kvm（kenel vitual machine）is a Linux kernel module ，qemu是一个项目
+答：你可以在网上找到qemu项目最新的code下载连接：http://wiki.qemu.org/Download
+
+这篇网页是qemu的user mannal---- http://wiki.qemu.org/Manual
+
+这篇网页是qemu的user mannal中针对developer的讲解---- http://wiki.qemu.org/Documentation/GettingStartedDevelopers
+
+备注：http://blog.chinaunix.net/uid-16361381-id-211999.html这篇文章讲解了kvm和qemu之间的关系
+
+=========================================================Day:20150305 start=========================================================
+1.在linux下安装英语软件goldendict，MD，浪费了我1.5个小时去网上搜索下载它的源代码，下到了/home/likewise-open/SPREADTRUM/jason.jiang/Downloads/goldenDict
+  结果在软件中心，点击All Software下边的office分支，在第一页，就看到了它的安装连接。
+  折腾的啊！！教训啊！以后装软件，先来这里看看。
+
+备注：但是下载下来后，还要添加一个字典库 从http://xinyo.org/archives/61412/下载
+      更新了一下ubuntu apt-get的源，修改为mirror.163.com/ubuntu
+
+2.对比了一下从qemu开源项目官网上下载下来的稳定版本2.0.2 和 我们自己代码中的qemu目录（如下）版本为1.7.1
+  Z:\sprdroid4.4prime_3.10_14a_dualos\vendor\sprd\open-source\apps\qemu\VERSION
+  发现基本架构都是一样的，看来属于直接搬来的，没大改动。
+
+3.dual-os任务分解后，SOW--》WBS--》开始写系统SRS需求，和概要设计和详细设计，系统测试用例，单元测试用例，coding，
+
+4.下载能打开MultiOS_WBS.mpp文件的软件Moos Project viewer,下载地址为http://moos-project-viewer.softonic.cn/download#downloading
+
+下载能打开MultiOS_WBS.mpp文件的软件ProjectLibre,下载地址为http://elkpi.com/topics/ubuntu-14-04-openproj.html
+
+下载能将rpm文件转换为deb文件的软件，介绍为：http://zhidao.baidu.com/link?url=mNVElFH-P8XTVe_RDbKvLXRaPHw8pvPPz9DbPZgQ9jB0k-GYk93mS0TsqmAPJIQiE9zZ1LLUkwrAcemuDoO5o_
+ubuntu不能安装rpm格式的程序
+
+5。git学习的几个好网页地址如下：
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013743256916071d599b3aed534aaab22a0db6c4e07fd0000
+http://www.cnblogs.com/JessonChan/archive/2011/03/16/1986570.html
+http://blog.csdn.net/airk000/article/details/7738231
+http://www.linuxidc.com/Linux/2013-03/81022.htm
+
+
+=========================================================Day:20150306 start=========================================================
+1.上午9点---10点15之前，熟悉git
+2.上午10点15----11点30，熟悉处理本文档前面标识出来的(未完成的任务)标记分别为duals-os-stt01 duals-os-stt02 duals-os-stt03
+3.感觉下午就是单单熟悉git了，其它任务没做
+4.晚上有个shixiaobing那边的adb调试手机的文档，凑过去瞅了瞅，蛮有意思的。
+
+
+=========================================================Day:20150309 start=========================================================
+1.接着完成上周git遗留未看完的内容
+2.学习roc如下网址的内容：http://blog.csdn.net/innost/article/details/19299937
+
+1.学习使用git2.学习qemu的代码
+3.学习QEMU共享目录下的文档资料
+
+=========================================================Day:20150310 start=========================================================
+1.学习使用git2.学习qemu的代码
+3.学习QEMU共享目录下的文档资料
+4.参加小组linaro例会及晚上的android bootcamp培训
+
+=========================================================Day:20150311 start=========================================================
+※38+1
+
+1.diff格式的解读，
+参考网页： http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html
+	  或者http://fsjoy.blog.51cto.com/318484/245465/
+
+2.git merge source_branch 把source_branch合并到当前分支。
+
+
+=========================================================Day:20150312 start=========================================================
+一。阅读dual文档，主要的几篇
+kvm-arm-guide-on-qemu-dall---seems unuseful
+
+Dual-OS Development Guided---OK
+
+DualOS_KVM_Design(即现在的Dual-OS_System_Design)---Reading
+
+KVM and Virtualization Introduction---OK
+
+Dual-OS应用场景设计---OK
+
+二。
+整理那台笔记本，带过去电源和网线
+1.browser addr list
+2.read guide & git mannual,to register gerrit user key
+3.download multi-os code. review.
+4.在PC上安装上对比软件，我看yu装的是xxdiff
+
+三。阅读昨天遗留的代码，尝试修改代码并且merge到主线上
+
+github网站的帐号和密码
+帐号：jason.jiang@spreadtrum.com(or github3929)
+密码：same with my sina日常邮箱to****rong
+
+帐号：study_doc@sina.com
+密码：same with my sina日常邮箱o********9
+
+firefox网站同步收藏夹的帐号和密码
+帐号：spreadtrum_5856@163.com
+密码：ok********
+
+四。在修改了git的config文件diff tool为bc3后，使用下面的命令可以视图化比较差异了。beyond compare还是蛮好用的。
+git difftool HEAD~5
+
+=========================================================Day:20150313 start=========================================================
+1.申请下载代码的权限
+2.走读代码的sensor部分，并做优化
+3.解决新dual-os上打电话会黑屏的问题
+4.驱动中pr_debug定义在kernel/include/linux/printk.h ---》这个估计有个手动开关，控制输出
+
+具体详细解释参考： http://blog.csdn.net/newtonnl/article/details/39697889
+
+5.qemu代码的目录：
+~/multi-os/vendor/sprd/qemu
+
+6.我发现如下两个目录的log日志是不一样的：
+~/multi-os/vendor/sprd/open-source$ git log
+
+~/multi-os/vendor/sprd/qemu$ git log
+
+说明是2个独立的仓库么？
+
+而在 /multi-os/vendor/sprd/ 目录下 git log无法显示，说明这包含多个仓库？
+
+其实用户下的一个普通项目目录，我想为他创建远程git仓库，并且分多个git来逐个管理，这时就需要用repo来管理这些git。所以我们的项目分了多个git仓库
+
+这个具体说明，参网址 http://yaomingyue906629.blog.163.com/blog/static/77790531201242924543860/
+
+7.linux代码编程规范地址： http://10.0.64.31/AP-Android/wiki/LinuxProgrammingDesignGuide
+
+8.为multi-os的所有git仓库建立自动关联
+
+~/multi-os$ repo start --all sprdroid4.4_3.10_multios
+Starting sprdroid4.4_3.10_multios: 100% (439/439), done.  
+~/multi-os$ 
+
+参考网页：http://blog.csdn.net/hellofeiya/article/details/8560321
+	 http://blog.chinaunix.net/uid-9185047-id-445176.html
+
+备注0：附上测试repo upload的log日志
+
+~/multi-os/vendor/sprd/qemu/hw/input$ 
+~/multi-os/vendor/sprd/qemu/hw/input$ repo upload
+Upload project vendor/sprd/qemu/ to remote branch sprdroid4.4_3.10_multios:
+  branch sprdroid4.4_3.10_multios ( 1 commit, Fri Mar 13 20:56:57 2015 +0800):
+         6fe8b9ca Bug #414569
+to review.source.spreadtrum.com/gerrit/ (y/N)? y
+Uncommitted changes in vendor/sprd/qemu (did you forget to amend?). Continue uploading? (y/N) y
+Counting objects: 7, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 499 bytes, done.
+Total 4 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3)
+remote: Processing changes: new: 1, refs: 1, done    
+remote: 
+remote: New Changes:
+remote:   http://review.source.spreadtrum.com/gerrit/168983
+remote: 
+To ssh://jason.jiang@review.source.spreadtrum.com:29418/vendor/sprd/qemu
+ * [new branch]      sprdroid4.4_3.10_multios -> refs/for/sprdroid4.4_3.10_multios
+
+----------------------------------------------------------------------
+[OK    ] vendor/sprd/qemu/ sprdroid4.4_3.10_multios
+~/multi-os/vendor/sprd/qemu/hw/input$ 
+~/multi-os/vendor/sprd/qemu/hw/input$ 
+
+
+备注：
+额外收获如下网址：
+http://zhidao.baidu.com/link?url=KsxiYxNFGRRaaGjWyDtlMpAEFy_SJPzmJAKn-21VhqVHJ8spU9CvVmW2UceAUwFKUXee7xwKxbPJ98l8Us975_
+
+上述提供了ubuntu的安装的beyond comare的beyond compare 3.3.4 注册码
+HmB5oANygQOhaStTHNa+zOKgOeWHOkeAp6d1+QwIebz6z9kwYCm9-O0jF9F79zvzed9v5UVC4VrDkDMmTM8nB+
+
+beyond compare安装文件下载地址是如下页面中的debian版本：
+http://www.scootersoftware.com/download.php?zz=dl3_en
+
+=========================================================Day:20150314 start=========================================================
+
+进入工程模式的密码：
+*#*#83781#*#*
+
+shell@scx35l_sp9630ea3mn:/ # getevent -i----》可以查看手机上的距离传感器是否有这个节点
+
+.......
+add device 5: /dev/input/event2
+  bus:      0019
+  vendor    0001
+  product   0001
+  version   0100
+  name:     "sprd-gpio-keys"
+  location: "gpio-keys/input0"
+  id:       ""
+  version:  1.0.1
+  events:
+    KEY (0001): 0072  0073
+  input props:
+    <none>
+add device 6: /dev/input/event4 ---------->如果有距离传感器的话，那么你应该看到如下内容：
+  bus:      0018
+  vendor    0001
+  product   0001
+  version   0010
+  name:     "alps_pxy"
+  location: "alps_pxy"
+  id:       ""
+  version:  1.0.1
+  events:
+    ABS (0003): 0019  : value 1, min 0, max 1, fuzz 0, flat 0, resolution 0
+                0028  : value 0, min 0, max 100001, fuzz 0, flat 0, resolution 0
+  input props:
+    <none>
+=========================================================Day:20150316 start=========================================================
+
+1.当有多个仓库同时修改后，如果不制定仓库，他会提示：
+
+# Uncomment the branches to upload:
+#
+# project kernel/:
+#  branch sprdroid4.4_3.10_multios ( 1 commit, Mon Mar 16 19:57:48 2015 +0800) to remote branch sprdroid4.4_3.10_multios:
+#         95a2fefa Bug #414569
+#
+# project vendor/sprd/qemu/:
+#  branch sprdroid4.4_3.10_multios ( 2 commits, Mon Mar 16 19:10:50 2015 +0800) to remote branch sprdroid4.4_3.10_multios:
+#         91f4315b Bug #414569
+#         19426cfa Bug #414569
+
+而这个时候如果要要upload特定的仓库可以：
+~/multi-os$ repo upload kernel/
+
+=========================================================Day:20150317 start=========================================================
+1.参加中午的linaro小组的例会
+2.定位getevent -i为什么我的手机上没有这个节点.2个思路：
+  a。查看一下log日志。
+  b。走读代码，找到getevent函数，加打印信息看看。
+3.定位一下为什么别人有节点的手机上sensor传感器在工厂模式下会显示为红色的字体样子。什么含义？
+
+定位了一下linux内核的getevent -i 命令的具体函数位置：
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/system/core/toolbox/sendevent.c
+
+相关网页参考：http://www.cnblogs.com/snake-hand/archive/2013/06/09/3129923.html
+
+=========================================================Day:20150318 start=========================================================
+1.围绕如下几个方面，分析
+Network Configs Analysis 目前的上网配置都有哪些
+Network Performance Analysis 目前上网的性能怎样
+VPN Design in GuestOS
+
+分析模块采取问题牵引原则。
+
+今天提出的问题是： 
+
+2.Network Configs
+
+在启动guest os，配置guest os的网络部分的地方：
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/vendor/sprd/open-source/apps/scripts/qemu_start.sh
+
+updateGuestDns的具体代码的处理的地方：
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/vendor/sprd/open-source/apps/DualOs/src/com/android/dualos/DualOsService.java
+
+网络性能的测试：
+据yuming.wang的描述，这个之前都是通过tftp传送大的文件来处理的。
+
+备注0：qemu的用户手册网址：http://qemu.weilnetz.de/qemu-doc.html
+
+备注1：另外据yuming.wang告之，在adb shell到手机之后可以使用busybox来执行linux扩展的常用命令。
+
+备注2：打开qemu_start.sh文件后，你可以看到如下行：主要的qemu网络部分的配置都在这里了。
+        -netdev user,id=net0,net=10.0.10.0/24,tftp=/data/local/tmp \
+        -device virtio-net-device,netdev=net0,mac=52:54:00:12:34:62 \
+
+备注3：Dual-OS_System_Design文档的 4.4. Ethernet Virtualization部分有代码描述
+
+如果调试qemu，那么你添加的打印信息都放在 /data/slog/qemu.log 这个日志里。
+
+备注4：Dual-OS_System_Design文档的 3.2.2.1  VirtIO Framework 描述了我们这个KVM虚拟化的主要文件
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/kernel/drivers/net/virtio_net.c  & blk.c pci.c balloon.c console.c
+
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/kernel/drivers/virtio/virtio.c
+
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/kernel/drivers/virtio/virtio_ring.c
+
+备注5：在Dual-OS Development Guide 文档的5. 实现Qemu虚拟设备章节也有部分qemu实现的代码讲解。
+
+3.晚上参加dual-os例会
+
+
+=========================================================Day:20150319 start=========================================================
+
+1.roc的邮件 “Default encryption and Verified Boot in M”
+总结：
+（1）.外国人的邮件里提到Encryption on Android 和 Secure Boot (or Verified Boot) 这2个部分将是android新的M版本中的必备。
+（2）.FDE即全磁盘加密
+（3）.OTA英文全称是Over-the-Air Technology，即空间下载技术的意思。
+OTA升级是Android系统提供的标准软件升级方式。它功能强大，可以无损失升级系统，主要通过网络[例如WIFI、3G]自动下载OTA升级包、自动升级，但是也支持通过下载OTA升级包到SD卡升级
+OTA的升级包非常的小，一般几M到十几M，如果你用网络升级，非常的方便，基本是在系统上点击几下就完成了升级，并且最重要的是，OTA升级无需备份数据，短短几分钟就搞定所有升级工作，所有数据都会完好无损的保留下来。
+
+（4）.Whale2是什么的代号？
+
+Android Bootcamp 2015—Keymaster - Crypto HAL.pdf
+
+
+
+2.SElinux是什么机制实现了安全性，还有securityboot是怎么实现boot的安全性的
+答：Selinux其实可以看成linux下的一个应用程序，通过他可以控制linux系统收到外界的攻击。
+    具体baidu
+    securityboot
+
+3.android的gms就是GoogleMobile Service， GMS目前提供有Search、Search by Voice、Gmail、Contact Sync、Calendar Sync、Talk、Maps、Street View、YouTube、Android Market(ICS上更改为Play store)服务。
+
+4.那个距离传感器的问题的解决方式：参考bug416034
+
+具体修改在drivers/input/misc/ltr_558als.c
+
+
+5.Dual-OS VPN主要的技术有哪几种？---》没有完成
+
+6.Develop Guide文档中描述的新增QEMU设备部分的描述？----》读后感
+
+7.iperf这个工具是测试网络的
+  来源自这篇文章：http://dtrace.org/blogs/brendan/2013/01/11/virtualization-performance-zones-kvm-xen/
+                  http://dtrace.org/blogs/brendan/
+  上面的文章源自Dual-os_system_design.docx
+
+=========================================================Day:20150320 start=========================================================
+
+昨天遗留：
+5.Dual-OS VPN主要的技术有哪几种？---》没有完成
+
+6.Develop Guide文档中描述的新增QEMU设备部分的描述？----》读后感
+
+7.iperf这个工具的熟悉和使用，测试一下这个工具如何使用
+
+今天任务：
+
+1.搜索一下KVM QEMU这块都有哪些network config配置选项以及如何配置？
+
+2.搜索一下KVM QEMU当前主流的VPN技术，开源的代码有哪些？
+
+=========================================================Day:20150322 start=========================================================
+1.尝试自己把一个linux开源的软件，移植到嵌入式手机的linux系统中，只在host端移植成功即可以了。--->WKING
+2.走读dualos-guide文档，还有dual-os system design文档，研究透彻代码，跟上li的节奏。-->WKING
+3.iperf测试结果分析，测试数据的含义。--->OK
+
+
+=========================================================Day:20150323 start=========================================================
+1.qemu的代码结构，kvm的代码结构--》优先级低，弄清楚了也无太大帮助
+2.缩小定位范围，剥离kvm，在手机的guest端，同时启动iperf server和client，测试结果和host端以及guest端测试结果对比
+3.问matt当初实现sprd_virt_gsensor.c的时候，guest端设置sensor值的时候如何调用到了host的设置sensor的函数接口。
+
+4.你应该这样测试，才可以对比出差异，---》测试完毕，性能差一半。
+
+pc ----host----- guest
+
+pc上起iperf server， host iperf client测试一遍。
+		     guest iperf client测试一遍。
+然后对比测试的结果。
+
+印象笔记的网页版注册帐号为 abc_5856@163.com 密码是tob*****g
+
+=========================================================Day:20150324 start=========================================================
+1.走读dualos-guide文档，还有dual-os system design文档，研究透彻代码，跟上节奏。-->WKING
+2.研究kvm qemu实现原理。-->WKING
+3.
+4.echo 0 > /proc/sys/kernel/printk 关闭minicom中乱打印的日志的方法。
+
+PS:上午半天10:00---11:30折腾印象笔记，发现这个东西在linux下不好使。我查看笔记必须上网，而且修改笔记也只能在网页上，很是别扭。搜索笔记也不快捷。
+
+=========================================================Day:20150325 start=========================================================
+1.上午10:00--11:30将自己的
+2.下午2:00---4:00弄了2个小时的github，因为2个帐号在一台机子上使用，那么密钥需要单独配置才能保证2个帐号都ok
+3.下周输出：
+1.理解virt_net代码部分的结构并输出描述文档。
+2.测试android手机上的VPN功能。
+3.理解qemu网络部分的配置，并输出描述文档。
+
+
+=========================================================Day:20150326 start=========================================================
+
+1.每次更改本地的git仓库时，一定要先把服务器上的更新 下载到本地， 然后再在这个基础之上修改，具体步骤如下： 同步远程库的方法。
+
+git fetch
+git diff origin/master HEAD
+git merge origin/master
+
+备注：参考http://blog.csdn.net/hudashi/article/details/7664457
+
+2.
+
+=========================================================Day:20150330 start=========================================================
+1.搜集VPN相关资料，筛选VPN的方案
+​2.开小组例会
+​3.针对OpenVPN方案尝试搭建和配置试验环境--client和server建立vpn隧道没有问题，但是上不了网。
+​  尝试修改一堆的配置参数后，依然没有改善。
+
+=========================================================Day:20150331 start=========================================================
+1.继续搜集VPN相关资料，筛选VPN的方案
+2.开小组例会
+3.针对PtoP隧道方案尝试搭建和配置试验环境--client和server建立vpn隧道没有问题，上网没有问题。
+
+=========================================================Day:20150401 start=========================================================
+today:
+1.下最新code，给老代码打标签---》无用功
+2.画出net的模块图
+3.分析出qemunetconfig理解report
+
+router pwd:
+arch888
+arch***
+
+arch private wlan pwd:
+aaaa8888
+=========================================================Day:2015004 start=========================================================
+
+
+
+通过virtio_ring.c文件里的如下函数接口：可以将输入类型的设备 or 输出类型的设备添加到设备链表里
+int virtqueue_add_outbuf(struct virtqueue *vq,
+			 struct scatterlist sg[], unsigned int num,
+			 void *data,
+			 gfp_t gfp)
+{
+	return virtqueue_add(vq, &sg, sg_next_arr, num, 0, 1, 0, data, gfp);
+}
+
+int virtqueue_add_inbuf(struct virtqueue *vq,
+			struct scatterlist sg[], unsigned int num,
+			void *data,
+			gfp_t gfp)
+{
+	return virtqueue_add(vq, &sg, sg_next_arr, 0, num, 0, 1, data, gfp);
+}
+
+
+	return virtqueue_add_outbuf(sq->vq, sq->sg, num_sg, skb, GFP_ATOMIC);
+
+

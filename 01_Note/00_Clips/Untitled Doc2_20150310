@@ -1,0 +1,148 @@
+~/gitskills$ 
+~/gitskills$ git reflog 
+5ad408f HEAD@{0}: commit: user main commit changes
+63b3142 HEAD@{1}: commit: test add files.
+1c07643 HEAD@{2}: commit: add new file test.c
+cc679ee HEAD@{3}: clone: from git@github.com:github3929/gitskills.git
+~/gitskills$ 
+~/gitskills$ git rebase master
+Cannot rebase: You have unstaged changes.
+Please commit or stash them.
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c
+~/gitskills$ 
+~/gitskills$ git add ./test_add_file.c
+~/gitskills$ 
+~/gitskills$ git commit test_add_file.c -m "merge over"
+fatal: cannot do a partial commit during a merge.
+~/gitskills$ 
+~/gitskills$ git pull
+You have not concluded your merge (MERGE_HEAD exists).
+Please, commit your changes before you can merge.
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ ls
+his.txt  README.md  test_add_file_bak_todel.c  test_add_file.c  test.c
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 3 different commits each, respectively.
+#
+# Changes to be committed:
+#
+#	modified:   test_add_file.c
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   test.c
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	his.txt
+#	test_add_file_bak_todel.c
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c
+~/gitskills$ 
+~/gitskills$ git reset ./test_add_file.c
+Unstaged changes after reset:
+M	test.c
+M	test_add_file.c
+~/gitskills$ git  status 
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 3 different commits each, respectively.
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   test.c
+#	modified:   test_add_file.c
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	his.txt
+#	test_add_file_bak_todel.c
+no changes added to commit (use "git add" and/or "git commit -a")
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git mergetool ./test_add_file.c
+No files need merging
+~/gitskills$ 
+~/gitskills$ git reset HEAD^ test_add_file.c
+Unstaged changes after reset:
+M	test.c
+M	test_add_file.c
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 3 different commits each, respectively.
+#
+# Changes to be committed:
+#
+#	modified:   test_add_file.c
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   test.c
+#	modified:   test_add_file.c
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	his.txt
+#	test_add_file_bak_todel.c
+~/gitskills$ git reset HEAD^ test.c
+Unstaged changes after reset:
+M	test.c
+M	test_add_file.c
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 3 different commits each, respectively.
+#
+# Changes to be committed:
+#
+#	modified:   test_add_file.c
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   test.c
+#	modified:   test_add_file.c
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	his.txt
+#	test_add_file_bak_todel.c
+~/gitskills$
+~/gitskills$ git checkout -- test.c
+~/gitskills$ git checkout -- test_add_file.c
+~/gitskills$ git status 
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 3 different commits each, respectively.
+#
+# Changes to be committed:
+#
+#	modified:   test_add_file.c
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	his.txt
+#	test_add_file_bak_todel.c
+~/gitskills$ 
+

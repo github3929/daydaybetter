@@ -1,0 +1,1605 @@
+<6>[  806.389984] c0 sprdbat: bat_log:time:806,vbat:3781,ocv:3781,current:-54,cap:45,state:2,auxbat:3733
+<11>[  807.585021] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  812.609588] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[  817.373535] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[  817.378967] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e000
+<4>[  817.385650] c0 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[  817.392395] c0 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[  817.397369] c0 ###---- REG_AON_APB_APB_EB0 : 0x7471de09
+<4>[  817.403350] c0 ###---- REG_AON_APB_APB_EB1 : 0x04e20677
+<4>[  817.408477] c0 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[  817.415069] c0 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x77077700
+<4>[  817.421661] c0 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[  817.427520] c0 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<4>[  817.433868] c0 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00200006
+<4>[  817.440155] c0 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[  817.445373] c0 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<4>[  817.451110] c0 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<4>[  817.456451] c0 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e9ff
+<6>[  817.462249] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[  817.468170] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<4>[  817.478027] c0 ###---- REG_AON_APB_MPLL_CFG1 : 0x052c00fa
+<4>[  817.484680] c0 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<6>[  817.490753] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<4>[  817.500427] c0 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<4>[  817.506195] c0 ###---- REG_AON_APB_MPLL_CFG2 : 0x330ec4ec
+<6>[  817.512390] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<4>[  817.522003] c0 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<4>[  817.527313] c0 ###---- BIT_CA7_DAP_EB still set ----###
+<6>[  817.533325] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[  817.542724] c0 active wake lock pm_message_wakelock
+<6>[  817.547546] c0 active wake lock guest-os
+<6>[  817.553161] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<11>[  817.627197] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  817.760314] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[  817.766174] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  817.776336] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  817.786987] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  817.796936] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[  817.806243] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[  821.433288] c0 sprdbat: sprdbat_battery_works
+<6>[  821.437622] c0 sprdfgu: hwocv...
+<6>[  821.441619] c0 sprdfgu: sprdfgu_read_soc delta -19mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  821.450042] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  821.457092] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  821.464569] c0 sprdfgu: hwocv...
+<6>[  821.467926] c0 sprdbat: fgu_cap: = 45,flush: = 724,period:=15
+<6>[  821.474151] c0 sprdbat: bat_log:time:821,vbat:3782,ocv:3782,current:-47,cap:45,state:2,auxbat:3726
+<11>[  822.646331] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  827.663330] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  832.687774] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  836.512298] c0 sprdbat: sprdbat_battery_works
+<6>[  836.516967] c0 sprdfgu: hwocv...
+<6>[  836.520996] c0 sprdfgu: sprdfgu_read_soc delta -19mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  836.529388] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  836.536468] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  836.543914] c0 sprdfgu: hwocv...
+<6>[  836.547088] c0 sprdbat: fgu_cap: = 45,flush: = 739,period:=15
+<6>[  836.553344] c0 sprdbat: bat_log:time:836,vbat:3781,ocv:3781,current:-48,cap:45,state:2,auxbat:3733
+<11>[  837.705078] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  842.727416] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[  847.670593] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[  847.676025] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e000
+<4>[  847.681945] c0 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[  847.688232] c0 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[  847.693725] c0 ###---- REG_AON_APB_APB_EB0 : 0x7471de09
+<4>[  847.699096] c0 ###---- REG_AON_APB_APB_EB1 : 0x04e20677
+<4>[  847.704711] c0 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[  847.711639] c0 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x77077700
+<4>[  847.717468] c0 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[  847.723815] c0 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<4>[  847.730041] c0 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00200006
+<4>[  847.735626] c0 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[  847.743408] c0 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<4>[  847.748657] c0 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<11>[  847.757537] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[  847.766113] c0 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e9ff
+<4>[  847.772857] c0 ###---- REG_AON_APB_MPLL_CFG1 : 0x052c00fa
+<4>[  847.778167] c0 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<6>[  847.783905] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[  847.790679] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<4>[  847.800628] c0 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<4>[  847.806396] c0 ###---- REG_AON_APB_MPLL_CFG2 : 0x330ec4ec
+<6>[  847.812377] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<4>[  847.822357] c0 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<4>[  847.827667] c0 ###---- BIT_CA7_DAP_EB still set ----###
+<6>[  847.834259] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  847.844299] c0 active wake lock pm_message_wakelock
+<6>[  847.849090] c0 active wake lock guest-os
+<6>[  847.853485] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[  847.864196] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[  848.073089] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[  848.078948] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  848.089416] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  848.098693] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  848.108673] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[  848.117980] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[  848.509216] c0 sprdfgu: dump fgu msg s
+<6>[  848.512939] c0 sprdfgu: time_delta : 842109,cc_delta: -459109,raw_avg = -272
+<6>[  848.520782] c0 sprdfgu: capcity/1000 capcity = :  -20038mah
+<6>[  848.526275] c0 sprdfgu: avg current = -86
+<6>[  848.530792] c0 sprdfgu: hwocv...
+<6>[  848.533996] c0 sprdfgu: vol:3779,softocv:3781,hardocv:3781,current-69,cal_type:2
+<6>[  848.541809] c0 sprdfgu: sprdfgu_read_soc delta -20mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  848.550659] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  848.557708] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  848.565856] c0 sprdfgu: hwocv...
+<6>[  848.569732] c0 sprdfgu: soc():45
+<6>[  848.572906] c0 sprdfgu: dump fgu msg e
+<6>[  851.590759] c0 sprdbat: sprdbat_battery_works
+<6>[  851.596527] c0 sprdfgu: hwocv...
+<6>[  851.600189] c0 sprdfgu: sprdfgu_read_soc delta -20mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  851.608123] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  851.615692] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  851.623077] c0 sprdfgu: hwocv...
+<6>[  851.626251] c0 sprdbat: fgu_cap: = 45,flush: = 754,period:=15
+<6>[  851.632507] c0 sprdbat: bat_log:time:851,vbat:3782,ocv:3782,current:-45,cap:45,state:2,auxbat:3739
+<11>[  852.780822] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  857.800231] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  862.816375] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  866.672637] c0 sprdbat: sprdbat_battery_works
+<6>[  866.677001] c0 sprdfgu: hwocv...
+<6>[  866.681793] c0 sprdfgu: sprdfgu_read_soc delta -20mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  866.690185] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  866.697326] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  866.704620] c0 sprdfgu: hwocv...
+<6>[  866.707794] c0 sprdbat: fgu_cap: = 45,flush: = 769,period:=15
+<6>[  866.714416] c0 sprdbat: bat_log:time:866,vbat:3782,ocv:3782,current:-48,cap:45,state:2,auxbat:3733
+<11>[  867.836212] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  872.855255] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  877.877197] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[  877.972503] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[  877.977935] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e000
+<4>[  877.984619] c0 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[  877.991363] c0 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[  877.996337] c0 ###---- REG_AON_APB_APB_EB0 : 0x7471de09
+<4>[  878.002014] c0 ###---- REG_AON_APB_APB_EB1 : 0x04e20677
+<4>[  878.007171] c0 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[  878.014068] c0 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x77077700
+<4>[  878.020385] c0 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[  878.026214] c0 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<4>[  878.032623] c0 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00200006
+<4>[  878.038208] c0 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[  878.044250] c0 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<4>[  878.049896] c0 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<4>[  878.055053] c0 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e9ff
+<4>[  878.061401] c0 ###---- REG_AON_APB_MPLL_CFG1 : 0x052c00fa
+<4>[  878.066741] c0 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<4>[  878.072540] c0 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<4>[  878.078308] c0 ###---- REG_AON_APB_MPLL_CFG2 : 0x330ec4ec
+<4>[  878.084411] c0 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<4>[  878.091247] c0 ###---- BIT_CA7_DAP_EB still set ----###
+<6>[  878.096405] c0 active wake lock pm_message_wakelock
+<6>[  878.101257] c0 active wake lock guest-os
+<6>[  878.130462] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[  878.136383] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  878.148040] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  878.160705] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  878.176116] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[  878.187164] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[  878.292236] c0 cpufreq_scx35: --xing-- set 900000 khz for cpu0
+<6>[  878.298522] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  878.308227] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  878.318176] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  878.327728] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[  878.337188] c0 cpufreq_scx35: 1350000 --> 900000, real=900000, index=2
+<6>[  878.440429] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[  878.446258] c0 cpufreq_scx35: 900000 --> 768000, real=768000, index=3
+<6>[  881.749420] c0 sprdbat: sprdbat_battery_works
+<6>[  881.754089] c0 sprdfgu: hwocv...
+<6>[  881.757263] c0 sprdfgu: sprdfgu_read_soc delta -20mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  881.766174] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  881.779449] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  881.786468] c0 sprdfgu: hwocv...
+<6>[  881.791381] c0 sprdbat: fgu_cap: = 45,flush: = 784,period:=15
+<6>[  881.797180] c0 sprdbat: bat_log:time:881,vbat:3782,ocv:3782,current:-46,cap:45,state:2,auxbat:3747
+<11>[  882.896087] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  887.917602] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  892.937774] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  896.832824] c0 sprdbat: sprdbat_battery_works
+<6>[  896.837402] c0 sprdfgu: hwocv...
+<6>[  896.841430] c0 sprdfgu: sprdfgu_read_soc delta -20mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  896.849365] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  896.871704] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  896.878387] c0 sprdfgu: hwocv...
+<6>[  896.882598] c0 sprdbat: fgu_cap: = 45,flush: = 799,period:=15
+<6>[  896.888427] c0 sprdbat: bat_log:time:896,vbat:3779,ocv:3779,current:-59,cap:45,state:2,auxbat:3739
+<11>[  897.959411] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  902.980895] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  908.001922] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[  908.211883] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[  908.217315] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e000
+<4>[  908.223144] c0 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[  908.229431] c0 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[  908.241333] c0 ###---- REG_AON_APB_APB_EB0 : 0x7471de09
+<4>[  908.246490] c0 ###---- REG_AON_APB_APB_EB1 : 0x04e20677
+<4>[  908.259826] c0 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[  908.266693] c0 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x77077700
+<4>[  908.273071] c0 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[  908.278900] c0 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<4>[  908.289794] c0 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00200006
+<4>[  908.296112] c0 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[  908.301849] c0 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<4>[  908.307098] c0 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<4>[  908.314300] c0 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e9ff
+<4>[  908.320922] c0 ###---- REG_AON_APB_MPLL_CFG1 : 0x052c00fa
+<4>[  908.326263] c0 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<4>[  908.332122] c0 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<4>[  908.337890] c0 ###---- REG_AON_APB_MPLL_CFG2 : 0x2209d89e
+<6>[  908.343627] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[  908.349548] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<4>[  908.359069] c0 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<4>[  908.365966] c0 ###---- BIT_CA7_DAP_EB still set ----###
+<6>[  908.371582] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  908.381256] c0 active wake lock pm_message_wakelock
+<6>[  908.386047] c0 active wake lock guest-os
+<6>[  908.390747] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  908.400482] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[  908.411590] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[  908.613494] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[  908.619354] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  908.629119] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  908.639160] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  908.648742] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[  908.658020] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[  911.951416] c0 sprdbat: sprdbat_battery_works
+<6>[  911.955749] c0 sprdfgu: hwocv...
+<6>[  911.958953] c0 sprdfgu: sprdfgu_read_soc delta -21mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  911.967773] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  911.975311] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  911.982391] c0 sprdfgu: hwocv...
+<6>[  911.985565] c0 sprdbat: fgu_cap: = 45,flush: = 814,period:=15
+<6>[  911.992950] c0 sprdbat: bat_log:time:911,vbat:3779,ocv:3779,current:-57,cap:45,state:2,auxbat:3730
+<11>[  913.021667] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  917.038848] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  919.762451] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[  919.768371] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  919.778564] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  919.788391] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  919.798065] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[  919.808807] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[  919.914093] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[  919.920349] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  919.929626] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  919.939392] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  919.950408] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[  919.959259] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<11>[  922.057525] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  927.032958] c0 sprdbat: sprdbat_battery_works
+<6>[  927.037292] c0 sprdfgu: hwocv...
+<6>[  927.040466] c0 sprdfgu: sprdfgu_read_soc delta -21mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  927.049377] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  927.056915] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  927.064086] c0 sprdfgu: hwocv...
+<6>[  927.067260] c0 sprdbat: fgu_cap: = 45,flush: = 830,period:=16
+<6>[  927.075561] c0 sprdbat: bat_log:time:927,vbat:3779,ocv:3779,current:-58,cap:45,state:2,auxbat:3745
+<11>[  927.087799] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  932.115905] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  937.135528] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[  938.511993] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[  938.517425] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e000
+<4>[  938.523284] c0 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[  938.529571] c0 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[  938.535064] c0 ###---- REG_AON_APB_APB_EB0 : 0x7471de09
+<4>[  938.541748] c0 ###---- REG_AON_APB_APB_EB1 : 0x04e20677
+<4>[  938.546905] c0 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[  938.553527] c0 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x77077700
+<4>[  938.559448] c0 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[  938.565704] c0 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<4>[  938.572235] c0 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00200006
+<4>[  938.577819] c0 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[  938.583526] c0 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<4>[  938.588745] c0 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<4>[  938.594390] c0 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e9ff
+<4>[  938.601196] c0 ###---- REG_AON_APB_MPLL_CFG1 : 0x052c00fa
+<4>[  938.606506] c0 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<4>[  938.612365] c0 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<4>[  938.618133] c0 ###---- REG_AON_APB_MPLL_CFG2 : 0x330ec4ec
+<4>[  938.623931] c0 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<4>[  938.629272] c0 ###---- BIT_CA7_DAP_EB still set ----###
+<6>[  938.634765] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[  938.642181] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  938.651733] c0 active wake lock pm_message_wakelock
+<6>[  938.656555] c0 active wake lock guest-os
+<6>[  938.661285] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  938.670989] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  938.680725] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[  938.691497] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[  938.792388] c0 cpufreq_scx35: --xing-- set 900000 khz for cpu0
+<6>[  938.798675] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  938.808380] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  938.818054] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  938.827850] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[  938.840179] c0 cpufreq_scx35: 1350000 --> 900000, real=900000, index=2
+<6>[  938.950866] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[  938.956695] c0 cpufreq_scx35: 900000 --> 768000, real=768000, index=3
+<6>[  942.119201] c0 sprdbat: sprdbat_battery_works
+<6>[  942.123565] c0 sprdfgu: hwocv...
+<6>[  942.127563] c0 sprdfgu: sprdfgu_read_soc delta -21mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[  942.135925] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  942.143371] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  942.150054] c0 sprdfgu: hwocv...
+<6>[  942.168334] c0 sprdbat: fgu_cap: = 45,flush: = 845,period:=15
+<11>[  942.177612] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  942.186767] c0 sprdbat: bat_log:time:942,vbat:3782,ocv:3779,current:-47,cap:45,state:2,auxbat:3739
+<11>[  947.205688] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  952.227416] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  957.231414] c0 sprdbat: sprdbat_battery_works
+<6>[  957.235748] c0 sprdfgu: hwocv...
+<6>[  957.238952] c0 sprdfgu: sprdfgu_read_soc delta -21mAh,sprdfgu_data.init_clbcnt:18785002
+<11>[  957.251953] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  957.261260] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  957.268341] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  957.275970] c0 sprdfgu: hwocv...
+<6>[  957.279113] c0 sprdbat: fgu_cap: = 45,flush: = 860,period:=15
+<6>[  957.285552] c0 sprdbat: bat_log:time:957,vbat:3782,ocv:3779,current:-48,cap:45,state:2,auxbat:3744
+<11>[  962.274597] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  967.295654] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[  968.777191] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[  968.782623] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e000
+<4>[  968.788208] c0 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[  968.795318] c0 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[  968.800292] c0 ###---- REG_AON_APB_APB_EB0 : 0x7471de09
+<4>[  968.805969] c0 ###---- REG_AON_APB_APB_EB1 : 0x04e20677
+<4>[  968.811553] c0 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[  968.817657] c0 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x77077700
+<4>[  968.824340] c0 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[  968.830200] c0 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<6>[  968.836547] c0 sprdfgu: dump fgu msg s
+<6>[  968.840911] c0 sprdfgu: time_delta : 962437,cc_delta: -497221,raw_avg = -258
+<6>[  968.847869] c0 sprdfgu: capcity/1000 capcity = :  -21627mah
+<4>[  968.855041] c0 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00400006
+<4>[  968.861053] c0 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[  968.866302] c0 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<6>[  968.872344] c0 sprdfgu: avg current = -81
+<6>[  968.876312] c0 sprdfgu: hwocv...
+<6>[  968.879516] c0 sprdfgu: vol:3779,softocv:3779,hardocv:3779,current-59,cal_type:2
+<4>[  968.887329] c0 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<4>[  968.892883] c0 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e9ff
+<4>[  968.898376] c0 ###---- REG_AON_APB_MPLL_CFG1 : 0x052c00fa
+<6>[  968.904510] c0 sprdfgu: sprdfgu_read_soc delta -21mAh,sprdfgu_data.init_clbcnt:18785002
+<4>[  968.913116] c0 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<6>[  968.918518] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<4>[  968.926025] c0 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<6>[  968.932189] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  968.938842] c0 sprdfgu: hwocv...
+<4>[  968.942718] c0 ###---- REG_AON_APB_MPLL_CFG2 : 0x2209d89e
+<4>[  968.948028] c0 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<6>[  968.953826] c0 sprdfgu: soc():45
+<6>[  968.956970] c0 sprdfgu: dump fgu msg e
+<4>[  968.962463] c0 ###---- BIT_CA7_DAP_EB still set ----###
+<6>[  968.967620] c0 active wake lock pm_message_wakelock
+<6>[  968.972473] c0 active wake lock guest-os
+<6>[  968.976928] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[  968.983245] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  968.993469] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  969.003204] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  969.013244] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[  969.024078] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[  969.135192] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[  969.141021] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  969.151062] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  969.160339] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  969.172302] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[  969.182067] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[  972.315673] c0 sprdbat: sprdbat_battery_works
+<6>[  972.320037] c0 sprdfgu: hwocv...
+<6>[  972.324554] c0 sprdfgu: sprdfgu_read_soc delta -21mAh,sprdfgu_data.init_clbcnt:18785002
+<11>[  972.335906] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  972.350860] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  972.357940] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  972.370574] c0 sprdfgu: hwocv...
+<6>[  972.375152] c0 sprdbat: fgu_cap: = 45,flush: = 875,period:=15
+<6>[  972.381500] c0 sprdbat: bat_log:time:972,vbat:3782,ocv:3781,current:-45,cap:45,state:2,auxbat:3729
+<11>[  977.376678] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  979.680694] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[  979.686950] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  979.712463] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  979.729858] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  979.750732] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[  979.771881] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[  979.975799] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[  979.982208] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  979.991973] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  980.001708] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  980.011627] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[  980.020446] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<11>[  982.398895] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  987.395019] c0 sprdbat: sprdbat_battery_works
+<6>[  987.399414] c0 sprdfgu: hwocv...
+<6>[  987.402587] c0 sprdfgu: sprdfgu_read_soc delta -22mAh,sprdfgu_data.init_clbcnt:18785002
+<11>[  987.415100] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[  987.423767] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[  987.432098] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[  987.438781] c0 sprdfgu: hwocv...
+<6>[  987.442932] c0 sprdbat: fgu_cap: = 45,flush: = 890,period:=15
+<6>[  987.448730] c0 sprdbat: bat_log:time:987,vbat:3782,ocv:3782,current:-45,cap:45,state:2,auxbat:3743
+<11>[  992.440948] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[  997.458587] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[  999.104400] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[  999.109832] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e000
+<4>[  999.115386] c0 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[  999.123382] c0 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[  999.128356] c0 ###---- REG_AON_APB_APB_EB0 : 0x7471de09
+<4>[  999.134002] c0 ###---- REG_AON_APB_APB_EB1 : 0x04e20677
+<4>[  999.139160] c0 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[  999.146087] c0 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x77077700
+<4>[  999.152648] c0 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[  999.158508] c0 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<4>[  999.164855] c0 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00400006
+<4>[  999.170440] c0 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[  999.176147] c0 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<4>[  999.182098] c0 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<4>[  999.187225] c0 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e9ff
+<6>[  999.193084] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[  999.199249] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<4>[  999.209136] c0 ###---- REG_AON_APB_MPLL_CFG1 : 0x052c00fa
+<4>[  999.215789] c0 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<6>[  999.221893] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<4>[  999.231567] c0 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<4>[  999.237335] c0 ###---- REG_AON_APB_MPLL_CFG2 : 0x330ec4ec
+<6>[  999.243194] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<4>[  999.253112] c0 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<4>[  999.258453] c0 ###---- BIT_CA7_DAP_EB still set ----###
+<6>[  999.264129] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[  999.273986] c0 active wake lock pm_message_wakelock
+<6>[  999.278778] c0 active wake lock guest-os
+<6>[  999.284545] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[  999.496490] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[  999.502593] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[  999.512298] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[  999.523132] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[  999.532745] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[  999.542297] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1000.192352] c0 Test sprd_debug_check_crash_key:key code(116) value(1),(up:0,down:0)
+<6>[ 1000.199981] c0 [SPRD_EIC_KEYS_INFO] Pressed!  Key:Power Key ScanCode:116 value:1
+<4>[ 1000.234649] c0 sprd-gsensor: -- lis3dh_acc_enable -- !
+<6>[ 1000.243255] c0 request_suspend_state: wakeup (3->0) at 1000212594900 (2012-01-01 23:39:20.615389408 UTC)
+<6>[ 1000.252838] c0 late_resume: call handlers
+<6>[ 1000.256774] c0 late_resume: calling sprdfb_late_resume
+<6>[ 1000.268463] c0 sprdfb: [sprdfb_dispc_resume], dev->enable= 0
+<4>[ 1000.275207] c0 sprd-gsensor: -- lis3dh_acc_enable -- success!
+<6>[ 1000.281433] c0 sprdfb: [sprdfb_dispc_resume] from deep sleep
+<6>[ 1000.287170] c0 sprdfb_dispc: dpi clock is switched from 27428571Hz to 27428571Hz
+<6>[ 1000.310394] c0 sprdfb:0x402e0004 = 0x4e20e77 0x20d00000 = 0x81e802 0x71300000 = 0x7de000
+<6>[ 1000.333801] c0 sprdfb:0x71200034 = 0xd03 0x71200030 = 0x3 0x7120002c = 0x2
+<6>[ 1000.341247] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1000.347167] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1000.365905] c0 sprdfb: [sprdfb_dispc_early_init]: sprdfb_dispc_early_init resume
+<6>[ 1000.376373] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1000.390991] c0 sprdfb: [sprdfb_panel_resume], dev->enable= 0, from_deep_sleep = 1
+<6>[ 1000.404266] c0 Test sprd_debug_check_crash_key:key code(116) value(0),(up:0,down:0)
+<6>[ 1000.411926] c0 [SPRD_EIC_KEYS_INFO] Released! Key:Power Key ScanCode:116 value:0
+<6>[ 1000.432708] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<4>[ 1000.442504] c0 sprdfb: set g_dsi_base_addr = 0xf514e000
+<6>[ 1000.447662] c0 sprdfb: [sprdfb_dsi_init]: resume
+<6>[ 1000.456939] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1000.467041] c0 sprdfb: dsi_enable f5130040
+<4>[ 1000.480560] c0 sprdfb: [mipi_dsih_set_lp_clock]: lp frequence div:3
+<6>[ 1000.488891] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<4>[ 1000.498748] c0 sprdfb: [mipi_dsih_set_lp_clock]: lp frequence div:3
+<6>[ 1000.761596] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1000.767456] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1000.777648] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1000.787384] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1000.796997] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1000.806579] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<4>[ 1000.924713] c0 sprdfb: [sprdfb_dispc_clean_lcd] clean lcd!
+<6>[ 1000.961853] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1000.967773] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1000.985748] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1001.004547] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1001.023742] c0 sprdfb: [sprdfb_dispc_resume], leave dev->enable= 1
+<6>[ 1001.040618] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<4>[ 1001.061004] c0 -------- resume sprdfb_late_resume 
+<6>[ 1001.067596] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1001.074584] c0 late_resume: calling gsp_late_resume
+<4>[ 1001.079406] c0 gsp_late_resume2843
+<4>[ 1001.092681] c0 -------- resume gsp_late_resume 
+<6>[ 1001.097137] c0 late_resume: calling sprd_iommu_gsp_late_resume
+<4>[ 1001.114807] c0 sprd_iommu_gsp_late_resume, map_count:0
+<4>[ 1001.130889] c0 -------- resume sprd_iommu_gsp_late_resume 
+<6>[ 1001.136932] c0 late_resume: calling start_drawing_late_resume
+<4>[ 1001.151458] c0 -------- resume start_drawing_late_resume 
+<6>[ 1001.156799] c0 late_resume: calling ft5x0x_ts_resume [focaltech_ts]
+<6>[ 1001.178985] c0 [SPRD_PWM_BL_INFO] disabled
+<4>[ 1001.183807] c0 -------- resume ft5x0x_ts_resume [focaltech_ts] 
+<6>[ 1001.189666] c0 ==ft5x0x_ts_resume_work==
+<6>[ 1001.194000] c0 late_resume: calling sprd_backlight_lateresume
+<6>[ 1001.208068] c0 [SPRD_PWM_BL_INFO] brightness = 25, led_level = 16
+<6>[ 1001.229064] c0 [SPRD_PWM_BL_INFO] late resume
+<4>[ 1001.238494] c0 -------- resume sprd_backlight_lateresume 
+<6>[ 1001.250823] c0 late_resume: calling sprdemand_gov_late_resume
+<4>[ 1001.260955] c0 -------- resume sprdemand_gov_late_resume 
+<6>[ 1001.271057] c0 cpufreq_sprdemand: !!  we gonna plugin cpu1  !!
+<4>[ 1001.278106] c1 CPU1: Booted secondary processor
+<6>[ 1001.278137] c1 kvm: enabling virtualization on CPU1
+<6>[ 1001.279754] c0 late_resume: done
+<6>[ 1001.978698] c0 cpufreq_scx35: --xing-- set 1500000 khz for cpu0
+<6>[ 1001.985717] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1025000 = 1000000 +25000uV(trim 0x8)
+<6>[ 1001.995300] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1050000 = 1000000 +50000uV(trim 0x10)
+<4>[ 1002.002471] c1 vibrator_enable:value = 20
+<4>[ 1002.002471] c1 vibrator_enable:vibe_state = 1
+<4>[ 1002.010894] c1 v_reg:0xf51c88f8
+<4>[ 1002.010925] c1 v_reg_value:0x000000b4
+<6>[ 1002.021820] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1075000 = 1000000 +75000uV(trim 0x18)
+<6>[ 1002.032073] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1100000 = 1100000 +0uV(trim 0x0)
+<6>[ 1002.041809] c0 cpufreq_scx35: 1350000 --> 1500000, real=1500000, index=0
+<6>[ 1002.048706] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1002.054962] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1075000 = 1000000 +75000uV(trim 0x18)
+<6>[ 1002.064819] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1050000 = 1000000 +50000uV(trim 0x10)
+<6>[ 1002.074645] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1025000 = 1000000 +25000uV(trim 0x8)
+<6>[ 1002.084838] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1002.094329] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1002.103973] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1002.113433] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1002.122833] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1002.131774] c0 cpufreq_scx35: 1500000 --> 768000, real=768000, index=3
+<6>[ 1002.138305] c0 cpufreq_sprdemand: !!  we gonna plugin cpu2  !!
+<6>[ 1002.145416] c1 cpufreq_scx35: --xing-- set 1500000 khz for cpu0
+<4>[ 1002.145690] c2 CPU2: Booted secondary processor
+<6>[ 1002.145721] c2 kvm: enabling virtualization on CPU2
+<6>[ 1002.160949] c1 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1002.171051] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1002.180603] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1002.190490] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1002.200012] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1025000 = 1000000 +25000uV(trim 0x8)
+<6>[ 1002.209594] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1050000 = 1000000 +50000uV(trim 0x10)
+<6>[ 1002.220581] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1075000 = 1000000 +75000uV(trim 0x18)
+<6>[ 1002.230926] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1100000 = 1100000 +0uV(trim 0x0)
+<6>[ 1002.241241] c0 cpufreq_scx35: 768000 --> 1500000, real=1500000, index=0
+<4>[ 1002.308685] c0 vibrator_enable:value = 20
+<4>[ 1002.312866] c0 vibrator_enable:vibe_state = 1
+<4>[ 1002.317230] c0 v_reg:0xf51c88f8
+<4>[ 1002.320312] c0 v_reg_value:0x000000b4
+<6>[ 1002.430877] c0 cpufreq_sprdemand: cpu0's avg_load=24,begin unplug cpu
+<6>[ 1002.437499] c0 cpufreq_sprdemand: !!  we gonna unplug cpu1  !!
+<6>[ 1002.444183] c1 kvm: disabling virtualization on CPU1
+<5>[ 1002.450866] c0 CPU1: shutdown
+<4>[ 1002.458801] c0 !! 0  platform_cpu_kill 1 !!
+<4>[ 1002.463348] c0 powerdown_cpus i=6 !!
+<4>[ 1002.466918] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1002.472991] c0 sprdbat: sprdbat_battery_works
+<11>[ 1002.476409] c2 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1002.485687] c0 sprdfgu: hwocv...
+<6>[ 1002.488922] c0 sprdfgu: sprdfgu_read_soc delta -22mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[ 1002.497161] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[ 1002.504638] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[ 1002.513824] c0 sprdfgu: hwocv...
+<6>[ 1002.517333] c0 sprdbat: fgu_cap: = 45,flush: = 905,period:=15
+<6>[ 1002.523254] c0 sprdbat: bat_log:time:1002,vbat:3737,ocv:3775,current:-308,cap:45,state:2,auxbat:3689
+<6>[ 1002.633270] c0 cpufreq_sprdemand: cpu0's avg_load=0,begin unplug cpu
+<6>[ 1002.639587] c0 cpufreq_sprdemand: !!  we gonna unplug cpu2  !!
+<6>[ 1002.646179] c2 kvm: disabling virtualization on CPU2
+<5>[ 1002.646240] c0 CPU2: shutdown
+<4>[ 1002.654327] c0 !! 0  platform_cpu_kill 2 !!
+<4>[ 1002.658813] c0 powerdown_cpus i=6 !!
+<4>[ 1002.662475] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1002.732727] c0 cpufreq_scx35: --xing-- set 900000 khz for cpu0
+<6>[ 1002.739227] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1075000 = 1000000 +75000uV(trim 0x18)
+<6>[ 1002.760009] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1050000 = 1000000 +50000uV(trim 0x10)
+<6>[ 1002.770263] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1025000 = 1000000 +25000uV(trim 0x8)
+<6>[ 1002.780120] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1002.796234] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1002.806396] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1002.818328] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1002.827972] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1002.837219] c0 cpufreq_scx35: 1500000 --> 900000, real=900000, index=2
+<6>[ 1003.004241] c0 [ASoC: VBC ] VBC DAC EQ Apply 'Headset'
+<6>[ 1003.010467] c0 [ASoC: PCM ] VBC Open Playback
+<6>[ 1003.016754] c0 [ASoC:CDCV4] Playback rate is [44100]
+<6>[ 1003.022155] c0 [ASoC: PCM ] chan=2 totsize=30720 period=15360
+<6>[ 1003.029266] c0 [ASoC:CDCV4] Config inter PA 0x00000210
+<6>[ 1003.035430] c0 [ASoC:CDCV4] Set DACL->SPKL Switch On
+<6>[ 1003.040893] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1003.047546] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1003.062499] c0 [ASoC:CDCV4] Set DACR->SPKL Switch On
+<6>[ 1003.073089] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1003.085571] c0 [ASoC:BOARD] Ext Spk Switch On
+<6>[ 1003.099639] c0 [ASoC:BOARD] Mic Jack Switch Off
+<6>[ 1003.104858] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1003.115753] c0 [ASoC:CDCV4] DAC On
+<6>[ 1003.119232] c0 [ASoC:CDCV4] switch_event Switch -1064932393(on) Event is PRE_PMU
+<6>[ 1003.128326] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1003.138183] c0 [ASoC:CDCV4] switch_event Switch -1064932398(on) Event is PRE_PMU
+<6>[ 1003.146453] c0 cpufreq_scx35: 900000 --> 1350000, real=1350000, index=1
+<6>[ 1003.153320] c0 [ASoC:CDCV4] inter PA Switch On
+<6>[ 1003.171691] c0 [ASoC:BOARD] Aux Mic Jack Switch Off
+<6>[ 1003.177307] c0 [ASoC:BOARD] HP Mic Jack Switch Off
+<6>[ 1003.182464] c0 [ASoC: PCM ] S
+<6>[ 1003.188873] c0 [ASoC:BOARD] Line Jack Switch Off
+<6>[ 1003.197174] c0 [ASoC:BOARD] Dig FM Jack Switch Off
+<6>[ 1003.238006] c0 [ASoC:BOARD] HeadPhone Jack Switch Off
+<6>[ 1003.252777] c0 [ASoC:BOARD] Ext Ear Switch Off
+<6>[ 1003.279205] c0 [ASoC: VBC ] VBC DAC EQ Select 3 max 4
+<6>[ 1003.299224] c0 [ASoC: VBC ] VBC DAC EQ Apply 'Handsfree'
+<6>[ 1003.346099] c0 [ASoC:CDCV4] Set PGA[SPKL] to 10
+<6>[ 1003.381378] c0 [ASoC:CDCV4] Set PGA[DACL] to 7
+<4>[ 1003.398315] c0 sprdfb: schedule ESD work queue!
+<6>[ 1003.403625] c0 [ASoC:CDCV4] Set PGA[SPKR] to 10
+<6>[ 1003.403808] c0 [ASoC:CDCV4] Set PGA[DACR] to 7
+<6>[ 1003.500946] c0 cpufreq_sprdemand: !!  we gonna plugin cpu1  !!
+<4>[ 1003.508331] c1 CPU1: Booted secondary processor
+<6>[ 1003.508361] c1 kvm: enabling virtualization on CPU1
+<6>[ 1003.527496] c1 rtcc_trigger_store: wake up krtccd async
+<6>[ 1004.497497] c0 cpufreq_scx35: --xing-- set 1500000 khz for cpu0
+<6>[ 1004.504425] c1 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1025000 = 1000000 +25000uV(trim 0x8)
+<6>[ 1004.515075] c1 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1050000 = 1000000 +50000uV(trim 0x10)
+<6>[ 1004.525817] c1 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1075000 = 1000000 +75000uV(trim 0x18)
+<6>[ 1004.537719] c1 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1100000 = 1100000 +0uV(trim 0x0)
+<6>[ 1004.549133] c1 cpufreq_scx35: 1350000 --> 1500000, real=1500000, index=0
+<6>[ 1004.556030] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1004.562561] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1075000 = 1000000 +75000uV(trim 0x18)
+<6>[ 1004.573425] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1050000 = 1000000 +50000uV(trim 0x10)
+<6>[ 1004.583343] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1025000 = 1000000 +25000uV(trim 0x8)
+<6>[ 1004.593200] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1004.602508] c0 cpufreq_scx35: 1500000 --> 1350000, real=1350000, index=1
+<6>[ 1004.602539] c0 cpufreq_sprdemand: !!  we gonna plugin cpu2  !!
+<6>[ 1004.603454] c1 cpufreq_scx35: --xing-- set 1500000 khz for cpu0
+<6>[ 1004.603485] c1 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1025000 = 1000000 +25000uV(trim 0x8)
+<6>[ 1004.603546] c1 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1050000 = 1000000 +50000uV(trim 0x10)
+<6>[ 1004.603607] c1 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1075000 = 1000000 +75000uV(trim 0x18)
+<6>[ 1004.603668] c1 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1100000 = 1100000 +0uV(trim 0x0)
+<4>[ 1004.603881] c2 CPU2: Booted secondary processor
+<6>[ 1004.603912] c2 kvm: enabling virtualization on CPU2
+<6>[ 1004.603973] c1 cpufreq_scx35: 1350000 --> 1500000, real=1500000, index=0
+<6>[ 1006.215637] c1 [ASoC: PCM ] E
+<6>[ 1006.218780] c1 [ASoC: PCM ] VBC Close Playback
+<6>[ 1006.431121] c0 cpufreq_sprdemand: cpu0's avg_load=14,begin unplug cpu
+<6>[ 1006.437713] c0 cpufreq_sprdemand: !!  we gonna unplug cpu1  !!
+<6>[ 1006.444274] c1 kvm: disabling virtualization on CPU1
+<5>[ 1006.444335] c0 CPU1: shutdown
+<4>[ 1006.452423] c0 !! 0  platform_cpu_kill 1 !!
+<4>[ 1006.456848] c0 powerdown_cpus i=6 !!
+<4>[ 1006.460388] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1006.534057] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1006.539978] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1075000 = 1000000 +75000uV(trim 0x18)
+<6>[ 1006.549774] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1050000 = 1000000 +50000uV(trim 0x10)
+<6>[ 1006.559295] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1025000 = 1000000 +25000uV(trim 0x8)
+<6>[ 1006.568786] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1006.577880] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1006.587219] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1006.596588] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1006.605834] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1006.614746] c0 cpufreq_scx35: 1500000 --> 768000, real=768000, index=3
+<6>[ 1006.734527] c0 cpufreq_sprdemand: cpu0's avg_load=13,begin unplug cpu
+<6>[ 1006.741027] c0 cpufreq_sprdemand: !!  we gonna unplug cpu2  !!
+<6>[ 1006.746978] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1006.752990] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1006.762725] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1006.772094] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1006.781463] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1006.791656] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1006.799987] c2 kvm: disabling virtualization on CPU2
+<5>[ 1006.800323] c0 CPU2: shutdown
+<4>[ 1006.808441] c0 !! 0  platform_cpu_kill 2 !!
+<4>[ 1006.813110] c0 powerdown_cpus i=6 !!
+<4>[ 1006.816711] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1006.822937] c0 rtcc_idle_handler: wake up krtccd!!!!!!
+<4>[ 1006.828002] c0 rtcc grade = 0, swap_top = 73445
+<4>[ 1006.908782] c0 rtcc_thread: reclaimed 1033 (swapped 756) pages.
+<4>[ 1006.915527] c0 rtcc_thread: cost 87ms, 84us one page, expect=759, swappiness=147 
+<6>[ 1007.038085] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1007.044342] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1007.054107] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1007.064239] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1007.074493] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1007.083831] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<11>[ 1007.504760] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1007.541046] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1007.551605] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1007.560821] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1007.591125] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1007.611053] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1007.627868] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1007.844573] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1007.850463] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1007.861816] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1007.871551] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1007.880737] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1007.890014] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<4>[ 1010.466094] c0 sprdfb: [sprdfb_dispc_check_esd] (30, 0, 0)
+<6>[ 1011.235076] c0 [ASoC:CDCV4] inter PA Switch Off
+<6>[ 1011.241577] c0 [ASoC:CDCV4] switch_event Switch -1064932393(on) Event is PRE_PMD
+<6>[ 1011.248931] c0 [ASoC:CDCV4] switch_event Switch -1064932398(on) Event is PRE_PMD
+<6>[ 1011.274597] c0 [ASoC:CDCV4] DAC Off
+<6>[ 1012.031249] c0 usb detect plug in,vbus pull up
+<6>[ 1012.036132] c0 sprdbat: charger plug in interrupt happen
+<6>[ 1012.042236] c0 sprdbat: sprdbat_change_module_state event :0x0
+<6>[ 1012.048004] c0 sprdbat: _sprdbat_clear_stopflags flag_msk:0xfffffeff
+<6>[ 1012.054870] c0 sprdbat: sprdbat_start_charge health:1,chg_start_time:1012,chg_current_type:450
+<14>[ 1012.066833] c0 healthd: battery l=45 v=3737 t=20.0 h=2 st=2 chg=u
+<6>[ 1012.081878] c0 battery calibrate value 5 33
+<6>[ 1012.101013] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1012.115814] c0 sprdbat: plugin_callback:sprdbat_data->bat_info.adp_type:4
+<6>[ 1012.128692] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1012.180999] c0 sprdbat: plugin_callback: end...
+<6>[ 1012.197326] c0 USB:startup udc
+<6>[ 1012.200317] c0 udc_enable 
+<6>[ 1012.203552] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1012.251342] c0 regu: @@@ldo_set_voltage: regu 0xee92b1a4 (vddusb) set voltage, 3460000(uV) 3460000(uV)
+<6>[ 1012.260650] c0 regu: @@@ldo_turn_on: regu 0xee92b1a4 (vddusb), turn on
+<6>[ 1012.277893] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1012.338409] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1012.399017] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<14>[ 1012.475494] c0 healthd: battery l=45 v=3737 t=20.0 h=2 st=2 chg=u
+<11>[ 1012.556304] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1012.940979] c0 cpufreq_sprdemand: !!  we gonna plugin cpu1  !!
+<4>[ 1012.948028] c1 CPU1: Booted secondary processor
+<6>[ 1012.948059] c1 kvm: enabling virtualization on CPU1
+<4>[ 1012.984802] c1 sprd-gsensor: -- lis3dh_acc_enable -- !
+<4>[ 1012.989898] c1 sprd-gsensor: -- lis3dh_acc_enable -- success!
+<6>[ 1013.551025] c0 cpufreq_sprdemand: !!  we gonna plugin cpu2  !!
+<4>[ 1013.558227] c2 CPU2: Booted secondary processor
+<6>[ 1013.558288] c2 kvm: enabling virtualization on CPU2
+<6>[ 1014.061004] c0 sprdbat: sprdbat_charge_works-start
+<6>[ 1014.065795] c0 sprdfgu: hwocv...
+<6>[ 1014.068969] c0 sprdbat: sprdbat_charge_works---vbat_vol 3814,ocv:3775,bat_current:143
+<6>[ 1014.078826] c0 sprdbat: chg_cur: 779,chg_ave_current:97
+<6>[ 1014.084075] c0 sprdbat: chg_log:time:1014,health:1,state:1,stopflags0x:0,chg_s_time:1012,temp:200
+<6>[ 1014.093353] c0 sprdbat: chg_log:chgcur_type:450,cccv:33,vchg:4510,cvstate:0,cccv_cal:1
+<6>[ 1014.751708] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1014.757598] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1014.766998] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1014.776855] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1014.786254] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1014.795227] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1015.436096] c0 cpufreq_sprdemand: cpu0's avg_load=24,begin unplug cpu
+<6>[ 1015.443542] c0 cpufreq_sprdemand: !!  we gonna unplug cpu1  !!
+<6>[ 1015.449432] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1015.455413] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1015.464691] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1015.474029] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1015.483398] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1015.493408] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1015.500701] c1 kvm: disabling virtualization on CPU1
+<5>[ 1015.500762] c0 CPU1: shutdown
+<4>[ 1015.508819] c0 !! 0  platform_cpu_kill 1 !!
+<4>[ 1015.513336] c0 powerdown_cpus i=6 !!
+<4>[ 1015.516906] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1015.832336] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1015.838226] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1015.848358] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1015.857788] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1015.867065] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1015.876068] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1017.332733] c0 cpufreq_sprdemand: cpu0's avg_load=20,begin unplug cpu
+<6>[ 1017.339111] c0 cpufreq_sprdemand: !!  we gonna unplug cpu2  !!
+<6>[ 1017.345672] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1017.351654] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1017.360870] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1017.370269] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1017.379608] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1017.389648] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1017.398254] c2 kvm: disabling virtualization on CPU2
+<5>[ 1017.398315] c0 CPU2: shutdown
+<4>[ 1017.406311] c0 !! 0  platform_cpu_kill 2 !!
+<4>[ 1017.410797] c0 powerdown_cpus i=6 !!
+<4>[ 1017.414459] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1017.533630] c0 cpufreq_scx35: --xing-- set 900000 khz for cpu0
+<6>[ 1017.539947] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1017.554077] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1017.569915] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1017.584808] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1017.595336] c0 cpufreq_scx35: 1350000 --> 900000, real=900000, index=2
+<6>[ 1017.613311] c0 sprdbat: sprdbat_battery_works
+<6>[ 1017.617675] c0 sprdfgu: hwocv...
+<11>[ 1017.626068] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1017.635101] c0 sprdfgu: sprdfgu_read_soc delta -22mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[ 1017.644470] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[ 1017.652038] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[ 1017.658874] c0 sprdfgu: hwocv...
+<6>[ 1017.662841] c0 sprdbat: fgu_cap: = 45,flush: = 920,period:=15
+<6>[ 1017.668609] c0 sprdbat: bat_log:time:1017,vbat:3845,ocv:3775,current:318,cap:45,state:1,auxbat:3813
+<6>[ 1017.704437] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1017.710388] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1017.791687] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1017.819213] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1017.834167] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1017.845520] c0 cpufreq_scx35: 900000 --> 1350000, real=1350000, index=1
+<6>[ 1018.051055] c0 cpufreq_scx35: --xing-- set 900000 khz for cpu0
+<6>[ 1018.061767] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1018.091796] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1018.115631] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1018.125823] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1018.135925] c0 cpufreq_scx35: 1350000 --> 900000, real=900000, index=2
+<6>[ 1018.241485] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1018.247314] c0 cpufreq_scx35: 900000 --> 768000, real=768000, index=3
+<6>[ 1018.401062] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1018.407226] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1018.417419] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1018.428649] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1018.438568] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1018.449768] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1018.562347] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1018.573364] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1018.586853] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1018.598052] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1018.608367] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1018.618927] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1019.423370] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1019.429321] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1019.442138] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1019.453826] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1019.463775] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1019.474273] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1019.671722] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1019.677581] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1019.687530] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1019.697357] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1019.707458] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1019.716735] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1019.921112] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1019.927185] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1020.001281] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1020.052886] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1020.097503] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1020.120361] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1020.472686] c0 cpufreq_scx35: --xing-- set 900000 khz for cpu0
+<6>[ 1020.479125] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1020.494079] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1020.507293] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1020.518402] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1020.527801] c0 cpufreq_scx35: 1350000 --> 900000, real=900000, index=2
+<6>[ 1020.581512] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1020.587432] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1020.600402] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1020.611450] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1020.620727] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1020.631622] c0 cpufreq_scx35: 900000 --> 1350000, real=1350000, index=1
+<6>[ 1020.734893] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1020.740844] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1020.750671] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1020.760894] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1020.770538] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1020.779937] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1021.591156] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1021.598327] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1021.658813] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1021.711883] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1021.726928] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1021.737518] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1021.942901] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1021.948791] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1021.958618] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1021.968475] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1021.979553] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1021.988891] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1022.391082] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1022.397277] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1022.459625] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1022.491546] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1022.506042] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1022.516906] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<11>[ 1022.656127] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1022.701049] c0 cpufreq_sprdemand: !!  we gonna plugin cpu1  !!
+<4>[ 1022.708190] c1 CPU1: Booted secondary processor
+<6>[ 1022.708221] c1 kvm: enabling virtualization on CPU1
+<4>[ 1022.893096] c1 sprd-gsensor: -- lis3dh_acc_disable -- 
+<6>[ 1023.331207] c0 cpufreq_sprdemand: !!  we gonna plugin cpu2  !!
+<4>[ 1023.338378] c2 CPU2: Booted secondary processor
+<6>[ 1023.338409] c2 kvm: enabling virtualization on CPU2
+<6>[ 1023.601837] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1023.607788] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1023.617248] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1023.626586] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1023.635864] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1023.644836] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1024.733703] c0 cpufreq_sprdemand: cpu0's avg_load=17,begin unplug cpu
+<6>[ 1024.740112] c0 cpufreq_sprdemand: !!  we gonna unplug cpu1  !!
+<6>[ 1024.746185] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1024.752197] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1024.761444] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1024.770751] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1024.780120] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1024.790130] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1024.797546] c1 kvm: disabling virtualization on CPU1
+<5>[ 1024.797576] c0 CPU1: shutdown
+<4>[ 1024.805725] c0 !! 0  platform_cpu_kill 1 !!
+<4>[ 1024.810211] c0 powerdown_cpus i=6 !!
+<4>[ 1024.814208] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1025.136840] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1025.142761] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1025.152130] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1025.161773] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1025.170989] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1025.179901] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1025.731536] c0 cpufreq_sprdemand: cpu0's avg_load=27,begin unplug cpu
+<6>[ 1025.738098] c0 cpufreq_sprdemand: !!  we gonna unplug cpu2  !!
+<6>[ 1025.744049] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1025.749969] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1025.759399] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1025.768737] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1025.778106] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1025.788146] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1025.795471] c2 kvm: disabling virtualization on CPU2
+<5>[ 1025.795532] c0 CPU2: shutdown
+<4>[ 1025.803619] c0 !! 0  platform_cpu_kill 2 !!
+<4>[ 1025.808074] c0 powerdown_cpus i=6 !!
+<4>[ 1025.818054] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1025.935058] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1025.940948] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1025.952117] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1025.961883] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1025.971252] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1025.980926] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1026.821289] c0 usb detect plug out,vbus pull down
+<6>[ 1026.827392] c0 USB:shutdown udc
+<6>[ 1026.830474] c0 udc_disable 
+<6>[ 1026.840454] c0 regu: @@@ldo_turn_off: regu 0xee92b1a4 (vddusb), turn off
+<6>[ 1026.847991] c0 sprdbat: charger plug out interrupt happen
+<6>[ 1026.857635] c0 sprdbat: sprdbat_change_module_state event :0x1
+<6>[ 1026.871276] c0 sprdbat: sprdbat_stop_charge
+<14>[ 1026.878295] c0 healthd: battery l=45 v=3845 t=20.0 h=2 st=3 chg=u
+<14>[ 1026.929199] c0 healthd: battery l=45 v=3845 t=20.0 h=2 st=3 chg=
+<6>[ 1026.981231] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1027.001159] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1027.010375] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1027.121215] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1027.145141] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<4>[ 1027.186706] c0 sprd-gsensor: -- lis3dh_acc_enable -- !
+<6>[ 1027.222412] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<4>[ 1027.243713] c0 sprd-gsensor: -- lis3dh_acc_enable -- success!
+<6>[ 1027.571105] c0 cpufreq_sprdemand: !!  we gonna plugin cpu1  !!
+<4>[ 1027.578186] c1 CPU1: Booted secondary processor
+<6>[ 1027.578216] c1 kvm: enabling virtualization on CPU1
+<11>[ 1027.723663] c1 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1028.619140] c1 usb detect plug in,vbus pull up
+<6>[ 1028.623870] c1 sprdbat: charger plug in interrupt happen
+<6>[ 1028.629150] c1 sprdbat: sprdbat_change_module_state event :0x0
+<6>[ 1028.636718] c1 sprdbat: _sprdbat_clear_stopflags flag_msk:0xfffffeff
+<6>[ 1028.643402] c1 sprdbat: sprdbat_start_charge health:1,chg_start_time:1028,chg_current_type:450
+<14>[ 1028.653320] c1 healthd: battery l=45 v=3845 t=20.0 h=2 st=2 chg=u
+<6>[ 1028.659973] c1 battery calibrate value 5 33
+<6>[ 1028.664520] c1 sprdbat: plugin_callback:sprdbat_data->bat_info.adp_type:4
+<6>[ 1028.672119] c1 sprdbat: plugin_callback: end...
+<6>[ 1028.676605] c1 USB:startup udc
+<6>[ 1028.680664] c1 udc_enable 
+<6>[ 1028.692077] c1 regu: @@@ldo_set_voltage: regu 0xee92b1a4 (vddusb) set voltage, 3460000(uV) 3460000(uV)
+<6>[ 1028.701538] c1 regu: @@@ldo_turn_on: regu 0xee92b1a4 (vddusb), turn on
+<14>[ 1028.709686] c1 healthd: battery l=45 v=3845 t=20.0 h=2 st=2 chg=u
+<6>[ 1028.711212] c0 cpufreq_sprdemand: !!  we gonna plugin cpu2  !!
+<4>[ 1028.712554] c2 CPU2: Booted secondary processor
+<6>[ 1028.712585] c2 kvm: enabling virtualization on CPU2
+<6>[ 1029.083007] c0 android_work: sent uevent USB_STATE=CONNECTED
+<6>[ 1029.088653] c0 android_usb gadget: high-speed config #1: android
+<4>[ 1029.094604] c0 fsg_set_alt f=edeffd80,fsg=edeffd80
+<4>[ 1029.099395] c0 raise_exception:state=0,4 fsg=edeffd80 
+<6>[ 1029.118438] c0 android_work: sent uevent USB_STATE=CONFIGURED
+<4>[ 1029.401245] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[ 1029.406890] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e81b
+<4>[ 1029.413482] c2 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[ 1029.419769] c2 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[ 1029.419769] c2 ###---- REG_AON_APB_APB_EB0 : 0x7c71de49
+<4>[ 1029.419799] c2 ###---- REG_AON_APB_APB_EB1 : 0x04e20e77
+<4>[ 1029.419799] c2 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[ 1029.419799] c2 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x70070000
+<4>[ 1029.419799] c2 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[ 1029.419799] c2 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<4>[ 1029.419799] c2 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00000006
+<4>[ 1029.419799] c2 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[ 1029.419799] c2 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<4>[ 1029.419799] c2 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<4>[ 1029.419799] c2 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e8ff
+<4>[ 1029.419799] c2 ###---- REG_AON_APB_MPLL_CFG1 : 0x0d2c00fa
+<4>[ 1029.419799] c2 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<4>[ 1029.419830] c2 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<4>[ 1029.419830] c2 ###---- REG_AON_APB_MPLL_CFG2 : 0x330ec4ec
+<4>[ 1029.419830] c2 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<4>[ 1029.419830] c2 ###---- BIT_GPU_EB still set ----###
+<4>[ 1029.419830] c2 ###---- BIT_CA7_DAP_EB still set ----###
+<4>[ 1029.419830] c2 ###---- BIT_GSP_EB still set ----###
+<4>[ 1029.419830] c2 ###---- BIT_DISPC_EB still set ----###
+<4>[ 1029.419830] c2 ###---- BIT_OTG_EB still set ----###
+<4>[ 1029.419830] c2 ###---- BIT_EMMC_EB still set ----###
+<4>[ 1029.419830] c2 ###---- BIT_LDO_USB_PD power on! ----###
+<6>[ 1029.419830] c2 active wake lock pm_message_wakelock
+<6>[ 1029.419830] c2 active wake lock PowerManagerService.WakeLocks
+<6>[ 1029.419860] c2 active wake lock usb_work
+<6>[ 1029.419860] c2 active wake lock main
+<6>[ 1029.419860] c2 active wake lock PowerManagerService.Display
+<6>[ 1029.419860] c2 active wake lock guest-os
+<6>[ 1029.419860] c2 active wake lock charger_plug_out_lock, time left 221
+<6>[ 1029.419860] c2 active wake lock sipc-smsg, time left 20
+<4>[ 1029.646606] c0 Mali<2>: Session started
+<6>[ 1030.138580] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1030.145019] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1030.155181] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1030.164550] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1030.173828] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1030.182800] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1030.434387] c0 cpufreq_sprdemand: cpu0's avg_load=23,begin unplug cpu
+<6>[ 1030.440795] c0 cpufreq_sprdemand: !!  we gonna unplug cpu1  !!
+<6>[ 1030.446929] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1030.452880] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1030.462188] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1030.471679] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1030.480987] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1030.491058] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1030.499328] c1 kvm: disabling virtualization on CPU1
+<5>[ 1030.499572] c0 CPU1: shutdown
+<4>[ 1030.507568] c0 !! 0  platform_cpu_kill 1 !!
+<4>[ 1030.512084] c0 powerdown_cpus i=5 !!
+<4>[ 1030.515624] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1030.651733] c0 sprdbat: sprdbat_charge_works-start
+<6>[ 1030.656524] c0 sprdbat: sprdbat_charge_works---vbat_vol 3836,ocv:3773,bat_current:254
+<6>[ 1030.666870] c0 sprdbat: chg_cur: 676,chg_ave_current:181
+<6>[ 1030.672424] c0 sprdbat: chg_log:time:1030,health:1,state:1,stopflags0x:0,chg_s_time:1028,temp:200
+<6>[ 1030.681518] c0 sprdbat: chg_log:chgcur_type:450,cccv:33,vchg:4491,cvstate:0,cccv_cal:1
+<6>[ 1031.733551] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1031.739440] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1031.749603] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1031.759002] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1031.768280] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1031.778198] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1032.711212] c0 sprdbat: sprdbat_battery_works
+<6>[ 1032.717559] c0 sprdfgu: sprdfgu_read_soc delta -21mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[ 1032.727722] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[ 1032.736724] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[ 1032.743774] c0 sprdbat: fgu_cap: = 45,flush: = 935,period:=15
+<6>[ 1032.751434] c0 sprdbat: bat_log:time:1032,vbat:3846,ocv:3767,current:319,cap:45,state:1,auxbat:3799
+<11>[ 1032.774108] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1034.232971] c0 cpufreq_sprdemand: cpu0's avg_load=23,begin unplug cpu
+<6>[ 1034.239379] c0 cpufreq_sprdemand: !!  we gonna unplug cpu2  !!
+<6>[ 1034.245605] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1034.251739] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1034.260955] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1034.270324] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1034.279663] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1034.290252] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1034.298706] c2 kvm: disabling virtualization on CPU2
+<5>[ 1034.298980] c0 CPU2: shutdown
+<4>[ 1034.307067] c0 !! 0  platform_cpu_kill 2 !!
+<4>[ 1034.311645] c0 powerdown_cpus i=6 !!
+<4>[ 1034.315185] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1034.431213] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1034.438537] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1034.474700] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1034.487304] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1034.499206] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1034.509155] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1035.361389] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1035.367645] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1035.387634] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1035.409332] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1035.429382] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1035.512512] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1035.861938] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1035.867980] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1035.877960] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1035.888092] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1035.898223] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1035.907531] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1036.811279] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1036.817291] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1036.871978] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1036.893066] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1036.931823] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1036.942871] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1037.293029] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1037.298919] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1037.309875] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1037.320617] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1037.336334] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1037.348693] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1037.761291] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1037.767211] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1037.801422] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<11>[ 1037.841003] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1037.864990] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1037.876434] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1037.887420] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1038.092254] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1038.098175] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1038.108459] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1038.118377] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1038.128356] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1038.137664] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1038.891418] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1038.900543] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1038.930694] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1038.959564] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1038.991424] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1039.009429] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<4>[ 1039.112670] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 8
+<4>[ 1039.112670] c0 
+<4>[ 1039.121765] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1039.127624] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1039.127624] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1039.127624] c0  
+<4>[ 1039.136566] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 9
+<4>[ 1039.138244] c0 
+<4>[ 1039.145812] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1039.232543] c0 sprd-gsensor: -- lis3dh_acc_disable -- 
+<6>[ 1039.421264] c0 cpufreq_sprdemand: !!  we gonna plugin cpu1  !!
+<4>[ 1039.428344] c1 CPU1: Booted secondary processor
+<6>[ 1039.428375] c1 kvm: enabling virtualization on CPU1
+<4>[ 1039.151702] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1039.151702] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1039.151702] c0  
+<4>[ 1039.471221] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 2
+<4>[ 1039.472930] c0 
+<4>[ 1039.480499] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<6>[ 1040.251312] c0 cpufreq_sprdemand: !!  we gonna plugin cpu2  !!
+<4>[ 1040.258392] c2 CPU2: Booted secondary processor
+<6>[ 1040.258422] c2 kvm: enabling virtualization on CPU2
+<6>[ 1040.669006] c0 USB:shutdown udc
+<4>[ 1040.672088] c0 dwc_otg_request_nuke release EP number is 1,directin is 1
+<4>[ 1040.678771] c0 dwc_otg_request_nuke release EP number is 2,directin is 1
+<4>[ 1040.685455] c0 dwc_otg_request_nuke release EP number is 3,directin is 1
+<4>[ 1040.692138] c0 dwc_otg_request_nuke release EP number is 4,directin is 1
+<4>[ 1040.698852] c0 dwc_otg_request_nuke release EP number is 5,directin is 1
+<4>[ 1040.705535] c0 dwc_otg_request_nuke release EP number is 6,directin is 1
+<4>[ 1040.712219] c0 dwc_otg_request_nuke release EP number is 7,directin is 1
+<4>[ 1040.718933] c0 dwc_otg_request_nuke release EP number is 8,directin is 1
+<4>[ 1040.725677] c0 dwc_otg_request_nuke release EP number is 9,directin is 1
+<4>[ 1040.732299] c0 dwc_otg_request_nuke release EP number is 10,directin is 1
+<4>[ 1040.739074] c0 dwc_otg_request_nuke release EP number is 11,directin is 1
+<4>[ 1040.745880] c0 dwc_otg_request_nuke release EP number is 12,directin is 1
+<4>[ 1040.752655] c0 dwc_otg_request_nuke release EP number is 13,directin is 1
+<4>[ 1040.759429] c0 dwc_otg_request_nuke release EP number is 14,directin is 1
+<4>[ 1040.766204] c0 dwc_otg_request_nuke release EP number is 15,directin is 1
+<4>[ 1040.773010] c0 dwc_otg_request_nuke release EP number is 1,directin is 0
+<4>[ 1040.779693] c0 dwc_otg_request_nuke release EP number is 2,directin is 0
+<4>[ 1040.786376] c0 dwc_otg_request_nuke release EP number is 3,directin is 0
+<4>[ 1040.793060] c0 dwc_otg_request_nuke release EP number is 4,directin is 0
+<4>[ 1040.799774] c0 dwc_otg_request_nuke release EP number is 5,directin is 0
+<4>[ 1040.806457] c0 dwc_otg_request_nuke release EP number is 6,directin is 0
+<4>[ 1040.813140] c0 dwc_otg_request_nuke release EP number is 7,directin is 0
+<4>[ 1040.819915] c0 dwc_otg_request_nuke release EP number is 8,directin is 0
+<4>[ 1040.826599] c0 dwc_otg_request_nuke release EP number is 9,directin is 0
+<4>[ 1040.833221] c0 dwc_otg_request_nuke release EP number is 10,directin is 0
+<4>[ 1040.839996] c0 dwc_otg_request_nuke release EP number is 11,directin is 0
+<4>[ 1040.846801] c0 dwc_otg_request_nuke release EP number is 12,directin is 0
+<4>[ 1040.853576] c0 dwc_otg_request_nuke release EP number is 13,directin is 0
+<4>[ 1040.860351] c0 dwc_otg_request_nuke release EP number is 14,directin is 0
+<4>[ 1040.867126] c0 dwc_otg_request_nuke release EP number is 15,directin is 0
+<4>[ 1040.874938] c0 fsg_disable f=edeffd80
+<4>[ 1040.878540] c0 raise_exception:state=0,4 fsg=  (null) 
+<4>[ 1040.883697] c0 dwc_otg_request_nuke release EP number is 2,directin is 0
+<4>[ 1040.890380] c0 dwc_otg_request_nuke release EP number is 2,directin is 1
+<4>[ 1040.897064] c0 dwc_otg_request_nuke release EP number is 3,directin is 0
+<4>[ 1040.903747] c1 dwc_otg_request_nuke release EP number is 1,directin is 1
+<4>[ 1040.910461] c0 dwc_otg_request_nuke release EP number is 3,directin is 1
+<4>[ 1040.917144] c1 dwc_otg_request_nuke release EP number is 1,directin is 0
+<4>[ 1040.923828] c0 dwc_otg_request_nuke release EP number is 4,directin is 0
+<4>[ 1040.930511] c0 dwc_otg_request_nuke release EP number is 4,directin is 1
+<4>[ 1040.937225] c0 dwc_otg_request_nuke release EP number is 5,directin is 0
+<4>[ 1040.943908] c0 dwc_otg_request_nuke release EP number is 5,directin is 1
+<4>[ 1040.950622] c0 dwc_otg_request_nuke release EP number is 6,directin is 0
+<4>[ 1040.957305] c0 dwc_otg_request_nuke release EP number is 6,directin is 1
+<4>[ 1040.963989] c0 dwc_otg_request_nuke release EP number is 7,directin is 0
+<4>[ 1040.970672] c0 dwc_otg_request_nuke release EP number is 7,directin is 1
+<4>[ 1040.977386] c0 dwc_otg_request_nuke release EP number is 8,directin is 0
+<4>[ 1040.984069] c0 dwc_otg_request_nuke release EP number is 8,directin is 1
+<4>[ 1040.990875] c0 dwc_otg_request_nuke release EP number is 9,directin is 0
+<4>[ 1040.997528] c0 dwc_otg_request_nuke release EP number is 9,directin is 1
+<6>[ 1041.005157] c1 udc_disable 
+<6>[ 1041.007690] c0 android_work: sent uevent USB_STATE=DISCONNECTED
+<6>[ 1041.014099] c0 regu: @@@ldo_turn_off: regu 0xee92b1a4 (vddusb), turn off
+<4>[ 1041.020812] c0 adbd(507) usb_remove_config 
+<4>[ 1041.025115] c0 sprdfb: [sprdfb_dispc_check_esd] (60, 0, 0)
+<6>[ 1041.039550] c2 read descriptors
+<6>[ 1041.043151] c2 read strings
+<4>[ 1041.045959] c2 adbd(1901) usb_add_config 
+<6>[ 1041.080474] c2 USB:startup udc
+<6>[ 1041.083557] c2 udc_enable 
+<6>[ 1041.086242] c2 regu: @@@ldo_set_voltage: regu 0xee92b1a4 (vddusb) set voltage, 3460000(uV) 3460000(uV)
+<6>[ 1041.095642] c2 regu: @@@ldo_turn_on: regu 0xee92b1a4 (vddusb), turn on
+<6>[ 1041.151947] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1041.157806] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1041.167266] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1041.176605] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1041.185852] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1041.194763] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1041.399902] c0 android_work: sent uevent USB_STATE=CONNECTED
+<6>[ 1041.405639] c0 android_usb gadget: high-speed config #1: android
+<4>[ 1041.411621] c0 fsg_set_alt f=d5a76800,fsg=d5a76800
+<4>[ 1041.416381] c0 raise_exception:state=0,4 fsg=d5a76800 
+<6>[ 1041.425170] c0 android_work: sent uevent USB_STATE=CONFIGURED
+<6>[ 1041.931793] c0 cpufreq_sprdemand: cpu0's avg_load=27,begin unplug cpu
+<6>[ 1041.938201] c0 cpufreq_sprdemand: !!  we gonna unplug cpu1  !!
+<6>[ 1041.944213] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1041.950164] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1041.959411] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1041.968780] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1041.978149] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1041.988159] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1041.995513] c1 kvm: disabling virtualization on CPU1
+<5>[ 1041.995574] c0 CPU1: shutdown
+<4>[ 1042.003448] c0 !! 0  platform_cpu_kill 1 !!
+<4>[ 1042.007995] c0 powerdown_cpus i=5 !!
+<4>[ 1042.011718] c0 platform_cpu_kill finished i=0 !!
+<11>[ 1042.039978] c2 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1042.237152] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1042.243377] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1042.252960] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1042.262481] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1042.271911] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1042.280761] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1043.432495] c0 cpufreq_sprdemand: cpu0's avg_load=22,begin unplug cpu
+<6>[ 1043.438964] c0 cpufreq_sprdemand: !!  we gonna unplug cpu2  !!
+<6>[ 1043.445007] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1043.450988] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1043.460449] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1043.469970] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1043.479309] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1043.489379] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1043.496704] c2 kvm: disabling virtualization on CPU2
+<5>[ 1043.496765] c0 CPU2: shutdown
+<4>[ 1043.504913] c0 !! 0  platform_cpu_kill 2 !!
+<4>[ 1043.509368] c0 powerdown_cpus i=6 !!
+<4>[ 1043.513061] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1043.635711] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1043.642150] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1043.652191] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1043.662261] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1043.671905] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1043.680755] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1044.481353] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1044.487457] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1044.497772] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1044.508453] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1044.519409] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1044.530212] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1044.736755] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1044.743164] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1044.752929] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1044.762634] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1044.772552] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1044.781829] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<11>[ 1047.060302] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1047.791809] c0 sprdbat: sprdbat_battery_works
+<6>[ 1047.796234] c0 sprdfgu: sprdfgu_read_soc delta -20mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[ 1047.805053] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[ 1047.812530] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[ 1047.819213] c0 sprdbat: fgu_cap: = 45,flush: = 950,period:=15
+<6>[ 1047.825408] c0 sprdbat: bat_log:time:1047,vbat:3854,ocv:3769,current:340,cap:45,state:1,auxbat:3818
+<4>[ 1039.486358] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1039.486358] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1039.486358] c0  
+<4>[ 1051.433502] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 10
+<4>[ 1051.435180] c0 
+<4>[ 1051.442901] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1051.448760] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1051.448760] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1051.448760] c0  
+<4>[ 1051.457702] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 11
+<4>[ 1051.459381] c0 
+<4>[ 1051.467071] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<11>[ 1052.082824] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[ 1057.108520] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[ 1059.523681] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[ 1059.529113] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e01b
+<4>[ 1059.535003] c0 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[ 1059.541290] c0 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[ 1059.547088] c0 ###---- REG_AON_APB_APB_EB0 : 0x7471de49
+<4>[ 1059.553009] c0 ###---- REG_AON_APB_APB_EB1 : 0x04e20e77
+<4>[ 1059.558807] c0 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[ 1059.571960] c0 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x77077700
+<4>[ 1059.577819] c0 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[ 1059.587005] c0 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<4>[ 1059.593414] c0 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00000006
+<4>[ 1059.600341] c0 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[ 1059.606811] c0 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<4>[ 1059.614166] c0 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<4>[ 1059.619323] c0 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e8ff
+<4>[ 1059.625457] c0 ###---- REG_AON_APB_MPLL_CFG1 : 0x052c00fa
+<4>[ 1059.630859] c0 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<4>[ 1059.637115] c0 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<4>[ 1059.643524] c0 ###---- REG_AON_APB_MPLL_CFG2 : 0x330ec4ec
+<4>[ 1059.648956] c0 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<4>[ 1059.654724] c0 ###---- BIT_CA7_DAP_EB still set ----###
+<4>[ 1059.659881] c0 ###---- BIT_GSP_EB still set ----###
+<4>[ 1059.665649] c0 ###---- BIT_DISPC_EB still set ----###
+<4>[ 1059.670623] c0 ###---- BIT_OTG_EB still set ----###
+<6>[ 1059.675811] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1059.691650] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<4>[ 1059.702239] c0 ###---- BIT_LDO_USB_PD power on! ----###
+<6>[ 1059.707397] c0 active wake lock pm_message_wakelock
+<6>[ 1059.712280] c0 active wake lock usb_work
+<6>[ 1059.716186] c0 active wake lock main
+<6>[ 1059.719757] c0 active wake lock PowerManagerService.Display
+<6>[ 1059.725311] c0 active wake lock guest-os
+<6>[ 1059.729980] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1059.740997] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1059.758728] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1059.769775] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1059.972900] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1059.978790] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1059.988616] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1059.998321] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1060.008300] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1060.017578] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<4>[ 1051.472930] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1051.472930] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1051.472930] c0  
+<4>[ 1061.475646] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 10
+<4>[ 1061.477325] c0 
+<4>[ 1061.485046] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1061.490875] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1061.490875] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1061.490875] c0  
+<4>[ 1061.517181] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 11
+<4>[ 1061.518859] c0 
+<4>[ 1061.526550] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<6>[ 1061.633483] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1061.639404] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1061.649475] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1061.659729] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1061.669433] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1061.680267] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1061.790588] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1061.796722] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1061.812316] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1061.823547] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1061.841674] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1061.850891] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<11>[ 1062.136627] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1062.879425] c0 sprdbat: sprdbat_battery_works
+<6>[ 1062.883819] c0 sprdfgu: sprdfgu_read_soc delta -19mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[ 1062.902404] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[ 1062.909484] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[ 1062.917053] c0 sprdbat: fgu_cap: = 45,flush: = 965,period:=15
+<6>[ 1062.932586] c0 sprdbat: bat_log:time:1062,vbat:3854,ocv:3770,current:337,cap:45,state:1,auxbat:3813
+<11>[ 1067.156860] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[ 1061.532409] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1061.532409] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1061.532409] c0  
+<4>[ 1070.833740] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 4
+<4>[ 1070.835418] c0 
+<4>[ 1070.843048] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1071.275421] c0 sprdfb: [sprdfb_dispc_check_esd] (90, 0, 0)
+<4>[ 1070.848876] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1070.848876] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1070.848876] c0  
+<4>[ 1071.518768] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 10
+<4>[ 1071.520446] c0 
+<4>[ 1071.528167] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1071.533996] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1071.533996] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1071.533996] c0  
+<4>[ 1071.557678] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 11
+<4>[ 1071.559356] c0 
+<4>[ 1071.567047] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<11>[ 1072.177612] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<11>[ 1077.197326] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1077.959136] c0 sprdbat: sprdbat_battery_works
+<6>[ 1077.965332] c0 sprdfgu: sprdfgu_read_soc delta -17mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[ 1077.973785] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[ 1077.981048] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[ 1077.989166] c0 sprdbat: fgu_cap: = 45,flush: = 980,period:=15
+<6>[ 1077.995941] c0 sprdbat: bat_log:time:1077,vbat:3855,ocv:3770,current:340,cap:45,state:1,auxbat:3820
+<6>[ 1080.351745] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1080.371856] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1080.393127] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1080.422790] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1080.432586] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1080.443756] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1080.645385] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1080.651275] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1080.661132] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1080.670867] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1080.680847] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1080.691009] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<4>[ 1071.572906] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1071.572906] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1071.572906] c0  
+<4>[ 1080.875823] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 4
+<4>[ 1080.877502] c0 
+<4>[ 1080.885070] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1080.890960] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1080.890960] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1080.890960] c0  
+<4>[ 1081.555999] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 10
+<4>[ 1081.557708] c0 
+<4>[ 1081.565399] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1081.571228] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1081.571228] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1081.571228] c0  
+<4>[ 1081.595642] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 11
+<4>[ 1081.597351] c0 
+<4>[ 1081.605010] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<6>[ 1081.619873] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1081.626708] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1081.636352] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1081.646972] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1081.657012] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1081.667419] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1081.775115] c0 cpufreq_scx35: --xing-- set 900000 khz for cpu0
+<6>[ 1081.789184] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1081.803344] c0 [SPRD_PWM_BL_INFO] brightness = 22, led_level = 14
+<6>[ 1081.810913] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1081.826232] c0 [SPRD_PWM_BL_INFO] brightness = 19, led_level = 12
+<6>[ 1081.832885] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1081.847656] c0 [SPRD_PWM_BL_INFO] brightness = 16, led_level = 10
+<6>[ 1081.855529] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1081.868072] c0 [SPRD_PWM_BL_INFO] brightness = 9, led_level = 8
+<6>[ 1081.874938] c0 cpufreq_scx35: 1350000 --> 900000, real=900000, index=2
+<6>[ 1081.885284] c0 [SPRD_PWM_BL_INFO] brightness = 6, led_level = 8
+<6>[ 1081.895782] c0 [SPRD_PWM_BL_INFO] brightness = 5, led_level = 8
+<6>[ 1082.084136] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1082.089996] c0 cpufreq_scx35: 900000 --> 768000, real=768000, index=3
+<11>[ 1082.219573] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1085.403411] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1085.409851] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1085.421905] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1085.436706] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1085.447204] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1085.458190] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1085.563598] c0 cpufreq_scx35: --xing-- set 900000 khz for cpu0
+<6>[ 1085.569854] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1085.579956] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1085.590179] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1085.600585] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1085.609832] c0 cpufreq_scx35: 1350000 --> 900000, real=900000, index=2
+<6>[ 1085.712310] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1085.718200] c0 cpufreq_scx35: 900000 --> 768000, real=768000, index=3
+<11>[ 1087.238647] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[ 1088.664642] c0 _sprdchg_timer_interrupt
+<6>[ 1088.668518] c0 sprdbat: sprdbat_charge_works-start
+<6>[ 1088.676361] c0 sprdbat: chg_cur: 794,chg_ave_current:281
+<6>[ 1088.681610] c0 sprdbat: chg_log:time:1088,health:1,state:1,stopflags0x:0,chg_s_time:1028,temp:200
+<6>[ 1088.691101] c0 sprdbat: chg_log:chgcur_type:450,cccv:33,vchg:4494,cvstate:0,cccv_cal:1
+<6>[ 1089.154052] c0 sprdfgu: dump fgu msg s
+<6>[ 1089.157836] c0 sprdfgu: time_delta : 1082754,cc_delta: -378276,raw_avg = -174
+<6>[ 1089.171081] c0 sprdfgu: capcity/1000 capcity = :  -16500mah
+<6>[ 1089.183502] c0 sprdfgu: avg current = -55
+<6>[ 1089.187561] c0 sprdfgu: vol:3856,softocv:3773,hardocv:3775,current334,cal_type:2
+<6>[ 1089.203033] c0 sprdfgu: sprdfgu_read_soc delta -16mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[ 1089.214111] c0 [SPRD_PWM_BL_INFO] disabled
+<6>[ 1089.226013] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[ 1089.234191] c0 request_suspend_state: sleep (0->3) at 1089202519067 (2012-01-01 23:40:49.605313883 UTC)
+<6>[ 1089.243682] c0 early_suspend: call handlers
+<6>[ 1089.247802] c0 early_suspend: calling sprdemand_gov_early_suspend
+<6>[ 1089.254821] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[ 1089.261505] c0 sprdfgu: soc():45
+<6>[ 1089.268737] c0 cpufreq_sprdemand: sprdemand_gov_early_suspend do nothing
+<6>[ 1089.279205] c0 sprdfgu: dump fgu msg e
+<4>[ 1089.283569] c0 -------- suspend sprdemand_gov_early_suspend 
+<6>[ 1089.290161] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1089.299133] c0 early_suspend: calling sprd_backlight_earlysuspend
+<6>[ 1089.305999] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1089.315612] c0 [SPRD_PWM_BL_INFO] disabled
+<6>[ 1089.319824] c0 [SPRD_PWM_BL_INFO] early suspend
+<6>[ 1089.326446] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<4>[ 1089.336151] c0 -------- suspend sprd_backlight_earlysuspend 
+<6>[ 1089.341766] c0 early_suspend: calling ft5x0x_ts_suspend [focaltech_ts]
+<6>[ 1089.349243] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1089.359436] c0 ==ft5x0x_ts_suspend==
+<4>[ 1089.363555] c0 -------- suspend ft5x0x_ts_suspend [focaltech_ts] 
+<6>[ 1089.376922] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1089.388519] c0 early_suspend: calling stop_drawing_early_suspend
+<6>[ 1089.396484] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<4>[ 1089.406768] c0 -------- suspend stop_drawing_early_suspend 
+<4>[ 1089.412872] c0 sprd-gsensor: -- lis3dh_acc_disable -- 
+<6>[ 1089.420104] c0 early_suspend: calling sprd_iommu_gsp_early_suspend
+<4>[ 1089.435241] c0 sprd_iommu_gsp_early_suspend, map_count:0
+<4>[ 1089.447235] c0 -------- suspend sprd_iommu_gsp_early_suspend 
+<6>[ 1089.461975] c0 early_suspend: calling gsp_early_suspend
+<4>[ 1089.470184] c0 gsp_early_suspend2836
+<4>[ 1089.476135] c0 -------- suspend gsp_early_suspend 
+<6>[ 1089.480895] c0 early_suspend: calling sprdfb_early_suspend
+<4>[ 1089.501098] c0 sprdfb: [sprdfb_early_suspend]
+<6>[ 1089.511077] c0 sprdfb: [sprdfb_dispc_suspend], dev->enable = 1
+<4>[ 1089.526336] c0 sprdfb: cancel ESD work queue
+<4>[ 1089.536804] c0 sprdfb: [sprdfb_panel_suspend], dev_id = 0
+<6>[ 1089.664642] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1089.670532] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1089.681213] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1089.690979] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1089.700683] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1089.710296] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1089.718322] c0 sprdfb: [sprdfb_mipi_panel_suspend], dev_id = 0
+<6>[ 1089.724914] c0 sprdfb: [sprdfb_dsi_uninit], dev_id = 0
+<4>[ 1089.804840] c0 -------- suspend sprdfb_early_suspend 
+<6>[ 1089.809844] c0 early_suspend: sync
+<6>[ 1089.813262] c0 PM: Syncing filesystems...
+<6>[ 1089.829498] c0 PM: sync done.
+<4>[ 1089.862335] c0 ###---- REG_PMU_APB_SLEEP_CTRL : 0x0e0e1e1e
+<4>[ 1089.867767] c0 ###---- REG_AP_AHB_AHB_EB : 0x0081e910
+<4>[ 1089.873840] c0 ###---- REG_AP_AHB_AP_SYS_AUTO_SLEEP_CFG : 0x0000013b
+<4>[ 1089.881439] c0 ###---- REG_AP_APB_APB_EB : 0x007de000
+<4>[ 1089.886932] c0 ###---- REG_AON_APB_APB_EB0 : 0x7471de09
+<4>[ 1089.892517] c0 ###---- REG_AON_APB_APB_EB1 : 0x04e20677
+<4>[ 1089.898040] c0 ###---- REG_PMU_APB_CP_SLP_STATUS_DBG0 : 0x00008f27
+<4>[ 1089.904998] c0 ###---- REG_PMU_APB_PWR_STATUS0_DBG : 0x77077700
+<4>[ 1089.910858] c0 ###---- REG_PMU_APB_PWR_STATUS1_DBG : 0x70777777
+<4>[ 1089.917236] c0 ###---- REG_PMU_APB_PWR_STATUS2_DBG : 0x00777770
+<4>[ 1089.923980] c0 ###---- REG_PMU_APB_SLEEP_STATUS : 0x00000006
+<4>[ 1089.929565] c0 ###---- REG_AON_APB_MPLL_CFG : 0x00000000
+<4>[ 1089.936492] c0 ###---- REG_AON_APB_DPLL_CFG : 0x00000000
+<4>[ 1089.941741] c0 ###---- REG_AON_CLK_EMC_CFG : 0x00000007
+<4>[ 1089.947387] c0 ###---- ANA_REG_GLB_LDO_PD_CTRL : 0x0000e8ff
+<4>[ 1089.953582] c0 ###---- REG_AON_APB_MPLL_CFG1 : 0x052c00fa
+<4>[ 1089.958923] c0 ###---- REG_AON_APB_DPLL_CFG1 : 0x0d1c0033
+<4>[ 1089.964721] c0 ###---- REG_PMU_APB_DDR_SLEEP_CTRL : 0x00000070
+<4>[ 1089.970489] c0 ###---- REG_AON_APB_MPLL_CFG2 : 0x330ec4ec
+<6>[ 1089.976165] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1089.982391] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1089.991607] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<4>[ 1090.001586] c0 ###---- REG_AON_APB_DPLL_CFG2 : 0x3103b13b
+<4>[ 1090.007293] c0 ###---- BIT_CA7_DAP_EB still set ----###
+<4>[ 1090.013183] c0 ###---- SDIO0_EB still set ----###
+<4>[ 1090.018280] c0 ###---- BIT_OTG_EB still set ----###
+<6>[ 1090.024047] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<4>[ 1090.033721] c0 ###---- BIT_EMMC_EB still set ----###
+<4>[ 1090.038604] c0 ###---- BIT_LDO_USB_PD power on! ----###
+<6>[ 1090.053283] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1090.063201] c0 active wake lock pm_message_wakelock
+<6>[ 1090.067993] c0 active wake lock usb_work
+<6>[ 1090.071929] c0 active wake lock guest-os
+<6>[ 1090.075836] c0 active wake lock sipc-smsg, time left 1
+<6>[ 1090.083099] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1090.236419] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1090.242279] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1090.253326] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1090.263061] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1090.272674] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1090.281555] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<4>[ 1081.610870] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1081.610870] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1081.610870] c0  
+<4>[ 1090.915802] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 4
+<4>[ 1090.917480] c0 
+<4>[ 1090.925079] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1090.930938] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1090.930938] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1090.930938] c0  
+<4>[ 1091.596038] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 10
+<4>[ 1091.597717] c0 
+<4>[ 1091.605407] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1091.611267] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1091.611267] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1091.611267] c0  
+<4>[ 1091.633728] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 11
+<4>[ 1091.635375] c0 
+<4>[ 1091.643066] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<11>[ 1092.258605] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<6>[ 1092.991943] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1092.999725] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1093.020904] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1093.037689] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1093.048797] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1093.059295] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1093.067047] c0 sprdbat: sprdbat_battery_works
+<6>[ 1093.075378] c0 sprdfgu: sprdfgu_read_soc delta -16mAh,sprdfgu_data.init_clbcnt:18785002
+<6>[ 1093.083648] c0 sprdfgu: sprdfgu_read_soc delta capacity -1,full capacity 1800
+<6>[ 1093.090698] c0 sprdfgu: sprdfgu_read_soc soc 45,sprdfgu_data.init_cap 46
+<6>[ 1093.098205] c0 sprdbat: fgu_cap: = 45,flush: = 996,period:=16
+<6>[ 1093.104583] c0 sprdbat: bat_log:time:1093,vbat:3867,ocv:3768,current:396,cap:45,state:1,auxbat:3815
+<6>[ 1093.366699] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1093.372589] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1093.382598] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1093.392730] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1093.402099] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1093.412872] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<4>[ 1094.451171] c0 RTC ***** interrupt happen
+<6>[ 1094.532562] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1094.538879] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1094.562072] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1094.581970] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1094.602050] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1094.626220] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1095.051971] c0 cpufreq_sprdemand: !!  we gonna plugin cpu1  !!
+<4>[ 1095.059631] c1 CPU1: Booted secondary processor
+<6>[ 1095.059661] c1 kvm: enabling virtualization on CPU1
+<6>[ 1095.452789] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1095.458709] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1095.468109] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1095.477508] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1095.486785] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1095.495727] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<6>[ 1096.434509] c0 cpufreq_sprdemand: cpu0's avg_load=19,begin unplug cpu
+<6>[ 1096.440887] c0 cpufreq_sprdemand: !!  we gonna unplug cpu1  !!
+<6>[ 1096.446868] c0 cpufreq_scx35: --xing-- set 1350000 khz for cpu0
+<6>[ 1096.452880] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1096.462158] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1096.471435] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1096.480987] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 1000000 = 1000000 +0uV(trim 0x0)
+<6>[ 1096.491149] c0 cpufreq_scx35: 768000 --> 1350000, real=1350000, index=1
+<6>[ 1096.498504] c1 kvm: disabling virtualization on CPU1
+<5>[ 1096.498565] c0 CPU1: shutdown
+<4>[ 1096.506561] c0 !! 0  platform_cpu_kill 1 !!
+<4>[ 1096.511016] c0 powerdown_cpus i=6 !!
+<4>[ 1096.514709] c0 platform_cpu_kill finished i=0 !!
+<6>[ 1096.633361] c0 cpufreq_scx35: --xing-- set 768000 khz for cpu0
+<6>[ 1096.639221] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 975000 = 900000 +75000uV(trim 0x18)
+<6>[ 1096.648956] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 950000 = 900000 +50000uV(trim 0x10)
+<6>[ 1096.658996] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 925000 = 900000 +25000uV(trim 0x8)
+<6>[ 1096.668945] c0 regu: @@@dcdc_set_voltage: regu 0xee92a124 (vddarm) 900000 = 900000 +0uV(trim 0x0)
+<6>[ 1096.678222] c0 cpufreq_scx35: 1350000 --> 768000, real=768000, index=3
+<11>[ 1097.276580] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory
+<4>[ 1091.648925] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1091.648925] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1091.648925] c0  
+<4>[ 1101.631927] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 10
+<4>[ 1101.633636] c0 
+<4>[ 1101.641265] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<4>[ 1101.647155] c0 dwc_otg_pcd_handle_intr gintsts =040080a8
+<4>[ 1101.647155] c0  dwc_otg_pcd_handle_intr gintmsk=d01c3c86
+<4>[ 1101.647155] c0  
+<4>[ 1101.676452] c0 WARN::ep_xfer_timeout:2640: ep_xfer_timeout: timeout on endpoit 11
+<4>[ 1101.678100] c0 
+<4>[ 1101.685760] c0 dwc_otg_pcd_handle_intr gintsts&gintmsk=00000080
+<11>[ 1102.295959] c0 init: watchdogd: Failed to open /dev/watchdog: No such file or directory

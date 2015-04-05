@@ -1,0 +1,509 @@
+1.需要注意，你在本地创建一个git仓库，然后本地修改完了，git add / commit之后，
+  如果你在github远端的git仓库创建了一个同步的云仓库，那么你一定要push到服务器，才能保证云仓库的代码是更新的。
+  这样，别的小组成员在本地同步的仓库在git pull之后，才可以看到最新的代码。
+
+2.注意你使用git diff HEAD HEAD^ -- readme.txt的时候，只能比较已经commit到库上的版本之间的差别，如果想比较自己本地未提交的修改和系统最
+  新版本之间的区别的话，可以使用git diff HEAD,如果只想比较其中一个文件，你可以后面再加其它参数。实例如下：
+
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git diff HEAD
+diff --git a/test.c b/test.c
+index e69de29..cebc114 100644
+--- a/test.c
++++ b/test.c
+@@ -0,0 +1 @@
++first mod //test diff loc file
+diff --git a/test_add_file.c b/test_add_file.c
+index 6217faf..8707d17 100644
+--- a/test_add_file.c
++++ b/test_add_file.c
+@@ -1,3 +1,6 @@
+ clone_to_local clone_user mod
+ 
+ second_mod test_add_file.c
++
++
++third mod test_add_file.c
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ 
+
+3.注意一下，如果本地有2个user或者目录同时在修改同一个云端库，那么如果user2在修改完毕后，push到了云端，但是user1没有pull这些修改，并且和user2一样在修改同一个文件，
+  那么如何在user1 push这些修改的时候，就会发生版本冲突的情况，解决方法及发生的提示，实例如下：
+
+~/gitskills$ git push origin master
+To git@github.com:github3929/gitskills.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:github3929/gitskills.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+~/gitskills$ 
+~/gitskills$ git pull ---------->解决方法先pull下来云库，然后本地比较解决merge冲突，然后再push到云端
+
+当git pull的时候，又提示auto merge错误：
+~/gitskills$ git pull
+remote: Counting objects: 10, done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 10 (delta 3), reused 9 (delta 2), pack-reused 0
+Unpacking objects: 100% (10/10), done.
+From github.com:github3929/gitskills
+   1c07643..48e2957  master     -> origin/master
+Auto-merging test_add_file.c
+CONFLICT (content): Merge conflict in test_add_file.c
+Automatic merge failed; fix conflicts and then commit the result. ------》提示你先git 本地commit这些冲突
+~/gitskills$ 
+
+需要注意的是：
+一旦上面的情况发生，即git pull执行完毕，那么你merge冲突的那个文件test_mod_file.c里的冲突部分就会变成下边这个样子：
+
+<<<<<<< HEAD -----------------------》冲突部分都会用<<<<<<<<< 和下边的 >>>>>>>>>来括起来，然后====上边的是你本地的，下边是服务器上的
+mod by user1 //mod by user1
+=======
+clone_to_local clone_user mod
+
+second_mod test_add_file.c
+
+
+third mod test_add_file.c
+>>>>>>> 48e2957e666c35bd769d8353aff251240a590b6c
+
+解决方法：
+
+
+
+备注：
+	因此，多人协作的工作模式通常是这样：
+
+	    首先，可以试图用git push origin branch-name推送自己的修改；
+
+	    如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+
+	    如果合并有冲突，则解决冲突，并在本地提交；
+
+	    没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+
+	如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream local_branch-name origin/remote_branch-name。(注意这种方法适用于你的本地分支是从远端分支 clone(eg:git clone git@github.com:github3929/daydaybetter.git)下来的，对于不是这种的情况，那就需要使用 git remote add origin git@github.com:github3929/daydaybetter.git)
+
+	这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+
+PS：打开这些文件中的冲突部分，然后手动修改审查，这点不如clearcase，你不知道谁的修改和你冲突了
+
+
+3.1使用mergetool可以以图形化的方式来合并冲突，但是运行mergetool提示错误：
+~/gitskills$ git mergetool ./test_add_file.c
+merge tool candidates: meld opendiff kdiff3 tkdiff xxdiff tortoisemerge gvimdiff diffuse ecmerge p4merge araxis bc3 emerge vimdiff
+No files need merging
+~/gitskills$ 
+~/gitskills$ 
+解决方法：
+(1)首先，参照http://blog.csdn.net/woshinia/article/details/18040615网址设置mergetool工具（或者http://www.cnblogs.com/sinojelly/archive/2011/08/07/2130172.html）
+(2)然后，运行的时候，需要保证test_add_file.c在pull下来发生自动merge后，没有被你手动删除哪些merge冲突的标记符号如<<<<<
+
+3.2从新来说，当发生冲突的时候，强烈建议使用git fetch来先download
+
+将本地的修改全部reset之后，然后（下边的日志是user1的，user1和user2同时修改test_add_file.c，然后user2先push到云端了，结果user1在本地
+                                修改完毕后，再push的时候提示冲突，结果他就先pull了一下云端的代码，结果pull命令自动就开始将服务器端
+		 		的user2的修改merge到本地了，但是merge的不对，user1想从新修改后再push到云端，但是发生了系统不让push
+				的错误提示，结果user1先reset所有修改回退版本到上个版本，然后再从服务器端fetch到本地tmp分支，再将tmp
+				分支的内容合入本地的master分支，这样看看试试？？？）
+~/gitskills$ 
+~/gitskills$ git fetch origin master:tmp
+From github.com:github3929/gitskills
+ * [new branch]      master     -> tmp
+~/gitskills$ 
+
+~/gitskills$ git diff tmp master
+diff --git a/test.c b/test.c
+index cebc114..e69de29 100644
+--- a/test.c
++++ b/test.c
+@@ -1 +0,0 @@
+-first mod //test diff loc file
+diff --git a/test_add_file.c b/test_add_file.c
+index 8707d17..e69de29 100644
+--- a/test_add_file.c
++++ b/test_add_file.c
+@@ -1,6 +0,0 @@
+-clone_to_local clone_user mod
+-
+-second_mod test_add_file.c
+-
+-
+-third mod test_add_file.c
+~/gitskills$ 
+
+在上面的操作之后，你发现本地有两个分支，一个是master，一个是tmp，而服务器上也同样有这2个分支，但是你发现服务器上的master分支test_add_file.c是有内容的，而本地的master分支什么都没有。
+并且你要是git status会提示如下：
+~/gitskills$ git checkout master
+Previous HEAD position was 48e2957... test user2 & user1 mod the same file at the same time
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 2 commits.
+~/gitskills$ git status 
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.--------》会有这个提示，具体含义及对应的解决方法为：http://blog.csdn.net/leeagle/article/details/7818897
+#
+
+然后在如下操作后：
+~/gitskills$ git push origin master 
+Counting objects: 8, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (4/4), 511 bytes, done.
+Total 4 (delta 1), reused 0 (delta 0)
+To git@github.com:github3929/gitskills.git
+   48e2957..53bed22  master -> master
+~/gitskills$ 
+
+服务器变得和本地的代码一模一样了，而且有了一个tmp分支，tmp分支上是user2修改后，需要合入master分支，然后user1更新git fetch master分支，然后
+对比本地的修改，然后再merge后从新upload到服务器上，这整个流程就OK了。
+（但是因为我自己不熟悉流程，实际流程却变成了，user2(clone_gitskills用户)将修改更新到云端后，我user1在pull的时候出现merge错误，然后
+  就开始在user1上折腾出一个tmp分支，然后push到云端了，然后下边只好在user1下实践本地修改和云端git fetch冲突的问题。同时user2上git status
+  可以看到如下内容：
+	~/clone_gitskills/gitskills$ git status 
+	# On branch master
+	# Your branch is ahead of 'origin/master' by 2 commits.
+	#
+	nothing to commit (working directory clean)
+	~/clone_gitskills/gitskills$ 
+	~/clone_gitskills/gitskills$ git branch 
+	* master
+	~/clone_gitskills/gitskills$ 
+  这样的话，需要user1先把本地的tmp分支的代码合入master，然后同步到云端，然后再user2执行更新本地分支的操作如下：
+）
+
+接着上面：按照http://blog.csdn.net/chain2012/article/details/7476493的说法
+         （具体命令步骤就是
+		git config branch.master.remote origin // 
+		git config branch.master.merge refs/heads/master // 
+		git pull //这个就不说了
+ 	  ）配置完毕后你打开工程根目录下的/.git/config文件看看发现有些什么更改？
+          解决了user2将本地代码更新为云端代码的操作。
+
+接着上面：按照 http://hlee.iteye.com/blog/669831 的说法
+	  解决一个问题，将云端的tmp分支（已经合入了test_add_file.c的修改）merge到master分支
+
+最后：这个问题，我最后干脆在user1目录下把tmp分支删除掉，远端的tmp分支也删除掉，然后在user2那里pull一把
+    （具体命令
+      git push origin :tmp ---》云端的tmp分支
+      git branch -d tmp ---》本地tmp分支 ）
+      参考网页：http://blog.sina.com.cn/s/blog_66e177dd0100j4wo.html
+		http://blog.sina.com.cn/s/blog_66e177dd0100j4tj.html
+		http://blog.csdn.net/hudashi/article/details/7664382
+		http://blog.csdn.net/williamwang2013/article/details/8643714
+
+PS：有关git fast-forward的具体含义，可以参考文章：http://blog.csdn.net/csfreebird/article/details/7916625
+    如果你提交代码采用non fast forward方法，那么就会强行把自己的代码覆盖掉云端仓库里别人的修改。
+
+PS：另外还有一个rebase的思路可以解决这种问题，详细参考http://www.cnblogs.com/sinojelly/archive/2011/08/07/2130172.html
+
+PS：user1发现如下异常，这会不会就是导致云端的tmp分支没有merge到master的原因，这个问题奇怪的是从qgit工具看到本地的tmp分支已经merge到master了。
+~/gitskills$ git branch -r
+  origin/HEAD -> origin/master
+  origin/master
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git branch --merged ------》（命令是查看哪些分支合并入当前分支）异常，为什么当前在一个no branch上，按说应该在master上
+* (no branch)
+  master
+  tmp
+~/gitskills$ 
+~/gitskills$ git branch -v ----》查看各个分支最后一次提交
+* (no branch) 53bed22 Merge branch 'master' of github.com:github3929/gitskills
+  master      53bed22 Merge branch 'master' of github.com:github3929/gitskills
+  tmp         48e2957 test user2 & user1 mod the same file at the same time
+~/gitskills$ 
+
+正解：：：：：：：：：：：：：：：：：：：：：：：：正解
+当出现merge冲突的时候，以下几个简单步骤即可搞定：
+1.手动修改merge冲突文件
+2.add & commit这些修改，注意：git commit命令不要加任何参数
+3.push上去
+
+PS：你要留意的一点你merge操作都是在本地进行的，云端库上的代码的各个分支是不存在merge操作的，云端的分支只有新建和删除，而本地的分支则可以merge
+
+具体日志如下：
+~/clone_gitskills/gitskills$ git status 
+# On branch master
+nothing to commit (working directory clean)
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git branch 
+* master
+  tmp
+~/clone_gitskills/gitskills$ git pull origin
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:github3929/gitskills
+ + e5a8816...cbda083 master     -> origin/master  (forced update)
+Auto-merging test_add_file.c
+CONFLICT (content): Merge conflict in test_add_file.c --------------》pull代码的时候，提示merge冲突
+Automatic merge failed; fix conflicts and then commit the result.
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ vi ./test_add_file.c 
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git branch 
+* master
+  tmp
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ vi ./test_add_file.c --------------》手工修改这些错误
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git add .  --------------》add你的手工修改
+~/clone_gitskills/gitskills$ git status 
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 1 different commit each, respectively.
+#
+# Changes to be committed:
+#
+#	modified:   test_add_file.c
+#
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git commit . -m "manual merge ok"
+fatal: cannot do a partial commit during a merge.
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git branch 
+* master
+  tmp
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git commit test_add_file.c -m "manual merge ok" 
+fatal: cannot do a partial commit during a merge.
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git push origin
+To git@github.com:github3929/gitskills.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:github3929/gitskills.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git merge origin:master master
+fatal: You have not concluded your merge (MERGE_HEAD exists).
+Please, commit your changes before you can merge.
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git commit --------------》提交修改
+[master e6e644b] Merge branch 'master' of github.com:github3929/gitskills
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git status 
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#
+nothing to commit (working directory clean)
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ git push origin --------------》上传push ok
+Counting objects: 10, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 608 bytes, done.
+Total 6 (delta 3), reused 0 (delta 0)
+To git@github.com:github3929/gitskills.git
+   cbda083..e6e644b  master -> master
+~/clone_gitskills/gitskills$ 
+~/clone_gitskills/gitskills$ 
+
+
+后记：
+merge冲突后，如果执行~/gitskills$ git checkout master操作（事后发现执行任何操作都不行）
+会提示错误：error: you need to resolve your current index first
+
+那么可以遵照如下的示例，解决merge冲突的问题。
+http://www.52ij.com/jishu/4255.html
+
+4.创建分支，merge修改，pull特定的分支，push到特定的分支上---》这些操作如何完成？
+
+5.零星总结
+●如何保证我在修改的代码过程中，时常做一下什么更新操作，可以保证代码和平台是同步的。
+
+时常做一下git fetch origin ，就可以更新本地的origin\master分支代码为库上最新的。
+然后git diff origin/master master操作才可以看到你本地代码和服务器 “真正” 最新代码的比较差异
+
+●git pull == git fetch origin/master & git merge origin/master (记住是origin/master不是master)
+
+●留意提交修改的时候，-m后的评论可以不加引号
+git commit ./test.c -m tmp
+
+●如何 git push 或者 merge 指定的几个文件？
+答：git add 1 3
+git commit
+git push
+这个操作后只会提交1 和 3，其他文件不会提交，如果其他文件比较麻烦你可以直接将他们加入忽略，以后就不会检测那些文件的状态
+把要忽略的文件提那家到.gitignore这文件就好了，这个文件要跟.git文件夹在同一级目录。
+
+●当出现你在本地修改代码然后commit后，出现如下情况：
+~/multi-os/vendor/sprd/qemu/hw/input$ git branch 
+* (no branch)
+  sprdroid4.4_3.10_multios
+
+那么参考下边的网页处理，将修改merge到master分支
+http://blog.csdn.net/guoguo295/article/details/8205875
+=========================================================================================== 
+
+
+
+ 1961  sudo adb root
+ 1962  lsusb
+ 1963  sudo adb root
+ 1964  sudo adb shell
+ 1965  locate system.tgz
+ 1966  cp ../Downloads/scx35l_sp9630ea_dt_base-userdebug-native/system.img ~/temp_copy/
+ 1967  cp ../Downloads/scx35l_sp9630ea_dt_base-userdebug-native/root.tgz ~/temp_copy/
+ 1968  cp ~/Downloads/scx35l_sp9630ea_dt_base-userdebug-native/root.tgz ~/temp_copy/
+ 1969  sudo mkfs.vfat -F 32 /dev/sdb1
+ 1970  sudo mkfs.vfat -F 32 /dev/sdb2
+ 1971  sudo mkfs.vfat -F 32 /dev/sdb
+ 1972  which adb
+ 1973  cp ~/Downloads/scx35l_sp9630ea_dt_base-userdebug-native_guest/*.* ~/
+ 1974  cp ~/Downloads/scx35l_sp9630ea_dt_base-userdebug-native_guest/vImage ~/
+ 1975  alien
+ 1976  sudo alien ~/Downloads/projectlibre-1.5.9-1.rpm ~/Downloads/
+ 1977  cd ~/Downloads/
+ 1978  sudo alien projectlibre-1.5.9-1.rpm 
+ 1979  git --version
+ 1980  cd ..
+ 1981  ls
+ 1982  cd ./git_local/
+ 1983  cd ..
+ 1984  mkdir learngit
+ 1985  cd ./learngit/
+ 1986  ls
+ 1987  git init
+ 1988  ll
+ 1989  touch readme.txt
+ 1990  ls
+ 1991  vi ./readme.txt 
+ 1992  ls
+ 1993  git commit -m "wrote a readme file"
+ 1994  git add readme.txt
+ 1995  git commit -m "wrote a readme file"
+ 1996  sudo smbmount \\\\10.0.64.41\\Personal_Files\ ~/Disk_Per -o username=spreadtrum\\jason.jiang, rw
+ 1997  ls
+ 1998  sudo apt-get install aria2 
+ 1999  ifconfig
+ 2000  cd ./learngit/
+ 2001  ls
+ 2002  vi ./readme.txt 
+ 2003  ls
+ 2004  git status
+ 2005  git diff readme.txt
+ 2006  git add readme.txt
+ 2007  git status
+ 2008  git commit -m "add some distributed"
+ 2009  git status
+ 2010  git log
+ 2011  git log --pretty=oneline 
+ 2012  git reset --head HEAD^
+ 2013  git reset --hard HEAD^
+ 2014  ll
+ 2015  cat ./readme.txt 
+ 2016  git log
+ 2017  git reset --hard ad5ecdd4000e9e33552bace2b9a6308b66dc9acc
+ 2018  git log
+ 2019  git log --pretty=oneline 
+ 2020  cat readme.txt 
+ 2021  git reflog 
+ 2022  history
+~/learngit$ 
+ 2040  git status 
+ 2041  git log 
+ 2042  git reflog 
+ 2043  git log 
+ 2044  git log --pretty=oneline 
+ 2045  cat readme.txt 
+ 2046  ls
+ 2047  ll
+ 2048  vi ./readme.txt 
+ 2049  git add readme.txt
+ 2050  vi readme.txt 
+ 2051  ls
+ 2052  ll
+ 2053  git status
+ 2054  git commit readme.txt
+ 2055  git status 
+ 2056  git log
+ 2057  git reflog 
+ 2058  git diff HEAD -- readme.txt
+ 2059  git version
+ 2060  cat readme.txt 
+ 2061  git log
+ 2062  git help
+ 2063  git diff help
+ 2064  git diff
+ 2065  ls
+ 2066  ll
+ 2067  git diff HEAD --readme.txt
+ 2068  git diff HEAD -- readme.txt
+ 2069  git diff HEAD HEAD^ -- readme.txt
+ 2070  git diff HEAD HEAD^^ -- readme.txt
+ 2071  git diff HEAD^ HEAD^^ -- readme.txt
+ 2072  git diff HEAD^ HEAD^ -- readme.txt
+ 2073  git diff HEAD HEAD^ -- readme.txt
+ 2074  git diff HEAD^ -- readme.txt
+ 2075  git log
+ 2076  ls
+ 2077  git log pretty=oneline
+ 2078  git reflog 
+ 2079  git log help
+ 2080  git log
+ 2081  git log --pretty=oneline 
+ 2082  git diff HEAD -- readme.txt
+ 2083  git diff HEAD^ -- readme.txt
+ 2084  git diff HEAD^^^ -- readme.txt
+ 2085  git diff HEAD^^^^ -- readme.txt
+ 2086  git diff HEAD~3 -- readme.txt
+ 2087  git diff HEAD~4 -- readme.txt
+ 2088  git diff HEAD~3 -- readme.txt
+ 2089  git diff HEAD^^ -- readme.txt
+ 2090  git diff HEAD^ -- readme.txt
+ 2091  git diff HEAD -- readme.txt
+ 2092  which jre
+ 2093  locate jre
+ 2094  whereis jre
+ 2095  which jre
+ 2096  echo $jre
+ 2097  echo $JRE
+ 2098  echo $PATH
+ 2099  which java
+ 2100  whereis java
+ 2101  ls
+ 2102  ll
+ 2103  git status 
+ 2104  git log
+ 2105  git reflog 
+ 2106  git log 
+ 2107  history
+ 2108  git log pretty=online
+ 2109  git log pretty=oneline
+ 2110  git log
+ 2111  git log --h
+ 2112  git log --help
+ 2113  vi readme.txt 
+ 2114  git status
+ 2115  git add readme.txt
+ 2116  git status 
+ 2117  vi ./readme.txt 
+ 2118  git add readme.txt
+ 2119  git sta
+ 2120  git status 
+ 2121  git checkout readme.txt
+ 2122  git status 
+ 2123  git log 
+ 2124  git reflog 
+ 2125  git status 
+ 2126  ls
+ 2127  git checkout -- readme.txt
+ 2128  git status 
+ 2129  vi ./readme.txt 
+ 2130  git reset HEAD readme.txt
+ 2131  git status 
+ 2132  git log
+ 2133  git checkout -- readme.txt
+ 2134  git status 
+ 2135  history
+~/learngit$ 
+
+

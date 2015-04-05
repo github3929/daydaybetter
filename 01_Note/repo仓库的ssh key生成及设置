@@ -1,0 +1,10 @@
+生成ssh密钥
+
+输入命令：ssh-keygen-t rsa后会提示你输入密码，为了避免以后每次下载都要输密码就不要设置密码了，直接两次回车。
+
+在.ssh目录下会生成2个文件：id_rsa和id_rsa.pub，将id_rsa.pub发给yanfang.qi开通ssh密钥的权限。
+为了避免每次打开终端都要手动输入密钥代理，将下面两句话添加到～/.bashrc中
+eval 'ssh-agent'和ssh-add ～/.ssh/id_rsa
+
+输入：ssh gitosis@sprdroid.git.spreadtrum.com.cn info验证链接是否成功。
+

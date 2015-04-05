@@ -1,0 +1,96 @@
+~/sprdroid4.4prime_3.10_14a_dualos$ 
+~/sprdroid4.4prime_3.10_14a_dualos$ 
+~/sprdroid4.4prime_3.10_14a_dualos$ sudo adb shell
+shell@scx35l_sp9630ea3mn:/ $ su
+shell@scx35l_sp9630ea3mn:/ # getevent -i
+add device 1: /dev/input/event5
+  bus:      0000
+  vendor    0000
+  product   0000
+  version   0000
+  name:     "focaltech_ts"
+  location: ""
+  id:       ""
+  version:  1.0.1
+  events:
+    KEY (0001): 008b  009e  00ac  014a 
+    ABS (0003): 002f  : value 0, min 0, max 1, fuzz 0, flat 0, resolution 0
+                0030  : value 0, min 0, max 255, fuzz 0, flat 0, resolution 0
+                0032  : value 0, min 0, max 255, fuzz 0, flat 0, resolution 0
+                0035  : value 0, min 0, max 480, fuzz 0, flat 0, resolution 0
+                0036  : value 0, min 0, max 800, fuzz 0, flat 0, resolution 0
+                0039  : value 0, min 0, max 65535, fuzz 0, flat 0, resolution 0
+  input props:
+    <none>
+add device 2: /dev/input/event4
+  bus:      0019
+  vendor    0000
+  product   0000
+  version   0000
+  name:     "headset-keyboard"
+  location: ""
+  id:       ""
+  version:  1.0.1
+  events:
+    KEY (0001): 0072  0073  00e2 
+  input props:
+    <none>
+add device 3: /dev/input/event2
+  bus:      0019
+  vendor    0000
+  product   0000
+  version   0000
+  name:     "sprd-eic-keys"
+  location: ""
+  id:       ""
+  version:  1.0.1
+  events:
+    KEY (0001): 0074 
+  input props:
+    <none>
+add device 4: /dev/input/event0
+  bus:      0000
+  vendor    0000
+  product   0000
+  version   0000
+  name:     "accelerometer"
+  location: ""
+  id:       ""
+  version:  1.0.1
+  events:
+    ABS (0003): 0000  : value -27, min -16000, max 16000, fuzz 0, flat 0, resolution 0
+                0001  : value 44, min -16000, max 16000, fuzz 0, flat 0, resolution 0
+                0002  : value -1047, min -16000, max 16000, fuzz 0, flat 0, resolution 0
+                0008  : value 0, min -2147483648, max 2147483647, fuzz 0, flat 0, resolution 0
+                0028  : value 0, min -2147483648, max 2147483647, fuzz 0, flat 0, resolution 0
+  input props:
+    <none>
+add device 5: /dev/input/event1
+  bus:      0019
+  vendor    0001
+  product   0001
+  version   0100
+  name:     "sprd-gpio-keys"
+  location: "gpio-keys/input0"
+  id:       ""
+  version:  1.0.1
+  events:
+    KEY (0001): 0072  0073 
+  input props:
+    <none>
+add device 6: /dev/input/event3
+  bus:      0018
+  vendor    0001
+  product   0001
+  version   0010
+  name:     "alps_pxy"
+  location: "alps_pxy"
+  id:       ""
+  version:  1.0.1
+  events:
+    ABS (0003): 0019  : value 1, min 0, max 1, fuzz 0, flat 0, resolution 0
+                0028  : value 0, min 0, max 100001, fuzz 0, flat 0, resolution 0
+  input props:
+    <none>
+shell@scx35l_sp9630ea3mn:/ # ~/sprdroid4.4prime_3.10_14a_dualos$ 
+

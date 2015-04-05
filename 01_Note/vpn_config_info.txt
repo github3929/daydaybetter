@@ -1,0 +1,25 @@
+# cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0/* /etc/openvpn/
+# gzip -d /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz
+# cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/
+
+
+客户端配置
+
+将服务器端生成的key（ca.crt，client.crt，client.key，ta.key）下载到本地。
+进入客户端OpenVPN目录，将sample-config下的client.ovpn文件复制到config目录，
+client端做相应的修改：
+
+remote xxx.xxx.xxx.xxx 1194 -----
+proto tcp
+dev tun
+ca ca.crt
+cert xxx.crt -----
+key xxx.key -----
+tls-auth ta.key 1
+comp-lzo
+user nobody
+group nobody
+persist-key
+persist-tun
+
+

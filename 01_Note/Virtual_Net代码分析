@@ -1,0 +1,400 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+★我自己理解的design文档中4.4. Ethernet Virtualization的那个图里，eth0应该改为wlan0，因为我们手机上网的物理网卡是wlan0.
+那host也要上网啊，难道host 和 guest 同时使用wlan0网卡么？？？？？？？？？
+
+★因为qemu配置为user模式后，qemu的vlan 0里的从guest过来的报文直接传入host的wlan0网卡，
+
+那我们是不是只要关心qemu 和 guest部分的报文处理，host就不用管了。？？？？？？？？？
+
+★穿透NAT，不在于客户端编程，而在于路由器配置。你帖子发错地方了。
+
+NAT 的出发点是IP地址复用，即子网的多个PC共用一个出口IP地址对外通讯，所以外部来的连接也只能针对这一个公用地址。假定你要连接子网中的PC 192.168.10.10
+，用的端口号是10000，那你的目标地址应该是路由器的对外地址（假定10.10.1.5），即发起对地址10.10.1.5，端口号10000的连接。而在路由器上，配置一个端口转发设定，把10000端口的包转发给192.168.10.10，就可以了
+
+★这其中涉及如下几个c文件:
+/multi-os/kernel/drivers/net/virtio_net.c ----》Guest OS kernel中的前端驱动 里针对qemu虚拟出的virtio_net device的驱动接口
+
+/multi-os/kernel/drivers/virtio/virtio.c
+/multi-os/kernel/drivers/virtio/virtio_ring.c  ---》传输层 ---》ring的理解，可参考http://luoye.me/2014/08/08/virtio-virtqueue/
+
+/multi-os/vendor/sprd/qemu/net/slirp.c				         ￥#######################################
+/multi-os/vendor/sprd/qemu/net/*.c ----》qemu模拟的hub部分 后端驱动呢？  等你连上qemu debug,然后看一下nd_table这个变量的值就知道qemu后端处理程序hub上挂的哪个NIC driver.
+/multi-os/vendor/sprd/qemu/hw/net/*.c  ----》注意：这堆不是Guest Device的驱动文件，是qemu的virtio device type定义和virtio_register_types()注册
+
+/multi-os/vendor/sprd/qemu/net/slirp.c ---》这个文件里，有收包和发包接口，是不是queue里的数据，在guest驱动通过 virtqueue->add_buf & kick()后将数据就捅到了这里来呢？？？？？
+	----》guest kenel收发包流程如下：guestfwd_read & net_slirp_receive  ---》可以参考http://luoye.me/2014/07/26/netdev-virtual-3/ 还有 http://luoye.me/2014/08/09/virtio-netdev-send/
+		static void guestfwd_read(void *opaque, const uint8_t *buf, int size) ---》guest向host发送报文=====》Host OS
+		{
+		    struct GuestFwd *fwd = opaque;
+		    slirp_socket_recv(fwd->slirp, fwd->server, fwd->port, buf, size);-----》这个func是负责？见下边分析。
+		}
+
+		static int slirp_guestfwd(SlirpState *s, const char *config_str, int legacy_format) ---->这个函数意思是，传入的config_str参数为报文buffer，然后在这里函数里将报文中填充的guest ipaddr和port提取出来。然后发向这个guest。
+		{
+		        qemu_chr_add_handlers(fwd->hd, guestfwd_can_read, guestfwd_read, NULL, fwd);------>在这里向系统挂接了guestfwd_read接口
+		}
+
+
+
+		----》分析了一下这个函数
+		void slirp_socket_recv(Slirp *slirp, struct in_addr guest_addr, int guest_port,
+				       const uint8_t *buf, int size)
+		{
+		    int ret;
+		    struct socket *so = slirp_find_ctl_socket(slirp, guest_addr, guest_port); ---》寻找slirp->tcb.so_next列表中，是否有so->so_faddr.s_addr(这成员意思是/* foreign host table entry */) ==  guest_addr目的地址的报文
+
+		    if (!so)
+			return;
+
+		    ret = soreadbuf(so, (const char *)buf, size);
+
+		    if (ret > 0)
+			tcp_output(sototcpcb(so));
+		}
+
+
+		static ssize_t net_slirp_receive(NetClientState *nc, const uint8_t *buf, size_t size)-----》从host os的外网过来的数据，经过NAT，要向guest os发送。=====》Guest OS
+		{
+		    SlirpState *s = DO_UPCAST(SlirpState, nc, nc);
+
+		    slirp_input(s->slirp, buf, size);----》udp_input ---> bootp_input bootp_reply udp_output2 ip_output if_output if_start ----> if_encap --> slirp_output ---> 略去，同下
+						     和上面并列----> tcp_input ---> tcp_output ip_output .....----> if_encap ---> slirp_output ---> qemu_send_packet --> qemu_send_packet_async --> qemu_send_packet_async_with_flags ---> 转下行
+								接上行--> qemu_net_queue_send --> qemu_net_queue_deliver --> qemu_deliver_packet --> 转下行
+								qemu_deliver_packet()								
+								{
+									nc->info->receive(nc, data, size);
+								}
+								接上行--> nc->info->receive 挂接的函数指针就是 virtio_net_receive 待核实？？
+										static NetClientInfo net_virtio_info = {
+										    .type = NET_CLIENT_OPTIONS_KIND_NIC,
+										    .size = sizeof(NICState),
+										    .can_receive = virtio_net_can_receive,
+										    .receive = virtio_net_receive, ----------------》就是这个函数接口是最终的qemu向host外部网络发送报文的接口 待核实？
+											.cleanup = virtio_net_cleanup,
+										    .link_status_changed = virtio_net_set_link_status,
+										    .query_rx_filter = virtio_net_query_rxfilter,
+										};
+										好了，接着上面的，分析在virtio_net_receive(qemu/hw/net/virtio-net.c)里，它pop出queue队列里第一个
+										static ssize_t virtio_net_receive(NetClientState *nc, const uint8_t *buf, size_t size)
+										{
+											virtqueue_pop(q->rx_vq, &elem)----》弹出elem
+
+											/* copy in packet.  ugh */
+											len = iov_from_buf(sg, elem.in_num, guest_offset,buf + offset, size - offset);
+
+											/* signal other side */
+											virtqueue_fill(q->rx_vq, &elem, total, i++); ---》发送数据前，填充
+										        virtqueue_flush(q->rx_vq, i);----》发送
+										        virtio_notify(vdev, q->rx_vq);----》通知对方
+										}
+
+										typedef struct VirtQueueElement
+										{
+										    unsigned int index;
+										    unsigned int out_num;
+										    unsigned int in_num;
+										    hwaddr in_addr[VIRTQUEUE_MAX_SIZE];
+										    hwaddr out_addr[VIRTQUEUE_MAX_SIZE];
+										    struct iovec in_sg[VIRTQUEUE_MAX_SIZE]; ----》一个入队列？？？是报文的么
+										    struct iovec out_sg[VIRTQUEUE_MAX_SIZE];----》一个出队列
+										} VirtQueueElement;
+										void virtqueue_flush(VirtQueue *vq, unsigned int count)
+										{
+										    uint16_t old, new;
+										    /* Make sure buffer is written before we update index. */
+										    smp_wmb();
+										    trace_virtqueue_flush(vq, count);
+										    old = vring_used_idx(vq);  -----》用完之后，一定要标记该ring buffer已经被used了，这个ring的原理参考：http://www.ibm.com/developerworks/cn/linux/1402_caobb_virtio/
+										    new = old + count;
+										    vring_used_idx_set(vq, new);
+										    vq->inuse -= count;
+										    if (unlikely((int16_t)(new - vq->signalled_used) < (uint16_t)(new - old)))
+											vq->signalled_used_valid = false;
+										}
+		    return size;
+		}
+
+		插一句话，DO_UPCAST这个宏，意思是向父类or向上转型，具体讲解参考：http://bbs.csdn.net/topics/30226664
+		注意一下这个结构体，这里有太多NAT Server的配置信息，隶属与 SlirpState 这个结构体。
+			struct Slirp {
+			    QTAILQ_ENTRY(Slirp) entry;
+			    u_int time_fasttimo;
+			    u_int last_slowtimo;
+			    bool do_slowtimo;
+
+			    /* virtual network configuration */
+			    struct in_addr vnetwork_addr;
+			    struct in_addr vnetwork_mask;
+			    struct in_addr vhost_addr;
+			    struct in_addr vdhcp_startaddr;
+			    struct in_addr vnameserver_addr;
+
+			    struct in_addr client_ipaddr;
+			    char client_hostname[33];
+
+			    int restricted;
+			    struct ex_list *exec_list;
+
+			    /* mbuf states */
+			    struct mbuf m_freelist, m_usedlist;
+			    int mbuf_alloced;
+
+			    /* if states */
+			    struct mbuf if_fastq;   /* fast queue (for interactive data) */
+			    struct mbuf if_batchq;  /* queue for non-interactive data */
+			    struct mbuf *next_m;    /* pointer to next mbuf to output */
+			    bool if_start_busy;     /* avoid if_start recursion */
+
+			    /* ip states */
+			    struct ipq ipq;         /* ip reass. queue */
+			    uint16_t ip_id;         /* ip packet ctr, for ids */
+
+			    /* bootp/dhcp states */
+			    BOOTPClient bootp_clients[NB_BOOTP_CLIENTS];
+			    char *bootp_filename;
+			    size_t vdnssearch_len;
+			    uint8_t *vdnssearch;
+
+			    /* tcp states */
+			    struct socket tcb;
+			    struct socket *tcp_last_so;
+			    tcp_seq tcp_iss;        /* tcp initial send seq # */
+			    uint32_t tcp_now;       /* for RFC 1323 timestamps */
+
+			    /* udp states */
+			    struct socket udb;
+			    struct socket *udp_last_so;
+
+			    /* icmp states */
+			    struct socket icmp;
+			    struct socket *icmp_last_so;
+
+			    /* tftp states */
+			    char *tftp_prefix;
+			    struct tftp_session tftp_sessions[TFTP_SESSIONS_MAX];
+
+			    ArpTable arp_table;
+
+			    void *opaque;
+			};
+
+注意：如下两个重名文件的区别
+/multi-os/vendor/sprd/qemu/hw/virtio-net.c---> 这个文件qemu提供了一类设备的class定义，blk.c balloon.c也类似都有同样的c文件
+/multi-os/kernel/drivers/net/virtio_net.c----> 这个是驱动文件
+
+/multi-os/kernel/drivers/net/wireless/sprdwl/---->这个目录下一堆c文件就应该是Host OS的 实际网卡wlan0的 驱动接口
+★有关虚拟网卡virtio_net的创建流程，可以参考 http://luoye.me/2014/07/20/netdev-virtual-2/
+然后那篇文字说的是tap网卡的建立，类比到slirp网卡，就是下边这些东西：
+
+virtio-net.c
+static void virtio_net_class_init(ObjectClass *klass, void *data)
+{
+    DeviceClass *dc = DEVICE_CLASS(klass);
+    VirtioDeviceClass *vdc = VIRTIO_DEVICE_CLASS(klass);
+    dc->props = virtio_net_properties;
+    set_bit(DEVICE_CATEGORY_NETWORK, dc->categories);
+    vdc->init = virtio_net_device_init;
+    vdc->exit = virtio_net_device_exit;
+    vdc->get_config = virtio_net_get_config;
+    vdc->set_config = virtio_net_set_config;
+    vdc->get_features = virtio_net_get_features;
+    vdc->set_features = virtio_net_set_features;
+    vdc->bad_features = virtio_net_bad_features;
+    vdc->reset = virtio_net_reset;
+    vdc->set_status = virtio_net_set_status;
+    vdc->guest_notifier_mask = virtio_net_guest_notifier_mask;
+    vdc->guest_notifier_pending = virtio_net_guest_notifier_pending;
+}
+
+static const TypeInfo virtio_net_info = {
+    .name = TYPE_VIRTIO_NET,
+    .parent = TYPE_VIRTIO_DEVICE,
+    .instance_size = sizeof(VirtIONet),
+    .instance_init = virtio_net_instance_init,
+    .class_init = virtio_net_class_init, ------------->init是重点
+};
+
+
+
+★在Qemu中，所有的-net类型都由net client这个概念来表示：net_client_init_fun由各类net client对应的初始化函数组成：---》可参考http://luoye.me/2014/07/17/netdev-virtual-1/
+创建虚拟qemu网络环境的命令行 net -user的执行下发，其实就是如下代码：
+
+static int (* const net_client_init_fun[NET_CLIENT_OPTIONS_KIND_MAX])(
+    const NetClientOptions *opts,
+    const char *name,
+    NetClientState *peer) = {
+        [NET_CLIENT_OPTIONS_KIND_NIC]       = net_init_nic,
+#ifdef CONFIG_SLIRP
+        [NET_CLIENT_OPTIONS_KIND_USER]      = net_init_slirp,
+#endif
+        [NET_CLIENT_OPTIONS_KIND_TAP]       = net_init_tap,
+        [NET_CLIENT_OPTIONS_KIND_SOCKET]    = net_init_socket,
+#ifdef CONFIG_VDE
+        [NET_CLIENT_OPTIONS_KIND_VDE]       = net_init_vde,
+#endif
+        [NET_CLIENT_OPTIONS_KIND_DUMP]      = net_init_dump,
+#ifdef CONFIG_NET_BRIDGE
+        [NET_CLIENT_OPTIONS_KIND_BRIDGE]    = net_init_bridge,
+#endif
+        [NET_CLIENT_OPTIONS_KIND_HUBPORT]   = net_init_hubport,
+};
+
+﻿★linux无线网卡的驱动程序的源代码位置：
+(none):/home/peter/linux-2.6.23/drivers/net/wireless # ls
+Kconfig       arlan-proc.c  hermes.c      ipw2100.h     orinoco_cs.c      ray_cs.c           rtl818x.h      wavelan_cs.h
+Makefile      arlan.h       hermes.h      ipw2200.c     orinoco_nortel.c  ray_cs.h           spectrum_cs.c  wavelan_cs.p.h
+airo.c        atmel.c       hermes_rid.h  ipw2200.h     orinoco_pci.c     rayctl.h           strip.c        wl3501.h
+airo.h        atmel.h       hostap        libertas      orinoco_pci.h     rtl8187.h          wavelan.c      wl3501_cs.c
+airo_cs.c     atmel_cs.c    i82586.h      netwave_cs.c  orinoco_plx.c     rtl8187_dev.c      wavelan.h      zd1201.c
+airport.c     atmel_pci.c   i82593.h      orinoco.c     orinoco_tmd.c     rtl8187_rtl8225.c  wavelan.p.h    zd1201.h
+arlan-main.c  bcm43xx       ipw2100.c     orinoco.h     prism54           rtl8187_rtl8225.h  wavelan_cs.c   zd1211rw
+这里是各种无线网卡的驱动。
+wireless核心在
+net/wireless中
+(none):/home/peter/linux-2.6.23/net/wireless # ls
+Kconfig  Makefile  core.c  core.h  radiotap.c  sysfs.c  sysfs.h  wext.c
+
+注意核心不是放在drivers目录下的哦，而是放在内核根目录下的net/wireless下 
+
+
+★来吧，说说Guest OS的虚拟网卡的收发报文的过程，比如发送报文，如何转到Host那边的， Host接受报文又是怎么转回到Guest这边的。
+
+○先说一下virtio_net部分驱动接口的挂接，qemu -net user -net virtio(or e1000)创建虚拟网卡设备的时候，我们选择来virtio_net这个类型的虚拟网卡。
+
+挂接的接口如下：
+static struct virtio_driver virtio_net_driver = {
+	.feature_table = features,
+	.feature_table_size = ARRAY_SIZE(features),
+	.driver.name =	KBUILD_MODNAME,
+	.driver.owner =	THIS_MODULE,
+	.id_table =	id_table,
+	.probe =	virtnet_probe,---------》这个是重点，里边向平台注册了virtnet_netdev
+	.remove =	virtnet_remove,
+	.config_changed = virtnet_config_changed,
+#ifdef CONFIG_PM
+	.freeze =	virtnet_freeze,
+	.restore =	virtnet_restore,
+#endif
+};
+
+static const struct net_device_ops virtnet_netdev = {
+	.ndo_open            = virtnet_open,
+	.ndo_stop   	     = virtnet_close,
+	.ndo_start_xmit      = start_xmit,
+	.ndo_validate_addr   = eth_validate_addr,
+	.ndo_set_mac_address = virtnet_set_mac_address,
+	.ndo_set_rx_mode     = virtnet_set_rx_mode,
+	.ndo_change_mtu	     = virtnet_change_mtu,
+	.ndo_get_stats64     = virtnet_stats,
+	.ndo_vlan_rx_add_vid = virtnet_vlan_rx_add_vid,
+	.ndo_vlan_rx_kill_vid = virtnet_vlan_rx_kill_vid,
+	.ndo_select_queue     = virtnet_select_queue,
+#ifdef CONFIG_NET_POLL_CONTROLLER
+	.ndo_poll_controller = virtnet_netpoll,
+#endif
+};
+上面这堆驱动接口，最核心的几个函数接口及调用关系如下：
+
+发送pkt接口：
+static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+{
+
+
+}
+
+接受pkt接口：
+
+
+to be do:
+???????可以先从virtnet_set_mac_address 这样的函数来了解 virtnet_send_command 这个函数的原理。
+
+
+to del below：
+然后其实对外挂接的接口就是一个tx(pkt)接口而已，
+具体tx(pkt)的机制都是在virio_net.c文件内部实现的。
+
+
+
+
+○
+
+
+○
+
+
+○
+
+
+★Guest OS 驱动程序通过 virtqueue 与 hypervisor 的驱动程序连接起来。virtqueue 支持它
+自己的由 5 个函数组成的 API,其分别是 add_buf /get_buf/kick/ disable_cb/enable_cb。
+add_buf 函数用于向 hypervisor 提供请求。----》这个接口意思就是 guest 向 host 发送报文的时候，填充发送数据。
+kick 函数用于通知 hypervisor 新的请求。----》这个接口意思就是 guest 向 host 发包，填完数据后，通知host数据就绪。
+get_buf 函数用于触发来自 hypervisor 的响应。----》这个接口意思就是 host 向 guest 发包， guest收包的接口。
+enable_cb 函数用于启用回调进程。
+disable_cb 函数用于禁用回调进程。
+
+
+★qemu 对 guest os来说可以理解为一个硬件单板，qemu模拟出了一个虚拟网卡，然后guest os必须为这个虚拟网卡适配对应的驱动程序，
+我们这里，这个驱动程序就是virtio_net.c里的一堆函数接口。
+
+★如果host收到数据，会写一个寄存器触发vring中断上报，然后进入qemu在vring的中断处理程序里。 参考http://www.ibm.com/developerworks/cn/linux/1402_caobb_virtio/
+
+
+irqreturn_t vring_interrupt(int irq, void *_vq) ---》这就是vring中断的总入口，然后根据传入的中断号，再回调挂接的中断处理函数。
+{
+	struct vring_virtqueue *vq = to_vvq(_vq);
+
+	if (!more_used(vq)) {
+		pr_debug("virtqueue interrupt with no work for %p\n", vq);
+		return IRQ_NONE;
+	}
+
+	if (unlikely(vq->broken))
+		return IRQ_HANDLED;
+
+	pr_debug("virtqueue callback for %p (%p)\n", vq, vq->vq.callback);
+	if (vq->vq.callback)
+		vq->vq.callback(&vq->vq);
+
+	return IRQ_HANDLED;
+}
+
+★qemu是如何将vlan内的数据转发到外部网络的呢？---》我现在明白来qemu模拟出来的virtio_net设备以及对应的驱动，还有guest os的收发包，但是guest 的报文进了qemu后是怎么转出去的？也就是design文档中4.4节 QEMU VLAN以下部分的处理。？？？？
+
+如下内容给出了一点提示，来源：http://blog.csdn.net/simonzhao0536/article/details/9188859
+qemu提供的4种通信方式与外界联网：
+1.User mode stack：这种方式在qemu进程中实现一个协议栈，负责在虚拟机VLAN和外部网络之间转发数据。可以将该协议栈视为虚拟机与外部网络之间的一个NAT服务器，
+外部网络不能主动与虚拟机通信。虚拟机VLAN中的各个网络接口只能置于10.0.2.0子网中，所以这种方式只能与外部网络进行有限的通信。
+此外，可以用-redir选项为宿主机和虚拟机的两个TCP或UDP端口建立映射，实现宿主机和虚拟机在特殊要求下的通信（例如X-server或ssh）。User mode stack通信方式由-net user选项启用，如果不显式指定通信方式，则这种方式是qemu默认的通信方式。
+
+2......省略去
+
+
+★virtio在宿主机中的后端处理程序（backend）一般是由用户空间的QEMU提供--------》我就是现在对这部分不是什么理解？？？？？  
+
+
+Virtio 框架包含前端驱动程序(Guest OS 中实现)、------前端驱动
+
+虚拟队列接口(Virtio)、传输层(Virtio-ring)、------传输层
+
+后端驱动程序(在 hypervisor 中实现)。----后端驱动(back-end drivers)
+
+
+★host这边接入 qemu vlan内的10.0.10.15这个IP地址的网卡接口，是host的物理网卡么？还是qemu模拟出来的另一个interface？？？？？？？
+
+10.0.10.15这个IP地址是代码里静态配置的么？ 不然host的这个IP地址是哪里配的呢？
+
+★design文档中4.4节里那个host kernel的eth0 是虚拟出来的么？？？？？？还是写错了，应该是wlan0才对。手机上物理网卡只有wlan0吧？
+
+★哪个地方显示virtio_net这个device挂接了2个队列？一个是收包队列，一个是发包队列？？
+
+
+
+
+另：★qemu的开始初始化接口的地方为：
+prj_dir/vendor/qemu/linux-user/main.c  ---》 main()
+
+
+
+

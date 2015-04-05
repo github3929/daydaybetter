@@ -1,0 +1,535 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+★刚到公司熟悉 Spreadtrum_Arch_Group_New_Staff_Guide 文档的过程中记录：
+
+●内网和外网的PC都各自可以负责干什么，内网如果连代码也获取不到，或者连小组的wiki也上不了，那它是用来是干什么的？
+答：同事都是在外网下编辑和编译代码的，外网的linux环境下，然后内网的邮箱没人在用。
+
+
+★学习如下wiki的总结：
+
+●平台部分的wiki入口，
+http://wikiserver.spreadtrum.com/Projects/SoftwareSystem/wiki
+
+答：这个目录可以查看到 平台软件的部门划分 平台的项目组周报
+
+    开源参考资源网站 嵌入式系统资源网站 通讯相关资源网站
+
+    平台软件各个开发团队各自负责的主要功能，以及他们开发所需要的环境，以及开发总结的经验。----》有好多info，这个你可以参考一下！！！！！
+
+
+●Arch Group的wiki入口，
+http://wikiserver.spreadtrum.com/Projects/SoftwareSystem/wiki/ARCH%20Group
+
+答：这个wiki主要是可以看到一些spreadtrum的资料,其实主要就是Linaro和DualOS这两个项目。
+
+
+●Linaro项目的wiki入口，
+http://wikiserver.spreadtrum.com/Projects/SoftwareSystem/wiki/Linaro%20Project
+
+答：这个就是linaro项目的资料，包括项目成员，maillist地址，项目周报，以及
+    a。本地研发文档，包括（包括开发环境guide，dualos项目的架构的介绍ppt文档）-----》我没有发现什么太有用的东西！！！！！？？？？？？？？？？？？看看是否可以找到和dualos一样有用的文档？
+
+    b。Linaro是arm ti 展讯等合作投资的一个linux嵌入式手机开源系统，它有自己的官方网站和wiki，可以看看技术上的一些介绍
+
+
+▲LCU14-113- Upstreaming 101
+介绍了什么是linux upstream，以及如何upstream。----》没看懂，貌似也没有用
+
+▲programming-guideline-sprdlinux----》将spreadtrum公司代码结构以及各文件对应实现的功能，不过好像不全（位置是http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/SYSSW/development/linaro/osmp/）
+
+
+▲
+
+
+●MultiOS项目的wiki入口，
+http://wikiserver.spreadtrum.com/Projects/SoftwareSystem/wiki/DualOS%20Project
+
+答：DualOS 项目简介，包括了项目组成员，邮件列表地址，开发使用的硬件设备型号，以及对应的软件开发分支。
+    以及对应的软件开发涉及到文档（包括开发环境guide，dualos项目的架构的介绍ppt文档）------》这个有几个文档（Dual-OS Development Guide还有DualOS_KVM_Design还有KVM and Virtualization Introduction）可以细细看看！！！！
+
+    ▲这个目录的上级目录 http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/SYSSW/development/ 可以看到linaro项目并行的一些资料。
+
+▲KVM and Virtualization Introduction.ppt
+答：看不懂的东西，讲的有点深，需要有基础铺垫的知识。
+
+
+▲Dual-OS Development Guide.doc--------》！！！！！！！！！！！！这个重点看一下，是讲开发流程的，要比Spreadtrum_Arch_Group_New_Staff_Guide文档详细的多。
+
+	△QEMU是什么东西？
+	答：开源的虚拟机软件。
+
+	△KVM是什么东西？
+	答：多电脑切换器。
+
+	△hudson是什么东西？
+	答：Hudson是一款轻量级、易扩展、易配置的持续集成平台  ----》要我说，是个类似配置管理工具
+
+▲DualOS_KVM_Design.doc----》这个也蛮不错，讲的是 如何在Spreadtrum ARM platform平台上构建 Dual-OS system。
+
+
+
+
+★学习如下Website的总结：
+[1]	http://10.0.64.31/AP-Android/wiki/WikiStart
+答：这个就是android整个系统的一些介绍 -------》这个info有很多东西，可以细细看一下！！！！！！
+
+[2]	http://wikiserver.spreadtrum.com/Projects/SoftwareSystem/wiki/ARCH%20Group
+答：和上面linaro的内容雷同
+
+[3]	http://10.0.64.31/AP-Android/wiki/%E6%96%B0%E5%91%98%E5%B7%A5%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99
+答：通过git 进行代码下载和提交的规范，以及linux kernel的代码规范-----》新员工学习资料
+
+[4]	http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/
+答：SVN服务器----->各个部门的部门SVN服务器，有代码好多还有各个部门的培训资料，（！！！！！）是公司所有的代码都在这里来么？？？？？
+
+[5]	http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/SYSSW/development/systemarch/
+答：上面的SVN代码服务器的子分支-------->这里有很多ppt培训文档，看看有用不！！！！！---------------------------------------------------》》》》》优先看一下，最高优先级别的
+
+    其中，有篇ARM_Linux_SMP_Introduction.pptx讲的是smp在arm多核上的实现，smp意思是"对称多处理"（Symmetrical Multi-Processing）技术。
+ 	  文档位置：http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/SYSSW/development/systemarch/training/
+
+[6]	http://10.0.1.183:8080/hudson/job/sprdroid4.4_3.10/
+答：这个应该是问题单库的详细描述？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+
+[7]	http://10.0.64.31/AP-Android/wiki/Branches
+答：应该是 将目前已经发布的代码的branch分支路径，然后下载具体版本的branch的方式方法
+
+
+★在linux下加载网络磁盘的操作步骤：
+sudo smbmount \\\\10.0.64.41\\Personal_Files\ ~/Disk_Per -o username=spreadtrum\\jason.jiang, rw
+
+sudo smbmount \\\\10.0.64.42\\Public_Folder ~/Disk_Pub -o username=spreadtrum\\jason.jiang, rw
+
+sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/Personal_Files/  ~/Disk_Per/
+
+sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/Public_Folder/  ~/Disk_Pub/
+
+
+或者使用命令like：sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+
+★在linux下编译android，需要留意的几件事情：
+1.在编译5.0的版本时，需要制定PATH和JAVA_HOME这两个环境变量。
+2.编译之前，需要先source ./build/envsetup.sh导入环境配置。
+3.编译lunch的时候，要选对分支，特定的分支的代码，不一定lunch所有的产品分支都可以正确编译。
+
+★ftp获取linux系统crash问题单log日志的步骤，参照的是guide文档中的描述
+~/sprdroid5.0prime_3.10_lsk/out$ pwd
+/home/likewise-open/SPREADTRUM/jason.jiang/sprdroid5.0prime_3.10_lsk/out
+~/sprdroid5.0prime_3.10_lsk/out$ ^C
+~/sprdroid5.0prime_3.10_lsk/out$ cd /
+/$ ls
+bin  boot  cdrom  dev  etc  home  initrd.img  lib  lib32  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  selinux  srv  sys  tmp  usr  var  vmlinuz
+/$ 
+/$ ftp 10.0.6.4
+Connected to 10.0.6.4.
+220 Serv-U FTP Server v15.1 ready...
+Name (10.0.6.4:SPREADTRUM\jason.jiang): pdtest
+331 User name okay, need password.
+Password:
+230 User logged in, proceed.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> dir
+200 PORT command successful.
+150 Opening ASCII mode data connection for /bin/ls.
+drwxrwxrwx   1 user     group           0 Oct 10 11:16 9620_PDP_fail1006#3
+drwxrwxrwx   1 user     group           0 Nov 11 15:34 AGPS
+drwxrwxrwx   1 user     group           0 Nov  5 19:55 AndroidL
+drwxrwxrwx   1 user     group           0 Nov 13 16:59 CMCC
+drwxrwxrwx   1 user     group           0 Oct 30 18:30 CMCC_for_BUG360672
+drwxrwxrwx   1 user     group           0 Feb  6 13:53 CSLogs
+drwxrwxrwx   1 user     group           0 Oct 22 17:08 CUCC
+drwxrwxrwx   1 user     group           0 Jul 16  2014 customer
+drwxrwxrwx   1 user     group           0 Oct 21 14:47 download
+drwxrwxrwx   1 user     group           0 Sep  8 21:51 for Sukrit
+drwxrwxrwx   1 user     group           0 Aug  1  2014 for_cgmobile
+drwxrwxrwx   1 user     group           0 Jul 10  2014 for_kyle
+drwxrwxrwx   1 user     group           0 Oct 13 19:33 FOR_MTBF
+drwxrwxrwx   1 user     group           0 Sep 11 15:31 For_shanghai
+drwxrwxrwx   1 user     group           0 Sep 18 16:20 forTestSlog
+drwxrwxrwx   1 user     group           0 Nov  5 16:15 From_India
+drwxrwxrwx   1 user     group           0 Nov 21 10:37 From_Shanghai
+drwxrwxrwx   1 user     group           0 Feb  2 19:17 From_Taipei
+drwxrwxrwx   1 user     group           0 Jun 27  2014 FTP
+drwxrwxrwx   1 user     group           0 Nov 13 21:07 fxp??????
+drwxrwxrwx   1 user     group           0 Nov 24 17:00 GCF????--NV
+drwxrwxrwx   1 user     group           0 Oct 29 22:47 haipai_1029
+drwxrwxrwx   1 user     group           0 Oct  8 13:24 Marvell log tools
+drwxrwxrwx   1 user     group           0 Nov  5 14:47 Other
+drwxrwxrwx   1 user     group           0 Oct  9 12:29 pdk_monkey
+drwxrwxrwx   1 user     group           0 Feb 12 17:13 PDLogs
+drwxrwxrwx   1 user     group           0 Oct 30 15:31 PLDSQA
+drwxrwxrwx   1 user     group           0 Nov 12 10:14 RDIT
+drwxrwxrwx   1 user     group           0 Nov 13 16:32 SharkL CMCC
+drwxrwxrwx   1 user     group           0 Nov 14 16:07 SharkLIPv6
+drwxrwxrwx   1 user     group           0 Oct 23 15:37 SPDSQA
+drwxrwxrwx   1 user     group           0 Oct 15 21:57 SZ_201410
+drwxrwxrwx   1 user     group           0 Feb 12 10:33 temp
+drwxrwxrwx   1 user     group           0 Nov 13 16:55 test_source
+drwxrwxrwx   1 user     group           0 Feb  9 15:59 To_Taipei
+drwxrwxrwx   1 user     group           0 Nov 13 10:51 tools
+drwxrwxrwx   1 user     group           0 Oct 29 13:48 True
+drwxrwxrwx   1 user     group           0 Oct 29 16:52 UL
+drwxrwxrwx   1 user     group           0 Nov  6 15:52 Untitled Folder 2
+drwxrwxrwx   1 user     group           0 Nov 13 10:58 upload
+drwxrwxrwx   1 user     group           0 May 11  2014 xunrui
+drwxrwxrwx   1 user     group           0 Nov 15 10:13 ????
+drwxrwxrwx   1 user     group           0 Nov 14 15:31 ????????
+drwxrwxrwx   1 user     group           0 Dec 16 10:38 ??????????
+drwxrwxrwx   1 user     group           0 Feb 12 10:31 ?????????? (2)
+226 Transfer complete. 2,957 bytes transferred. 93.15 KB/sec.
+ftp> cd
+(remote-directory) ^C
+ftp> help
+Commands may be abbreviated.  Commands are:
+
+!		dir		mdelete		qc		site
+$		disconnect	mdir		sendport	size
+account		exit		mget		put		status
+append		form		mkdir		pwd		struct
+ascii		get		mls		quit		system
+bell		glob		mode		quote		sunique
+binary		hash		modtime		recv		tenex
+bye		help		mput		reget		tick
+case		idle		newer		rstatus		trace
+cd		image		nmap		rhelp		type
+cdup		ipany		nlist		rename		user
+chmod		ipv4		ntrans		reset		umask
+close		ipv6		open		restart		verbose
+cr		lcd		prompt		rmdir		?
+delete		ls		passive		runique
+debug		macdef		proxy		send
+ftp> cd From_India
+250 Directory changed to /From_India
+ftp> dir
+200 PORT command successful.
+150 Opening ASCII mode data connection for /bin/ls.
+drwxrwxrwx   1 user     group           0 Nov  5 16:15 .
+drwxrwxrwx   1 user     group           0 Feb 10 09:23 ..
+dr-xr-xr-x   1 user     group           0 Jan 31 20:18 India_Logs
+226 Transfer complete. 184 bytes transferred. 0.18 KB/sec.
+ftp> cd India_Logs
+250 Directory changed to /From_India/India_Logs
+ftp> dir
+200 PORT command successful.
+150 Opening ASCII mode data connection for /bin/ls.
+dr-xr-xr-x   1 user     group           0 Jan 31 20:18 .
+drwxrwxrwx   1 user     group           0 Nov  5 16:15 ..
+-rw-rw-rw-   1 user     group    10159422 Jan 16 18:31 85 mb_1.rar
+-rw-rw-rw-   1 user     group         112 Jan 21 22:04 113.txt
+drwxrwxrwx   1 user     group           0 Jan 27 11:26 2015.1.26_7731G_GPS_Modem_UpdatePAC
+-rw-rw-rw-   1 user     group         229 Jan 21 22:04 aaaa.txt
+-rw-rw-rw-   1 user     group    29315710 Dec  3 14:40 Anshul.rar
+-rw-rw-rw-   1 user     group      234600 Dec  9 16:47 arm.rar
+-rw-rw-rw-   1 user     group     1048576 Dec 17 23:27 DEBUG_TOOL 1.rar
+-rw-rw-rw-   1 user     group      845600 Dec 17 18:37 DEBUG_TOOL 2.rar
+-rw-rw-rw-   1 user     group    10493051 Nov 11 19:20 DEBUG_TOOL.rar
+-rw-rw-rw-   1 user     group      511991 Dec 17 18:34 DEBUG_TOOL3.rar
+----------   1 user     group          46 Oct 31 18:28 desktop.ini
+-rw-rw-rw-   1 user     group    175254617 Oct 31 19:20 dotnetfx3.5_SP1.exe
+-rw-rw-rw-   1 user     group      863880 Dec  9 16:56 dsp.rar
+-rw-rw-rw-   1 user     group    261597550 Dec 30 21:08 Fail_to_set_profile_pic.rar
+drwxrwxrwx   1 user     group           0 Jan  7 22:07 For_SH
+-rw-rw-rw-   1 user     group     2222036 Jan 31 18:55 ftp_dl_idea_7715.rar
+-rw-rw-rw-   1 user     group         214 Nov  4 17:03 ftp_test_HC.txt
+-rw-rw-rw-   1 user     group         214 Nov  4 19:49 ftp_test_HC2.txt
+drwxrwxrwx   1 user     group           0 Feb 11 20:30 PDLogs
+drwxrwxrwx   1 user     group           0 Jan  2 12:07 Preetpal
+-rw-rw-rw-   1 user     group      837794 Jan 31 18:45 SC7702_sc7701_Samsung_UtopiaVE_EUR.pac
+-rw-rw-rw-   1 user     group    230340335 Dec  5 22:19 scx15_sp7715eacuccspecAplus_UUI-userdebug-native_3131.pac.gz
+-rw-rw-rw-   1 user     group    163721571 Dec  4 17:11 scx35_sp7730ecplus_UUI-userdebug-gms-v101.pac.rar
+drwxrwxrwx   1 user     group           0 Jan 18 02:01 test
+-rw-rw-rw-   1 user     group    10493051 Dec 17 23:29 test 1.rar
+-rw-rw-rw-   1 user     group    10493051 Dec 17 23:31 test 2.rar
+-rw-rw-rw-   1 user     group     3333395 Dec 17 23:32 test 3.rar
+----------   1 user     group       31744 Nov  3 15:43 Thumbs.db
+drwxrwxrwx   1 user     group           0 Nov  3 10:01 Version
+226 Transfer complete. 2,245 bytes transferred. 137.02 KB/sec.
+ftp> cd PDLogs
+250 Directory changed to /From_India/India_Logs/PDLogs
+ftp> cd 7731
+250 Directory changed to /From_India/India_Logs/PDLogs/7731
+ftp> cd spdroid5.0_3.10_lsk_gms/20141229
+250 Directory changed to /From_India/India_Logs/PDLogs/7731/spdroid5.0_3.10_lsk_gms/20141229
+ftp> dir
+200 PORT command successful.
+150 Opening ASCII mode data connection for /bin/ls.
+drwxrwxrwx   1 user     group           0 Dec 30 06:48 .
+drwxrwxrwx   1 user     group           0 Dec 30 04:46 ..
+-rw-rw-rw-   1 user     group    250388430 Dec 30 05:23 Menu_icons_disappear_when_press_backkey.rar
+-rw-rw-rw-   1 user     group    376063661 Dec 30 05:52 white_Screen.rar
+226 Transfer complete. 292 bytes transferred. 19.01 KB/sec.
+ftp> get white_Screen.rar /
+local: / remote: white_Screen.rar
+local: /: No such file or directory
+ftp> get white_Screen.rar /home/
+IT/            apuser/        fonts/         gcc-4.4/       likewise-open/ lost+found/    
+ftp> get white_Screen.rar /home/likewise-open/SPREADTRUM/
+jason.jiang/ tao.jiang/   
+ftp> get white_Screen.rar /home/likewise-open/SPREADTRUM/jason.jiang/Desktop/
+local: /home/likewise-open/SPREADTRUM/jason.jiang/Desktop/ remote: white_Screen.rar
+200 PORT command successful.
+150 Opening BINARY mode data connection for white_Screen.rar (376063661 Bytes).
+local: /home/likewise-open/SPREADTRUM/jason.jiang/Desktop/: Is a directory
+451 Operation aborted due to ABOR command.
+226 Abort successful.
+ftp> get white_Screen.rar /home/likewise-open/SPREADTRUM/jason.jiang/Desktop/white_Screen.rar
+local: /home/likewise-open/SPREADTRUM/jason.jiang/Desktop/white_Screen.rar remote: white_Screen.rar
+200 PORT command successful.
+150 Opening BINARY mode data connection for white_Screen.rar (376063661 Bytes).
+226 Transfer complete. 376,063,661 bytes transferred. 409.54 KB/sec.
+376063661 bytes received in 896.94 secs (409.4 kB/s)
+ftp> 
+
+★编译我们手机的app的具体编译选项：
+     完整系统编译，输出到out/target/product/<device>/...
+
+      make -j4
+
+    编译bootloader，
+
+      make bootloader
+
+    编译kernel生成boot.img，
+
+      make bootimage
+
+    编译system生成system.img，
+
+      make systemimage
+
+    编译userdata生成userdata.img，
+
+      make userdataimage
+
+    编译recovery生成recovery.img，
+
+      make recoveryimage
+
+★编译完android的代码后，你可以看到如下几个带横线的文件不属于编译生成的结果：（这些文件都是在使用download软件时提示烧入的文件列表）
+boot.img
+cache.img
+DSP_DM_G2.bin---
+fdl1.bin
+fdl2.bin
+nvitem.bin-------
+nvitem_wcn.bin-------
+prodnv.img------------
+recover.img
+SC7702_sc7731g_band128.bin----
+SC7730_UMS.xml-----
+SC8800G_x30g_wcn_dts_modem.bin--------
+system.img
+u-boot.bin
+u-boot-spl-16k.bin
+userdata.img 
+
+★进入查看设置手机log日志的模式的方法
+
+
+#*#*83781
+
+★Ubuntu终端Terminal常用快捷键 ---具体网址：http://www.jb51.net/os/Ubuntu/141723.html
+Shift+Ctrl+C 复制
+Shift+Ctrl+V 粘贴 
+
+★点击aux.c文件，linux下按说应该用gedit打开，但是会提示你是 run"aux.c" or display its content.即提示aux.c文件是可执行文件。
+
+★简易备份firefox的东西（包括书签）
+参考http://tieba.baidu.com/p/1688255889文档描述
+
+其中赋予备份脚本文件 执行权限的方法为： 参考文档http://www.2cto.com/os/201307/228830.html
+
+具体firefox的书签文件为：
+~/.mozilla/firefox/4nb1alll.default/bookmarkbackups$ pwd
+/home/likewise-open/SPREADTRUM/jason.jiang/.mozilla/firefox/4nb1alll.default/bookmarkbackups
+~/.mozilla/firefox/4nb1alll.default/bookmarkbackups$ ll
+total 336
+drwx------  2 SPREADTRUM\jason.jiang SPREADTRUM\domain^users  4096 Feb 26 10:11 ./
+drwx------ 12 SPREADTRUM\jason.jiang SPREADTRUM\domain^users  4096 Feb 26 10:14 ../
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 18390 Feb 10 09:44 bookmarks-2015-02-10.json
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 19469 Feb 11 10:03 bookmarks-2015-02-11.json
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 21864 Feb 12 09:28 bookmarks-2015-02-12.json
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 27783 Feb 13 11:43 bookmarks-2015-02-13.json
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 31795 Feb 15 11:45 bookmarks-2015-02-15.json
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 37550 Feb 17 15:54 bookmarks-2015-02-17.json
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 37550 Feb 23 08:38 bookmarks-2015-02-23.json
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 38285 Feb 24 09:55 bookmarks-2015-02-24.json
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 38834 Feb 25 11:45 bookmarks-2015-02-25.json
+-rw-------  1 SPREADTRUM\jason.jiang SPREADTRUM\domain^users 41412 Feb 26 08:47 bookmarks-2015-02-26.json
+~/.mozilla/firefox/4nb1alll.default/bookmarkbackups$
+
+★从envsetup.sh文件中，你可以发现，如果想把java从1.6切换到1.7，只需要修改JAVA_HOME就可以，因为PATH会自动导入JAVA_HOME的路径
+    unset ANDROID_JAVA_TOOLCHAIN
+    unset ANDROID_PRE_BUILD_PATHS
+    if [ -n "$JAVA_HOME" ]; then
+        export ANDROID_JAVA_TOOLCHAIN=$JAVA_HOME/bin
+        export ANDROID_PRE_BUILD_PATHS=$ANDROID_JAVA_TOOLCHAIN:
+        export PATH=$ANDROID_PRE_BUILD_PATHS$PATH
+    fi
+
+★在使用ResearchDownload软件刷系统软件的时候，需要留意步骤：
+1.首先点击load packet，然后点击start，这个时候usb线不要连接手机
+2.手机拔掉电池，按下音量下键同时装上电池，然后接入usb线---------》这个时候电脑管理器里应该可以看到有新的com口发现
+3.然后下载按理说就开始了。
+
+★编译DS-5版本image的疑问
+在编译可使用DS-5调试的boot.img & system.img文件的时候，我修改了如下几个config文件，----》我猜应该能蒙对一个吧
+sprdroid5.0prime_3.10_lsk/kernel/arch/arm/configs目录下
+
+sp7731gea_qhd-dt_defconfig
+sp7731gea_qhd-native_defconfig
+sp7731gea-native_defconfig
+sp7731gea-dt_defconfig
+
+但是不知道，我在编译app的时候，lunch sp7731geabase_dt_native-userdebug 会否调用这个config，如果不是的话，那么我更改的配置
+将无法作用于新编译生成的image文件。
+
+
+备注：！！！！！如果你大部分时间都在编译5.0的android，那么干脆把JAVA的PATH更改为java1.7的目录吧。编4.0再改为java1.6
+
+
+备注：
+
+1.在修改了config后，发现编译原先的 lunch sp7731geabase_dt_native-userdebug 编译不过去了。于是修改为如下：
+~/sprdroid5.0prime_3.10_lsk$ lunch sp7731gea_qhdplus_dt-userdebug
+
+2.为了让原先的编译从新通过，采取了如下步骤尝试：
+  2.1将原先修改的sprdroid5.0prime_3.10_lsk/kernel/arch/arm/configs目录下哪些config文件逐个恢复---》发现还是编不过
+  2.2采用clean措施rm -rf out & rm -rf objdir-gecko & make mrproper & make clean，然后从新source build/envsetup.sh 和 lunch sp7731geabase_dt_native-userdebug make -j4----》发现还是编不过
+  2.3然后总是提示gatord什么已经存在，后来才意识到，找问题应该从提示先入手，删掉sprdroid5.0prime_3.10_lsk根目录下的gator-daemon目录然后从新编译OK了。
+    （这个目录本来就是从/usr/local/DS-5/arm/gator/daemon-src/gator-daemon.tar.gz 解压到根目录然后拷贝来的）
+  2.4接着上边，为了编出sp7731gea_qhdplus_dt-userdebug产品类型对应的DS-5的APP版本，我把config文件从新修改，然后保证gator目录删掉的前提下，
+     编译lunch sp7731gea_qhdplus_dt-userdebug发现编译bootimage错误，单独编译systemimage也有问题。
+
+3.应该注意一点，你要先编好了DS-5版本的系统APP后，再编译gator-daemon，然后如果还想再返回头编APP，则要先删除gator-daemon文件夹。
+
+
+
+★“kernel config文件”和“lunch 产品类型分支”是什么对应关系？--------》这个问题仍然没有解决！！！！！！！！！！！！
+
+sprdroid5.0prime_3.10_lsk/kernel/arch/arm/configs目录下的一堆config文件 ----》这些配置仅对make bootimage编译boot.img文件即kenel文件有影响。
+
+lunch 产品类型分支 ----》这个是对编译system.image文件有影响吧？有影响
+
+boot.image
+system.image 各自都是由哪几堆文件，哪个目录的文件编出来的？？？
+
+★烧写dual-os的guest端程序所遇问题
+在格式化并烧写dual-os的guest端的时候，出现了如下一些小故障，附上解决方法：
+（1）提示说mkffos.sh文件里有错误，line 45有错误，修改方法将$(string:0:6) 你写成了${string:0:6}
+     即括号不对。--》这还是参考了 http://tieba.baidu.com/p/2521295804 网页的信息得出结论
+（2）修改完毕后，然后执行sudo sh -x mkffos.sh /dev/sdb ./rootfs.tgz ./system.tgz ./vImage命令
+     提示说u盘在执行该操作之前必须先umount，所以还得到media\下把u盘卸载掉。
+（3）还要记得一点，在做烧写前，确保U盘是刚被格式化过才可以。
+（4）另外执行packvffos命令之前，要先执行lunch vsharkffos-userdebug操作。
+（5）另外执行sudo sh -x mkffos.sh /dev/sdb ./rootfs.tgz ./system.tgz ./vImage之前，需要自己手工
+     将rootfs.tgz system.tgz vImage这些文件从out目录中拷贝到你方便找到的位置。
+
+（6）切记如果host和guest的系统版本不配套，可能会导致guest系统启动失败。
+
+附上做这个操作时候，所有的命令history：
+ 1989  which fastboot
+ 1990  sudo chown root:root /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot
+ 1991  sudo chmod +s /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot
+ 1992  sudo fastboot devices
+ 1993  sudo /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot devices
+ 1994  sudo /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot flash boot boot.img 
+ 1995  sudo /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot help
+ 1996  sudo /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot flash system system.img 
+ 1997  sudo /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot devices
+ 1998  sudo /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot flash boot ~/boot.img 
+ 1999  sudo /home/likewise-open/SPREADTRUM/jason.jiang/and5.0prime_3.10_lsk/out/host/linux-x86/bin/fastboot flash system ~/system.img 
+ 2000  cat /proc/partitions 
+ 2001  sudo fdisk -l
+ 2002  cat /proc/partitions 
+ 2003  sudo fdisk -l
+ 2004  cd ./sprdroid4.4prime_3.10_14a_dualos/
+ 2005  source build/envsetup.sh 
+ 2006  lunch vsharkffos-userdebug
+ 2007  which packvffos
+ 2008  packvffos
+ 2041  cp ./mkffos.sh  ./bak_20150302_mkffos.sh 
+ 2043  sudo sh -x mkffos.sh /dev/sdb ~/root.tgz ~/system.tgz ~/vImage 
+~/sprdroid4.4prime_3.10_14a_dualos/vendor/sprd/open-source/tools/mkffos$ 
+
+
+★gator-driver编译以及gator-daemon编译及使用的步骤：
+ 1433  cd ./DS-5-Workspace/
+ 1434  ls
+ 1435  cd ..
+ 1436  ls
+ 1437  pwd
+ 1438  cd ./Documents/
+ 1439  ls
+ 1440  mv -r ./gator-driver ../
+ 1441  mv  ./gator-driver ../
+ 1442  cd ..
+ 1443  ls
+ 1444  cd ./gator-driver/
+ 1445  ls
+ 1446  make -C ~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea/obj/KERNEL/ M=`pwd` modules
+ 1447  which arm-eabi-gcc
+ 1448  whereis arm-eabi-gcc
+ 1449  locate arm-eabi-gcc
+ 1450  echo $PATH
+ 1451  export PATH=$PATH:/home/likewise-open/SPREADTRUM/jason.jiang/sprdroid5.0_3.10/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/
+ 1452  echo $PATH
+ 1453  arm-eabi-gcc --version
+ 1454  make -C ~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea/obj/KERNEL/ M=`pwd` modules
+ 1455  ls
+ 1456  history
+~/gator-driver$ 
+
+~/gator-driver$ pwd
+/home/likewise-open/SPREADTRUM/jason.jiang/gator-driver
+~/gator-driver$
+
+make -C ~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea/obj/KERNEL/ M=`pwd` modules命令执行完毕后
+
+生成的gator.ko文件位置在：
+~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea$ find . -name "*.ko"
+./system/lib/modules/gator.ko
+./obj/KERNEL/drivers/gator/gator.ko
+
+mm编译命令的具体解释参考如下web地址：
+http://www.linuxidc.com/Linux/2011-12/50281.htm
+
+然后把gator-daemon目录拷贝到~/sprdroid5.0prime_3.10_lsk/，然后执行mm编译指令。
+生成的gatord目标文件位置为：-----》注意生成的4个文件，分为2组，每组内有一个带symbol，一个不带symbol，一个大，一个小
+~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea$ find . -name "gatord"
+./system/bin/gatord
+./obj/EXECUTABLES/gatord_intermediates/LINKED/gatord
+./obj/EXECUTABLES/gatord_intermediates/gatord
+./symbols/system/bin/gatord
+~/sprdroid5.0prime_3.10_lsk/out/target/product/scx35_sp7731gea$ 
+
+=========
+
+/usr/local/DS-5/arm/gator/driver-src$ pwd
+/usr/local/DS-5/arm/gator/driver-src
+/usr/local/DS-5/arm/gator/driver-src$ ls
+gator-driver.tar.gz
+/usr/local/DS-5/arm/gator/driver-src$ 
+
+=========
+
+PS：网上有一篇将设置linux环境让adb调试的文章，地址如下
+http://www.linuxidc.com/Linux/2012-07/66346.htm
+里边介绍了为什么要设置在/etc/udev/rulesd/目录下创建一个rules文件。
+
+
+★强烈建议使用标准的UTF-8编码，所有语言使用同一种编码，既没有冲突，又被所有平台所支持。
+
+★git push 远端的分支名称 本地的分支名称
+  eg: git push -u origin master (-u参数是第一次将本地推送到远端时，用于关联二者的用的，关联一次后，以后就不用加这个参数了)
+
+  有篇文章介绍Git fetch和git pull的区别 地址：http://blog.csdn.net/hudashi/article/details/7664457
+  重点是 少用pull， 多用fetch，区别就是后者相当于是从远程获取最新版本到本地，不会自动merge
+
+
+ToDo==================================================================================明天的任务就是构建编译调试环境
+
+★如何搭建下载代码，编辑代码，编译代码，生成app，下载app，调试app的具体环境？？？？？？？？？？？？？？----》这个可以参考Spreadtrum_Arch_Group_New_Staff_Guide文档，还有D:\03小组文档
+

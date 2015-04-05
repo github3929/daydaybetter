@@ -1,0 +1,74 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+★测试条件：在pc的linux主机上，本地server本地client
+
+测试结果：
+
+ 3038 ?        Ss     0:00 ssh-agent
+ssh-agent added
+~$ iperf -c 127.0.0.1 -t 1
+------------------------------------------------------------
+Client connecting to 127.0.0.1, TCP port 5001
+TCP window size:  169 KByte (default)
+------------------------------------------------------------
+[  3] local 127.0.0.1 port 40663 connected with 127.0.0.1 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0- 1.0 sec  7.06 GBytes  60.6 Gbits/sec
+~$ 
+
+★测试条件：在手机，host server guest client
+测试结果：
+○guest端
+root@vshark:/system/xbin # iperf -c 10.0.10.2 -t 1                             
+------------------------------------------------------------
+Client connecting to 10.0.10.2, TCP port 5001
+TCP window size: 39.1 KByte (default)
+------------------------------------------------------------
+[  3] local 10.0.10.15 port 60375 connected with 10.0.10.2 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0- 1.0 sec  7.13 MBytes  58.7 Mbits/sec
+root@vshark:/system/xbin # iperf -c 10.0.10.2 -t 10                            
+------------------------------------------------------------
+Client connecting to 10.0.10.2, TCP port 5001
+TCP window size: 39.1 KByte (default)
+------------------------------------------------------------
+[  3] local 10.0.10.15 port 60376 connected with 10.0.10.2 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-10.0 sec   120 MBytes   100 Mbits/sec
+root@vshark:/system/xbin # 
+
+○host端
+1|shell@scx35l_sp9630ea:/ # iperf -s                                           
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 127.0.0.1 port 5001 connected with 127.0.0.1 port 41327
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0- 1.0 sec  7.12 MBytes  59.1 Mbits/sec
+[  5] local 127.0.0.1 port 5001 connected with 127.0.0.1 port 41328
+[  5]  0.0-10.0 sec   120 MBytes   100 Mbits/sec
+
+
+★测试条件：一台7731的TSHARK手机开启热点，自身作为wifi服务器，自身ip为192.168.43.1
+然后9230手机的host端和guest端分别开启iperf -c然后向7731发送测试报文。
+测试结果：
+○guest端 10s 2.60Mbit/sec 3.38MByte
+○host端 10s 7.57Mbit/sec 9.12MB
+○7731的server端：
+shell@scx35_sp7731gea:/ # 
+shell@scx35_sp7731gea:/ # iperf -s                                             
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 1.00 MByte (default)
+------------------------------------------------------------
+[  4] local 192.168.43.1 port 5001 connected with 192.168.43.226 port 57607
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0- 1.1 sec  2.13 MBytes  15.8 Mbits/sec
+[  5] local 192.168.43.1 port 5001 connected with 192.168.43.226 port 57608
+[  5]  0.0- 1.2 sec  2.63 MBytes  19.0 Mbits/sec
+[  4] local 192.168.43.1 port 5001 connected with 192.168.43.226 port 57609
+[  4]  0.0-10.3 sec  9.13 MBytes  7.42 Mbits/sec------》这次是host的
+[  5] local 192.168.43.1 port 5001 connected with 192.168.43.226 port 57633
+[  5]  0.0-10.9 sec  3.38 MBytes  2.60 Mbits/sec------》这次是guest的
+
+

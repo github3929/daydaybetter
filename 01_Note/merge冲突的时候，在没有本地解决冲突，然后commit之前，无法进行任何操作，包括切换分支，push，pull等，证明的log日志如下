@@ -1,0 +1,396 @@
+ 3005 ?        Ss     0:00 ssh-agent
+ssh-agent added
+~/clone_gitskills/gitskills$ cd ~/gitskills/
+~/gitskills$ ls
+README.md  test_add_file.c  test.c
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ ls
+README.md  test_add_file.c  test.c
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ vi test_add_file.c 
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#
+nothing to commit (working directory clean)
+~/gitskills$ 
+~/gitskills$ git push origin master
+To git@github.com:github3929/gitskills.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:github3929/gitskills.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+~/gitskills$ 
+~/gitskills$ git fetch origin 
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:github3929/gitskills
+   b325708..e5a8816  master     -> origin/master
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 1 different commit each, respectively.
+#
+nothing to commit (working directory clean)
+~/gitskills$ 
+~/gitskills$ git diff origin/
+fatal: ambiguous argument 'origin/': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions
+~/gitskills$ 
+~/gitskills$ git diff origin/master master
+diff --git a/test_add_file.c b/test_add_file.c
+index 9e3fe13..993b8cc 100644
+--- a/test_add_file.c
++++ b/test_add_file.c
+@@ -1,2 +1,2 @@
+ add by user1 test diff
+-mod by user2 test merge conflict
++add by user1 test diff 2
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git diff
+~/gitskills$ git diff origin/master master
+diff --git a/test_add_file.c b/test_add_file.c
+index 9e3fe13..993b8cc 100644
+--- a/test_add_file.c
++++ b/test_add_file.c
+@@ -1,2 +1,2 @@
+ add by user1 test diff
+-mod by user2 test merge conflict
++add by user1 test diff 2
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git diff origin/master master
+diff --git a/test_add_file.c b/test_add_file.c
+index 9e3fe13..993b8cc 100644
+--- a/test_add_file.c
++++ b/test_add_file.c
+@@ -1,2 +1,2 @@
+ add by user1 test diff
+-mod by user2 test merge conflict
++add by user1 test diff 2
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git status 
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 1 different commit each, respectively.
+#
+nothing to commit (working directory clean)
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ git mergetool help
+merge tool candidates: meld opendiff kdiff3 tkdiff xxdiff tortoisemerge gvimdiff diffuse ecmerge p4merge araxis bc3 emerge vimdiff
+No files need merging
+~/gitskills$ 
+~/gitskills$ git mergetool
+merge tool candidates: meld opendiff kdiff3 tkdiff xxdiff tortoisemerge gvimdiff diffuse ecmerge p4merge araxis bc3 emerge vimdiff
+No files need merging
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git mergetool
+No files need merging
+~/gitskills$ git mergetool help
+No files need merging
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ diffmerge
+diffmerge: command not found
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ sudo apt-get install diff
+diff           diffmon        diffpdf        diffstat       diffuse        diffutils      diffutils-doc
+~/gitskills$ sudo apt-get install gv
+gv             gvfs           gvfs-bin       gvfs-daemons   gvfs-fuse      gvidm          gvpe
+gvb            gvfs-backends  gvfs-common    gvfs-dbg       gvfs-libs      gvncviewer     gvrng
+~/gitskills$ sudo apt-get install vim
+vim                vim-conque         vim-gtk            vim-lesstif        vim-rails          vim-syntax-gtk
+vim-addon-manager  vim-dbg            vim-gui-common     vim-migemo         vim-runtime        vim-tiny
+vim-athena         vim-doc            vimhelp-de         vim-nox            vim-scripts        vim-vimoutliner
+vim-common         vim-gnome          vim-latexsuite     vim-puppet         vim-syntax-go      
+~/gitskills$ sudo apt-get install vim-d
+vim-dbg  vim-doc  
+~/gitskills$ git diff origin/master master
+diff --git a/test_add_file.c b/test_add_file.c
+index 9e3fe13..993b8cc 100644
+--- a/test_add_file.c
++++ b/test_add_file.c
+@@ -1,2 +1,2 @@
+ add by user1 test diff
+-mod by user2 test merge conflict
++add by user1 test diff 2
+~/gitskills$ 
+~/gitskills$ git diff 9e3fe13..993b8cc 100644
+error: Object 9e3fe13380564ae25f6f1686509dae2305b48068 is a blob, not a commit
+error: Object 993b8cc2c79f17cf2bdcfd8c3789d46bc858287c is a blob, not a commit
+fatal: Invalid revision range 9e3fe13..993b8cc
+~/gitskills$ git diff 993b8cc 100644
+fatal: ambiguous argument '100644': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions
+~/gitskills$ 
+~/gitskills$ git diff 9e3fe13 100644
+fatal: ambiguous argument '100644': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions
+~/gitskills$ 
+~/gitskills$ git diff origin/master:test_add_file.c  master:test_add_file.c 
+diff --git a/origin/master:test_add_file.c b/master:test_add_file.c
+index 9e3fe13..993b8cc 100644
+--- a/origin/master:test_add_file.c
++++ b/master:test_add_file.c
+@@ -1,2 +1,2 @@
+ add by user1 test diff
+-mod by user2 test merge conflict
++add by user1 test diff 2
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git branch 
+* master
+~/gitskills$ 
+~/gitskills$ git branch -r
+  origin/HEAD -> origin/master
+  origin/master
+~/gitskills$ 
+~/gitskills$ git merge --h
+error: unknown option `h'
+usage: git merge [options] [<commit>...]
+   or: git merge [options] <msg> HEAD <commit>
+   or: git merge --abort
+
+    -n                    do not show a diffstat at the end of the merge
+    --stat                show a diffstat at the end of the merge
+    --summary             (synonym to --stat)
+    --log[=<n>]           add (at most <n>) entries from shortlog to merge commit message
+    --squash              create a single commit instead of doing a merge
+    --commit              perform a commit if the merge succeeds (default)
+    -e, --edit            edit message before committing
+    --ff                  allow fast-forward (default)
+    --ff-only             abort if fast-forward is not possible
+    --rerere-autoupdate   update the index with reused conflict resolution if possible
+    -s, --strategy <strategy>
+                          merge strategy to use
+    -X, --strategy-option <option=value>
+                          option for selected merge strategy
+    -m, --message <message>
+                          merge commit message (for a non-fast-forward merge)
+    -v, --verbose         be more verbose
+    -q, --quiet           be more quiet
+    --abort               abort the current in-progress merge
+    --progress            force progress reporting
+    -S, --gpg-sign[=<key id>]
+                          GPG sign commit
+    --overwrite-ignore    update ignored files (default)
+
+~/gitskills$ 
+~/gitskills$ git rebase origin/master master 
+First, rewinding head to replay your work on top of it...
+Applying: by user1 mod
+Using index info to reconstruct a base tree...
+Falling back to patching base and 3-way merge...
+Auto-merging test_add_file.c
+CONFLICT (content): Merge conflict in test_add_file.c
+Failed to merge in the changes.
+Patch failed at 0001 by user1 mod
+
+When you have resolved this problem run "git rebase --continue".
+If you would prefer to skip this patch, instead run "git rebase --skip".
+To check out the original branch and stop rebasing run "git rebase --abort".
+
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ git status 
+# Not currently on any branch.
+# Unmerged paths:
+#   (use "git reset HEAD <file>..." to unstage)
+#   (use "git add/rm <file>..." as appropriate to mark resolution)
+#
+#	both modified:      test_add_file.c
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+~/gitskills$ 
+~/gitskills$ git add ./test_add_file.c
+~/gitskills$ 
+~/gitskills$ git status 
+# Not currently on any branch.
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   test_add_file.c
+#
+~/gitskills$ 
+~/gitskills$ git commit  -m "merge conflict deal over."
+[detached HEAD 707eaa8] merge conflict deal over.
+ 1 file changed, 4 insertions(+)
+~/gitskills$ 
+~/gitskills$ git status 
+# Not currently on any branch.
+nothing to commit (working directory clean)
+~/gitskills$ 
+~/gitskills$ git branch 
+* (no branch)
+  master
+~/gitskills$ git push origin
+To git@github.com:github3929/gitskills.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:github3929/gitskills.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+~/gitskills$ 
+~/gitskills$ git push --fast-forwards  origin 
+error: unknown option `fast-forwards'
+usage: git push [<options>] [<repository> [<refspec>...]]
+
+    -v, --verbose         be more verbose
+    -q, --quiet           be more quiet
+    --repo <repository>   repository
+    --all                 push all refs
+    --mirror              mirror all refs
+    --delete              delete refs
+    --tags                push tags (can't be used with --all or --mirror)
+    -n, --dry-run         dry run
+    --porcelain           machine-readable output
+    -f, --force           force updates
+    --recurse-submodules[=<check>]
+                          controls recursive pushing of submodules
+    --thin                use thin pack
+    --receive-pack <receive-pack>
+                          receive pack program
+    --exec <receive-pack>
+                          receive pack program
+    -u, --set-upstream    set upstream for git pull/status
+    --progress            force progress reporting
+
+~/gitskills$ 
+~/gitskills$ 
+~/gitskills$ git rebase -continue origin/master master 
+error: unknown switch `c'
+usage: git rebase [-i] [options] [--onto <newbase>] [<upstream>] [<branch>]
+   or: git rebase [-i] [options] --onto <newbase> --root [<branch>]
+   or: git-rebase [-i] --continue | --abort | --skip
+
+Available options are
+    -v, --verbose         display a diffstat of what changed upstream
+    -q, --quiet           be quiet. implies --no-stat
+    --onto ...            rebase onto given branch instead of upstream
+    -p, --preserve-merges
+                          try to recreate merges instead of ignoring them
+    -s, --strategy ...    use the given merge strategy
+    --no-ff               cherry-pick all commits, even if unchanged
+    -m, --merge           use merging strategies to rebase
+    -i, --interactive     let the user edit the list of commits to rebase
+    -f, --force-rebase    force rebase even if branch is up to date
+    -X, --strategy-option ...
+                          pass the argument through to the merge strategy
+    --stat                display a diffstat of what changed upstream
+    -n, --no-stat         do not show diffstat of what changed upstream
+    --verify              allow pre-rebase hook to run
+    --rerere-autoupdate   allow rerere to update index with resolved conflicts
+    --root                rebase all reachable commits up to the root(s)
+    --autosquash          move commits that begin with squash!/fixup! under -i
+    --committer-date-is-author-date
+                          passed to 'git am'
+    --ignore-date         passed to 'git am'
+    --whitespace ...      passed to 'git apply'
+    --ignore-whitespace   passed to 'git apply'
+    -C ...                passed to 'git apply'
+
+Actions:
+    --continue            continue
+    --abort               abort and check out the original branch
+    --skip                skip current patch and continue
+
+~/gitskills$ git rebase --continue origin/master master 
+usage: git rebase [-i] [options] [--onto <newbase>] [<upstream>] [<branch>]
+   or: git rebase [-i] [options] --onto <newbase> --root [<branch>]
+   or: git-rebase [-i] --continue | --abort | --skip
+
+Available options are
+    -v, --verbose         display a diffstat of what changed upstream
+    -q, --quiet           be quiet. implies --no-stat
+    --onto ...            rebase onto given branch instead of upstream
+    -p, --preserve-merges
+                          try to recreate merges instead of ignoring them
+    -s, --strategy ...    use the given merge strategy
+    --no-ff               cherry-pick all commits, even if unchanged
+    -m, --merge           use merging strategies to rebase
+    -i, --interactive     let the user edit the list of commits to rebase
+    -f, --force-rebase    force rebase even if branch is up to date
+    -X, --strategy-option ...
+                          pass the argument through to the merge strategy
+    --stat                display a diffstat of what changed upstream
+    -n, --no-stat         do not show diffstat of what changed upstream
+    --verify              allow pre-rebase hook to run
+    --rerere-autoupdate   allow rerere to update index with resolved conflicts
+    --root                rebase all reachable commits up to the root(s)
+    --autosquash          move commits that begin with squash!/fixup! under -i
+    --committer-date-is-author-date
+                          passed to 'git am'
+    --ignore-date         passed to 'git am'
+    --whitespace ...      passed to 'git apply'
+    --ignore-whitespace   passed to 'git apply'
+    -C ...                passed to 'git apply'
+
+Actions:
+    --continue            continue
+    --abort               abort and check out the original branch
+    --skip                skip current patch and continue
+
+~/gitskills$ 
+~/gitskills$ git status 
+# Not currently on any branch.
+nothing to commit (working directory clean)
+~/gitskills$ 
+~/gitskills$ ls
+README.md  test_add_file.c  test.c
+~/gitskills$ 
+~/gitskills$ vi ./test_add_file.c 
+~/gitskills$ 
+~/gitskills$ git branch 
+* (no branch)
+  master
+~/gitskills$ 
+~/gitskills$ git branch -r
+  origin/HEAD -> origin/master
+  origin/master
+~/gitskills$ 
+
+
+~/gitskills$ 
+~/gitskills$ git merge master
+Auto-merging test_add_file.c
+CONFLICT (content): Merge conflict in test_add_file.c
+Automatic merge failed; fix conflicts and then commit the result.
+~/gitskills$ 
+~/gitskills$ git branch master 
+fatal: A branch named 'master' already exists.
+~/gitskills$ git checkout master 
+test_add_file.c: needs merge
+error: you need to resolve your current index first
+~/gitskills$ 
+~/gitskills$ git status 
+# Not currently on any branch.
+# Unmerged paths:
+#   (use "git add/rm <file>..." as appropriate to mark resolution)
+#
+#	both modified:      test_add_file.c
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+~/gitskills$ git branch 
+* (no branch)
+  master
+~/gitskills$ 
+

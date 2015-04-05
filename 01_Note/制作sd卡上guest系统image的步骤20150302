@@ -1,0 +1,25 @@
+ 2000  cat /proc/partitions 
+ 2001  sudo fdisk -l
+ 2002  cat /proc/partitions 
+ 2003  sudo fdisk -l
+ 2004  cd ./sprdroid4.4prime_3.10_14a_dualos/
+ 2005  source build/envsetup.sh 
+ 2006  lunch vsharkffos-userdebug
+ 2007  which packvffos
+ 2008  packvffos
+
+
+~/sprdroid4.4prime_3.10_14a_dualos$ packvffos
+Firefox OS img for KVM-QEMU has been built.
+
+★向sd卡烧写程序的时候，需要注意几点，否则有可能操作不成功：
+
+1.一定要在multi-os代码目录下，运行
+source build/envsetup.sh 
+lunch vsharkffos-userdebug
+2.一定事先格式化format u盘为fat32格式。
+3.u盘插入PC后，一定要先umount /dev/sdb1，再烧写
+4.一定要到~/sprdroid4.4prime_3.10_14a_dualos/vendor/sprd/open-source/tools/mkffos目录下执行脚本。
+5.脚本一定要加上x运行权限。
+6.执行命令为 sudo sh -x ./mkffos.sh /dev/sdb ~/root.tgz ~/system.tgz ~/vImage，注意是sdb不是sdb1
+

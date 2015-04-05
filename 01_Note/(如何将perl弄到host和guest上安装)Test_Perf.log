@@ -1,0 +1,438 @@
+Bus 001 Device 002: ID 8087:8008 Intel Corp. 
+Bus 002 Device 002: ID 8087:8000 Intel Corp. 
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+~$ 
+~$ 
+~$ lsusb
+Bus 001 Device 002: ID 8087:8008 Intel Corp. 
+Bus 002 Device 002: ID 8087:8000 Intel Corp. 
+Bus 003 Device 008: ID 1782:5d24 Spreadtrum Communications Inc. 
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+~$ 
+~$ 
+~$ 
+~$ sudo adb shell
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # busybox help
+help: applet not found
+1|root@scx35l_sp9630ea:/ # busybox ls                                          
+acct                init.board.rc       root
+bin                 init.environ.rc     sbin
+cache               init.rc             sdcard
+config              init.sc8830.rc      seapp_contexts
+d                   init.sc8830.usb.rc  sepolicy
+data                init.storage.rc     storage
+default.prop        init.trace.rc       sys
+dev                 init.usb.rc         system
+etc                 mnt                 ueventd.rc
+factorysync.file    proc                ueventd.sc8830.rc
+file_contexts       productinfo         vendor
+fstab.sc8830        property_contexts
+init                res
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # busybox --help                                        
+BusyBox v1.17.1 (2010-08-28 14:48:14 CST) multi-call binary.
+Copyright (C) 1998-2009 Erik Andersen, Rob Landley, Denys Vlasenko
+and others. Licensed under GPLv2.
+See source distribution for full notice.
+
+Usage: busybox [function] [arguments]...
+   or: function [arguments]...
+
+	BusyBox is a multi-call binary that combines many common Unix
+	utilities into a single executable.  Most people will create a
+	link to busybox for each function they wish to use and BusyBox
+	will act like whatever it was invoked as.
+
+Currently defined functions:
+	[, [[, acpid, addgroup, adduser, adjtimex, arp, arping, ash, awk,
+	basename, beep, blkid, bootchartd, brctl, bunzip2, bzcat, bzip2, cal,
+	cat, catv, chat, chattr, chgrp, chmod, chown, chpasswd, chpst, chroot,
+	chrt, chvt, cksum, clear, cmp, comm, cp, cpio, crond, crontab, cryptpw,
+	cttyhack, cut, date, dc, dd, deallocvt, delgroup, deluser, depmod,
+	devmem, df, dhcprelay, diff, dirname, dmesg, dnsd, dnsdomainname,
+	dos2unix, du, dumpkmap, dumpleases, echo, ed, egrep, eject, env,
+	envdir, envuidgid, ether-wake, expand, expr, fakeidentd, false, fbset,
+	fbsplash, fdflush, fdformat, fdisk, fgconsole, fgrep, find, findfs,
+	flock, fold, free, freeramdisk, fsck, fsck.minix, fsync, ftpd, ftpget,
+	ftpput, fuser, getopt, getty, grep, gunzip, gzip, halt, hd, hdparm,
+	head, hexdump, hostid, hostname, httpd, hush, hwclock, id, ifconfig,
+	ifdown, ifenslave, ifplugd, ifup, inetd, init, insmod, install, ionice,
+	ip, ipaddr, ipcalc, ipcrm, ipcs, iplink, iproute, iprule, iptunnel,
+	kbd_mode, kill, killall, killall5, klogd, last, length, less, linux32,
+	linux64, linuxrc, ln, loadfont, loadkmap, logger, login, logname,
+	logread, losetup, lpd, lpq, lpr, ls, lsattr, lsmod, lspci, lsusb,
+	lzcat, lzma, lzop, lzopcat, makedevs, makemime, man, md5sum, mdev,
+	mesg, microcom, mkdir, mkdosfs, mke2fs, mkfifo, mkfs.ext2, mkfs.minix,
+	mkfs.vfat, mknod, mkpasswd, mkswap, mktemp, modinfo, modprobe, more,
+	mount, mountpoint, mt, mv, nameif, nc, netstat, nice, nmeter, nohup,
+	nslookup, ntpd, od, openvt, passwd, patch, pgrep, pidof, ping, ping6,
+	pipe_progress, pivot_root, pkill, popmaildir, poweroff, printenv,
+	printf, ps, pscan, pwd, raidautorun, rdate, rdev, readahead, readlink,
+	readprofile, realpath, reboot, reformime, renice, reset, resize, rev,
+	rm, rmdir, rmmod, route, rpm, rpm2cpio, rtcwake, run-parts, runlevel,
+	runsv, runsvdir, rx, script, scriptreplay, sed, sendmail, seq, setarch,
+	setconsole, setfont, setkeycodes, setlogcons, setsid, setuidgid, sh,
+	sha1sum, sha256sum, sha512sum, showkey, slattach, sleep, smemcap,
+	softlimit, sort, split, start-stop-daemon, stat, strings, stty, su,
+	sulogin, sum, sv, svlogd, swapoff, swapon, switch_root, sync, sysctl,
+	syslogd, tac, tail, tar, tcpsvd, tee, telnet, telnetd, test, tftp,
+	tftpd, time, timeout, top, touch, tr, traceroute, traceroute6, true,
+	tty, ttysize, tunctl, udhcpc, udhcpd, udpsvd, umount, uname, unexpand,
+	uniq, unix2dos, unlzma, unlzop, unxz, unzip, uptime, usleep, uudecode,
+	uuencode, vconfig, vi, vlock, volname, wall, watch, watchdog, wc, wget,
+	which, who, whoami, xargs, xz, xzcat, yes, zcat, zcip
+
+root@scx35l_sp9630ea:/ # busybox make                                          
+make: applet not found
+1|root@scx35l_sp9630ea:/ # busybox clush
+clush: applet not found
+1|root@scx35l_sp9630ea:/ #                                                     
+1|root@scx35l_sp9630ea:/ # 
+1|root@scx35l_sp9630ea:/ # 
+1|root@scx35l_sp9630ea:/ # exit
+~$ 
+~$ ls
+01_WORK_INFO
+02_DEVELOP
+and5.0prime_3.10_lsk
+astyle
+astyle_test.c~
+BackUpFirefoxBat
+bin
+clone_gitskills
+crash-7.1.0
+debug_test_ftrace
+Desktop
+Disk_Per
+Disk_Pub
+Disk_Server_ToInternal
+Documents
+Downloads
+DS-5-Workspace
+eclipse
+eclipse_sprdroid4.4prime_3.10_14a_dualos
+examples.desktop
+gatord
+gator-daemon
+gator-driver
+gator.ko
+gitskills
+iperf-2.0.5
+learngit
+log_20150303.log
+manifest.xml
+merge冲突的时候，在没有本地解决冲突，然后commit之前，无法进行任何操作，包括切换分支，push，pull等，证明的log日志如下
+multi-os
+Music
+Pictures
+Public
+qemu-code
+qemu-system-arm
+root.tgz
+sdk
+Source Insight
+sprdroid4.4prime_3.10_14a_dualos
+sprdroid5.0_3.10
+sprdroid5.0prime_3.10_lsk
+system.tgz
+temp_copy
+Templates
+test_crash
+tmp_gitlog
+Tmp_INFO_20150311
+Videos
+vImage
+workspace
+~$ cd ./Downloads/
+~/Downloads$ 
+~/Downloads$ 
+~/Downloads$ sudo adb push iperf.apk sdcard/
+3704 KB/s (542462 bytes in 0.142s)
+~/Downloads$ sudo adb shell
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # cd ./sdcard/                                          
+root@scx35l_sp9630ea:/sdcard # ls
+Alarms
+Android
+DCIM
+Download
+LOST.DIR
+Movies
+Music
+Notifications
+Pictures
+Podcasts
+Ringtones
+backup
+baidu
+iperf.apk
+mm
+msc
+recordings
+slog
+smart_jni.txt
+vImage
+webFileSystem
+root@scx35l_sp9630ea:/sdcard # 
+root@scx35l_sp9630ea:/sdcard # exit
+~/Downloads$ 
+~/Downloads$ 
+~/Downloads$ 
+~/Downloads$ 
+~/Downloads$ sudo adb shell
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # cat
+^C
+130|root@scx35l_sp9630ea:/ # 
+130|root@scx35l_sp9630ea:/ # 
+130|root@scx35l_sp9630ea:/ # su
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # cat /sys
+sys/    system/ 
+root@scx35l_sp9630ea:/ # cat /system/b                                         
+bin/       build.prop 
+root@scx35l_sp9630ea:/ # cat /system/bin/                                      
+GPSenseEngine             hostapd                   reboot                 
+adb                       hostapd_cli               recoveryfreq.sh        
+akmd8963                  id                        refnotify              
+am                        ifconfig                  renice                 
+app_process               iftop                     requestsync            
+applypatch                ime                       restorecon             
+atrace                    input                     rild_sp                
+autotest                  inputfreq.sh              rilproxy               
+batterysrv                insmod                    rilproxyd              
+bdt                       installd                  rm                     
+bih_config.sh             ioctl                     rmdir                  
+blkid                     ionice                    rmmod                  
+blkparse                  ip                        route                  
+blkrawverify              ip6tables                 run-as                 
+blktrace                  iptables                  runcon                 
+bmgr                      iqdata_daemon             schedtest              
+boot_complete             iwnpi                     schedtop               
+bootanimation             keystore                  screencap              
+btcapture                 keystore_cli              screenrecord           
+bu                        kill                      screenshot             
+bugreport                 linker                    sdcard                 
+calibration_init          ln                        sendevent              
+capture_blktrace.sh       load_policy               sensorservice          
+capture_ftrace.sh         log                       service                
+capture_oprofile.sh       logcat                    servicemanager         
+cat                       logwrapper                set_ext4_err_bit       
+charge                    lookat                    setconsole             
+chcon                     ls                        setenforce             
+chmod                     lsmod                     setprop                
+chown                     lsof                      setsebool              
+clatd                     make_ext4fs               settings               
+clear                     md5                       sh                     
+cmd_services              mdnsd                     showlease              
+cmp                       media                     sleep                  
+collect_apr               mediaserver               slog                   
+content                   mkdir                     slogctl                
+corrupt_gdt_free_blocks   mksh                      smd                    
+cp                        mkswap                    sprd_res_monitor       
+cpu                       modem_control             start                  
+crc                       modemd                    stop                   
+dalvikvm                  monkey                    surfaceflinger         
+date                      mount                     svc                    
+dd                        mplayer                   swapoff                
+debuggerd                 mtpd                      swapon                 
+dexopt                    mv                        sync                   
+df                        nandflash_bbctest         tar                    
+dfex                      nandflash_rwtest          tc                     
+dhcp6s                    nandread                  tcp                    
+dhcpcd                    ndc                       test_drm               
+dmesg                     netcfg                    theme_init.sh          
+dns6                      netd                      tinycap                
+dnsmasq                   netstat                   tinymix                
+drmserver                 newfs_msdos               tinyplay               
+du                        notify                    toolbox                
+dumpstate                 nvitemd                   top                    
+dumpsys                   phoneserver               touch                  
+e2fsck                    ping                      uiautomator            
+emulator_renderer         ping6                     umount                 
+engpc                     pm                        uptime                 
+ext_data.sh               pngtest                   vdc                    
+ext_kill.sh               poweroff_alarm            verify_blkparse        
+factorytest               pppd                      vhub                   
+fsck_msdos                printenv                  vmstat                 
+gdbserver                 ps                        vold                   
+getenforce                qemu_start.sh             watchprops             
+getevent                  query_task_fd             wcnd                   
+getprop                   r                         wcnd_cli               
+getsebool                 racoon                    wipe                   
+grep                      radiooptions              wm                     
+gsnap                     radiooptions_sp           wpa_cli                
+gzip                      radvd                     wpa_supplicant         
+hd                        readlink                  
+ /system/bin/qemu_start.sh                                                    <
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#VAR_KERNEL_DEBUG="-S -gdb tcp::1238"
+#VAR_KGDB_CFG="kgdboc=ttyAMA1,115200 kgdbwait"
+
+/system/usr/local/bin/qemu-system-arm >/data/slog/qemu.log 2>&1 \
+	$VAR_KERNEL_DEBUG \
+	-monitor telnet::1234,server,nowait  \
+	-serial telnet::1235,server,nowait  \
+	-serial telnet::1236,server,nowait  \
+	-serial telnet::1237,server,nowait  \
+	-nographic        \
+	-k en-us       \
+	-enable-kvm    \
+	-kernel /storage/sdcard0/vImage  \
+	-m 384          \
+	-M vexpress-a15 \
+	-cpu cortex-a15 \
+	-smp $VAR_MAX_CPUS \
+	-d guest_errors  \
+	-D /data/slog/qemu.log  \
+	-drive file=/dev/block/mmcblk1p1,id=virtio-blk,if=none \
+	-device virtio-blk-device,drive=virtio-blk \
+	-netdev user,id=net0,net=10.0.10.0/24,tftp=/data/local/tmp \
+	-device virtio-net-device,netdev=net0,mac=52:54:00:12:34:62 \
+	-redir tcp:2323:10.0.10.15:23 \
+	-device virtio-serial-device \
+	-chardev socket,path=/dev/socket/switchos,server,nowait,id=switchos \
+	-device virtserialport,chardev=switchos,name=sprd.vport.1 \
+	-chardev socket,path=/dev/socket/rilproxy,server,nowait,id=rilproxy \
+	-device virtserialport,chardev=rilproxy,name=sprd.vport.2 \
+	-chardev socket,path=/dev/socket/audioctl,server,nowait,id=audioctl \
+	-device virtserialport,chardev=audioctl,name=sprd.vport.3 \
+	-chardev socket,path=/dev/socket/audiocap,server,nowait,id=audiocap \
+	-device virtserialport,chardev=audiocap,name=sprd.vport.4 \
+	-chardev socket,path=/dev/socket/audiopb,server,nowait,id=audiopb \
+	-device virtserialport,chardev=audiopb,name=sprd.vport.5 \
+	-append "virtio_mmio.device=0x200@0x1c130200:73:0 \
+             virtio_mmio.device=0x200@0x1c130400:74:1 \
+             virtio_mmio.device=0x200@0x1c130600:75:2 \
+             init=/init console=ttyAMA0 mem=384M root=/dev/vda rw \
+             earlyprintk=serial androidboot.hardware=vshark"
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # busybox telnet 10.0.10.15 23
+telnet: can't connect to remote host (10.0.10.15): Network is unreachable
+1|root@scx35l_sp9630ea:/ # ping 10.0.10.15
+connect: Network is unreachable
+2|root@scx35l_sp9630ea:/ # ping 10.0.10.2                                      
+connect: Network is unreachable
+2|root@scx35l_sp9630ea:/ # busybox telnet 127.0.0.1 2323    -----》当然也可以用1|root@scx35l_sp9630ea:/ # busybox telnet 127.0.0.1 1235                   
+
+Entering character mode
+Escape character is '^]'.
+
+
+root@vshark:/ # exit
+Connection closed by foreign host
+1|root@scx35l_sp9630ea:/ # 
+1|root@scx35l_sp9630ea:/ # 
+1|root@scx35l_sp9630ea:/ # su
+root@scx35l_sp9630ea:/ # 
+iperf.apk /data/local/tmp/                                                    <
+root@scx35l_sp9630ea:/ # busybox ifconfig
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:2565 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2565 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:156792 (153.1 KiB)  TX bytes:156792 (153.1 KiB)
+
+root@scx35l_sp9630ea:/ # busybox telnet 127.0.0.1 2323                         
+
+Entering character mode
+Escape character is '^]'.
+
+
+root@vshark:/ # 
+root@vshark:/ # tftp -get iperf.apk 10.0.10.15
+/system/bin/sh: tftp: not found
+127|root@vshark:/ # su  
+root@vshark:/ # busybox tftp -get iperf.apk 10.0.10.15
+tftp: invalid option -- 'e'
+BusyBox v1.17.1 (2010-08-28 14:48:14 CST) multi-call binary.
+
+Usage: tftp [OPTIONS] HOST [PORT]
+
+Transfer a file from/to tftp server
+
+Options:
+        -l FILE Local FILE
+        -r FILE Remote FILE
+        -g      Get file
+        -p      Put file
+        -b SIZE Transfer blocks of SIZE octets
+
+1|root@vshark:/ # busybox tftp -g iperf.apk 10.0.10.15                         
+BusyBox v1.17.1 (2010-08-28 14:48:14 CST) multi-call binary.
+
+Usage: tftp [OPTIONS] HOST [PORT]
+
+Transfer a file from/to tftp server
+
+Options:
+        -l FILE Local FILE
+        -r FILE Remote FILE
+        -g      Get file
+        -p      Put file
+        -b SIZE Transfer blocks of SIZE octets
+
+1|root@vshark:/ # 
+1|root@vshark:/ # busybox tftp -g -l iperf.apk -r iperf.apk 10.0.10.15         
+tftp: timeout
+1|root@vshark:/ # ls
+acct
+bin
+cache
+config
+d
+data
+default.prop
+dev
+etc
+file_contexts
+fstab.vshark
+init
+init.board.rc
+init.environ.rc
+init.rc
+init.trace.rc
+init.usb.rc
+init.vshark.rc
+lost+found
+mnt
+proc
+productinfo
+property_contexts
+res
+sbin
+sdcard
+seapp_contexts
+sepolicy
+storage
+sys
+system
+ueventd.rc
+ueventd.vshark.rc
+vendor
+root@vshark:/ # 
+root@vshark:/ # cd ./sdcard/                                                   
+root@vshark:/sdcard # 
+root@vshark:/sdcard # busybox tftp -g -l iperf.apk -r iperf.apk 10.0.10.15     
+tftp: timeout
+1|root@vshark:/sdcard # 
+1|root@vshark:/sdcard # busybox tftp -g -l iperf.apk -r iperf.apk 10.0.10.2    
+iperf.apk            100% |*******************************|   530k --:--:-- ETA
+root@vshark:/sdcard # 
+

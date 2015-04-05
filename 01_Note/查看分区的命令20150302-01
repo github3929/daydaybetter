@@ -1,0 +1,74 @@
+~$ cat /proc/partitions 
+major minor  #blocks  name
+
+   8        0  976762584 sda
+   8        1   83887104 sda1
+   8        2  157287424 sda2
+   8        3   19530752 sda3
+   8        4          1 sda4
+   8        5    5858304 sda5
+   8        6  710195200 sda6
+~$ 
+~$ 
+~$ sudo fdisk -l
+
+Disk /dev/sda: 1000.2 GB, 1000204886016 bytes
+255 heads, 63 sectors/track, 121601 cylinders, total 1953525168 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disk identifier: 0x29f462b0
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048   167776255    83887104    7  HPFS/NTFS/exFAT
+/dev/sda2       167776256   482351103   157287424    7  HPFS/NTFS/exFAT
+/dev/sda3       482351104   521412607    19530752   83  Linux
+/dev/sda4       521414654  1953523711   716054529    5  Extended
+Partition 4 does not start on physical sector boundary.
+/dev/sda5       521414656   533131263     5858304   82  Linux swap / Solaris
+/dev/sda6       533133312  1953523711   710195200   83  Linux
+~$ 
+~$ 
+~$ cat /proc/partitions 
+major minor  #blocks  name
+
+   8        0  976762584 sda
+   8        1   83887104 sda1
+   8        2  157287424 sda2
+   8        3   19530752 sda3
+   8        4          1 sda4
+   8        5    5858304 sda5
+   8        6  710195200 sda6
+   8       16    7549952 sdb
+   8       17    7545856 sdb1
+~$ 
+~$ sudo fdisk -l
+
+Disk /dev/sda: 1000.2 GB, 1000204886016 bytes
+255 heads, 63 sectors/track, 121601 cylinders, total 1953525168 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disk identifier: 0x29f462b0
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048   167776255    83887104    7  HPFS/NTFS/exFAT
+/dev/sda2       167776256   482351103   157287424    7  HPFS/NTFS/exFAT
+/dev/sda3       482351104   521412607    19530752   83  Linux
+/dev/sda4       521414654  1953523711   716054529    5  Extended
+Partition 4 does not start on physical sector boundary.
+/dev/sda5       521414656   533131263     5858304   82  Linux swap / Solaris
+/dev/sda6       533133312  1953523711   710195200   83  Linux
+
+Disk /dev/sdb: 7731 MB, 7731150848 bytes
+237 heads, 1 sectors/track, 63712 cylinders, total 15099904 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1            8192    15099903     7545856    b  W95 FAT32
+~$ 
+~$ 
+

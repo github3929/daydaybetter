@@ -1,0 +1,197 @@
+-========================临时记录部分=============================
+1.ctags -R --c++-kinds=+px --fields=+iaS --extra=+q .
+
+2.设置 ~/.vimrc，加入一行，则不用手动设置tags路径：
+set tags=~/path/tags
+
+3.若要加入系统函数或全局变量的tag标签，则需执行：
+ctags -I __THROW –file-scope=yes –langmap=c:+.h –languages=c,c++ –links=yes –c-kinds=+p --fields=+S -R -f ~/.vim/systags /usr/include /usr/local/include
+并且在~/.vimrc中添加（亦可用上面描述的手动加入的方式）：
+set tags+=~/.vim/systags
+
+4.修改.vimrc文件增加let Tlist_Ctags_Cmd="/usr/bin/ctags" //将taglist与ctags关联
+修改.vimrc文件增加let Tlist_Inc_Winwidth=0 //如果在文本界面下运行vim,则将窗口长度设为0
+
+-=========================正式记录部分============================
+每当你用vim打开一个新的工程的时候，你需要注意的是：
+1.手动生成新的tags文件-----》这个用F12能自动生成么？？？？？？
+
+~/test_ctags$ ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+
+2.手动生成新的cscope.out
+~/test_ctags$ cscope -Rbq
+~/test_ctags$ ll cscope.*
+-rw-r--r-- 1 apuser apuser  5890048 Apr  3 20:03 cscope.in.out
+-rw-r--r-- 1 apuser apuser 24692588 Apr  3 20:03 cscope.out
+-rw-r--r-- 1 apuser apuser 36052392 Apr  3 20:03 cscope.po.out
+~/test_ctags$ 
+
+3.手动添加cscope.out --->每次打开vim，都要导入一次，有快捷方式么？？？？
+cs add ~/test_ctags/cscope.out ~/test_ctags
+
+4.在普通模式下wm按键(注意是在普通模式下不是命令行模式)打开左侧栏，在命令行模式敲入cm打开搜索结果窗口
+用ctrl+w+w来切换焦点，但是搜索结果窗口可以用鼠标点击切换焦点。(后来发现所有窗口都可以用鼠标切换焦点)
+
+5.命令行模式输入e ~/test_ctags/，来激活插件: WinManager
+
+6.在命令行模式输入help ctags查看Ctags的相关帮助
+
+7.如下一堆的命令快捷键，无法使用？？？？而需要使用命令行去搜索，eg：cs find c vim_strsave
+nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+8.如何打开各个模块的帮助文档
+     step1:
+        为了方便的获得帮助，用命令行加入帮助文档
+        :helptags ~/.vim/doc
+     step2:
+        help ctags(或者supertab)
+
+9.supertab插件的安装，很easy
+	install details
+	1. Download supertab.vmb to any directory.
+	2. Open the file in vim ($ vim supertab.vmb).
+	3. Source the file (:so %).
+
+10.minibuffer的使用
+	vim命令行输入
+		:open file
+		可以再打开一个文件，并且此时vim里会显示出file文件的内容。
+	同时显示多个文件：
+		:split
+		:vsplit
+	在文件之间切换：
+		用<C-箭头键>切换到上下左右窗口中去
+
+11.关闭当前窗口
+	两个动作要连续做：Ctrl+w+c，(按下ctrl键，然后按下w抬起后马上再按下c)是关闭当前的窗口
+
+12.关于GREP的快捷键
+	点击F3会在最下面的命令行会显示:
+	Search for pattern: FEAT_QUICKFIX
+	此时你还可以编辑该行, grep支持正则表达式, 你想全词匹配的话可以改成:
+	Search for pattern: /<FEAT_QUICKFIX/>
+	然后按下回车:
+	在最下面的命令行会显示:
+	Search in files: *
+	是问你搜索范围, 默认是该目录下的所有文件, 此时你还可以编辑该行, 比如你只想搜索源码文件:
+	Search in files: *.c *.h
+
+13.命令行输入qa就是推出所有vim窗口
+
+14.可以用下面的命令打开QuickFix窗口:
+	:cw
+
+15.可以用下面的命令打开WindowManage窗口:
+	:wm
+
+16.vim的复制和粘贴快捷键迟迟搞不定？？----》劝你还是掌握键盘模式，因为就不需要动鼠标了。
+	常规的vim下，复制，粘贴，剪切，删除的操作键为：
+		yy复制游标所在行整行。或大写一个Y。 
+		2yy或y2y复制两行。。。。，请举一反三好不好！ :-) 
+		y^复制至行首，或y0。不含游标所在处字元。 
+		y$复制至行尾。含游标所在处字元。 
+		yw复制一个word。 
+		y2w复制两个字（单词）。 
+		yG复制至档尾。 
+		y1G复制至档首。 
+		p小写p代表贴至游标后（下）。 
+		P大写P代表贴至游标前（上）。
+		如果只是想使用系统粘贴板的话直接在输入模式按Shift+Inset就可以了
+	
+	剪切文本：
+	用v选中文本之后可以按y进行复制，如果按d就表示剪切，之后按p进行粘贴。
+
+	常规的vim下，剪切（也就是删除）的操作键为：
+		dd：剪切当前行
+		ndd：n表示大于1的数字，剪切n行
+		dw：从光标处剪切至一个单子/单词的末尾，包括空格
+		de：从光标处剪切至一个单子/单词的末尾，不包括空格
+		d$：从当前光标剪切到行末
+		d0：从当前光标位置（不包括光标位置）剪切之行首
+		d3l：从光标位置（包括光标位置）向右剪切3个字符
+		d5G：将当前行（包括当前行）至第5行（不包括它）剪切
+		d3B：从当前光标位置（不包括光标位置）反向剪切3个单词
+		dH：剪切从当前行至所显示屏幕顶行的全部行
+		dM：剪切从当前行至命令M所指定行的全部行
+		dL：剪切从当前行至所显示屏幕底的全部行
+
+	撤销操作
+		u   撤销上一步的操作
+	重复操作
+		Ctrl+r 恢复上一步被撤销的操作
+
+17.使用ctrl+上下左右可以在vim的各个窗口之间来回切换。
+
+18.快速跳转到文档的首部，尾部，行首，行尾：
+	   ->普通模式负责所有光标定位能力.插入模式随时使用<esc>键回到普通模式并且尽量保持普通模式为主要的工作状态.
+	   -> hjkl四键负责光标的低速移动,如果还在使用方向键控制光标, 请尽量改正到使用hjkl,否则vimer们会鄙视你的.
+	   -> gg 实现跳转到文件首行, G实现跳转到文件末行
+	   -> o实现向下新开行, O实现向上新开行
+	   -> 0和_实现跳转到行首, $实现跳转到行尾
+	   -> A实现直接到行尾插入, I实现直接在行首插入
+	   -> 数字+gg实现多行之间的快速定位
+	   -> f+字母实现单行内的快速前向定位,t+字母实现单行内的向快速反向定位.
+	   -> w实现按单词前向定位, b实现按单词反向定位
+	   -> ctrl+f,ctrl+y,ctrl+d,ctrl+b实现按页和半页跳转
+
+19.在文档中搜索某个字符串，可以使用F3功能，具体参考Grep的描述。http://blog.chinaunix.net/uid-21289517-id-3081793.html
+   不同与Cscope的是，Cscope是搜索函数调用或者，它调用了哪些函数，即函数关系的查看。
+
+20.vim上快捷键
+   ctrl+] 跳转到函数实现的位置
+   ctrl+o 跳转到前一个位置
+   ctrl+t 标签退栈
+
+
+100.写在最后，当我下载来一套全新代码，要使用vim的话，激活所有插件功能的操作步骤：
+？？？？？
+
+-=======================Follow can be del，tmp for init vim plugs==============================
+1
+	写在前面
+
+2 	中文帮助手册的安装
+
+3
+	vim编程常用命令
+
+4 	语法高亮
+
+5 	在程序中跳来跳去: Ctags 的使用
+
+6.
+	教你高效地浏览源码 -- 插件: TagList
+7.
+	文件浏览器和窗口管理器 -- 插件: WinManager
+
+8. 	Cscope 的使用
+
+9.
+	QuickFix 窗口
+
+10.
+	快速浏览和操作Buffer -- 插件: MiniBufExplorer
+
+11. 	c/h文件间相互切换 -- 插件: A
+
+12. 	在工程中查找 -- 插件: Grep
+
+13.
+	高亮的书签 -- 插件: VisualMark
+
+14.
+	自动补全
+
+15.
+	加速你的补全 -- 插件: SuperTab
+
+
+
+
