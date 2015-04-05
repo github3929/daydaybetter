@@ -335,11 +335,18 @@ if exists("tags")
     set tags=./tags
 endif
 
+"==========================================
+" TagList settings
+"==========================================
+
+" 手动刷新tags(含cscope)
+nmap tg :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>:set tags+=./tags <CR>:!cscope -Rbq <CR>:cs add ./cscope.out .<CR>
+
 "设置按F12就更新tags的方法
 map <F12> :call Do_CsTag()<CR>
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-"nmap F :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap F :cs find c <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
@@ -398,7 +405,7 @@ function Do_CsTag()
             else
                 silent! execute "!dir /s/b *.c,*.cpp,*.h,*.java,*.cs >> cscope.files"
             endif
-            silent! execute "!cscope -b"
+            silent! execute "!cscope -Rbq"
             execute "normal :"
                                                                      
             if filereadable("cscope.out")
@@ -427,3 +434,10 @@ set nocscopeverbose
 "vmap <C-v> "+gP
 "nmap <C-a> ggVG 
 "end of del by jason.
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"content below is added for vim project auto import ctags & cscope.out file //by jason
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cs add ~/qemu_code/qemu/cscope.out ~/qemu_code/qemu
+
