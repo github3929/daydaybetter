@@ -1,0 +1,27 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+﻿★multi-os的代码目录中，我们应该侧重与关注哪几个目录？
+
+linux内核代码在
+	prj/kernel
+
+android代码在
+	prj/目录下 除了 ./kernel 基本上都是
+
+qemu的代码在
+	prj/vendor/sprd/qemu
+
+kvm的代码在
+	prj/kernel/arch/mips/kvm  --->这部分需要和qemu的代码一起配合实现虚拟机的功能，详细联系参考 http://wenku.baidu.com/link?url=CJd8jIDW8AF-n7Apb8vd2aT8Jpuiw5qLdOOwFohu2nV1P9gyUuVKuEDcw0k50Uf9S40ehAFrR8HqXVAI2hDGUWYn4W-RHDhhbFQkxpIagOm
+
+
+﻿★通用的linux内核源代码的目录结构讲解参考如下页面：
+http://m.blog.csdn.net/blog/wzc18743083828/25486401
+
+﻿★通用的android源代码的目录结构讲解参考：
+http://blog.sina.com.cn/s/blog_5da93c8f0102v18w.html
+http://blog.csdn.net/jscese/article/details/40897277#t17
+
+
+===========================================================================
+﻿★你要是分析
