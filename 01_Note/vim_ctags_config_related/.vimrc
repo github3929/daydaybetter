@@ -439,5 +439,13 @@ set nocscopeverbose
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "content below is added for vim project auto import ctags & cscope.out file //by jason
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-cs add ~/qemu_code/qemu/cscope.out ~/qemu_code/qemu
+"cs add ~/qemu_code/qemu/cscope.out ~/qemu_code/qemu
+
+au BufEnter ~/multi-os/vendor/* setlocal tags+=~/multi-os/vendor/tags
+cs add ~/multi-os/vendor/cscope.out ~/multi-os/vendor
+
+au BufEnter ~/multi-os/kernel/* setlocal tags+=~/multi-os/kernel/tags
+cs add ~/multi-os/kernel/cscope.out ~/multi-os/kernel
+
+
 
