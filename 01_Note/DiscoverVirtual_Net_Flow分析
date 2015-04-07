@@ -24,4 +24,53 @@ http://blog.csdn.net/jscese/article/details/40897277#t17
 
 
 ===========================================================================
-﻿★你要是分析
+﻿★
+1.测试手机VPN开通后，Server和Client之间网络速度测试。----》性能相比VPN开通之前下降很多，具体数据随后整理
+​2.针对如下测试用例进行分析：
+​   PC（开启iPerf Server）-------switch(wifi router)  ------- multi-os手机(host os 开启iperf client)
+​                                                                          ------- multi-os手机(guest os 开启iperf client)
+​   guest os的iperf client性能相比host os的iperf client性能下降一半。初步分析了一下原因，报文是从server向client单向发送的，
+​报文在进入host网卡后，先走了一个host的收包流程，然后将包扔给了qemu模拟出来的eth0队列？然后报文再从eth0队列转发
+​到qemu模拟给guest的virtio的net模块，然后报文再从net模块通过guest的收包队列，进入guest的协议栈处理程序。然后这个
+​报文就会进入上层协议iperf的收包处理中。
+​
+​-----》总之，将报文在从进入host的网卡之后，都经过了哪些模块，过了谁的手，是否有向队列调度，内存拷贝这样的处理操作，
+​将这些都分析出来，也就是将这个从host网卡收包，到guest网卡收包中间都经历了哪些操作，总结出来。
+
+
+﻿★几个闪亮点：
+第一：为什么host和guest之间起server client测试网速会那么快？100mbsp，这个准么？
+
+第二：如果远端起来server，host比guest的client端收包快，假定host和guest之间时间开销很小，那时间是花在哪部分呢？
+      那问题来了， pkt----》host card ----》host server ----》qemu vlan ----》guest eth0 远端报文发给guest client
+                                           host server ----》qemu vlan ----》guest eth0 手机的host将报文发给guest client
+
+                   pkt----》host card ----》host 收包处理
+                   pkt----》host card ----》NAT模式，需要看报文是否为client的---如果是client的---》
+                                      ----》转发给Qemu Vlan
+                                      ----》guest eth0 card ----》guest 收包处理
+
+		   你的思路应该是：先看看host iperf server发报文给guest client的时候，报文走了哪些流程。--》假定为path_3
+                                  然后远端的iperf server发报文给guest时，报文在server上判断目的不是自己然后经过一系列处理后，也最终同path3一样从server发了出来---》假定为path3.3
+				  然后你再看看远端的iperf server发报文给host的时候，报文走了哪些流程。--》假定为path1
+                                  然后如果远端的server发的报文是给guest的，那么报文流程在host的部分是path1.1( path1.1 < path1)  
+				
+                                  然后guest如果收远端iperf server发的报文，报文多走了哪些流程。---》假定为path2
+
+                                  那么大体上guest收远端server发的报文，走的路程就是: 
+				  path1.1 +  path2 + path3.3(估计同path3时间相同应该，因为2者最终会汇合到一个qemu同一个处理接口)
+				  那你就好好剥离一下 path2 到底有哪些处理的操作？？？？？
+
+                    你实践的步骤：1.找一个串口输出的函数接口，在某个必然会调到的func里添加，然后看日志结果是否有输出。
+			 	 2.修改kernel的代码，重编译host，并且从新烧入手机system.img---》文件名有待确认。
+				 3.那如果修改qemu的代码，重新编译后，应该从新烧入手机 哪个文件呢？---》是文件系统么？还是？
+                                 4.如果想让修改体现在guest上，那么应 重新编译guest，然后从新烧整个sd卡么？还是其中一部分？
+
+
+后记：
+在报文进入host的网卡的时候，打一个时间标签，
+
+在报文进入guest的网卡的时候，打一个时间标签，
+
+两个时间点一减，就得出每次报文从host到guest转发延误的时间，如果测试10s秒钟，然后发了10K的报文，那么每条报文
+
