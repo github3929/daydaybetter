@@ -1,0 +1,52 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+﻿★Print打印相关的
+1.在kernel的什么地方加什么printf函数，可以打印出东西来？
+
+  然后加了printf的代码编译完后，重烧什么东西，怎么烧可以体现出版本的更新？
+
+2.在qemu的什么地方加什么printf函数，可以打印出东西来？
+
+  然后加了printf的代码编译完后，重烧什么东西，怎么烧可以体现出版本的更新？
+
+3.在guest的kernel的什么地方加什么printf函数，可以打印出东西来？
+
+  然后加了printf的代码编译完后，重烧什么东西，怎么烧可以体现出版本的更新？
+
+4.编译生成的一堆img文件，都是哪些目录的代码编成的？(文件名后有记号的都是在无任何更改编译multi-os全部代码后被更新的文件)
+~/multi-os/out/target/product/scx35l_sp9630ea$ tree -L 1
+.
+├── android-info.txt
+├── boot.img        ------------》这个是kernel文件和ranmdisk.img文件一起打包生成的
+├── cache
+├── cache.img
+├── clean_steps.mk        ------------》
+├── data
+├── ddr_scan.bin        ------------》
+├── dt.img        ------------》
+├── fake_packages
+├── fdl1.bin        ------------》
+├── fdl2.bin        ------------》
+├── installed-files.txt        ------------》
+├── kernel        ------------》
+├── obj
+├── previous_build_config.mk        ------------》
+├── prodnv
+├── prodnv.img
+├── ramdisk.img
+├── ramdisk-recovery.img        ------------》
+├── recovery        ------------》是个目录
+├── recovery.img        ------------》
+├── root
+├── symbols
+├── system
+├── system.img        ------------》!!!!这个是文件系统
+├── u-boot_autopoweron.bin        ------------》
+├── u-boot.bin        ------------》
+├── u-boot-spl-16k.bin        ------------》
+└── userdata.img
+
+
+★9:20执行make--->无任何更改编译multi-os全部代码。---》9:34才结束
+
+  所以为了省时间，你可以单独编译其中的boot.img或者system.img
