@@ -523,6 +523,12 @@ sudo chown root:root fastboot
 
 sudo chmod +s fastboot ----》这个步骤作用就是在文件执行时把进程的属主或组ID置为该文件的文件属主。
       				方式“u＋s”设置文件的用户ID位，“g＋s”设置组ID位。
+3. fastboot的位置在：
+~/sprdroid4.4prime_3.10_14a_dualos/out/host/linux-x86/bin$
+-rwsr-sr-x 1 root                   root                       602280 Feb 28 20:14 fastboot*
+
+4. 自己偶然发现的，如果按照下面的方式执行fastboot，是否就不用1和2的操作步骤了？？？
+"sudo sh -x mkffos.sh /dev/sdc ./rootfs.tgz ./system.tgz ./vImage" ---->是否这样就不用修改fastboot的文件权限了
 
 题外话：找fastboot的位置的时候，用which命令比whereis好使。
 题外话：正常的话，会是如下输出：
@@ -1087,8 +1093,36 @@ qemu的log都被重定向到了一个system目录下的一个日志文件中。
 sudo minicom -s命令是配置串口的命令。加一个 -s参数。
 
 =========================================================Day:2015008 start=========================================================
+1.你修改multos的代码，对应的obj文件的目录为：
+host os kernel的目标文件：
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/out/target/product/scx35l_sp9630ea/obj/KERNEL
+
+host os android的目标文件：
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/out/target/product/scx35l_sp9630ea/obj目录下除了KERNEL目录
+
+qemu的目标文件：
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/vendor/sprd/qemu/net/slirp.o
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/vendor/sprd/qemu/slirp/slirp.o
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/vendor/sprd/qemu/stubs/slirp.o
+
+guest os kernel的目标文件：
+~/multi-os$ locate virtio_net.o
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/out/target/product/vshark/obj/KERNEL/drivers/net/.virtio_net.o.cmd
+/home/likewise-open/SPREADTRUM/jason.jiang/multi-os/out/target/product/vshark/obj/KERNEL/drivers/net/virtio_net.o
 
 
+你可以查看自己的修改是否被重新编译。
+
+2.logcat dmesg命令都可以查看linux系统的日志文件。
+===》所以测试改动代码的步骤为：先找一个肯定会频繁调用到的func，里边加上打印信息，然后用logcat看输出。
+
+3.linux和android日志查看命令：
+
+logcat
+
+dmesg
+
+=========================================================Day:2015009 start=========================================================
 通过virtio_ring.c文件里的如下函数接口：可以将输入类型的设备 or 输出类型的设备添加到设备链表里
 int virtqueue_add_outbuf(struct virtqueue *vq,
 			 struct scatterlist sg[], unsigned int num,

@@ -30,7 +30,7 @@ NAT 的出发点是IP地址复用，即子网的多个PC共用一个出口IP地�
 		    slirp_socket_recv(fwd->slirp, fwd->server, fwd->port, buf, size);-----》这个func是负责？见下边分析。
 		}
 
-		static int slirp_guestfwd(SlirpState *s, const char *config_str, int legacy_format) ---->这个函数意思是，传入的config_str参数为报文buffer，然后在这里函数里将报文中填充的guest ipaddr和port提取出来。然后发向这个guest。
+		static int slirp_guestfwd(SlirpState *s, const char *config_str, int legacy_format) ---->这个函数意思是，传入的config_str参数为报文buffer，然后在这里函数里将报文中填充的guest ipaddr和port提取出来。然后记录下来这个guest的IP地址和端口的对应关系？待确认(ToDel:发向这个guest)。
 		{
 		        qemu_chr_add_handlers(fwd->hd, guestfwd_can_read, guestfwd_read, NULL, fwd);------>在这里向系统挂接了guestfwd_read接口
 		}

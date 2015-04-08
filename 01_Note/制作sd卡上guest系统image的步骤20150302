@@ -9,7 +9,7 @@
  2008  packvffos
 
 
-~/sprdroid4.4prime_3.10_14a_dualos$ packvffos
+~/sprdroid4.4prime_3.10_14a_dualos$ packvffos ----》注意这个命令一定要在编译完guest os app后的terminal窗口执行才行，也就是紧接着上面make命令执行完后执行。
 Firefox OS img for KVM-QEMU has been built.
 
 ★向sd卡烧写程序的时候，需要注意几点，否则有可能操作不成功：
@@ -22,4 +22,11 @@ lunch vsharkffos-userdebug
 4.一定要到~/sprdroid4.4prime_3.10_14a_dualos/vendor/sprd/open-source/tools/mkffos目录下执行脚本。
 5.脚本一定要加上x运行权限。
 6.执行命令为 sudo sh -x ./mkffos.sh /dev/sdb ~/root.tgz ~/system.tgz ~/vImage，注意是sdb不是sdb1
+命令如果是在vshark目录的话，格式为: ~/multi-os/out/target/product/vshark$ sudo sh -x ~/multi-os/vendor/sprd/open-source/tools/mkffos/mkffos.sh /dev/sdb ./root.tgz ./system.tgz ./vImage 
+
+补充：制作root.tar.gz 和 system.tar.gz 两个文件过程：
+packvffos ---》命令一定要在编译完guest os app后的terminal窗口执行才行，也就是紧接着上面make命令执行完后执行。
+
+
+
 
