@@ -436,3 +436,5 @@ tftp: timeout
 iperf.apk            100% |*******************************|   530k --:--:-- ETA
 root@vshark:/sdcard # 
 
+﻿★在guest os上安装iperf软件，步骤其实很简单：如下，就是在host的terminal里执行如下命令：
+shell@scx35l_sp9630ea:/ # adb install sdcard/iperf.apk 
