@@ -162,6 +162,12 @@ nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 24. ctrl+o 是向前跳，ctrl+i 向后跳的快捷键。
 
+25.在vim中使用cs find t jason.jiang搜索字符串，找不到。也就是说找不到类似"obj.name"这样中间带.的字符串。
+
+如果可以的话，你写标识字符串，jason-jiang比较好。
+
+--->这个问题的解决方法，参考http://zhidao.baidu.com/link?url=-gU_mdki1GbxadquaPbNkogRq1wW5KF0W9qIAExKzpPd9ujJ-mH0_RQmKGLXcsroh99aAqPmFQltFeUjg_Pr_pRUfP5RYVrJVZtsN0AEaTO
+
 100.写在最后，当我下载来一套全新代码，要使用vim的话，激活所有插件功能的操作步骤：
 1.进入工程的根目录，然后打开vi,然后按下F12按键。
 	--》发现tag文件正确生成了，但是cscope.out文件生成了，但是无法使用（在c文件中搜不到函数被调用的地方），后来发现是vimrc文件里搜索cscope -Rbq没写全
