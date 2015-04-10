@@ -1,0 +1,86 @@
+ssh-agent added
+~/multi-os/vendor$ cd .
+~/multi-os/vendor$ cd ..
+~/multi-os$ gdb
+GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2.1) 7.4-2012.04
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+<http://bugs.launchpad.net/gdb-linaro/>.
+(gdb) help
+List of classes of commands:
+
+aliases -- Aliases of other commands
+breakpoints -- Making program stop at certain points
+data -- Examining data
+files -- Specifying and examining files
+internals -- Maintenance commands
+obscure -- Obscure features
+running -- Running the program
+stack -- Examining the stack
+status -- Status inquiries
+support -- Support facilities
+tracepoints -- Tracing of program execution without stopping the program
+user-defined -- User-defined commands
+
+Type "help" followed by a class name for a list of commands in that class.
+Type "help all" for the list of all commands.
+Type "help" followed by command name for full documentation.
+Type "apropos word" to search for commands related to "word".
+Command name abbreviations are allowed if unambiguous.
+(gdb) exit
+Undefined command: "exit".  Try "help".
+(gdb) 
+Undefined command: "exit".  Try "help".
+(gdb) 
+Display all 175 possibilities? (y or n)
+!                            down-silently                nexti                        skip
++                            dump                         ni                           source
+-                            echo                         nosharedlibrary              start
+<                            edit                         output                       step
+>                            enable                       overlay                      stepi
+actions                      end                          passcount                    stepping
+add-inferior                 eval                         path                         stop
+add-symbol-file              exec-file                    print                        strace
+add-symbol-file-from-memory  file                         print-object                 symbol-file
+advance                      find                         printf                       tabset
+alias                        finish                       ptype                        target
+append                       flushregs                    pwd                          task
+apropos                      focus                        python                       tbreak
+attach                       forward-search               quit                         tcatch
+awatch                       frame                        rbreak                       tdump
+backtrace                    fs                           rc                           teval
+bookmark                     ftrace                       record                       tfind
+break                        function                     refresh                      thbreak
+break-range                  generate-core-file           remote                       thread
+bt                           goto-bookmark                remove-inferiors             tp
+call                         handle                       restart                      trace
+catch                        hbreak                       restore                      tsave
+cd                           help                         return                       tstart
+checkpoint                   if                           reverse-continue             tstatus
+clear                        ignore                       reverse-finish               tstop
+clone-inferior               inferior                     reverse-next                 tty
+collect                      info                         reverse-nexti                tui
+commands                     init-if-undefined            reverse-search               tvariable
+compare-sections             inspect                      reverse-step                 undisplay
+complete                     interpreter-exec             reverse-stepi                unset
+condition                    interrupt                    rni                          until
+continue                     jit-reader-load              rsi                          up
+core-file                    jit-reader-unload            run                          up-silently
+define                       jump                         rwatch                       update
+delete                       kill                         save                         watch
+detach                       layout                       search                       wh
+directory                    list                         section                      whatis
+disable                      load                         select-frame                 where
+disassemble                  macro                        set                          while
+disconnect                   maintenance                  sharedlibrary                while-stepping
+display                      make                         shell                        winheight
+document                     mem                          show                         ws
+dont-repeat                  monitor                      si                           x
+down                         next                         signal                       
+(gdb) 
+
