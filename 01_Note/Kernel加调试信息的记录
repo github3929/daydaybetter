@@ -1,0 +1,13 @@
+1.如果提示说kernel需要从新clean掉那些obj文件，那么
+进入kernel目录执行make mrproper命令
+
+2.我故意将kernel/arch/arm/mach-sc/pm_debug_scx35.c文件语法改错，但是编译make bootimage没有提示任何错误就过了？
+
+定位：--》这么做，是为了将pm_debug_scx35.c里不断输出的printk信息删除掉。
+ a.首先进入pm_debug_scx35.c所在的目录，分析这个文件的目标文件被链接进了哪个obj文件中。
+ b.
+
+结论：
+ 是如果你淡淡加了个printk();那么可能会编不进去。这个需要注意看一下它的obj文件是否更新，你比如pm_debug_scx35.c对应的obj文件就是
+
+3.最终我还是成功将这个debug信息添加里上去。
