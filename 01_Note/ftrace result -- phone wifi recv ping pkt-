@@ -1,0 +1,1670 @@
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # 
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # echo 0 > tracing_on
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # 
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # echo 0 > trace
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # cat  trace
+# tracer: function_graph
+#
+# CPU  DURATION                  FUNCTION CALLS
+# |     |   |                     |   |   |   |
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # 
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # echo 1 > tracing_on
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # echo 0 > tracing_on
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # cat  trace                    
+# tracer: function_graph
+#
+# CPU  DURATION                  FUNCTION CALLS
+# |     |   |                     |   |   |   |
+ 0)               |  ip_rcv() {
+ 0)               |    nf_hook_slow() {
+ 0)   0.000 us    |      __rcu_read_lock();
+ 0)               |      nf_iterate() {
+ 0)   0.000 us    |        ipv4_conntrack_defrag();
+ 0)               |        iptable_raw_hook() {
+ 0)               |          ipt_do_table() {
+ 0)               |            local_bh_disable() {
+ 0)   0.000 us    |              __local_bh_disable();
+ 0) + 30.517 us   |            }
+ 0)               |            qtaguid_mt() {
+ 0)   0.000 us    |              ipx_proto.isra.5();
+ 0)               |              _raw_spin_lock_bh() {
+ 0)               |                local_bh_disable() {
+ 0)   0.000 us    |                  __local_bh_disable();
+ 0)   0.000 us    |                }
+ 0)   0.000 us    |                add_preempt_count();
+ 0) + 30.517 us   |              }
+ 0)   0.000 us    |              get_iface_entry();
+ 0)   0.000 us    |              data_counters_update();
+ 0)               |              _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                sub_preempt_count();
+ 0)               |                local_bh_enable_ip() {
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0)   0.000 us    |                }
+ 0) + 30.518 us   |              }
+ 0) ! 152.588 us  |            }
+ 0)               |            local_bh_enable() {
+ 0)   0.000 us    |              sub_preempt_count();
+ 0)   0.000 us    |              sub_preempt_count();
+ 0) + 30.518 us   |            }
+ 0) ! 213.623 us  |          }
+ 0) ! 213.623 us  |        }
+ 0)               |        ipv4_conntrack_in() {
+ 0)               |          nf_conntrack_in() {
+ 0)   0.000 us    |            ipv4_get_l4proto();
+ 0)   0.000 us    |            __nf_ct_l4proto_find();
+ 0)               |            icmp_error() {
+ 0)               |              nf_ip_checksum() {
+ 0)               |                __skb_checksum_complete() {
+ 0)               |                  __skb_checksum_complete_head() {
+ 0)   0.000 us    |                    skb_checksum();
+ 0) + 30.517 us   |                  }
+ 0) + 30.517 us   |                }
+ 0) + 30.517 us   |              }
+ 0) + 30.517 us   |            }
+ 0)               |            nf_ct_get_tuple() {
+ 0)   0.000 us    |              ipv4_pkt_to_tuple();
+ 0)   0.000 us    |              icmp_pkt_to_tuple();
+ 0) + 30.518 us   |            }
+ 0) + 30.518 us   |            hash_conntrack_raw();
+ 0)               |            __nf_conntrack_find_get() {
+ 0)   0.000 us    |              __rcu_read_lock();
+ 0)               |              ____nf_conntrack_find() {
+ 0)               |                local_bh_disable() {
+ 0)   0.000 us    |                  __local_bh_disable();
+ 0)   0.000 us    |                }
+ 0)               |                local_bh_enable() {
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0) + 30.518 us   |                }
+ 0) + 61.035 us   |              }
+ 0) + 30.517 us   |              __rcu_read_unlock();
+ 0) + 91.552 us   |            }
+ 0)               |            nf_ct_invert_tuple() {
+ 0)   0.000 us    |              ipv4_invert_tuple();
+ 0)   0.000 us    |              icmp_invert_tuple();
+ 0) + 30.518 us   |            }
+ 0)               |            __nf_conntrack_alloc() {
+ 0)               |              kmem_cache_alloc() {
+ 0)   0.000 us    |                add_preempt_count();
+ 0)   0.000 us    |                sub_preempt_count();
+ 0) + 30.517 us   |              }
+ 0)   0.000 us    |              init_timer_key();
+ 0) + 61.035 us   |            }
+ 0)   0.000 us    |            icmp_get_timeouts();
+ 0)   0.000 us    |            icmp_new();
+ 0)               |            __nf_ct_ext_add_length() {
+ 0)   0.000 us    |              __rcu_read_lock();
+ 0)   0.000 us    |              __rcu_read_unlock();
+ 0)               |              __kmalloc() {
+ 0)   0.000 us    |                kmalloc_slab();
+ 0)   0.000 us    |                add_preempt_count();
+ 0)   0.000 us    |                sub_preempt_count();
+ 0) + 30.518 us   |              }
+ 0) + 61.035 us   |            }
+ 0)               |            _raw_spin_lock_bh() {
+ 0)               |              local_bh_disable() {
+ 0)   0.000 us    |                __local_bh_disable();
+ 0) + 30.517 us   |              }
+ 0)   0.000 us    |              add_preempt_count();
+ 0) + 30.517 us   |            }
+ 0)   0.000 us    |            nf_ct_find_expectation();
+ 0)   0.000 us    |            __nf_ct_try_assign_helper();
+ 0)               |            _raw_spin_unlock_bh() {
+ 0)   0.000 us    |              sub_preempt_count();
+ 0)               |              local_bh_enable_ip() {
+ 0)   0.000 us    |                sub_preempt_count();
+ 0)   0.000 us    |                sub_preempt_count();
+ 0) + 30.517 us   |              }
+ 0) + 61.035 us   |            }
+ 0)   0.000 us    |            icmp_get_timeouts();
+ 0)               |            icmp_packet() {
+ 0)   0.000 us    |              __nf_ct_refresh_acct();
+ 0) + 30.518 us   |            }
+ 0) ! 549.317 us  |          }
+ 0) ! 579.834 us  |        }
+ 0)               |        iptable_mangle_hook() {
+ 0)               |          ipt_do_table() {
+ 0)               |            local_bh_disable() {
+ 0)   0.000 us    |              __local_bh_disable();
+ 0)   0.000 us    |            }
+ 0)               |            local_bh_enable() {
+ 0)   0.000 us    |              sub_preempt_count();
+ 0)   0.000 us    |              sub_preempt_count();
+ 0)   0.000 us    |            }
+ 0) + 30.518 us   |          }
+ 0) + 61.035 us   |        }
+ 0)               |        nf_nat_ipv4_in() {
+ 0)               |          nf_nat_ipv4_fn() {
+ 0)               |            __nf_ct_ext_add_length() {
+ 0)   0.000 us    |              __rcu_read_lock();
+ 0)   0.000 us    |              __rcu_read_unlock();
+ 0)               |              __krealloc() {
+ 0)   0.000 us    |                ksize();
+ 0) + 30.518 us   |              }
+ 0) + 61.036 us   |            }
+ 0)               |            ipt_do_table() {
+ 0)               |              local_bh_disable() {
+ 0)   0.000 us    |                __local_bh_disable();
+ 0) + 30.517 us   |              }
+ 0)               |              local_bh_enable() {
+ 0)   0.000 us    |                sub_preempt_count();
+ 0)   0.000 us    |                sub_preempt_count();
+ 0) + 30.518 us   |              }
+ 0) + 61.035 us   |            }
+ 0)               |            nf_nat_setup_info() {
+ 0)               |              nf_ct_invert_tuplepr() {
+ 0)   0.000 us    |                __rcu_read_lock();
+ 0)   0.000 us    |                __nf_ct_l4proto_find();
+ 0)               |                nf_ct_invert_tuple() {
+ 0)   0.000 us    |                  ipv4_invert_tuple();
+ 0)   0.000 us    |                  icmp_invert_tuple();
+ 0) + 30.518 us   |                }
+ 0)   0.000 us    |                __rcu_read_unlock();
+ 0) + 91.552 us   |              }
+ 0)   0.000 us    |              __rcu_read_lock();
+ 0)               |              nf_nat_used_tuple() {
+ 0)               |                nf_ct_invert_tuplepr() {
+ 0)   0.000 us    |                  __rcu_read_lock();
+ 0)   0.000 us    |                  __nf_ct_l4proto_find();
+ 0)               |                  nf_ct_invert_tuple() {
+ 0)   0.000 us    |                    ipv4_invert_tuple();
+ 0)   0.000 us    |                    icmp_invert_tuple();
+ 0) + 30.518 us   |                  }
+ 0)   0.000 us    |                  __rcu_read_unlock();
+ 0) + 61.036 us   |                }
+ 0)               |                nf_conntrack_tuple_taken() {
+ 0)   0.000 us    |                  hash_conntrack_raw();
+ 0)               |                  local_bh_disable() {
+ 0)   0.000 us    |                    __local_bh_disable();
+ 0) + 30.518 us   |                  }
+ 0)               |                  local_bh_enable() {
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0) + 30.517 us   |                  }
+ 0) + 61.035 us   |                }
+ 0) ! 152.588 us  |              }
+ 0)   0.000 us    |              __rcu_read_unlock();
+ 0) ! 274.658 us  |            }
+ 0)   0.000 us    |            nf_nat_packet();
+ 0) ! 396.729 us  |          }
+ 0) ! 396.729 us  |        }
+ 0) ! 1281.738 us |      }
+ 0)   0.000 us    |      __rcu_read_unlock();
+ 0) ! 1342.773 us |    }
+ 0)               |    ip_rcv_finish() {
+ 0)               |      ip_route_input_noref() {
+ 0)   ==========> |
+ 0)               |      gic_handle_irq() {
+ 0)               |        irq_find_mapping() {
+ 0)   0.000 us    |          irq_domain_legacy_revmap();
+ 0)   0.000 us    |        }
+ 0)               |        handle_IRQ() {
+ 0)               |          irq_enter() {
+ 0)   0.000 us    |            rcu_irq_enter();
+ 0)   0.000 us    |            add_preempt_count();
+ 0) + 30.517 us   |          }
+ 0)               |          generic_handle_irq() {
+ 0)   0.000 us    |            irq_to_desc();
+ 0)               |            handle_fasteoi_irq() {
+ 0)               |              _raw_spin_lock() {
+ 0)   0.000 us    |                add_preempt_count();
+ 0)   0.000 us    |              }
+ 0)               |              handle_irq_event() {
+ 0)               |                _raw_spin_unlock() {
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0) + 30.517 us   |                }
+ 0)               |                handle_irq_event_percpu() {
+ 0)   0.000 us    |                  __sprd_debug_irq_log();
+ 0)               |                  __gptimer_interrupt() {
+ 0)               |                    hrtimer_interrupt() {
+ 0)               |                      _raw_spin_lock() {
+ 0)   0.000 us    |                        add_preempt_count();
+ 0)   0.000 us    |                      }
+ 0)               |                      ktime_get_update_offsets() {
+ 0)   0.000 us    |                        arch_counter_read();
+ 0)   0.000 us    |                      }
+ 0)               |                      __run_hrtimer() {
+ 0)   0.000 us    |                        __remove_hrtimer();
+ 0)               |                        _raw_spin_unlock() {
+ 0)   0.000 us    |                          sub_preempt_count();
+ 0)   0.000 us    |                        }
+ 0)               |                        tick_sched_timer() {
+ 0)               |                          ktime_get() {
+ 0)   0.000 us    |                            arch_counter_read();
+ 0)   0.000 us    |                          }
+ 0)               |                          tick_sched_do_timer() {
+ 0)               |                            tick_do_update_jiffies64() {
+ 0)               |                              _raw_spin_lock() {
+ 0)   0.000 us    |                                add_preempt_count();
+ 0)   0.000 us    |                              }
+ 0)               |                              do_timer() {
+ 0)               |                                _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                  add_preempt_count();
+ 0)   0.000 us    |                                }
+ 0)   0.000 us    |                                arch_counter_read();
+ 0)   0.000 us    |                                ntp_tick_length();
+ 0)   0.000 us    |                                ntp_tick_length();
+ 0)               |                                update_pvclock_gtod.constprop.8() {
+ 0)               |                                  raw_notifier_call_chain() {
+ 0)               |                                    __raw_notifier_call_chain() {
+ 0)   0.000 us    |                                      notifier_call_chain();
+ 0)   0.000 us    |                                    }
+ 0)   0.000 us    |                                  }
+ 0) + 30.518 us   |                                }
+ 0)               |                                _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                  sub_preempt_count();
+ 0)   0.000 us    |                                }
+ 0)   0.000 us    |                                calc_global_load();
+ 0) ! 122.070 us  |                              }
+ 0)               |                              _raw_spin_unlock() {
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0) + 30.518 us   |                              }
+ 0) ! 183.106 us  |                            }
+ 0) ! 183.106 us  |                          }
+ 0)               |                          tick_sched_handle() {
+ 0)               |                            update_process_times() {
+ 0)               |                              account_process_tick() {
+ 0)               |                                account_system_time() {
+ 0)               |                                  cpuacct_account_field() {
+ 0)   0.000 us    |                                    __rcu_read_lock();
+ 0)   0.000 us    |                                    __rcu_read_unlock();
+ 0) + 30.518 us   |                                  }
+ 0) + 30.518 us   |                                }
+ 0) + 30.518 us   |                              }
+ 0)               |                              run_local_timers() {
+ 0)   0.000 us    |                                hrtimer_run_queues();
+ 0)               |                                raise_softirq() {
+ 0)   0.000 us    |                                  __raise_softirq_irqoff();
+ 0)   0.000 us    |                                }
+ 0) + 30.517 us   |                              }
+ 0)               |                              rcu_check_callbacks() {
+ 0)               |                                invoke_rcu_core() {
+ 0)               |                                  raise_softirq() {
+ 0)   0.000 us    |                                    __raise_softirq_irqoff();
+ 0)   0.000 us    |                                  }
+ 0) + 30.518 us   |                                }
+ 0) + 30.518 us   |                              }
+ 0)               |                              rsp_wakeup() {
+ 0)               |                                __wake_up() {
+ 0)               |                                  _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                    add_preempt_count();
+ 0) + 30.517 us   |                                  }
+ 0)               |                                  __wake_up_common() {
+ 0)               |                                    autoremove_wake_function() {
+ 0)               |                                      default_wake_function() {
+ 0)               |                                        try_to_wake_up() {
+ 0)               |                                          _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                            add_preempt_count();
+ 0)   0.000 us    |                                          }
+ 0)   0.000 us    |                                          task_waking_fair();
+ 0)               |                                          select_task_rq_fair() {
+ 0)   0.000 us    |                                            __rcu_read_lock();
+ 0)   0.000 us    |                                            __rcu_read_unlock();
+ 0) + 30.518 us   |                                          }
+ 0)   0.000 us    |                                          cpus_share_cache();
+ 0)               |                                          _raw_spin_lock() {
+ 0) + 30.518 us   |                                            add_preempt_count();
+ 0) + 30.518 us   |                                          }
+ 0)               |                                          ttwu_do_activate.constprop.75() {
+ 0)               |                                            activate_task() {
+ 0)               |                                              enqueue_task() {
+ 0)   0.000 us    |                                                update_rq_clock();
+ 0)               |                                                enqueue_task_fair() {
+ 0)   0.000 us    |                                                  update_curr();
+ 0) + 30.518 us   |                                                  __compute_runnable_contrib();
+ 0)   0.000 us    |                                                  __update_entity_load_avg_contrib();
+ 0)   0.000 us    |                                                  update_cfs_rq_blocked_load();
+ 0)   0.000 us    |                                                  account_entity_enqueue();
+ 0)   0.000 us    |                                                  update_cfs_shares();
+ 0)   0.000 us    |                                                  __enqueue_entity();
+ 0)   0.000 us    |                                                  __compute_runnable_contrib();
+ 0)   0.000 us    |                                                  hrtick_update();
+ 0) + 91.553 us   |                                                }
+ 0) ! 122.070 us  |                                              }
+ 0) ! 122.070 us  |                                            }
+ 0)               |                                            ttwu_do_wakeup() {
+ 0)   0.000 us    |                                              check_preempt_curr();
+ 0)   0.000 us    |                                            }
+ 0) ! 152.587 us  |                                          }
+ 0)               |                                          _raw_spin_unlock() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)   0.000 us    |                                          }
+ 0)               |                                          _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0) + 30.518 us   |                                          }
+ 0) ! 305.176 us  |                                        }
+ 0) ! 335.694 us  |                                      }
+ 0) ! 335.694 us  |                                    }
+ 0) ! 335.694 us  |                                  }
+ 0)               |                                  _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                    sub_preempt_count();
+ 0)   0.000 us    |                                  }
+ 0) ! 396.728 us  |                                }
+ 0) ! 396.728 us  |                              }
+ 0)               |                              scheduler_tick() {
+ 0)               |                                _raw_spin_lock() {
+ 0)   0.000 us    |                                  add_preempt_count();
+ 0)   0.000 us    |                                }
+ 0)   0.000 us    |                                update_rq_clock();
+ 0)               |                                __update_cpu_load() {
+ 0)   0.000 us    |                                  sched_avg_update();
+ 0)   0.000 us    |                                }
+ 0)               |                                task_tick_rt() {
+ 0)               |                                  update_curr_rt() {
+ 0)               |                                    cpuacct_charge() {
+ 0)   0.000 us    |                                      __rcu_read_lock();
+ 0)   0.000 us    |                                      __rcu_read_unlock();
+ 0) + 30.517 us   |                                    }
+ 0)   0.000 us    |                                    sched_avg_update();
+ 0)               |                                    _raw_spin_lock() {
+ 0)   0.000 us    |                                      add_preempt_count();
+ 0) + 30.518 us   |                                    }
+ 0)   0.000 us    |                                    balance_runtime.part.11();
+ 0)               |                                    _raw_spin_unlock() {
+ 0)   0.000 us    |                                      sub_preempt_count();
+ 0) + 30.518 us   |                                    }
+ 0) + 91.553 us   |                                  }
+ 0) + 91.553 us   |                                }
+ 0)               |                                _raw_spin_unlock() {
+ 0)   0.000 us    |                                  sub_preempt_count();
+ 0) + 30.517 us   |                                }
+ 0)   0.000 us    |                                idle_cpu();
+ 0)               |                                trigger_load_balance() {
+ 0)   0.000 us    |                                  idle_cpu();
+ 0)   0.000 us    |                                  __rcu_read_lock();
+ 0)   0.000 us    |                                  __rcu_read_unlock();
+ 0) + 30.517 us   |                                }
+ 0) ! 244.140 us  |                              }
+ 0)   0.000 us    |                              run_posix_cpu_timers();
+ 0) ! 823.974 us  |                            }
+ 0)   0.000 us    |                            profile_tick();
+ 0) ! 854.492 us  |                          }
+ 0)               |                          hrtimer_forward() {
+ 0)   0.000 us    |                            ktime_add_safe();
+ 0)   0.000 us    |                            ktime_add_safe();
+ 0) + 30.518 us   |                          }
+ 0) ! 1098.633 us |                        }
+ 0)               |                        _raw_spin_lock() {
+ 0)   0.000 us    |                          add_preempt_count();
+ 0) + 30.517 us   |                        }
+ 0)   0.000 us    |                        enqueue_hrtimer();
+ 0) ! 1190.185 us |                      }
+ 0)               |                      __run_hrtimer() {
+ 0)   0.000 us    |                        __remove_hrtimer();
+ 0)               |                        _raw_spin_unlock() {
+ 0)   0.000 us    |                          sub_preempt_count();
+ 0) + 30.517 us   |                        }
+ 0)               |                        kvm_timer_expire() {
+ 0)               |                          queue_work_on() {
+ 0)               |                            __queue_work() {
+ 0)   0.000 us    |                              get_work_pool();
+ 0)               |                              _raw_spin_lock() {
+ 0)   0.000 us    |                                add_preempt_count();
+ 0)   0.000 us    |                              }
+ 0)               |                              insert_work() {
+ 0)   0.000 us    |                                get_pwq();
+ 0)               |                                wake_up_worker() {
+ 0)               |                                  wake_up_process() {
+ 0)               |                                    try_to_wake_up() {
+ 0)               |                                      _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0)   0.000 us    |                                      task_waking_fair();
+ 0)               |                                      select_task_rq_fair() {
+ 0)   0.000 us    |                                        __rcu_read_lock();
+ 0)   0.000 us    |                                        __rcu_read_unlock();
+ 0)   0.000 us    |                                      }
+ 0)   0.000 us    |                                      cpus_share_cache();
+ 0)               |                                      _raw_spin_lock() {
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0)               |                                      ttwu_do_activate.constprop.75() {
+ 0)               |                                        activate_task() {
+ 0)               |                                          enqueue_task() {
+ 0)   0.000 us    |                                            update_rq_clock();
+ 0)               |                                            enqueue_task_fair() {
+ 0)   0.000 us    |                                              update_curr();
+ 0)   0.000 us    |                                              __compute_runnable_contrib();
+ 0)   0.000 us    |                                              __update_entity_load_avg_contrib();
+ 0)   0.000 us    |                                              update_cfs_rq_blocked_load();
+ 0)   0.000 us    |                                              account_entity_enqueue();
+ 0)   0.000 us    |                                              update_cfs_shares();
+ 0)   0.000 us    |                                              __enqueue_entity();
+ 0)   0.000 us    |                                              hrtick_update();
+ 0) + 91.552 us   |                                            }
+ 0) + 91.552 us   |                                          }
+ 0) ! 122.070 us  |                                        }
+ 0)               |                                        wq_worker_waking_up() {
+ 0)   0.000 us    |                                          kthread_data();
+ 0)   0.000 us    |                                        }
+ 0)               |                                        ttwu_do_wakeup() {
+ 0)   0.000 us    |                                          check_preempt_curr();
+ 0)   0.000 us    |                                        }
+ 0) ! 152.588 us  |                                      }
+ 0)               |                                      _raw_spin_unlock() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0)               |                                      _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0) ! 335.694 us  |                                    }
+ 0) ! 335.694 us  |                                  }
+ 0) ! 335.694 us  |                                }
+ 0) ! 366.211 us  |                              }
+ 0)               |                              _raw_spin_unlock() {
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0)   0.000 us    |                              }
+ 0) ! 427.246 us  |                            }
+ 0) ! 427.246 us  |                          }
+ 0) ! 427.246 us  |                        }
+ 0)               |                        _raw_spin_lock() {
+ 0)   0.000 us    |                          add_preempt_count();
+ 0)   0.000 us    |                        }
+ 0) ! 488.281 us  |                      }
+ 0)               |                      __run_hrtimer() {
+ 0)   0.000 us    |                        __remove_hrtimer();
+ 0)               |                        _raw_spin_unlock() {
+ 0)   0.000 us    |                          sub_preempt_count();
+ 0) + 30.518 us   |                        }
+ 0)               |                        kvm_timer_expire() {
+ 0)               |                          queue_work_on() {
+ 0)               |                            __queue_work() {
+ 0)   0.000 us    |                              get_work_pool();
+ 0)               |                              _raw_spin_lock() {
+ 0)   0.000 us    |                                add_preempt_count();
+ 0)   0.000 us    |                              }
+ 0)               |                              insert_work() {
+ 0)   0.000 us    |                                get_pwq();
+ 0)               |                                wake_up_worker() {
+ 0)               |                                  wake_up_process() {
+ 0)               |                                    try_to_wake_up() {
+ 0)               |                                      _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0)               |                                      _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0) + 61.035 us   |                                    }
+ 0) + 61.035 us   |                                  }
+ 0) + 61.035 us   |                                }
+ 0) + 91.552 us   |                              }
+ 0)               |                              _raw_spin_unlock() {
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0)   0.000 us    |                              }
+ 0) ! 152.588 us  |                            }
+ 0) ! 152.588 us  |                          }
+ 0) ! 152.588 us  |                        }
+ 0)               |                        _raw_spin_lock() {
+ 0)   0.000 us    |                          add_preempt_count();
+ 0)   0.000 us    |                        }
+ 0) ! 213.624 us  |                      }
+ 0)               |                      __run_hrtimer() {
+ 0)   0.000 us    |                        __remove_hrtimer();
+ 0)               |                        _raw_spin_unlock() {
+ 0)   0.000 us    |                          sub_preempt_count();
+ 0)   0.000 us    |                        }
+ 0)               |                        kvm_timer_expire() {
+ 0)               |                          queue_work_on() {
+ 0)               |                            __queue_work() {
+ 0)   0.000 us    |                              get_work_pool();
+ 0)               |                              _raw_spin_lock() {
+ 0)   0.000 us    |                                add_preempt_count();
+ 0)   0.000 us    |                              }
+ 0)               |                              insert_work() {
+ 0) + 30.518 us   |                                get_pwq();
+ 0)               |                                wake_up_worker() {
+ 0)               |                                  wake_up_process() {
+ 0)               |                                    try_to_wake_up() {
+ 0)               |                                      _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0) + 30.517 us   |                                      }
+ 0)               |                                      _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0) + 61.035 us   |                                    }
+ 0) + 61.035 us   |                                  }
+ 0) + 61.035 us   |                                }
+ 0) + 91.553 us   |                              }
+ 0)               |                              _raw_spin_unlock() {
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0) + 30.518 us   |                              }
+ 0) ! 152.588 us  |                            }
+ 0) ! 152.588 us  |                          }
+ 0) ! 152.588 us  |                        }
+ 0)               |                        _raw_spin_lock() {
+ 0)   0.000 us    |                          add_preempt_count();
+ 0)   0.000 us    |                        }
+ 0) ! 213.623 us  |                      }
+ 0)               |                      __run_hrtimer() {
+ 0)   0.000 us    |                        __remove_hrtimer();
+ 0)               |                        _raw_spin_unlock() {
+ 0)   0.000 us    |                          sub_preempt_count();
+ 0)   0.000 us    |                        }
+ 0)               |                        kvm_timer_expire() {
+ 0)               |                          queue_work_on() {
+ 0)               |                            __queue_work() {
+ 0)   0.000 us    |                              get_work_pool();
+ 0)               |                              _raw_spin_lock() {
+ 0)   0.000 us    |                                add_preempt_count();
+ 0)   0.000 us    |                              }
+ 0)               |                              insert_work() {
+ 0)   0.000 us    |                                get_pwq();
+ 0)               |                                wake_up_worker() {
+ 0)               |                                  wake_up_process() {
+ 0)               |                                    try_to_wake_up() {
+ 0)               |                                      _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0)               |                                      _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0) + 30.518 us   |                                    }
+ 0) + 61.036 us   |                                  }
+ 0) + 61.036 us   |                                }
+ 0) + 91.553 us   |                              }
+ 0)               |                              _raw_spin_unlock() {
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0) + 30.517 us   |                              }
+ 0) ! 152.588 us  |                            }
+ 0) ! 152.588 us  |                          }
+ 0) ! 152.588 us  |                        }
+ 0)               |                        _raw_spin_lock() {
+ 0)   0.000 us    |                          add_preempt_count();
+ 0) + 30.518 us   |                        }
+ 0) ! 244.141 us  |                      }
+ 0)               |                      _raw_spin_unlock() {
+ 0)   0.000 us    |                        sub_preempt_count();
+ 0) + 30.517 us   |                      }
+ 0)               |                      tick_program_event() {
+ 0)               |                        clockevents_program_event() {
+ 0)               |                          ktime_get() {
+ 0)   0.000 us    |                            arch_counter_read();
+ 0) + 30.518 us   |                          }
+ 0) + 30.518 us   |                        }
+ 0) + 30.518 us   |                      }
+ 0)               |                      _raw_spin_lock() {
+ 0)   0.000 us    |                        add_preempt_count();
+ 0) + 30.518 us   |                      }
+ 0)               |                      ktime_get_update_offsets() {
+ 0)   0.000 us    |                        arch_counter_read();
+ 0) + 30.517 us   |                      }
+ 0)               |                      __run_hrtimer() {
+ 0)   0.000 us    |                        __remove_hrtimer();
+ 0)               |                        _raw_spin_unlock() {
+ 0)   0.000 us    |                          sub_preempt_count();
+ 0) + 30.518 us   |                        }
+ 0)               |                        tick_sched_timer() {
+ 0)               |                          ktime_get() {
+ 0)   0.000 us    |                            arch_counter_read();
+ 0) + 30.517 us   |                          }
+ 0)               |                          tick_sched_do_timer() {
+ 0)               |                            tick_do_update_jiffies64() {
+ 0)               |                              _raw_spin_lock() {
+ 0)   0.000 us    |                                add_preempt_count();
+ 0) + 30.518 us   |                              }
+ 0)               |                              do_timer() {
+ 0)               |                                _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                  add_preempt_count();
+ 0) + 30.517 us   |                                }
+ 0)   0.000 us    |                                arch_counter_read();
+ 0)               |                                _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                  sub_preempt_count();
+ 0) + 30.518 us   |                                }
+ 0)   0.000 us    |                                calc_global_load();
+ 0) + 61.035 us   |                              }
+ 0)               |                              _raw_spin_unlock() {
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0) + 30.518 us   |                              }
+ 0) ! 122.071 us  |                            }
+ 0) ! 122.071 us  |                          }
+ 0)               |                          tick_sched_handle() {
+ 0)               |                            update_process_times() {
+ 0)               |                              account_process_tick() {
+ 0)               |                                account_system_time() {
+ 0)               |                                  cpuacct_account_field() {
+ 0)   0.000 us    |                                    __rcu_read_lock();
+ 0)   0.000 us    |                                    __rcu_read_unlock();
+ 0) + 30.518 us   |                                  }
+ 0) + 30.518 us   |                                }
+ 0) + 30.518 us   |                              }
+ 0)               |                              run_local_timers() {
+ 0)   0.000 us    |                                hrtimer_run_queues();
+ 0)               |                                raise_softirq() {
+ 0)   0.000 us    |                                  __raise_softirq_irqoff();
+ 0)   0.000 us    |                                }
+ 0) + 61.035 us   |                              }
+ 0)               |                              rcu_check_callbacks() {
+ 0)               |                                invoke_rcu_core() {
+ 0)               |                                  raise_softirq() {
+ 0)   0.000 us    |                                    __raise_softirq_irqoff();
+ 0) + 30.517 us   |                                  }
+ 0) + 30.517 us   |                                }
+ 0) + 30.517 us   |                              }
+ 0)               |                              scheduler_tick() {
+ 0)               |                                _raw_spin_lock() {
+ 0)   0.000 us    |                                  add_preempt_count();
+ 0) + 30.518 us   |                                }
+ 0)   0.000 us    |                                update_rq_clock();
+ 0)               |                                __update_cpu_load() {
+ 0)   0.000 us    |                                  sched_avg_update();
+ 0) + 30.518 us   |                                }
+ 0)               |                                task_tick_rt() {
+ 0)               |                                  update_curr_rt() {
+ 0)               |                                    cpuacct_charge() {
+ 0)   0.000 us    |                                      __rcu_read_lock();
+ 0)   0.000 us    |                                      __rcu_read_unlock();
+ 0) + 30.517 us   |                                    }
+ 0)   0.000 us    |                                    sched_avg_update();
+ 0)               |                                    _raw_spin_lock() {
+ 0)   0.000 us    |                                      add_preempt_count();
+ 0)   0.000 us    |                                    }
+ 0)   0.000 us    |                                    balance_runtime.part.11();
+ 0)               |                                    _raw_spin_unlock() {
+ 0)   0.000 us    |                                      sub_preempt_count();
+ 0)   0.000 us    |                                    }
+ 0) + 91.552 us   |                                  }
+ 0) ! 122.070 us  |                                }
+ 0)               |                                _raw_spin_unlock() {
+ 0)   0.000 us    |                                  sub_preempt_count();
+ 0)   0.000 us    |                                }
+ 0)   0.000 us    |                                idle_cpu();
+ 0)               |                                trigger_load_balance() {
+ 0)   0.000 us    |                                  idle_cpu();
+ 0)   0.000 us    |                                  __rcu_read_lock();
+ 0)   0.000 us    |                                  __rcu_read_unlock();
+ 0) + 30.517 us   |                                }
+ 0) ! 244.141 us  |                              }
+ 0)   0.000 us    |                              run_posix_cpu_timers();
+ 0) ! 396.729 us  |                            }
+ 0)   0.000 us    |                            profile_tick();
+ 0) ! 427.246 us  |                          }
+ 0)               |                          hrtimer_forward() {
+ 0)   0.000 us    |                            ktime_add_safe();
+ 0)   0.000 us    |                            ktime_add_safe();
+ 0) + 30.517 us   |                          }
+ 0) ! 610.351 us  |                        }
+ 0)               |                        _raw_spin_lock() {
+ 0)   0.000 us    |                          add_preempt_count();
+ 0)   0.000 us    |                        }
+ 0)   0.000 us    |                        enqueue_hrtimer();
+ 0) ! 701.904 us  |                      }
+ 0)               |                      _raw_spin_unlock() {
+ 0)   0.000 us    |                        sub_preempt_count();
+ 0)   0.000 us    |                      }
+ 0)               |                      tick_program_event() {
+ 0)               |                        clockevents_program_event() {
+ 0)               |                          ktime_get() {
+ 0)   0.000 us    |                            arch_counter_read();
+ 0)   0.000 us    |                          }
+ 0)   0.000 us    |                          __gptimer_set_next_event();
+ 0) + 30.518 us   |                        }
+ 0) + 30.518 us   |                      }
+ 0) ! 3356.934 us |                    }
+ 0) ! 3356.934 us |                  }
+ 0)   0.000 us    |                  __sprd_debug_irq_log();
+ 0)               |                  add_interrupt_randomness() {
+ 0)   0.000 us    |                    read_current_timer();
+ 0) + 30.518 us   |                  }
+ 0)   0.000 us    |                  note_interrupt();
+ 0) ! 3448.487 us |                }
+ 0)               |                _raw_spin_lock() {
+ 0)   0.000 us    |                  add_preempt_count();
+ 0) + 30.517 us   |                }
+ 0) ! 3509.521 us |              }
+ 0)   0.000 us    |              gic_eoi_irq();
+ 0)               |              _raw_spin_unlock() {
+ 0)   0.000 us    |                sub_preempt_count();
+ 0)   0.000 us    |              }
+ 0) ! 3570.557 us |            }
+ 0) ! 3570.557 us |          }
+ 0)               |          irq_exit() {
+ 0)   0.000 us    |            sub_preempt_count();
+ 0)   0.000 us    |            idle_cpu();
+ 0) + 30.518 us   |            rcu_irq_exit();
+ 0) + 30.518 us   |          }
+ 0) ! 3662.109 us |        }
+ 0) ! 3692.627 us |      }
+ 0)   <========== |
+ 0)   0.000 us    |        __rcu_read_lock();
+ 0)               |        __fib_lookup() {
+ 0)               |          fib_rules_lookup() {
+ 0)   0.000 us    |            __rcu_read_lock();
+ 0)   0.000 us    |            fib4_rule_match();
+ 0)               |            fib4_rule_action() {
+ 0)               |              fib_get_table() {
+ 0)   0.000 us    |                __rcu_read_lock();
+ 0)   0.000 us    |                __rcu_read_unlock();
+ 0) + 30.518 us   |              }
+ 0)               |              fib_table_lookup() {
+ 0)   0.000 us    |                __rcu_read_lock();
+ 0)   0.000 us    |                check_leaf.isra.4();
+ 0)   0.000 us    |                __rcu_read_unlock();
+ 0) + 30.517 us   |              }
+ 0) + 61.035 us   |            }
+ 0)   0.000 us    |            __rcu_read_unlock();
+ 0) ! 122.070 us  |          }
+ 0) ! 122.070 us  |        }
+ 0)   0.000 us    |        fib_validate_source();
+ 0)   0.000 us    |        rt_cache_valid();
+ 0)   0.000 us    |        __skb_dst_set_noref();
+ 0)   0.000 us    |        __rcu_read_unlock();
+ 0) ! 213.623 us  |      } /* ip_route_input_noref */
+ 0)               |      ip_local_deliver() {
+ 0)               |        nf_hook_slow() {
+ 0)   0.000 us    |          __rcu_read_lock();
+ 0)               |          nf_iterate() {
+ 0)               |            iptable_mangle_hook() {
+ 0)               |              ipt_do_table() {
+ 0)               |                local_bh_disable() {
+ 0)   0.000 us    |                  __local_bh_disable();
+ 0) + 30.517 us   |                }
+ 0)               |                local_bh_enable() {
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0) + 30.518 us   |                }
+ 0) + 61.035 us   |              }
+ 0) + 61.035 us   |            }
+ 0)               |            iptable_filter_hook() {
+ 0)               |              ipt_do_table() {
+ 0)               |                local_bh_disable() {
+ 0)   0.000 us    |                  __local_bh_disable();
+ 0)   0.000 us    |                }
+ 0)               |                quota_mt2() {
+ 0)               |                  _raw_spin_lock_bh() {
+ 0)               |                    local_bh_disable() {
+ 0)   0.000 us    |                      __local_bh_disable();
+ 0)   0.000 us    |                    }
+ 0)   0.000 us    |                    add_preempt_count();
+ 0) + 30.518 us   |                  }
+ 0)               |                  _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0)               |                    local_bh_enable_ip() {
+ 0)   0.000 us    |                      sub_preempt_count();
+ 0)   0.000 us    |                      sub_preempt_count();
+ 0) + 30.518 us   |                    }
+ 0) + 61.035 us   |                  }
+ 0) + 91.553 us   |                }
+ 0)               |                quota_mt2() {
+ 0)               |                  _raw_spin_lock_bh() {
+ 0)               |                    local_bh_disable() {
+ 0)   0.000 us    |                      __local_bh_disable();
+ 0)   0.000 us    |                    }
+ 0)   0.000 us    |                    add_preempt_count();
+ 0) + 61.035 us   |                  }
+ 0)               |                  _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0)               |                    local_bh_enable_ip() {
+ 0)   0.000 us    |                      sub_preempt_count();
+ 0)   0.000 us    |                      sub_preempt_count();
+ 0) + 30.517 us   |                    }
+ 0) + 30.517 us   |                  }
+ 0) + 91.552 us   |                }
+ 0)               |                qtaguid_mt() {
+ 0)   0.000 us    |                  xt_socket_get4_sk();
+ 0)               |                  account_for_uid() {
+ 0)   0.000 us    |                    ipx_proto.isra.5();
+ 0)   0.000 us    |                    get_iface_entry();
+ 0)               |                    _raw_spin_lock_bh() {
+ 0)               |                      local_bh_disable() {
+ 0)   0.000 us    |                        __local_bh_disable();
+ 0)   0.000 us    |                      }
+ 0)   0.000 us    |                      add_preempt_count();
+ 0) + 30.517 us   |                    }
+ 0)   0.000 us    |                    tag_node_tree_search();
+ 0)               |                    tag_stat_update() {
+ 0)               |                      _raw_spin_lock_bh() {
+ 0)               |                        local_bh_disable() {
+ 0)   0.000 us    |                          __local_bh_disable();
+ 0) + 30.517 us   |                        }
+ 0)   0.000 us    |                        add_preempt_count();
+ 0) + 30.517 us   |                      }
+ 0)   0.000 us    |                      tag_node_tree_search();
+ 0)               |                      _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                        sub_preempt_count();
+ 0)               |                        local_bh_enable_ip() {
+ 0)   0.000 us    |                          sub_preempt_count();
+ 0)   0.000 us    |                          sub_preempt_count();
+ 0)   0.000 us    |                        }
+ 0) + 30.517 us   |                      }
+ 0)   0.000 us    |                      data_counters_update();
+ 0) ! 122.070 us  |                    }
+ 0)               |                    _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                      sub_preempt_count();
+ 0)               |                      local_bh_enable_ip() {
+ 0)   0.000 us    |                        sub_preempt_count();
+ 0)   0.000 us    |                        sub_preempt_count();
+ 0)   0.000 us    |                      }
+ 0) + 61.035 us   |                    }
+ 0) ! 274.658 us  |                  }
+ 0) ! 274.658 us  |                }
+ 0)               |                local_bh_enable() {
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0) + 30.518 us   |                }
+ 0) ! 549.317 us  |              }
+ 0) ! 549.317 us  |            }
+ 0)               |            nf_nat_ipv4_fn() {
+ 0)               |              ipt_do_table() {
+ 0)               |                local_bh_disable() {
+ 0)   0.000 us    |                  __local_bh_disable();
+ 0)   0.000 us    |                }
+ 0)               |                local_bh_enable() {
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0) + 30.518 us   |                }
+ 0) + 61.036 us   |              }
+ 0)               |              nf_nat_setup_info() {
+ 0)               |                nf_ct_invert_tuplepr() {
+ 0)   0.000 us    |                  __rcu_read_lock();
+ 0)   0.000 us    |                  __nf_ct_l4proto_find();
+ 0)               |                  nf_ct_invert_tuple() {
+ 0)   0.000 us    |                    ipv4_invert_tuple();
+ 0)   0.000 us    |                    icmp_invert_tuple();
+ 0) + 30.518 us   |                  }
+ 0)   0.000 us    |                  __rcu_read_unlock();
+ 0) + 61.035 us   |                }
+ 0)   0.000 us    |                __rcu_read_lock();
+ 0)   0.000 us    |                in_range();
+ 0)               |                nf_nat_used_tuple() {
+ 0)               |                  nf_ct_invert_tuplepr() {
+ 0)   0.000 us    |                    __rcu_read_lock();
+ 0)   0.000 us    |                    __nf_ct_l4proto_find();
+ 0)               |                    nf_ct_invert_tuple() {
+ 0)   0.000 us    |                      ipv4_invert_tuple();
+ 0)   0.000 us    |                      icmp_invert_tuple();
+ 0) + 30.517 us   |                    }
+ 0)   0.000 us    |                    __rcu_read_unlock();
+ 0) + 61.035 us   |                  }
+ 0)               |                  nf_conntrack_tuple_taken() {
+ 0)   0.000 us    |                    hash_conntrack_raw();
+ 0)               |                    local_bh_disable() {
+ 0)   0.000 us    |                      __local_bh_disable();
+ 0) + 30.518 us   |                    }
+ 0)               |                    local_bh_enable() {
+ 0)   0.000 us    |                      sub_preempt_count();
+ 0)   0.000 us    |                      sub_preempt_count();
+ 0) + 30.517 us   |                    }
+ 0) + 61.035 us   |                  }
+ 0) ! 152.588 us  |                }
+ 0) + 30.518 us   |                __rcu_read_unlock();
+ 0)               |                _raw_spin_lock_bh() {
+ 0)               |                  local_bh_disable() {
+ 0)   0.000 us    |                    __local_bh_disable();
+ 0)   0.000 us    |                  }
+ 0)   0.000 us    |                  add_preempt_count();
+ 0) + 30.517 us   |                }
+ 0)               |                _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0)               |                  local_bh_enable_ip() {
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0)   0.000 us    |                  }
+ 0) + 61.035 us   |                }
+ 0) ! 366.210 us  |              }
+ 0)   0.000 us    |              nf_nat_packet();
+ 0) ! 427.246 us  |            }
+ 0)   0.000 us    |            ipv4_helper();
+ 0)               |            ipv4_confirm() {
+ 0)               |              __nf_conntrack_confirm() {
+ 0)   0.000 us    |                hash_conntrack_raw();
+ 0)               |                _raw_spin_lock_bh() {
+ 0)               |                  local_bh_disable() {
+ 0)   0.000 us    |                    __local_bh_disable();
+ 0)   0.000 us    |                  }
+ 0)   0.000 us    |                  add_preempt_count();
+ 0) + 30.517 us   |                }
+ 0)               |                add_timer() {
+ 0)               |                  mod_timer() {
+ 0)               |                    lock_timer_base() {
+ 0)               |                      _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                        add_preempt_count();
+ 0)   0.000 us    |                      }
+ 0)   0.000 us    |                    }
+ 0)   0.000 us    |                    detach_if_pending();
+ 0)   0.000 us    |                    idle_cpu();
+ 0)               |                    internal_add_timer() {
+ 0)   0.000 us    |                      __internal_add_timer();
+ 0) + 30.518 us   |                    }
+ 0)               |                    _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                      sub_preempt_count();
+ 0)   0.000 us    |                    }
+ 0) + 91.553 us   |                  }
+ 0) ! 122.071 us  |                }
+ 0)   0.000 us    |                __nf_conntrack_hash_insert();
+ 0)               |                _raw_spin_unlock_bh() {
+ 0) + 30.517 us   |                  sub_preempt_count();
+ 0)               |                  local_bh_enable_ip() {
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0) + 30.518 us   |                  }
+ 0) + 61.035 us   |                }
+ 0) ! 244.141 us  |              }
+ 0)               |              nf_ct_deliver_cached_events() {
+ 0)   0.000 us    |                __rcu_read_lock();
+ 0)               |                ctnetlink_conntrack_event() {
+ 0)               |                  nfnetlink_has_listeners() {
+ 0)               |                    netlink_has_listeners() {
+ 0)   0.000 us    |                      __rcu_read_lock();
+ 0)   0.000 us    |                      __rcu_read_unlock();
+ 0) + 30.518 us   |                    }
+ 0) + 30.518 us   |                  }
+ 0) + 30.518 us   |                }
+ 0)   0.000 us    |                __rcu_read_unlock();
+ 0) + 91.552 us   |              }
+ 0) ! 335.693 us  |            }
+ 0) ! 1464.843 us |          }
+ 0)   0.000 us    |          __rcu_read_unlock();
+ 0) ! 1525.879 us |        }
+ 0)               |        ip_local_deliver_finish() {
+ 0)   0.000 us    |          __rcu_read_lock();
+ 0) + 30.518 us   |          raw_local_deliver();
+ 0)               |          icmp_rcv() {
+ 0)               |            icmp_echo() {
+ 0)               |              icmp_reply() {
+ 0) + 30.517 us   |                ip_options_echo();
+ 0)               |                local_bh_disable() {
+ 0)   0.000 us    |                  __local_bh_disable();
+ 0)   0.000 us    |                }
+ 0)   0.000 us    |                icmp_sk.constprop.8();
+ 0)               |                _raw_spin_trylock() {
+ 0)   0.000 us    |                  add_preempt_count();
+ 0)   0.000 us    |                }
+ 0)   0.000 us    |                fib_compute_spec_dst();
+ 0)               |                ip_route_output_flow() {
+ 0)               |                  __ip_route_output_key() {
+ 0)   0.000 us    |                    __rcu_read_lock();
+ 0)               |                    __ip_dev_find() {
+ 0)   0.000 us    |                      __rcu_read_lock();
+ 0)   0.000 us    |                      __rcu_read_unlock();
+ 0)   0.000 us    |                    }
+ 0)               |                    __fib_lookup() {
+ 0)               |                      fib_rules_lookup() {
+ 0)   0.000 us    |                        __rcu_read_lock();
+ 0)   0.000 us    |                        fib4_rule_match();
+ 0)               |                        fib4_rule_action() {
+ 0)               |                          fib_get_table() {
+ 0)   0.000 us    |                            __rcu_read_lock();
+ 0)   0.000 us    |                            __rcu_read_unlock();
+ 0) + 30.518 us   |                          }
+ 0)               |                          fib_table_lookup() {
+ 0)   0.000 us    |                            __rcu_read_lock();
+ 0)   0.000 us    |                            check_leaf.isra.4();
+ 0)   0.000 us    |                            __rcu_read_unlock();
+ 0) + 30.517 us   |                          }
+ 0) + 61.035 us   |                        }
+ 0)   0.000 us    |                        fib4_rule_match();
+ 0)               |                        fib4_rule_action() {
+ 0)               |                          fib_get_table() {
+ 0)   0.000 us    |                            __rcu_read_lock();
+ 0)   0.000 us    |                            __rcu_read_unlock();
+ 0) + 30.517 us   |                          }
+ 0)               |                          fib_table_lookup() {
+ 0)   0.000 us    |                            __rcu_read_lock();
+ 0)   0.000 us    |                            check_leaf.isra.4();
+ 0)   0.000 us    |                            __rcu_read_unlock();
+ 0) + 30.518 us   |                          }
+ 0) + 61.035 us   |                        }
+ 0)   0.000 us    |                        __rcu_read_unlock();
+ 0) ! 213.623 us  |                      }
+ 0) ! 213.623 us  |                    }
+ 0)   0.000 us    |                    rt_cache_valid();
+ 0)   0.000 us    |                    __rcu_read_unlock();
+ 0) ! 305.176 us  |                  }
+ 0)   0.000 us    |                  xfrm_lookup();
+ 0) ! 335.694 us  |                }
+ 0)               |                icmp_push_reply() {
+ 0)   0.000 us    |                  icmp_sk.constprop.8();
+ 0)               |                  ip_append_data() {
+ 0)               |                    ip_setup_cork() {
+ 0)   0.000 us    |                      ipv4_mtu();
+ 0)   0.000 us    |                    }
+ 0)               |                    __ip_append_data() {
+ 0)               |                      sock_alloc_send_skb() {
+ 0)               |                        sock_alloc_send_pskb() {
+ 0)               |                          __alloc_skb() {
+ 0)               |                            kmem_cache_alloc() {
+ 0)   0.000 us    |                              add_preempt_count();
+ 0)   0.000 us    |                              sub_preempt_count();
+ 0) + 30.517 us   |                            }
+ 0)               |                            __kmalloc_reserve.isra.15() {
+ 0)               |                              __kmalloc_track_caller() {
+ 0)   0.000 us    |                                kmalloc_slab();
+ 0)   0.000 us    |                                add_preempt_count();
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0)               |                                __slab_alloc.isra.45.constprop.50() {
+ 0)   0.000 us    |                                  add_preempt_count();
+ 0)   0.000 us    |                                  sub_preempt_count();
+ 0)   0.000 us    |                                  add_preempt_count();
+ 0)   0.000 us    |                                  sub_preempt_count();
+ 0) + 30.517 us   |                                }
+ 0) + 91.553 us   |                              }
+ 0) + 91.553 us   |                            }
+ 0)   0.000 us    |                            ksize();
+ 0) ! 152.588 us  |                          }
+ 0) ! 152.588 us  |                        }
+ 0) ! 152.588 us  |                      }
+ 0)   0.000 us    |                      skb_put();
+ 0)               |                      icmp_glue_bits() {
+ 0)   0.000 us    |                        skb_copy_and_csum_bits();
+ 0) + 30.518 us   |                      }
+ 0) ! 244.141 us  |                    }
+ 0) ! 274.658 us  |                  }
+ 0)               |                  ip_push_pending_frames() {
+ 0)               |                    __ip_make_skb() {
+ 0)   0.000 us    |                      ipv4_mtu();
+ 0)               |                      __ip_select_ident() {
+ 0)               |                        inet_getpeer() {
+ 0)   0.000 us    |                          __rcu_read_lock();
+ 0)   0.000 us    |                          addr_compare();
+ 0)   0.000 us    |                          addr_compare();
+ 0)   0.000 us    |                          __rcu_read_unlock();
+ 0) + 61.036 us   |                        }
+ 0)   0.000 us    |                        inet_putpeer();
+ 0) + 61.036 us   |                      }
+ 0)   0.000 us    |                      icmp_out_count();
+ 0)   0.000 us    |                      kfree();
+ 0)   0.000 us    |                      dst_release();
+ 0) ! 152.588 us  |                    }
+ 0)               |                    ip_send_skb() {
+ 0)               |                      ip_local_out() {
+ 0)               |                        __ip_local_out() {
+ 0)   0.000 us    |                          ip_send_check();
+ 0)               |                          nf_hook_slow() {
+ 0)   0.000 us    |                            __rcu_read_lock();
+ 0)               |                            nf_iterate() {
+ 0)   0.000 us    |                              ipv4_conntrack_defrag();
+ 0)               |                              iptable_raw_hook() {
+ 0)               |                                ipt_do_table() {
+ 0)               |                                  local_bh_disable() {
+ 0)   0.000 us    |                                    __local_bh_disable();
+ 0) + 30.517 us   |                                  }
+ 0)               |                                  local_bh_enable() {
+ 0)   0.000 us    |                                    sub_preempt_count();
+ 0)   0.000 us    |                                    sub_preempt_count();
+ 0) + 30.518 us   |                                  }
+ 0) + 61.035 us   |                                }
+ 0) + 61.035 us   |                              }
+ 0)   0.000 us    |                              selinux_ipv4_output();
+ 0)               |                              ipv4_conntrack_local() {
+ 0)               |                                nf_conntrack_in() {
+ 0)   0.000 us    |                                  ipv4_get_l4proto();
+ 0)   0.000 us    |                                  __nf_ct_l4proto_find();
+ 0)   0.000 us    |                                  icmp_error();
+ 0)               |                                  nf_ct_get_tuple() {
+ 0)   0.000 us    |                                    ipv4_pkt_to_tuple();
+ 0)   0.000 us    |                                    icmp_pkt_to_tuple();
+ 0) + 30.518 us   |                                  }
+ 0)   0.000 us    |                                  hash_conntrack_raw();
+ 0)               |                                  __nf_conntrack_find_get() {
+ 0)   0.000 us    |                                    __rcu_read_lock();
+ 0)               |                                    ____nf_conntrack_find() {
+ 0)               |                                      local_bh_disable() {
+ 0)   0.000 us    |                                        __local_bh_disable();
+ 0) + 30.518 us   |                                      }
+ 0)               |                                      local_bh_enable() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0) + 61.036 us   |                                    }
+ 0)   0.000 us    |                                    __rcu_read_unlock();
+ 0) + 91.553 us   |                                  }
+ 0)   0.000 us    |                                  icmp_get_timeouts();
+ 0)               |                                  icmp_packet() {
+ 0)               |                                    __nf_ct_refresh_acct() {
+ 0)               |                                      mod_timer_pending() {
+ 0)               |                                        lock_timer_base() {
+ 0)               |                                          _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                            add_preempt_count();
+ 0)   0.000 us    |                                          }
+ 0) + 30.518 us   |                                        }
+ 0)   0.000 us    |                                        detach_if_pending();
+ 0)   0.000 us    |                                        idle_cpu();
+ 0)               |                                        internal_add_timer() {
+ 0)   0.000 us    |                                          __internal_add_timer();
+ 0) + 30.518 us   |                                        }
+ 0)               |                                        _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0)   0.000 us    |                                        }
+ 0) + 91.553 us   |                                      }
+ 0) ! 122.070 us  |                                    }
+ 0) ! 122.070 us  |                                  }
+ 0) ! 305.175 us  |                                }
+ 0) ! 305.175 us  |                              }
+ 0)               |                              iptable_mangle_hook() {
+ 0)               |                                ipt_do_table() {
+ 0)               |                                  local_bh_disable() {
+ 0)   0.000 us    |                                    __local_bh_disable();
+ 0)   0.000 us    |                                  }
+ 0)   0.000 us    |                                  mark_mt();
+ 0)               |                                  qtaguid_mt() {
+ 0)               |                                    account_for_uid() {
+ 0) + 30.517 us   |                                      ipx_proto.isra.5();
+ 0)   0.000 us    |                                      get_iface_entry();
+ 0)               |                                      _raw_spin_lock_bh() {
+ 0)               |                                        local_bh_disable() {
+ 0)   0.000 us    |                                          __local_bh_disable();
+ 0) + 30.518 us   |                                        }
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0)   0.000 us    |                                      get_sock_stat_nl();
+ 0)               |                                      _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)               |                                        local_bh_enable_ip() {
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0) + 30.518 us   |                                        }
+ 0) + 30.518 us   |                                      }
+ 0)               |                                      _raw_spin_lock_bh() {
+ 0)               |                                        local_bh_disable() {
+ 0)   0.000 us    |                                          __local_bh_disable();
+ 0)   0.000 us    |                                        }
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0)   0.000 us    |                                      tag_node_tree_search();
+ 0)               |                                      tag_stat_update() {
+ 0)               |                                        _raw_spin_lock_bh() {
+ 0)               |                                          local_bh_disable() {
+ 0)   0.000 us    |                                            __local_bh_disable();
+ 0)   0.000 us    |                                          }
+ 0)   0.000 us    |                                          add_preempt_count();
+ 0) + 30.517 us   |                                        }
+ 0)   0.000 us    |                                        tag_node_tree_search();
+ 0)               |                                        _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0)               |                                          local_bh_enable_ip() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)   0.000 us    |                                          }
+ 0) + 61.035 us   |                                        }
+ 0)   0.000 us    |                                        data_counters_update();
+ 0) ! 122.070 us  |                                      }
+ 0)               |                                      _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)               |                                        local_bh_enable_ip() {
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0) + 30.518 us   |                                        }
+ 0) + 61.036 us   |                                      }
+ 0) ! 366.211 us  |                                    }
+ 0) ! 366.211 us  |                                  }
+ 0)               |                                  local_bh_enable() {
+ 0)   0.000 us    |                                    sub_preempt_count();
+ 0)   0.000 us    |                                    sub_preempt_count();
+ 0)   0.000 us    |                                  }
+ 0) ! 427.246 us  |                                }
+ 0) ! 457.764 us  |                              }
+ 0)               |                              nf_nat_ipv4_local_fn() {
+ 0)               |                                nf_nat_ipv4_fn() {
+ 0)   0.000 us    |                                  nf_nat_packet();
+ 0) + 30.517 us   |                                }
+ 0) + 30.517 us   |                              }
+ 0)               |                              iptable_filter_hook() {
+ 0)               |                                ipt_do_table() {
+ 0)               |                                  local_bh_disable() {
+ 0)   0.000 us    |                                    __local_bh_disable();
+ 0) + 30.518 us   |                                  }
+ 0)               |                                  quota_mt2() {
+ 0)               |                                    _raw_spin_lock_bh() {
+ 0)               |                                      local_bh_disable() {
+ 0)   0.000 us    |                                        __local_bh_disable();
+ 0)   0.000 us    |                                      }
+ 0)   0.000 us    |                                      add_preempt_count();
+ 0) + 30.517 us   |                                    }
+ 0)               |                                    _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                      sub_preempt_count();
+ 0)               |                                      local_bh_enable_ip() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0) + 30.518 us   |                                    }
+ 0) + 91.553 us   |                                  }
+ 0)               |                                  quota_mt2() {
+ 0)               |                                    _raw_spin_lock_bh() {
+ 0)               |                                      local_bh_disable() {
+ 0)   0.000 us    |                                        __local_bh_disable();
+ 0)   0.000 us    |                                      }
+ 0)   0.000 us    |                                      add_preempt_count();
+ 0) + 30.518 us   |                                    }
+ 0)               |                                    _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                      sub_preempt_count();
+ 0)               |                                      local_bh_enable_ip() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0) + 61.035 us   |                                    }
+ 0) + 91.553 us   |                                  }
+ 0)               |                                  qtaguid_mt() {
+ 0)               |                                    account_for_uid() {
+ 0)   0.000 us    |                                      ipx_proto.isra.5();
+ 0)   0.000 us    |                                      get_iface_entry();
+ 0)               |                                      _raw_spin_lock_bh() {
+ 0)               |                                        local_bh_disable() {
+ 0)   0.000 us    |                                          __local_bh_disable();
+ 0) + 30.518 us   |                                        }
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0)   0.000 us    |                                      get_sock_stat_nl();
+ 0)               |                                      _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)               |                                        local_bh_enable_ip() {
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0) + 30.517 us   |                                        }
+ 0) + 30.517 us   |                                      }
+ 0)               |                                      _raw_spin_lock_bh() {
+ 0)               |                                        local_bh_disable() {
+ 0)   0.000 us    |                                          __local_bh_disable();
+ 0)   0.000 us    |                                        }
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0) + 30.517 us   |                                      }
+ 0)   0.000 us    |                                      tag_node_tree_search();
+ 0)               |                                      tag_stat_update() {
+ 0)               |                                        _raw_spin_lock_bh() {
+ 0)               |                                          local_bh_disable() {
+ 0)   0.000 us    |                                            __local_bh_disable();
+ 0)   0.000 us    |                                          }
+ 0)   0.000 us    |                                          add_preempt_count();
+ 0) + 30.518 us   |                                        }
+ 0)   0.000 us    |                                        tag_node_tree_search();
+ 0)               |                                        _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0)               |                                          local_bh_enable_ip() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)   0.000 us    |                                          }
+ 0) + 61.036 us   |                                        }
+ 0)   0.000 us    |                                        data_counters_update();
+ 0) ! 122.071 us  |                                      }
+ 0)               |                                      _raw_spin_unlock_bh() {
+ 0) + 30.517 us   |                                        sub_preempt_count();
+ 0)               |                                        local_bh_enable_ip() {
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0) + 30.518 us   |                                        }
+ 0) + 61.035 us   |                                      }
+ 0) ! 366.211 us  |                                    }
+ 0) ! 366.211 us  |                                  }
+ 0)               |                                  local_bh_enable() {
+ 0)   0.000 us    |                                    sub_preempt_count();
+ 0)   0.000 us    |                                    sub_preempt_count();
+ 0) + 30.517 us   |                                  }
+ 0) ! 640.869 us  |                                }
+ 0) ! 640.869 us  |                              }
+ 0) ! 1617.432 us |                            }
+ 0)   0.000 us    |                            __rcu_read_unlock();
+ 0) ! 1617.432 us |                          }
+ 0) ! 1647.949 us |                        }
+ 0)               |                        ip_output() {
+ 0)               |                          local_bh_disable() {
+ 0)   0.000 us    |                            __local_bh_disable();
+ 0)   0.000 us    |                          }
+ 0)               |                          local_bh_enable() {
+ 0)   0.000 us    |                            sub_preempt_count();
+ 0)   0.000 us    |                            sub_preempt_count();
+ 0) + 30.517 us   |                          }
+ 0)               |                          nf_hook_slow() {
+ 0)   0.000 us    |                            __rcu_read_lock();
+ 0)               |                            nf_iterate() {
+ 0)               |                              iptable_mangle_hook() {
+ 0)               |                                ipt_do_table() {
+ 0)               |                                  local_bh_disable() {
+ 0)   0.000 us    |                                    __local_bh_disable();
+ 0)   0.000 us    |                                  }
+ 0)               |                                  qtaguid_mt() {
+ 0)   0.000 us    |                                    ipx_proto.isra.5();
+ 0)               |                                    _raw_spin_lock_bh() {
+ 0)               |                                      local_bh_disable() {
+ 0)   0.000 us    |                                        __local_bh_disable();
+ 0)   0.000 us    |                                      }
+ 0)   0.000 us    |                                      add_preempt_count();
+ 0) + 30.517 us   |                                    }
+ 0)   0.000 us    |                                    get_iface_entry();
+ 0)   0.000 us    |                                    data_counters_update();
+ 0)               |                                    _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                      sub_preempt_count();
+ 0)               |                                      local_bh_enable_ip() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0) + 30.518 us   |                                    }
+ 0) ! 152.588 us  |                                  }
+ 0)               |                                  local_bh_enable() {
+ 0)   0.000 us    |                                    sub_preempt_count();
+ 0)   0.000 us    |                                    sub_preempt_count();
+ 0) + 30.518 us   |                                  }
+ 0) ! 213.623 us  |                                }
+ 0) ! 213.623 us  |                              }
+ 0)               |                              nf_nat_ipv4_out() {
+ 0)               |                                nf_nat_ipv4_fn() {
+ 0)   0.000 us    |                                  nf_nat_packet();
+ 0)   0.000 us    |                                }
+ 0) + 30.517 us   |                              }
+ 0)               |                              selinux_ipv4_postroute() {
+ 0)   0.000 us    |                                selinux_ip_postroute();
+ 0) + 30.518 us   |                              }
+ 0)   0.000 us    |                              ipv4_helper();
+ 0)               |                              ipv4_confirm() {
+ 0)               |                                nf_ct_deliver_cached_events() {
+ 0)   0.000 us    |                                  __rcu_read_lock();
+ 0)               |                                  ctnetlink_conntrack_event() {
+ 0)               |                                    nfnetlink_has_listeners() {
+ 0)               |                                      netlink_has_listeners() {
+ 0)   0.000 us    |                                        __rcu_read_lock();
+ 0)   0.000 us    |                                        __rcu_read_unlock();
+ 0)   0.000 us    |                                      }
+ 0) + 30.518 us   |                                    }
+ 0) + 61.036 us   |                                  }
+ 0)   0.000 us    |                                  __rcu_read_unlock();
+ 0) + 61.036 us   |                                }
+ 0) + 91.553 us   |                              }
+ 0) ! 366.211 us  |                            }
+ 0)   0.000 us    |                            __rcu_read_unlock();
+ 0) ! 396.728 us  |                          }
+ 0)               |                          ip_finish_output() {
+ 0)   0.000 us    |                            ipv4_mtu();
+ 0)               |                            local_bh_disable() {
+ 0)   0.000 us    |                              __local_bh_disable();
+ 0)   0.000 us    |                            }
+ 0)   0.000 us    |                            skb_push();
+ 0)               |                            dev_queue_xmit() {
+ 0)               |                              local_bh_disable() {
+ 0)   0.000 us    |                                __local_bh_disable();
+ 0)   0.000 us    |                              }
+ 0)   0.000 us    |                              netdev_pick_tx();
+ 0)               |                              _raw_spin_lock() {
+ 0)   0.000 us    |                                add_preempt_count();
+ 0) + 30.518 us   |                              }
+ 0)               |                              sch_direct_xmit() {
+ 0)               |                                _raw_spin_unlock() {
+ 0)   0.000 us    |                                  sub_preempt_count();
+ 0)   0.000 us    |                                }
+ 0)               |                                _raw_spin_lock() {
+ 0)   0.000 us    |                                  add_preempt_count();
+ 0)   0.000 us    |                                }
+ 0)               |                                dev_hard_start_xmit() {
+ 0)   0.000 us    |                                  dst_release();
+ 0)               |                                  netif_skb_features() {
+ 0)   0.000 us    |                                    harmonize_features();
+ 0)   0.000 us    |                                  }
+ 0)               |                                  dhd_start_xmit [bcmdhd]() {
+ 0)               |                                    dhd_os_wake_lock [bcmdhd]() {
+ 0)               |                                      _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0)               |                                      _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0) + 30.518 us   |                                    }
+ 0)   0.000 us    |                                    osl_pkt_frmnative [bcmdhd]();
+ 0)               |                                    dhd_sendpkt [bcmdhd]() {
+ 0)   0.000 us    |                                      pktsetprio [bcmdhd]();
+ 0)               |                                      dhd_wlfc_is_supported [bcmdhd]() {
+ 0)               |                                        dhd_os_wlfc_block [bcmdhd]() {
+ 0)               |                                          _raw_spin_lock_bh() {
+ 0)               |                                            local_bh_disable() {
+ 0)   0.000 us    |                                              __local_bh_disable();
+ 0) + 30.518 us   |                                            }
+ 0)   0.000 us    |                                            add_preempt_count();
+ 0) + 30.518 us   |                                          }
+ 0) + 30.518 us   |                                        }
+ 0)               |                                        dhd_os_wlfc_unblock [bcmdhd]() {
+ 0)               |                                          _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)               |                                            local_bh_enable_ip() {
+ 0) + 30.518 us   |                                              sub_preempt_count();
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0) + 30.518 us   |                                            }
+ 0) + 30.518 us   |                                          }
+ 0) + 30.518 us   |                                        }
+ 0) ! 122.070 us  |                                      }
+ 0)               |                                      dhd_prot_hdrpush [bcmdhd]() {
+ 0)   0.000 us    |                                        skb_push();
+ 0)   0.000 us    |                                      }
+ 0)               |                                      dhd_wlfc_commit_packets [bcmdhd]() {
+ 0)               |                                        dhd_os_wlfc_block [bcmdhd]() {
+ 0)               |                                          _raw_spin_lock_bh() {
+ 0)               |                                            local_bh_disable() {
+ 0)   0.000 us    |                                              __local_bh_disable();
+ 0) + 30.517 us   |                                            }
+ 0)   0.000 us    |                                            add_preempt_count();
+ 0) + 30.517 us   |                                          }
+ 0) + 30.517 us   |                                        }
+ 0)               |                                        dhd_os_wlfc_unblock [bcmdhd]() {
+ 0)               |                                          _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)               |                                            local_bh_enable_ip() {
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0) + 30.518 us   |                                            }
+ 0) + 30.518 us   |                                          }
+ 0) + 30.518 us   |                                        }
+ 0) + 91.553 us   |                                      }
+ 0)               |                                      dhd_bus_txdata [bcmdhd]() {
+ 0)               |                                        dhd_os_sdlock_txq [bcmdhd]() {
+ 0)               |                                          _raw_spin_lock_bh() {
+ 0)               |                                            local_bh_disable() {
+ 0) + 30.518 us   |                                              __local_bh_disable();
+ 0) + 30.518 us   |                                            }
+ 0)   0.000 us    |                                            add_preempt_count();
+ 0) + 30.518 us   |                                          }
+ 0) + 30.518 us   |                                        }
+ 0)               |                                        dhd_prec_enq [bcmdhd]() {
+ 0)   0.000 us    |                                          pktq_penq [bcmdhd]();
+ 0)   0.000 us    |                                        }
+ 0)               |                                        dhd_os_sdunlock_txq [bcmdhd]() {
+ 0)               |                                          _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)               |                                            local_bh_enable_ip() {
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0) + 30.518 us   |                                            }
+ 0) + 30.518 us   |                                          }
+ 0) + 61.036 us   |                                        }
+ 0)               |                                        dhd_os_sdlock_txq [bcmdhd]() {
+ 0)               |                                          _raw_spin_lock_bh() {
+ 0)               |                                            local_bh_disable() {
+ 0)   0.000 us    |                                              __local_bh_disable();
+ 0)   0.000 us    |                                            }
+ 0) + 30.518 us   |                                            add_preempt_count();
+ 0) + 30.518 us   |                                          }
+ 0) + 61.035 us   |                                        }
+ 0)               |                                        dhd_os_sdunlock_txq [bcmdhd]() {
+ 0)               |                                          _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)               |                                            local_bh_enable_ip() {
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0) + 30.518 us   |                                            }
+ 0) + 61.035 us   |                                          }
+ 0) + 61.035 us   |                                        }
+ 0)               |                                        dhd_os_sdlock_txq [bcmdhd]() {
+ 0)               |                                          _raw_spin_lock_bh() {
+ 0)               |                                            local_bh_disable() {
+ 0)   0.000 us    |                                              __local_bh_disable();
+ 0)   0.000 us    |                                            }
+ 0)   0.000 us    |                                            add_preempt_count();
+ 0) + 30.517 us   |                                          }
+ 0) + 61.035 us   |                                        }
+ 0)               |                                        dhd_os_sdunlock_txq [bcmdhd]() {
+ 0)               |                                          _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)               |                                            local_bh_enable_ip() {
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0)   0.000 us    |                                            }
+ 0) + 30.518 us   |                                          }
+ 0) + 61.035 us   |                                        }
+ 0)               |                                        dhd_sched_dpc [bcmdhd]() {
+ 0)               |                                          dhd_os_wake_lock [bcmdhd]() {
+ 0)               |                                            _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                              add_preempt_count();
+ 0) + 30.518 us   |                                            }
+ 0)               |                                            _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0)   0.000 us    |                                            }
+ 0) + 61.035 us   |                                          }
+ 0)               |                                          _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                            add_preempt_count();
+ 0)   0.000 us    |                                          }
+ 0)               |                                          _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                            sub_preempt_count();
+ 0)   0.000 us    |                                          }
+ 0)               |                                          up() {
+ 0)               |                                            _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                              add_preempt_count();
+ 0) + 30.517 us   |                                            }
+ 0)               |                                            __up() {
+ 0)               |                                              wake_up_process() {
+ 0)               |                                                try_to_wake_up() {
+ 0)               |                                                  _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                                    add_preempt_count();
+ 0)   0.000 us    |                                                  }
+ 0)               |                                                  select_task_rq_rt() {
+ 0)   0.000 us    |                                                    __rcu_read_lock();
+ 0)               |                                                    find_lowest_rq() {
+ 0)   0.000 us    |                                                      cpupri_find();
+ 0)   0.000 us    |                                                    }
+ 0)   0.000 us    |                                                    __rcu_read_unlock();
+ 0) + 61.035 us   |                                                  }
+ 0)   0.000 us    |                                                  cpus_share_cache();
+ 0)               |                                                  _raw_spin_lock() {
+ 0)   0.000 us    |                                                    add_preempt_count();
+ 0)   0.000 us    |                                                  }
+ 0)               |                                                  ttwu_do_activate.constprop.75() {
+ 0)               |                                                    activate_task() {
+ 0)               |                                                      enqueue_task() {
+ 0)   0.000 us    |                                                        update_rq_clock();
+ 0)               |                                                        enqueue_task_rt() {
+ 0)   0.000 us    |                                                          dequeue_rt_stack();
+ 0)               |                                                          __enqueue_rt_entity() {
+ 0)   0.000 us    |                                                            update_rt_migration();
+ 0)   0.000 us    |                                                          }
+ 0)   0.000 us    |                                                          enqueue_pushable_task();
+ 0) + 61.035 us   |                                                        }
+ 0) + 61.035 us   |                                                      }
+ 0) + 91.552 us   |                                                    }
+ 0)               |                                                    ttwu_do_wakeup() {
+ 0)               |                                                      check_preempt_curr() {
+ 0)               |                                                        check_preempt_curr_rt() {
+ 0)   0.000 us    |                                                          cpupri_find();
+ 0)   0.000 us    |                                                          cpupri_find();
+ 0)   0.000 us    |                                                        }
+ 0) + 30.518 us   |                                                      }
+ 0)               |                                                      task_woken_rt() {
+ 0)               |                                                        push_rt_tasks() {
+ 0)               |                                                          push_rt_task.part.14() {
+ 0)   0.000 us    |                                                            pick_next_pushable_task();
+ 0)               |                                                            find_lowest_rq() {
+ 0)   0.000 us    |                                                              cpupri_find();
+ 0)   0.000 us    |                                                            }
+ 0)   0.000 us    |                                                            pick_next_pushable_task();
+ 0) + 61.035 us   |                                                          }
+ 0) + 61.035 us   |                                                        }
+ 0) + 61.035 us   |                                                      }
+ 0) ! 122.071 us  |                                                    }
+ 0) ! 213.623 us  |                                                  }
+ 0)               |                                                  _raw_spin_unlock() {
+ 0)   0.000 us    |                                                    sub_preempt_count();
+ 0)   0.000 us    |                                                  }
+ 0)               |                                                  _raw_spin_unlock_irqrestore() {
+ 0) + 30.518 us   |                                                    sub_preempt_count();
+ 0) + 30.518 us   |                                                  }
+ 0) ! 396.729 us  |                                                }
+ 0) ! 396.729 us  |                                              }
+ 0) ! 396.729 us  |                                            }
+ 0)               |                                            _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                              sub_preempt_count();
+ 0)   0.000 us    |                                            }
+ 0) ! 457.764 us  |                                          }
+ 0) ! 549.317 us  |                                        }
+ 0) ! 915.528 us  |                                      }
+ 0) ! 1251.221 us |                                    }
+ 0)               |                                    dhd_os_wake_unlock [bcmdhd]() {
+ 0)               |                                      dhd_os_wake_lock_timeout [bcmdhd]() {
+ 0)               |                                        _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                          add_preempt_count();
+ 0) + 30.518 us   |                                        }
+ 0)               |                                        _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                          sub_preempt_count();
+ 0)   0.000 us    |                                        }
+ 0) + 30.518 us   |                                      }
+ 0)               |                                      _raw_spin_lock_irqsave() {
+ 0)   0.000 us    |                                        add_preempt_count();
+ 0)   0.000 us    |                                      }
+ 0)               |                                      _raw_spin_unlock_irqrestore() {
+ 0)   0.000 us    |                                        sub_preempt_count();
+ 0) + 30.518 us   |                                      }
+ 0) + 91.553 us   |                                    }
+ 0) ! 1403.809 us |                                  }
+ 0) ! 1464.844 us |                                }
+ 0)               |                                _raw_spin_unlock() {
+ 0)   0.000 us    |                                  sub_preempt_count();
+ 0)   0.000 us    |                                }
+ 0)               |                                _raw_spin_lock() {
+ 0)   0.000 us    |                                  add_preempt_count();
+ 0) + 30.518 us   |                                }
+ 0) ! 1556.396 us |                              }
+ 0)               |                              _raw_spin_unlock() {
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0) + 30.518 us   |                              }
+ 0)               |                              local_bh_enable() {
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0)   0.000 us    |                                sub_preempt_count();
+ 0) + 30.517 us   |                              }
+ 0) ! 1678.467 us |                            }
+ 0)               |                            local_bh_enable() {
+ 0)   0.000 us    |                              sub_preempt_count();
+ 0)   0.000 us    |                              sub_preempt_count();
+ 0) + 30.518 us   |                            }
+ 0) ! 1770.020 us |                          }
+ 0) ! 2227.783 us |                        }
+ 0) ! 3906.250 us |                      }
+ 0) ! 3936.767 us |                    }
+ 0) ! 4089.355 us |                  }
+ 0) ! 4364.013 us |                }
+ 0)   0.000 us    |                dst_release();
+ 0)               |                _raw_spin_unlock_bh() {
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0)               |                  local_bh_enable_ip() {
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0)   0.000 us    |                    sub_preempt_count();
+ 0) + 30.517 us   |                  }
+ 0) + 30.517 us   |                }
+ 0) ! 4852.294 us |              }
+ 0) ! 4852.294 us |            }
+ 0)               |            kfree_skb() {
+ 0)               |              __kfree_skb() {
+ 0)               |                skb_release_all() {
+ 0)   0.000 us    |                  skb_release_head_state();
+ 0)               |                  skb_release_data() {
+ 0)               |                    skb_free_head() {
+ 0)               |                      kfree() {
+ 0)   0.000 us    |                        add_preempt_count();
+ 0) + 30.517 us   |                        sub_preempt_count();
+ 0)               |                        __slab_free() {
+ 0)   0.000 us    |                          add_preempt_count();
+ 0)   0.000 us    |                          sub_preempt_count();
+ 0)               |                          put_cpu_partial() {
+ 0)   0.000 us    |                            add_preempt_count();
+ 0)   0.000 us    |                            sub_preempt_count();
+ 0)   0.000 us    |                          }
+ 0) + 61.035 us   |                        }
+ 0) + 91.552 us   |                      }
+ 0) + 91.552 us   |                    }
+ 0) + 91.552 us   |                  }
+ 0) ! 122.070 us  |                }
+ 0)               |                kmem_cache_free() {
+ 0)   0.000 us    |                  add_preempt_count();
+ 0)   0.000 us    |                  sub_preempt_count();
+ 0)   0.000 us    |                }
+ 0) ! 183.106 us  |              }
+ 0) ! 183.106 us  |            }
+ 0) ! 5065.918 us |          }
+ 0)   0.000 us    |          __rcu_read_unlock();
+ 0) ! 5096.436 us |        }
+ 0) ! 6652.832 us |      }
+ 0) ! 10589.60 us |    }
+ 0) ! 11932.37 us |  }
+root@scx35l_sp9630ea:/sys/kernel/debug/tracing # 
+

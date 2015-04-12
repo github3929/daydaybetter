@@ -29,7 +29,14 @@ echo slirp_input > set_graph_function
 
 echo sci_keypad_isr > set_graph_function
 
-echo sci_keypad_isr > set_ftrace_filter
+echo netif_receive_skb > set_graph_function
+
+echo ip_rcv > set_graph_function ===============>这个收包接口ftrace成功了
+
+echo netif_receive_skb > set_graph_function
+
+
+
 
 ==========================================================
 
@@ -40,3 +47,8 @@ echo 1 > tracing_enabled  ---》to del no use
 echo 0 > tracing_on
 
 echo 1 > tracing_on
+echo 0 > tracing_on
+==========================================================
+
+
+

@@ -1,0 +1,4 @@
+两台linux设备互相远程登录的方法：
+
+参考收藏夹内的内容，在开始中，敲入desktop share，client，(对应的还有一个desktop share是server)
+然后打开后，选择RSA方式，服务器地址填写远程的IP，然后密码是人家设置的密码。
