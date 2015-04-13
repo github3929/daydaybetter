@@ -33,8 +33,25 @@ echo netif_receive_skb > set_graph_function
 
 echo ip_rcv > set_graph_function ===============>这个收包接口ftrace成功了
 
+
+----------- host ===> guest
+
+
+
+
+echo receive_buf > set_graph_function
+
 echo netif_receive_skb > set_graph_function
 
+echo virtio_net_receive > set_graph_function
+
+echo tcp_input > set_graph_function
+
+----------- guest ===> host
+
+echo guestfwd_read > set_graph_function
+
+echo slirp_guestfwd > set_graph_function
 
 echo net_slirp_receive > set_graph_function
 
@@ -52,5 +69,7 @@ echo 1 > tracing_on
 echo 0 > tracing_on
 ==========================================================
 
-
+echo 0 > tracing_on
+echo 0 > trace
+cat  trace
 

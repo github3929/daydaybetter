@@ -2,3 +2,19 @@
 
 参考收藏夹内的内容，在开始中，敲入desktop share，client，(对应的还有一个desktop share是server)
 然后打开后，选择RSA方式，服务器地址填写远程的IP，然后密码是人家设置的密码。
+
+两台linux设备互相远程ssh登录的方法：
+/etc/ssh$ ssh 10.0.66.80---->此IP为服务器IP
+Password: 
+Welcome to Ubuntu 12.04.2 LTS (GNU/Linux 3.5.0-23-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+0 packages can be updated.
+0 updates are security updates.
+
+Last login: Sun Apr 12 14:58:14 2015 from bjandr20ubtnb.local
+apuser@taojiangubtpc:~$ 
+
+测试ssh服务器是否开启ssh server的办法：
+sudo ps -e | grep ssh

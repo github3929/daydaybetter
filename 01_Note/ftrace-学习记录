@@ -22,4 +22,10 @@ cat  trace
 
 ip_rcv() ---> kernel\net\core\ip_input.c
 
+5.继续使用trace探寻qemu收包的入口的地方。如下：
+
+
+6.继续使用trace探寻qemu发包给virtio_net的入口的地方。如下：
+
+
 
