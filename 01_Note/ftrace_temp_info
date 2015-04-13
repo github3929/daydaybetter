@@ -36,7 +36,9 @@ echo ip_rcv > set_graph_function ===============>这个收包接口ftrace成功�
 echo netif_receive_skb > set_graph_function
 
 
+echo net_slirp_receive > set_graph_function
 
+echo  > set_graph_function
 
 ==========================================================
 

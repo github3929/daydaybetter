@@ -12,11 +12,11 @@ cat trace
 
 3.要清空trace的内容执行如下命令：
 
-# echo 0 > tracing_on
+echo 0 > tracing_on
 
-# echo 0 > trace
+echo 0 > trace
 
-# cat  trace
+cat  trace
 
 4.尝试trace了一把linux内核网卡收包的接口入口的地方。如下：
 
