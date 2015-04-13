@@ -1,0 +1,25 @@
+1.操作目录为：
+/sys/kernel/debug/tracing
+
+2.主要用到的几个配置命令：
+echo net_slirp_receive > set_graph_function
+
+echo function_graph > current_tracer  或者 （echo function > current_tracer 和 echo net_slirp_receive > set_ftrace_filter）
+
+cat current_tracer
+
+cat trace
+
+3.要清空trace的内容执行如下命令：
+
+# echo 0 > tracing_on
+
+# echo 0 > trace
+
+# cat  trace
+
+4.尝试trace了一把linux内核网卡收包的接口入口的地方。如下：
+
+ip_rcv() ---> kernel\net\core\ip_input.c
+
+
