@@ -164,6 +164,39 @@ static struct virtio_driver virtio_net_driver = {
 
 ◇any other question？？？？？？？
 
+★搜索CONFIG_SLIRP这个字符串就可以找到跟NAT相关的很多代码
+
+---- CONFIG_SLIRP Matches (13 in 7 files) ----
+Clients.h (z:\home\apuser\multi-os\vendor\sprd\qemu\net):#ifdef CONFIG_SLIRP
+Main-loop.c (z:\home\apuser\multi-os\vendor\sprd\qemu):#ifdef CONFIG_SLIRP
+Main-loop.c (z:\home\apuser\multi-os\vendor\sprd\qemu):#ifdef CONFIG_SLIRP
+Monitor.c (z:\home\apuser\multi-os\vendor\sprd\qemu):#if defined(CONFIG_SLIRP)
+Net.c (z:\home\apuser\multi-os\vendor\sprd\qemu\net):#ifdef CONFIG_SLIRP
+Net.c (z:\home\apuser\multi-os\vendor\sprd\qemu\net):#ifdef CONFIG_SLIRP
+Net.c (z:\home\apuser\multi-os\vendor\sprd\qemu\net):#ifdef CONFIG_SLIRP
+Net.c (z:\home\apuser\multi-os\vendor\sprd\qemu\net):     * (2) CONFIG_SLIRP not set, in which case the implicit "-net nic"
+Net.c (z:\home\apuser\multi-os\vendor\sprd\qemu\net):#ifdef CONFIG_SLIRP
+Net.c (z:\home\apuser\multi-os\vendor\sprd\qemu\net):#if defined(CONFIG_SLIRP)
+Os-posix.c (z:\home\apuser\multi-os\vendor\sprd\qemu):#ifdef CONFIG_SLIRP
+Slirp.h (z:\home\apuser\multi-os\vendor\sprd\qemu\include\net):#ifdef CONFIG_SLIRP
+Vl.c (z:\home\apuser\multi-os\vendor\sprd\qemu):#ifdef CONFIG_SLIRP
+
+
+★你修改了kernel/drivers/net/virtio_net.c文件，但是要注意这个文件只在你编译guest的bootimage时候，才会重新编译。
+
+★故意将slirp/slirp.c 代码修改为语法错误
+make systemimage 来验证修改被编入了host的哪个image文件---》已经验证了，不会影响host的boot.img的编译
+                                                     ---》已经验证了，影响host的system.img的编译
+
+★所以宗上结论是：
+1.如果修改virtio_net相关的，需要编译guest的bootimage
+2.如果修改qemu nat slirp相关的，需要编译host的systemimage
+3.如果修改host wifi eth 收发包 相关的，需要编译host的bootimage
+
+★因为systemimage的修改，编译，更新，需要很长时间。
+
+所以你要验证一些函数，比如printf的输出，可以先到boot.img的文件验证一下，然后在去改systemimage。
+
 ★更多关于qemu kvm代码解析的网页资料，参考收藏夹里信息。
 
 ★在dual的guide文档中，有一个RIL-proxy的概念，RIL的分析详见如下文章：
