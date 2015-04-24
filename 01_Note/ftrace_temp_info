@@ -73,3 +73,10 @@ echo 0 > tracing_on
 echo 0 > trace
 cat  trace
 
+
+==========================================================
+
+echo virtio_net_receive > set_ftrace_filter
+echo function > current_tracer
+
+
