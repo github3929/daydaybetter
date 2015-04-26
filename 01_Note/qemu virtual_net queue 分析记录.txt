@@ -1,0 +1,342 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+=========================================================
+
+QEMU host --> guest 报文传送到qemu的 virtual_net的 queue后是如何被调度和处理的， 这个过程的分析记录：
+
+★那么前期的分析，我们说 host ---> guest的报文，跟踪到了virtio_net_receive这个函数，下面就从这里开始继续跟踪。
+
+
+
+★分析一下 virtio_net_receive 函数主要的处理，以及如何将 报文传给了guest，这中间有内存拷贝么？
+
+static ssize_t virtio_net_receive(NetClientState *nc, const uint8_t *buf, size_t size)
+{
+
+    virtqueue_flush(q->rx_vq, i);
+    virtio_notify(vdev, q->rx_vq); ----->
+
+}
+
+★
+void virtio_notify(VirtIODevice *vdev, VirtQueue *vq)
+{
+    if (!vring_notify(vdev, vq)) { ----> nofify ？？？？？？？？？？？
+        return;
+    }
+
+    trace_virtio_notify(vdev, vq);
+    vdev->isr |= 0x01;
+    virtio_notify_vector(vdev, vq->vector); ----> nofify 触发软中断，中断号是vq->vector
+}
+
+★接着上面，中断触发后，调用了 guest的 哪个驱动处理函数来收报文？
+
+在guest内核的虚拟网卡的驱动 virtio_net.c中
+
+struct virtnet_info {
+	struct virtio_device *vdev;
+	struct virtqueue *cvq; ---------->这个成员应该是Control事件队列
+	struct net_device *dev;
+	struct send_queue *sq;  ----->发包队列 ----》send_queue的定义见下
+	struct receive_queue *rq;  ----->收包队列
+	unsigned int status;
+........
+}
+
+/* Internal representation of a send virtqueue */
+struct send_queue {
+	/* Virtqueue associated with this send _queue */
+	struct virtqueue *vq;  -----》!!!!!!!!!!!!!!!看到了吧，这个就是一个 指向vring那里即VirtIONetQueue结构体中的 tx_vq 指针
+
+	/* TX: fragments + linear part + virtio header */
+	struct scatterlist sg[MAX_SKB_FRAGS + 2];
+
+	/* Name of the send queue: output.$index */
+	char name[40];
+}
+
+●Flag&&&分析一下上面的send_queue & receive_queue和qemu模拟虚拟网卡硬件部分   virtio-net.h  的对应关系
+
+typedef struct VirtIONetQueue {
+
+    VirtQueue *rx_vq; ----->这个就对应了guest kernel那边虚拟网卡驱动的收包队列receive_queue
+    VirtQueue *tx_vq; ----->这个就对应了send_queue
+
+}
+
+●需要理解一点， vring 和 VirtIONetQueue结构体中的tx_vq rx_vq的关系，
+
+vring其实就是一个内存分片的 环形链表，其中每项都包含一块内存区域， 
+
+tx_vq就仿佛是指向这个内存分片列表中某一项的指针
+
+●
+virtio_ring.c  ###>>>>>>>>>>geust kernal对virt queue的定义
+struct vring_virtqueue
+{
+	struct virtqueue vq;
+
+	/* Actual memory layout for this queue */
+	struct vring vring;
+
+	......
+
+	/* Tokens for callbacks. */
+	void *data[];
+}
+
+
+struct virtqueue {
+	struct list_head list;
+	void (*callback)(struct virtqueue *vq);
+	const char *name;
+	struct virtio_device *vdev;
+	unsigned int index;
+	unsigned int num_free;
+	void *priv;
+};
+
+virtio.c  ###>>>>>>>>>>qemu对virt queue的定义
+struct VirtQueue
+{
+    VRing vring;
+    hwaddr pa;
+    uint16_t last_avail_idx;
+    /* Last used index value we have signalled on */
+    uint16_t signalled_used;
+
+    /* Last used index value we have signalled on */
+    bool signalled_used_valid;
+
+    /* Notification enabled? */
+    bool notification;
+
+    uint16_t queue_index;
+
+    int inuse;
+
+    uint16_t vector;
+    void (*handle_output)(VirtIODevice *vdev, VirtQueue *vq);
+    VirtIODevice *vdev;
+    EventNotifier guest_notifier;
+    EventNotifier host_notifier;
+};
+
+
+●注意：函数调用关系如下：
+virtnet_poll --》receive_buf ---》netif_receive_skb(struct sk_buff *skb) ---》开始处理驱动收到的报文skb
+
+补充：在上面调用的receive_buf ----》注意这个receive和 static NetClientInfo net_virtio_info .receive = virtio_net_receive是不一样的
+
+●数据流的关系总结如下：
+
+//rq->vq -------> buf
+static int virtnet_poll(struct napi_struct *napi, int budget)
+{
+
+	while (received < budget &&
+	       (buf = virtqueue_get_buf(rq->vq, &len)) != NULL) { ------>virtqueue_get_buf(rq->vq, &len)在这里将 rq->vq->data 中的数据拷贝 出来								
+		receive_buf(rq, buf, len); 
+		--rq->num;
+		received++;
+	}
+		
+}
+
+void *virtqueue_get_buf(struct virtqueue *_vq, unsigned int *len)
+{
+	struct vring_virtqueue *vq = to_vvq(_vq); --------->终于将virtio_net驱动收包和 vring联系上了。！！！！！！！！！！
+
+	/* detach_buf clears data, so grab it now. */
+	ret = vq->data[i];  ---->  其中rq->vq->data[i]; 就是vring的队列，注意这个vq是ring的queue和virtnet_info结构体中的成员struct send_queue *sq的关系参考本文其他地方，搜索Flag&&&
+
+	detach_buf(vq, i); ---》注意这里的清buf，只是将buf标记为unused并不是memzero那块内存。
+}
+
+//buf -------> skb
+static void receive_buf(struct receive_queue *rq, void *buf, unsigned int len)
+{
+        //下面一堆代码负责，将buf数据折腾到 skb中。
+	if (!vi->mergeable_rx_bufs && !vi->big_packets) {
+		skb = buf;
+		len -= sizeof(struct virtio_net_hdr);
+		skb_trim(skb, len);
+	} else {
+		page = buf;
+		skb = page_to_skb(rq, page, len);
+		if (unlikely(!skb)) {
+			dev->stats.rx_dropped++;
+			give_pages(rq, page);
+			return;
+		}
+		if (vi->mergeable_rx_bufs)
+			if (receive_mergeable(rq, skb)) {
+				dev_kfree_skb(skb);
+				return;
+			}
+	}
+
+	netif_receive_skb(skb); ----->到这里，就有了skb
+}
+
+
+
+●然后是在这里将 virtnet_poll 挂接到中断处理 napi上的地方
+static int virtnet_alloc_queues(struct virtnet_info *vi)
+{
+		netif_napi_add(vi->dev, &vi->rq[i].napi, virtnet_poll,
+			       napi_weight);
+
+}
+
+而virtnet_poll 你可以简单理解为就是IRQ的回调函数。就是virtio_notify(vdev, q->rx_vq);上报软中断后，经过中断号查询等处理后找到的中断处理函数。
+
+●网页：http://blog.csdn.net/zhangskd/article/details/21627963 详细的讲解了 napi类型的网卡驱动即virtio_net虚拟网卡这类设备 是怎么收包的。
+
+★找到了从vring中 卸货的地方  ----》？？？？？？？？这部分有待考证
+void *virtqueue_get_buf(struct virtqueue *_vq, unsigned int *len)
+{
+
+   本函数负责获取vring中下一个used的报文存储块
+}
+
+
+注：也就是说 vring有2个操作， 一个是添加 ---》在qemu的virtio_net_receive
+                             一个是提取 ---》在guest kernel的virtnet_poll
+
+★找到虚拟网卡驱动的中断处理函数，是它读取了skb，然后调到virtnet_poll，将skb数据放到 虚拟网卡驱动的queue中。
+而skb肯定就是从vring读取的。----->？？？？待核实
+
+★找到了虚拟网卡的驱动接口 定义的地方如下：
+
+static const struct net_device_ops virtnet_netdev = {
+	.ndo_open            = virtnet_open,
+	.ndo_stop   	     = virtnet_close,
+	.ndo_start_xmit      = start_xmit,
+	.ndo_validate_addr   = eth_validate_addr,
+	.ndo_set_mac_address = virtnet_set_mac_address,
+	.ndo_set_rx_mode     = virtnet_set_rx_mode,
+	.ndo_change_mtu	     = virtnet_change_mtu,
+	.ndo_get_stats64     = virtnet_stats,
+	.ndo_vlan_rx_add_vid = virtnet_vlan_rx_add_vid,
+	.ndo_vlan_rx_kill_vid = virtnet_vlan_rx_kill_vid,
+	.ndo_select_queue     = virtnet_select_queue,
+#ifdef CONFIG_NET_POLL_CONTROLLER
+	.ndo_poll_controller = virtnet_netpoll,
+#endif
+};
+
+
+
+★有关  virtnet 驱动 中断处理的地方  以及 挂接 virtnet 驱动 中断处理函数的地方：
+下面是virtnet 驱动 中断处理的地方：
+static void virtnet_netpoll(struct net_device *dev)
+{
+	for (i = 0; i < vi->curr_queue_pairs; i++)
+		napi_schedule(&vi->rq[i].napi); ---> 将nvi->rq[i].napi挂接到poll_list中(好似是中断处理函数入口)
+
+}
+
+vi->rq[i].napi具体指的函数为：virtnet_poll
+
+而将中断处理函数 virtnet_poll 赋值给  vi->rq[i].napi的地方在：
+
+static int virtnet_alloc_queues(struct virtnet_info *vi)
+{
+		netif_napi_add(vi->dev, &vi->rq[i].napi, virtnet_poll,  --->将virtnet_poll添加上
+			       napi_weight);
+
+}
+
+=========================$$$$$========上边是guest虚拟网卡驱动部分的处理==================
+
+=======？？？？？？=====最关键的就是，如何把virtio_net_receive() 入参 buf里的数据，
+=======？？？？？？=====通过virtnet_poll让它接受过来，也就是打通这个环节。
+
+=========================$$$$$========下边是qemu这边虚拟网卡硬件模拟部分的处理==================
+★
+static ssize_t virtio_net_receive(NetClientState *nc, const uint8_t *buf, size_t size)
+{
+    VirtIONet *n = qemu_get_nic_opaque(nc);
+    VirtIONetQueue *q = virtio_net_get_subqueue(nc);
+
+        VirtQueueElement elem;
+
+        /* copy in packet.  ugh */
+        len = iov_from_buf(sg, elem.in_num, guest_offset,  ----》将buf数据倒腾到 elem中
+                           buf + offset, size - offset);
+        /* signal other side */
+        virtqueue_fill(q->rx_vq, &elem, total, i++);----》然后再将elem挂接到 q->rx_vq 这个queue。然后elem中定义了数据所存放的内存起始地址和长度信息(in_sg成员)。
+
+
+    virtqueue_flush(q->rx_vq, i); -----》把queue添加到vring里边
+    virtio_notify(vdev, q->rx_vq); ---》上报软中断，然后类似真实的硬件bus一样，就开始二级中断，汇集为一级中断，最后一级中断的回调函数
+}
+
+void virtio_notify(VirtIODevice *vdev, VirtQueue *vq)
+{
+    if (!vring_notify(vdev, vq)) {
+        return;
+    }
+
+    trace_virtio_notify(vdev, vq);
+    vdev->isr |= 0x01;  -------》设置中断发生标志位
+    virtio_notify_vector(vdev, vq->vector);  -----》这里把vq中断号上报过去。我理解的
+}
+
+
+
+typedef struct VirtQueueElement
+{
+    unsigned int index;
+    unsigned int out_num;
+    unsigned int in_num;
+    hwaddr in_addr[VIRTQUEUE_MAX_SIZE];  ---->这就是vring那个东西吧，就是循环queue
+    hwaddr out_addr[VIRTQUEUE_MAX_SIZE];
+    struct iovec in_sg[VIRTQUEUE_MAX_SIZE];
+    struct iovec out_sg[VIRTQUEUE_MAX_SIZE];
+} VirtQueueElement;
+
+★qemu 模拟的 virtio_net设备初始化时，有对queue的初始化，但切记，这个queue并不是guest虚拟网卡驱动的 收包和发包队列，后者的初始化在virtnet_alloc_queues
+
+static int virtio_net_device_init(VirtIODevice *vdev)  ----》一定要注意，这个函数位于qemu/hw/net是qemu模拟的虚拟网卡的初始化
+跟guest的虚拟网卡 的 驱动 没有任何关系。
+
+static int virtio_net_device_init(VirtIODevice *vdev)
+{
+    给队列分配空间
+    n->vqs = g_malloc0(sizeof(VirtIONetQueue) * n->max_queues);
+
+    在这里给qemu模拟的virtio_net网卡添加了收包队列，并绑定了队列 handle函数
+    n->vqs[0].rx_vq = virtio_add_queue(vdev, 256, virtio_net_handle_rx);  ----》注意virtio_net_handle_rx这个函数在qemu向guest的虚拟网卡驱动传包的过程中，通过观察qemu的调试信息，发现没有被调到，所以估计和 普通数据 收发 没有关系。
+}
+
+typedef struct VirtIONet {  --->这个结构体就是上面的n变量，一个虚拟网卡可以有多个队列，vqs是队列数组的首地址，不过我看在virtio_net_device_init中只创建了一个queue。
+    VirtIONetQueue *vqs;
+}
+
+typedef struct VirtIONetQueue {
+    VirtQueue *rx_vq;
+    VirtQueue *tx_vq;
+}
+
+
+★
+static int virtnet_alloc_queues(struct virtnet_info *vi)
+{
+ 有对vi->sq 和vi->rq收包队列的初始化
+}
+
+其调用关系如下：
+
+ virtnet_probe --->  init_vqs  ---->  virtnet_alloc_queues
+
+static struct virtio_driver virtio_net_driver = {  --->probe函数是被挂接在虚拟网卡的驱动接口里的
+	.probe =	virtnet_probe,
+}
+
+★host  ---->  guest发包，这个中间是否 有发生报文的 内存拷贝？
+
+★guest  ---->  host发包，这个中间是否 有发生报文的 内存拷贝？
+
+

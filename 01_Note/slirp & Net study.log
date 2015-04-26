@@ -48,8 +48,19 @@ nc_sendv_compat
 
 备注：这个socket发向host，然后host那边创建一个socket，connect并且listen你这边这个socket发送的数据。
 
-我的一点疑问，按理说，socket自qemu这里发出去就没有啥事情了，可以这个socket报文是什么封装的？怎么到达目的地啊？
+Q：我的一点疑问，按理说，socket自qemu这里发出去就没有啥事情了，可以这个socket报文是什么封装的？怎么到达目的地啊？
 因为我自己看代码，发送socket的参数只有目的IP和裸数据，没有IP头也没有MAC地址头。？？？？？？？
+答：通过对比 如下2个地方打印的报文信息：
+a. in net_slirp_receive, pkt size:98
+b. icmp_send line:143, so->s:55, pkt content: ----》这个填充给socket的数据比a要少了个MAC地址头
+
+得出结论，icmp_send发送socket的时候的报文，是剥离了mac地址头，还有0x0800这个IP类型字段后剩下的数据。
+          并且将MAC地址头和0X0800后的IP地址头做了LTOH 网络序的转换，即每每2个字节，互相位置对调。
+          
+          完整的报文格式为： MAC地址头(12个字节) +  0x0800 + IP头(8个字节，2个IP地址) + 裸数据
+
+备注：有一个发现，icmp_send出的报文的ICMP报文头字段里的checksum跟 guest 发送的报文到PC后，PC收到的报文的checksum字段值是不一样的。
+      也就是说host kernel还做了这部分的工作。
 
 ★接上
     icmp_send ----> ......  ---->   socket网络发送 ---->   host nic网卡的收包队列(？？？？？应该是直接就发往目的PC了)  ---->  
@@ -74,7 +85,7 @@ static NetClientInfo net_virtio_info = {
 };
 
 
-★ if_start ---> if_encap ---> slirp_output (前面的部分待加打印信息验证)？？？  ----> qemu_send_packet  ---- >  qemu_send_packet_async  ---- > qemu_send_packet_async_with_flags  ---- >  qemu_net_queue_send ---- >  qemu_net_queue_deliver ---- >  qemu_deliver_packet ---->  挂接的就是 virtio_net_receive
+★ if_start ---> if_encap ---> slirp_output (前面的部分待加打印信息验证--已验证)  ----> qemu_send_packet  ---- >  qemu_send_packet_async  ---- > qemu_send_packet_async_with_flags  ---- >  qemu_net_queue_send ---- >  qemu_net_queue_deliver ---- >  qemu_deliver_packet ---->  挂接的就是 virtio_net_receive
 
 上面的调用关系，通过打印报文内容，证明是上面的调用是 host ----> guest 方向的 icmp replay
 
@@ -207,9 +218,9 @@ root@vshark:/ #
   这个确定了，我们就可以搜索host这边谁connect了这些地址和端口，然后就找到host把报文扔给qemu的地方了。
 答：listen的是 0.0.0.0地址的2323端口，也就是手机host端 ---- guest 10.0.10.15 port23通信的端口。
 
-★host接受guest发来的报文，是通过0.0.0.0 port2323这个socket接受的，那么代码中，哪里体现了host listen这个端口的地方呢？
+★host接受guest发来的报文，是通过0.0.0.0 port2323这个socket接受的么？那么代码中，哪里体现了host listen这个端口的地方呢？
 答：
-◇首先通过如下打印信息，确定了guest发往host的报文是发往0.0.0.0:2323端口的。
+◇首先通过如下打印信息，确定了guest发往host的报文是发往0.0.0.0:2323端口的。------》这个还没有核实？？？？？？？
 
   在 icmp_send 函数里打印出了报文的目的IP和目的port。
 
@@ -251,5 +262,7 @@ model=virtio-net-device,macaddr=52:54:00:12:34:62
 ★qemu发往host的收包socket的创建的过程如下：
 答：slirp_add_hostfwd这个函数的前后做的，具体参考qemu_socket_tmp.txt打印信息记录日志。
 
+★发现一个 有意思的函数，抽空可以看看。
 
+Route.c (z:\home\apuser\multi-os\kernel\net\ipv4):	rth->dst.input = ip_forward;
 

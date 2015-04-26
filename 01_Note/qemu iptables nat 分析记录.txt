@@ -1,0 +1,146 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+=========================================================
+
+QEMU iptables NAT 分析记录：
+
+★分析一下host kernel配置的nat的效果，如下：
+root@scx35l_sp9630ea:/ # iptables -t nat -vnL    
+
+Chain POSTROUTING (policy ACCEPT 1139 packets, 83397 bytes)
+ pkts bytes target                   prot  opt  in     out     source               destination         
+ 1139 83397 natctrl_nat_POSTROUTING  all   --    *      *       0.0.0.0/0            0.0.0.0/0      ----》这2个rule，一个是SNAT，一个是DNAT。     
+ 1139 83397 st_nat_POSTROUTING       all   --    *      *       0.0.0.0/0            0.0.0.0/0         
+    
+Chain natctrl_nat_POSTROUTING (1 references)
+ pkts bytes target     prot opt in     out     source               destination                 
+
+Chain st_nat_POSTROUTING (1 references)
+ pkts bytes target     prot opt in     out     source               destination  
+root@scx35l_sp9630ea:/ # 
+
+答：效果就是正如 http://os.51cto.com/art/200709/56169.htm 所说。
+    它的功用就是对 经过iptables的报文进行源IP的替换。（注意通过观察捕获的icmp报文，IP地址和mac地址都会变，只不过IPtables只负责更换IP地址，然后到了网卡Lay2链路层，发送数据的时候再封装上mac地址。）
+    host <----------------------- nat <--------------------------- guest
+    d:192.168.1.102                                               d:192.168.1.102
+    s:192.168.1.101                                               s:10.0.10.15
+
+    这个方向是用的SNAT，对源地址进行替换
+
+    host -----------------------> nat ---------------------------> guest
+    d:192.168.1.101                                               d:10.0.10.15
+    s:192.168.1.102                                               s:192.168.1.102
+
+    这个方向是用的DNAT，对目的地址进行替换
+
+辅助网页：http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed4fece763105392230e54f73c6f8e834e2989cf1d84642c101a39feac5025070ea5d2771416d84e4b99872101371457b08cc3f85daecd855f2a9f2d3f6717f65c11d51eaecc5125b661ca1cb6f10da2e7b0649cf0898f981e44ca22120a80e7fc511764be78801226e2d6c20a530c40e4ba7172ff28317adf7617f050f991251e009687db4b4db33da01206e4de22c63e05c214&p=9179cb5385cc43ed11bd9b7e0c1491&newp=8c759a45d7c11bb90be2963e16528c231610db2151d3d51325c2&user=baidu&fm=sc&query=linux+%B2%E9%BF%B4iptables++target+%B5%C4%BA%AC%D2%E5&qid=8d94089b00016767&p1=5
+		http://www.cnblogs.com/wangkangluo1/archive/2012/04/19/2457072.html
+
+需要补充一个问题，natctrl_nat_POSTROUTING & st_nat_POSTROUTING 这2个字符串是如何被解析为IP地址的呢？
+
+================一下内容待考证？？？？？？？？？？？？
+子问题答：从http://wenku.baidu.com/link?url=LIqYo7zhxGZG1BpK1-I9QEvx2O1HMb7DXMQ729mlVOGavK8cDY_Ccrk1rnmuJhVXcOht76YzMJB57rGlllXVignKRB6Q6Nq_V_IjJybaTR7
+网页摘录的解释如下：
+在NAT表中的POSTROUTING链加入一条规则，这条规则表明所有从192.168.57.0/24送出的包都会被伪装（MASQUERADE），这样就能够使用iptables实现NAT命令了。执行以下命令： 
+# iptables –t nat –A POSTROUTING –s 192.168.57.0/24 –j MASQUERADE 
+输入以上命令后，Linux主机就充当了NAT服务器功能，通过“iptables -t nat -L POSTROUTING”命令可以查看nat表中POSTROUTING链规则列表。 
+# iptables -t nat -L POSTROUTING 
+Chain POSTROUTING (policy ACCEPT) 
+target     prot opt source               destination          MASQUERADE  all  --  192.168.57.0/24       anywhere
+
+什么意思呢，就是说 natctrl_nat_POSTROUTING st_nat_POSTROUTING这2个是用户自定义的挂接在nat表上的两个chain。
+当报文搜索nat表的链表POSTROUTING时，它的2个策略分别指向了2个新的用户自定义chain。
+就类似与上面的# iptables –t nat –A POSTROUTING –s 192.168.57.0/24 –j MASQUERADE ----> -j的意思就是 (参考网页https://www.centos.bz/2012/07/iptables-notes/中搜索SNAT target字符串)
+
+？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+
+
+
+
+★学习一下linux nat代码部分的实现原理？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+
+
+
+★通过对比如下两次的nat信息，你可以发现host网卡 和 qemu之间报文互转发的确 是通过 iptable的nat 做到的。
+
+测试步骤：在guest ping host之前，和之后，各查看一次啊nat的报文统计，会惊奇的发现，pkt num多了2个，
+而这2个报文，应该就是icmp的request和reply报文。
+
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # iptables -t nat -vL                                   
+Chain PREROUTING (policy ACCEPT 1 packets, 576 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+    1   576 oem_nat_pre  all  --  any    any     anywhere             anywhere            
+
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 175 packets, 12138 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain POSTROUTING (policy ACCEPT 175 packets, 12138 bytes) ------------------------》看这里看这里!!
+ pkts bytes target     prot opt in     out     source               destination         
+  175 12138 natctrl_nat_POSTROUTING  all  --  any    any     anywhere             anywhere            
+  175 12138 st_nat_POSTROUTING  all  --  any    any     anywhere             anywhere            
+
+Chain natctrl_nat_POSTROUTING (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain oem_nat_pre (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain st_nat_POSTROUTING (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # iptables -t nat -vL                                   
+Chain PREROUTING (policy ACCEPT 1 packets, 576 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+    1   576 oem_nat_pre  all  --  any    any     anywhere             anywhere            
+
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 177 packets, 12298 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain POSTROUTING (policy ACCEPT 177 packets, 12298 bytes) ---------------------------》看这里看这里，177个报文，比上面的175多了2个，那就是icmp的req和reply报文。
+ pkts bytes target     prot opt in     out     source               destination         
+  177 12298 natctrl_nat_POSTROUTING  all  --  any    any     anywhere             anywhere            
+  177 12298 st_nat_POSTROUTING  all  --  any    any     anywhere             anywhere            
+
+Chain natctrl_nat_POSTROUTING (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain oem_nat_pre (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain st_nat_POSTROUTING (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+root@scx35l_sp9630ea:/ # 
+root@scx35l_sp9630ea:/ # 
+
+
+★host linux kernel上NAT的配置是通过什么方式下发的？ 启动脚本？还是代码里实现的？？？？
+
+
+★host  linux kernel上NAT配置 查看命令：
+root@scx35l_sp9630ea:/ # iptables -t nat -vnL                                   
+
+★host  linux kernel上NAT配置文件存放位置：
+
+★看看这个函数可以
+/* Returns whether matches rule or not. */
+/* Performance critical - called for every packet */
+static inline bool
+ip_packet_match(const struct iphdr *ip,
+		const char *indev,
+		const char *outdev,
+		const struct ipt_ip *ipinfo,
+		int isfrag)
+{
+	unsigned long ret;
+
+#define FWI
+

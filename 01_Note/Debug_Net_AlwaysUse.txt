@@ -43,5 +43,5 @@ cp /data/slog/qemu.log sdcard/
 	error_printf("\n in %s line:%d", __func__, __LINE__);
 
 	//add by jason-jiang
-	error_printf("\n in func:virtio_net_flush_tx. line:%d", __LINE__);
+	printk("\n in func:virtio_net_flush_tx. line:%d", __LINE__);
 
