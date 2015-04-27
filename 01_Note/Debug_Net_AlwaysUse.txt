@@ -31,7 +31,9 @@ echo "" > /data/slog/qemu.log
 
 ~/multi-os/out/host/linux-x86/bin$ sudo ./fastboot devices
 
-fastboot flash -S 100M system system.img
+sudo ./fastboot flash -S 100M system system.img
+
+sudo ./fastboot reboot
 
 =======
 

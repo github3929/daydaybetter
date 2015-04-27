@@ -16,7 +16,29 @@ static void qemu_net_client_setup()
 
 ★virtio_net_flush_tx是在哪里调用的？在报文打印信息里看到的。-----》感觉这个跟socket有关？？？
 
-注意：是在virtio_net_device_init里挂接的 队列回调函数 virtio_net_tx_bh (挂接它的地方有2个，不要搞错)
+注意：是在virtio_net_device_init里挂接的 队列??回调函数 virtio_net_tx_bh (挂接它的地方有2个，不要搞错)
+正确挂接它的地方在：
+
+static int virtio_net_device_init(VirtIODevice *vdev)
+{
+	n->vqs[0].tx_bh = qemu_bh_new(virtio_net_tx_bh, &n->vqs[0]); ----》就是n->vqs[0].tx_bh这个指针挂接的callback函数virtio_net_tx_bh函数
+}
+
+而n->vqs[0].tx_bh被调用的地方在：
+
+static void virtio_net_handle_tx_bh(VirtIODevice *vdev, VirtQueue *vq)
+{
+    virtio_queue_set_notification(vq, 0);
+    qemu_bh_schedule(q->tx_bh);  --------------->这里调用的。
+}
+
+继续跟踪发现  virtio_net_handle_tx_bh 就是一个n->vqs[0].tx_vq即tx queue的call back函数，注册的地方如下：
+static int virtio_net_device_init(VirtIODevice *vdev)
+{
+        n->vqs[0].tx_vq = virtio_add_queue(vdev, 256,
+                                           virtio_net_handle_tx_bh);
+
+}
  
 调用顺序如下(上面调用下边)：
 
