@@ -7,11 +7,43 @@ lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
 
 ./iperf -c 192.168.43.1 -P 1 -i 1 -p 5001 -f k -t 10 -d -L 5001 -T 1
 
+sudo ifconfig eth0 192.168.1.110 netmask 255.255.255.0 up
+
+sudo tcpreplay --loop=1 --intf1=eth0 ./Iperf_test_pkt_single_capture
+
 =======
 
+cat /system/bin/qemu_start.sh
+
+cat /data/slog/qemu.log
+
+echo > /data/slog/qemu.log
+
+echo "" > /data/slog/qemu.log
+
 /data/data/com.magicandroidapps.iperf/bin
+
+/system/usr/local/bin/qemu-system-arm >/data/slog/qemu.log 2>&1 $VAR_KERNEL_DEBUG
 
 ~/multi-os$ adb forward tcp:1235 tcp:1235
 ~/multi-os$ 
 ~/multi-os$ telnet 127.0.0.1 1235
+
+~/multi-os/out/host/linux-x86/bin$ sudo ./fastboot devices
+
+sudo ./fastboot flash -S 100M system system.img
+
+sudo ./fastboot reboot
+
+=======
+
+cp /data/slog/qemu.log sdcard/
+~/qmlog$ sudo adb pull sdcard/qemu.log qemu.log
+
+=======
+	//add by jason-jiang
+	error_printf("\n in %s line:%d", __func__, __LINE__);
+
+	//add by jason-jiang
+	printk("\n in func:virtio_net_flush_tx. line:%d", __LINE__);
 

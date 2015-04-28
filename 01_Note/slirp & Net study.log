@@ -1,0 +1,290 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+﻿★static int net_slirp_init(...)
+{
+    nc = qemu_new_net_client(&net_slirp_info, peer, model, name);
+    nc->info->receive = net_slirp_receive ====>guest收包肯定调用这个func了，那么谁又调的它呢？
+}
+
+Net.c里边有nic绑定的queue的进队列和出队列的处理函数接口，这个应该就是和net_slirp_receive相关的。
+
+★每个nic都创建了属于自己的队列，队列的初始化的地方在：
+static void qemu_net_client_setup()
+{
+    nc->incoming_queue = qemu_new_net_queue(nc);
+}
+
+★virtio_net_flush_tx是在哪里调用的？在报文打印信息里看到的。-----》感觉这个跟socket有关？？？
+
+注意：是在virtio_net_device_init里挂接的 队列??回调函数 virtio_net_tx_bh (挂接它的地方有2个，不要搞错)
+正确挂接它的地方在：
+
+static int virtio_net_device_init(VirtIODevice *vdev)
+{
+	n->vqs[0].tx_bh = qemu_bh_new(virtio_net_tx_bh, &n->vqs[0]); ----》就是n->vqs[0].tx_bh这个指针挂接的callback函数virtio_net_tx_bh函数
+}
+
+而n->vqs[0].tx_bh被调用的地方在：
+
+static void virtio_net_handle_tx_bh(VirtIODevice *vdev, VirtQueue *vq)
+{
+    virtio_queue_set_notification(vq, 0);
+    qemu_bh_schedule(q->tx_bh);  --------------->这里调用的。
+}
+
+继续跟踪发现  virtio_net_handle_tx_bh 就是一个n->vqs[0].tx_vq即tx queue的call back函数，注册的地方如下：
+static int virtio_net_device_init(VirtIODevice *vdev)
+{
+        n->vqs[0].tx_vq = virtio_add_queue(vdev, 256,
+                                           virtio_net_handle_tx_bh);
+
+}
+ 
+调用顺序如下(上面调用下边)：
+
+virtio_net_tx_bh
+
+virtio_net_flush_tx  --->打印的这个信息
+
+qemu_sendv_packet_async
+
+qemu_net_queue_send_iov 
+
+qemu_net_queue_deliver_iov
+
+qemu_deliver_packet_iov
+
+nc_sendv_compat 
+
+在 nc_sendv_compat函数中 调用 nc->info->receive(nc, buffer, offset); ---> receive指针挂接的就是 net_slirp_receive(slirp设备)
+
+﻿★从guest ping一下 外部的PC，然后提取icmp request&reply报文，找一下 host <----> guest 的报文处理路径。		
+
+	guest发向host的数据到达qemu --->  ....还需要研究 (这中间的过程参考下边搜素"Flag-##"部分)....   
+
+	virtio_net_tx_bh(这是个队列回调函数) --->
+	virtio_net_flush_tx ----> qemu_sendv_packet_async ----> qemu_net_queue_send_iov ----> qemu_net_queue_deliver_iov --->
+        ----> qemu_deliver_packet_iov ----> nc_sendv_compat --->
+	-->  net_slirp_receive  --->  slirp_input ---> ip_input  --->  icmp_input  
+		--->  icmp_send(so, m, hlen)向一个socket发送报文,这个socket挂接在icmp的socket队列，然后整个队列都是发往到一个特定的目的地址和端口的 ---> sendto()
+
+备注：这个socket发向host，然后host那边创建一个socket，connect并且listen你这边这个socket发送的数据。
+
+Q：我的一点疑问，按理说，socket自qemu这里发出去就没有啥事情了，可以这个socket报文是什么封装的？怎么到达目的地啊？
+因为我自己看代码，发送socket的参数只有目的IP和裸数据，没有IP头也没有MAC地址头。？？？？？？？
+答：通过对比 如下2个地方打印的报文信息：
+a. in net_slirp_receive, pkt size:98
+b. icmp_send line:143, so->s:55, pkt content: ----》这个填充给socket的数据比a要少了个MAC地址头
+
+得出结论，icmp_send发送socket的时候的报文，是剥离了mac地址头，还有0x0800这个IP类型字段后剩下的数据。
+          并且将MAC地址头和0X0800后的IP地址头做了LTOH 网络序的转换，即每每2个字节，互相位置对调。
+          
+          完整的报文格式为： MAC地址头(12个字节) +  0x0800 + IP头(8个字节，2个IP地址) + 裸数据
+
+备注：有一个发现，icmp_send出的报文的ICMP报文头字段里的checksum跟 guest 发送的报文到PC后，PC收到的报文的checksum字段值是不一样的。
+      也就是说host kernel还做了这部分的工作。
+
+★接上
+    icmp_send ----> ......  ---->   socket网络发送 ---->   host nic网卡的收包队列(？？？？？应该是直接就发往目的PC了)  ---->  
+
+★guest ---> host, 然后途径 qemu 阶段， qemu收包接口
+static NetClientInfo net_slirp_info = {
+    .type = NET_CLIENT_OPTIONS_KIND_USER,
+    .size = sizeof(SlirpState),
+    .receive = net_slirp_receive,  -------->  这个就是guest 向 host发包，经过qemu时候的收包接口
+    .cleanup = net_slirp_cleanup,
+};
+
+★host ---> guest, 然后途径 qemu 阶段， qemu收包接口
+static NetClientInfo net_virtio_info = {
+    .type = NET_CLIENT_OPTIONS_KIND_NIC,
+    .size = sizeof(NICState),
+    .can_receive = virtio_net_can_receive,
+    .receive = virtio_net_receive, -------->  这个就是host 向 guest发包，经过qemu时候的收包接口
+        .cleanup = virtio_net_cleanup,
+    .link_status_changed = virtio_net_set_link_status,
+    .query_rx_filter = virtio_net_query_rxfilter,
+};
+
+
+★ if_start ---> if_encap ---> slirp_output (前面的部分待加打印信息验证--已验证)  ----> qemu_send_packet  ---- >  qemu_send_packet_async  ---- > qemu_send_packet_async_with_flags  ---- >  qemu_net_queue_send ---- >  qemu_net_queue_deliver ---- >  qemu_deliver_packet ---->  挂接的就是 virtio_net_receive
+
+上面的调用关系，通过打印报文内容，证明是上面的调用是 host ----> guest 方向的 icmp replay
+
+而if_start被调用的地方如下：
+void slirp_pollfds_poll(GArray *pollfds, int select_error) ---> 这就是监听host发来的socket的接口
+{
+        if_start(slirp);
+}
+
+int main_loop_wait(int nonblocking)
+{
+    /* poll any events */
+
+#ifdef CONFIG_SLIRP
+    slirp_pollfds_fill(gpollfds, &timeout);
+#endif
+
+#ifdef CONFIG_SLIRP
+    slirp_pollfds_fill(gpollfds, &timeout);
+#endif
+
+}
+
+vl.c
+int main(int argc, char **argv, char **envp)
+{
+    main_loop();  ---> 调用了 main_loop_wait
+}
+
+★接上：
+ qemu_deliver_packet ----> 在函数体qemu_deliver_packet内调用 nc->info->receive ----> virtio_net_receive (virtio_net设备)
+
+
+★(Flag-##)找到了slirp_input 最开始的地方。就是一个收包队列的回调函数
+
+void net_slirp_init()
+{
+    nc = qemu_new_net_client(&net_slirp_info, peer, model, name); --->这里将net_slirp_info挂接给系统(这变量里有收包处理函数 net_slirp_receive)
+}
+
+NetClientState *qemu_new_net_client(NetClientInfo *info,
+                                    NetClientState *peer,
+                                    const char *model,
+                                    const char *name)
+{
+
+    qemu_net_client_setup(nc, info, peer, model, name,
+                          qemu_net_client_destructor);
+
+}
+
+static void qemu_net_client_setup(NetClientState *nc,
+                                  NetClientInfo *info,
+                                  NetClientState *peer,
+                                  const char *model,
+                                  const char *name,
+                                  NetClientDestructor *destructor)
+{
+
+    nc->incoming_queue = qemu_new_net_queue(nc);--->这里创建了一个和net client绑定的queue，应该报文就是进入这个队列，然后队列的回调函数绑定了
+}
+
+ vl.c里main() --->  net_init_clients --->  net_init_netdev --->  net_client_init ----> net_client_init1 ---->  net_init_slirp ---->  netslirp_init ---> slirp_hostfwd(同时调用了slirp_guestfwd (调用了qemu_new_net_client创建队列)) --->udp_listen 这个可能就是soket绑定处理函数的地方，也就是 net_slirp_receive 被挂接的地方。
+
+★virtual-net网卡的mac地址为
+model=virtio-net-device,macaddr=52:54:00:12:34:62
+
+证据：(qemu) info network
+virtio-net-device.0: index=0,type=nic,model=virtio-net-device,macaddr=52:54:00:12:34:62
+ \ net0: index=0,type=user,net=10.0.10.0,restrict=off
+(qemu) 
+
+
+host网卡对内的mac地址为 0x52 0x55 0x0a 0x00 0x0a 0x02
+
+★host qemu 虚拟网卡的ip地址为 10.0.10.2
+  guest virtio-io 网卡的ip地址为10.0.10.15
+
+root@vshark:/ # 
+root@vshark:/ # busybox ifconfig
+eth0      Link encap:Ethernet  HWaddr 52:54:00:12:34:62  
+          inet addr:10.0.10.15  Bcast:10.0.10.255  Mask:255.255.255.0
+          inet6 addr: fe80::5054:ff:fe12:3462/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:187 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:259 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:11291 (11.0 KiB)  TX bytes:16863 (16.4 KiB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:695 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:695 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:53975 (52.7 KiB)  TX bytes:53975 (52.7 KiB)
+
+root@vshark:/ # 
+
+★socket.c有2个文件，一个在qemu/net 一个在qemu/slirp, 哪一个个才是真的呢？
+答：这2个貌似都没用到。
+
+★发现了slirp_hostfwd这个host里关于创建socket listen发送的tcp和udp包的这个初始化的地方，但是好像跟slirp_input最后
+发送的udp报文没有关系？
+
+★void slirp_pollfds_poll(GArray *pollfds, int select_error)这里也有socket的相关操作，回去看看是否有关。
+
+★socket收发包，发送端和接受端各自需要做的事情：
+  发送端： connect
+  接受端： bind listen
+
+★通过如下的函数调用，你会发现host --- guest之间建立了一个tcp socket通信链路，各自的addr和port如下：
+ in func:slirp_hostfwd. line:421, redir_str:tcp:2323:10.0.10.15:23
+
+ in slirp_hostfwd line:461
+ in func:slirp_hostfwd. line:465
+ in func:slirp_hostfwd. line:469, host_addr: 0 0 0 0 
+ in func:slirp_hostfwd. line:475, host_port:2323
+ in func:slirp_hostfwd. line:481, guest_addr: 10 0 10 15 
+ in func:slirp_hostfwd. line:487, guest_port:23
+
+★tcp_listen函数调用关系如下：
+答：
+ 	slirp_add_hostfwd --->  tcp_listen 从如下打印信息中发现没有做udp的listen
+
+ in slirp_add_hostfwd line:891, is_udp:0,  init tcp&udp listen
+
+★核实一下slirp_hostfwd中创建的tcp & udp socket listen哪些操作，在listen 什么地址和端口?
+  这个确定了，我们就可以搜索host这边谁connect了这些地址和端口，然后就找到host把报文扔给qemu的地方了。
+答：listen的是 0.0.0.0地址的2323端口，也就是手机host端 ---- guest 10.0.10.15 port23通信的端口。
+
+★host接受guest发来的报文，是通过0.0.0.0 port2323这个socket接受的么？那么代码中，哪里体现了host listen这个端口的地方呢？
+答：
+◇首先通过如下打印信息，确定了guest发往host的报文是发往0.0.0.0:2323端口的。------》这个还没有核实？？？？？？？
+
+  在 icmp_send 函数里打印出了报文的目的IP和目的port。
+
+  in func:ip_input. line:140, pkt type:0x1
+ ip_input line:145: dst ip:
+192 168 1 101 
+ ip_input line:153: src ip:
+10 0 10 15 
+ in icmp_input, line:213.
+ in icmp_input, line:218.
+ in icmp_send, line:91, so->s socket id:56
+ icmp_send line:93: dst ip: 192 168 1 101 
+ icmp_send line:101: src ip: 10 0 10 15 
+ line:109 so->so_faddr 0 0 0 0 
+ so->so_fport line:117, so_fport:0
+ line:119 so->so_laddr 0 0 0 0 
+ so->so_lport line:127, so_lport:0
+ icmp_send line:129, so->s:56, pkt content:
+
+
+◇
+
+
+★qemu中的info命令的解析函数对应的就是 代码中的Monitor.c文件。
+
+
+★在qemu_new_nic中初始化的是vritio_net device， 也就是那个虚拟网卡。
+
+  in qemu_new_nic line: 261
+  in qemu_net_client_setup line: 219, create net queue.
+ in func:virtio_net_device_init. line:1655
+ in qemu_format_nic_info_str 144
+model=virtio-net-device,macaddr=52:54:00:12:34:62  ----> 这个就是证据
+ in func:virtio_net_reset. line:323
+ in qemu_format_nic_info_str 144
+model=virtio-net-device,macaddr=52:54:00:12:34:62
+ in vl.c main line:4377
+
+★qemu发往host的收包socket的创建的过程如下：
+答：slirp_add_hostfwd这个函数的前后做的，具体参考qemu_socket_tmp.txt打印信息记录日志。
+
+★发现一个 有意思的函数，抽空可以看看。
+
+Route.c (z:\home\apuser\multi-os\kernel\net\ipv4):	rth->dst.input = ip_forward;
+

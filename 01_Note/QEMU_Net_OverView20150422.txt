@@ -1,0 +1,45 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+=========================================================
+
+★系统分三部分
+
+Host kernel    Qemu   Guest Kernel
+
+
+host ---> guest 方向的数据传输
+qemu开了一个socket listen Host Kernel发过来的socket报文，一旦发现有报文，调用qemu_send_packet来转发数据，
+最终调用virtio_net_receive将数据存储到一个特定地址，然后notify guest kernel来获取数据，这个就应该是virual queue的工作了，
+这个还需要继续 研究一下。
+
+guest ---> host 方向的数据传输
+guest如果向host发送数据，会先将数据写入到 virtual queue队列中，然后队列的回调函数virtio_net_tx_bh会线性调用到icmp_send，然后
+这icmp_send中就会构造一个socket，然后填上发送的报文，然后向slirp_state变量中含有的socketid发送出去。
+
+
+★这里一定区分开2个queue：
+1.一种queue是virtual queue，这个queue是用来给virtio_net模块传送数据的。virtio_net_tx_bh绑定的queue就是这种。
+2.一种queue是socket的queue，比如icmp_send数据时候，只是将数据挂在icmp类型的socket queue中，然后异步发送。
+
+★需要注意的是在qemu程序传输的报文，不管是host-->guest还是反过来的，报文的目的mac和源mac都被替换掉了。
+◇以我的测试为例，发往guest的报文的目的mac替换为 0x52 0x54 0x00 0x12 0x34 0x62 ---> 这也是virtio-net-device被设置的mac地址(设置地方在virtio_net_device_init)
+这个默认mac地址是在如下定义的：
+void qemu_macaddr_default_if_unset(MACAddr *macaddr)
+{
+    static int index = 0;
+    static const MACAddr zero = { .a = { 0,0,0,0,0,0 } };
+
+    if (memcmp(macaddr, &zero, sizeof(zero)) != 0)
+        return;
+    macaddr->a[0] = 0x52;
+    macaddr->a[1] = 0x54;
+    macaddr->a[2] = 0x00;
+    macaddr->a[3] = 0x12;
+    macaddr->a[4] = 0x34;
+    macaddr->a[5] = 0x56 + index++;
+}
+
+◇发往host的报文的目的mac替换为 0x52 0x55 0x0a 0x00 0x0a 0x02 ---> 这个地址是哪儿来的？？？？？
+
+
+
+
