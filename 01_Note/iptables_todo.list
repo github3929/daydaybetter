@@ -1,0 +1,319 @@
+★根据命令行输出来搜索代码
+
+shell@scx35l_sp9630ea:/ # iptables -t nat -vL
+
+
+Chain POSTROUTING (policy ACCEPT 330 packets, 22988 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+  330 22988 natctrl_nat_POSTROUTING  all  --  any    any     anywhere             anywhere            
+  330 22988 st_nat_POSTROUTING  all  --  any    any     anywhere             anywhere 
+
+
+★
+
+Natcontroller.cpp 文件中，找到了下发natctrl_nat_POSTROUTING nat的地方：
+
+先是搜索 natctrl_nat_POSTROUTING， 然后根据下面的定义再搜索LOCAL_NAT_POSTROUTING
+
+const char* NatController::LOCAL_NAT_POSTROUTING = "natctrl_nat_POSTROUTING";
+
+//  0    1       2       3       4            5
+// nat enable intface extface addrcnt nated-ipaddr/prelength
+int NatController::enableNat(const int argc, char **argv) {
+
+......
+
+    // add this if we are the first added nat
+    if (natCount == 0) {
+        const char *cmd[] = {
+                IPTABLES_PATH,
+                "-t",
+                "nat",
+                "-A",
+                LOCAL_NAT_POSTROUTING,
+                "-o",
+                extIface,
+                "-j",
+                "MASQUERADE"
+        };
+        if (runCmd(ARRAY_SIZE(cmd), cmd)) {
+            ALOGE("Error seting postroute rule: iface=%s", extIface);
+            // unwind what's been done, but don't care about success - what more could we do?
+            routesOp(false, intIface, extIface, argv, addrCount);
+            setDefaults();
+            return -1;
+        }
+    }
+......
+}
+
+
+首先搜索st_nat_POSTROUTING
+
+在secondaryTableController.cpp
+const char* SecondaryTableController::LOCAL_NAT_POSTROUTING = "st_nat_POSTROUTING";
+
+
+int SecondaryTableController::setFwmarkRule(const char *iface, bool add) {
+    // Because the mark gets set after the intial routing decision the source IP address is that
+    // of the original out interface. The only way to change the source IP address to that of the
+    // VPN iface is using source NAT.
+    // TODO: Remove this when we get the mark set correctly before the first routing pass.
+    ret = execIptables(V4,
+            "-t",
+            "nat",
+            add ? "-A" : "-D",
+            LOCAL_NAT_POSTROUTING,
+            "-o",
+            iface,
+            "-m",
+            "mark",
+            "--mark",
+            mark_str,
+            "-j",
+            "MASQUERADE",
+            NULL);
+
+}
+
+
+int SecondaryTableController::runCmd(int argc, const char **argv) {
+    int ret = 0;
+
+    ret = android_fork_execvp(argc, (char **)argv, NULL, false, false);
+    return ret;
+}
+
+
+
+★这个类里，有好多函数好像是和nat相关的。
+class SecondaryTableController {
+
+public:
+    SecondaryTableController(UidMarkMap *map);
+    virtual ~SecondaryTableController();
+
+    int addRoute(SocketClient *cli, char *iface, char *dest, int prefixLen, char *gateway);
+    int removeRoute(SocketClient *cli, char *iface, char *dest, int prefixLen, char *gateway);
+    int findTableNumber(const char *iface);
+    int modifyFromRule(int tableIndex, const char *action, const char *addr);
+    int modifyLocalRoute(int tableIndex, const char *action, const char *iface, const char *addr);
+    int addUidRule(const char *iface, int uid_start, int uid_end);
+    int removeUidRule(const char *iface, int uid_start, int uid_end);
+    int addFwmarkRule(const char *iface);
+    int removeFwmarkRule(const char *iface);
+    int addFwmarkRoute(const char* iface, const char *dest, int prefix);
+    int removeFwmarkRoute(const char* iface, const char *dest, int prefix);
+    int addHostExemption(const char *host);
+    int removeHostExemption(const char *host);
+    void getUidMark(SocketClient *cli, int uid);
+    void getProtectMark(SocketClient *cli);
+
+    int setupIptablesHooks();
+
+    static const char* LOCAL_MANGLE_OUTPUT;
+    static const char* LOCAL_MANGLE_POSTROUTING;
+    static const char* LOCAL_NAT_POSTROUTING;
+
+
+private:
+    UidMarkMap *mUidMarkMap;
+
+    int setUidRule(const char* iface, int uid_start, int uid_end, bool add);
+    int setFwmarkRule(const char *iface, bool add);
+    int setFwmarkRoute(const char* iface, const char *dest, int prefix, bool add);
+    int setHostExemption(const char *host, bool add);
+    int modifyRoute(SocketClient *cli, const char *action, char *iface, char *dest, int prefix,
+            char *gateway, int tableIndex);
+
+    char mInterfaceTable[INTERFACES_TRACKED][IFNAMSIZ + 1];
+    int mInterfaceRuleCount[INTERFACES_TRACKED];
+    void modifyRuleCount(int tableIndex, const char *action);
+    int verifyTableIndex(int tableIndex);
+    const char *getVersion(const char *addr);
+    IptablesTarget getIptablesTarget(const char *addr);
+
+    int runCmd(int argc, const char **argv);
+};
+
+
+★设置Default配置的地方：
+int NatController::setDefaults() {
+    /*
+     * The following only works because:
+     *  - the defaultsCommands[].cmd array is padded with NULL, and
+     *  - the 1st argc of runCmd() will just be the max for the CommandsAndArgs[].cmd, and
+     *  - internally it will be memcopied to an array and terminated with a NULL.
+     */
+    struct CommandsAndArgs defaultCommands[] = {
+        {{IPTABLES_PATH, "-F", LOCAL_FORWARD,}, 1},
+        {{IPTABLES_PATH, "-A", LOCAL_FORWARD, "-j", "DROP"}, 1},
+        {{IPTABLES_PATH, "-t", "nat", "-F", LOCAL_NAT_POSTROUTING}, 1},
+        {{IP_PATH, "rule", "flush"}, 0},
+        {{IP_PATH, "-6", "rule", "flush"}, 0},
+        {{IP_PATH, "rule", "add", "from", "all", "lookup", "default", "prio", "32767"}, 0},
+        {{IP_PATH, "rule", "add", "from", "all", "lookup", "main", "prio", "32766"}, 0},
+        {{IP_PATH, "-6", "rule", "add", "from", "all", "lookup", "default", "prio", "32767"}, 0},
+        {{IP_PATH, "-6", "rule", "add", "from", "all", "lookup", "main", "prio", "32766"}, 0},
+        {{IP_PATH, "route", "flush", "cache"}, 0},
+    };
+    for (unsigned int cmdNum = 0; cmdNum < ARRAY_SIZE(defaultCommands); cmdNum++) {
+        if (runCmd(ARRAY_SIZE(defaultCommands[cmdNum].cmd), defaultCommands[cmdNum].cmd) &&
+            defaultCommands[cmdNum].checkRes) {
+                return -1;
+        }
+    }
+
+    natCount = 0;
+
+    return 0;
+}
+
+★查看Net Service的log日志的方法：
+sudo adb logcat NetdConnector:D NetworkManagementService*:S
+
+
+==================================================================================================================
+
+
+★你分析nat这块的配置，应该回归到qemu上。
+
+你的思路应该是这样，如果是单系统，host能上网就OK了，那你现在在host上安装了一个qemu的程序，然后对qemu进行了一番配置，
+
+然后你看guest那边就可以上网了，那前后对比，host上没弄什么啊，唯一的操作就是配置了一下qemu。
+
+所以你搜索一下qemu网络配置，找找看别人是做了什么配置，然后guest的网络就通了？   是否和host的iptable配置有关呢？？
+
+★我们产品的host的系统启动脚本位置：
+/home/apuser/multi-os/device/sprd/scx35l_sp9630ea
+
+★我们将如下的hx文件，和vl.c文件中的main()函数宏定义 QEMU_OPTION_net QEMU_OPTION_netdev 联系起来。
+~/multi-os/vendor/sprd/qemu$ ls *.hx
+hmp-commands.hx  qemu-img-cmds.hx  qemu-options.hx  qmp-commands.hx
+~/multi-os/vendor/sprd/qemu$ 
+~/multi-os/vendor/sprd/qemu$ vi qemu-options.hx
+
+★通过iptables-S 可以查看 natctrl_FORWARD链 的 具体规则。
+
+root@scx35l_sp9630ea:/ # iptables -S                                           
+-P INPUT ACCEPT
+-P FORWARD ACCEPT
+-P OUTPUT ACCEPT
+-N bw_FORWARD
+-N bw_INPUT
+-N bw_OUTPUT
+-N bw_costly_shared
+-N bw_happy_box
+-N bw_penalty_box
+-N fw_FORWARD
+-N fw_INPUT
+-N fw_OUTPUT
+-N natctrl_FORWARD
+-N natctrl_tether_counters
+-N oem_fwd
+-N oem_out
+-A INPUT -j bw_INPUT
+-A INPUT -j fw_INPUT
+-A FORWARD -j oem_fwd
+-A FORWARD -j fw_FORWARD
+-A FORWARD -j bw_FORWARD
+-A FORWARD -j natctrl_FORWARD
+-A OUTPUT -j oem_out
+-A OUTPUT -j fw_OUTPUT
+-A OUTPUT -j bw_OUTPUT
+-A bw_INPUT -m quota2 ! --name globalAlert  --quota 2097152 
+-A bw_INPUT -m owner --socket-exists
+-A bw_OUTPUT -m quota2 ! --name globalAlert  --quota 2097152 
+-A bw_OUTPUT -m owner --socket-exists
+-A bw_costly_shared -j bw_penalty_box
+-A natctrl_FORWARD -j DROP
+root@scx35l_sp9630ea:/ # 
+
+
+★我感觉怎么ip地址是代码里的函数替换的，不是用iptable做的，iptable仅仅负责是accept还是drop。
+原因如下：
+
+nf_nat_ipv4_in ---》 nf_nat_ipv4_fn （每次做入NAT都调用，每次收包都调用）
+
+nf_nat_ipv4_out ---》 nf_nat_ipv4_fn （每次做出NAT都调用，每次发包都调用）
+
+
+static unsigned int
+nf_nat_ipv4_fn(unsigned int hooknum,
+	       struct sk_buff *skb,
+	       const struct net_device *in,
+	       const struct net_device *out,
+	       int (*okfn)(struct sk_buff *))  ----》这个函数肯定是被调用的(因为打印信息都出来了)，而且我发现每每收到一个报文就调用它
+{
+
+	case IP_CT_NEW:
+
+
+#define QEMU_IPTABLES_DEBUG 1
+#ifdef QEMU_IPTABLES_DEBUG
+	//add by jason-jiang
+	printk("\n in func:nf_nat_ipv4_fn. line:%d", __LINE__);
+#endif
+
+			ret = nf_nat_rule_find(skb, hooknum, in, out, ct);
+			if (ret != NF_ACCEPT)
+				return ret;
+		} else {
+			。。。。。
+		}
+		break;
+
+
+	return nf_nat_packet(ct, ctinfo, hooknum, skb);
+
+
+/* Do packet manipulations according to nf_nat_setup_info. */  ------>这里负责IP伪装，根据nf_nat_setup_info
+unsigned int nf_nat_packet(struct nf_conn *ct,
+			   enum ip_conntrack_info ctinfo,
+			   unsigned int hooknum,
+			   struct sk_buff *skb)
+{
+。。。。。
+	enum nf_nat_manip_type mtype = HOOK2MANIP(hooknum); ----》获取是做源NAT还是目的NAT
+
+	if (ct->status & statusbit) { ----> 判断你要做的操作(替换源IP或者目的IP)是否支持
+		struct nf_conntrack_tuple target;
+
+		l3proto = __nf_nat_l3proto_find(target.src.l3num); ---》寻找应该替换的3层协议的IP地址
+		l4proto = __nf_nat_l4proto_find(target.src.l3num, ---》寻找应该替换的4层协议的port端口号
+						target.dst.protonum);
+
+		if (!l3proto->manip_pkt(skb, 0, l4proto, &target, mtype))
+			return NF_DROP;
+
+}
+
+
+以host ---> guest方向的报文为例，想知道 哪里将报文的 desIP替换为了guest的10.0.10.15， 
+这个IP地址程序是怎么知道的？？？？？？？
+
+
+★
+搜索IPS_DST_NAT，你可以看到它被赋值给谁了。下面的函数负责对 nf_conn *ct 进行初始化。
+unsigned int
+nf_nat_setup_info(struct nf_conn *ct,
+		  const struct nf_nat_range *range,
+		  enum nf_nat_manip_type maniptype)
+{
+
+。。。。。
+		/* Non-atomic: we own this at the moment. */
+		if (maniptype == NF_NAT_MANIP_SRC)
+			ct->status |= IPS_SRC_NAT;
+		else
+			ct->status |= IPS_DST_NAT; ---》在这里初始化了给ct->status,也就是对 入参nf_conn *ct这个变量进行了初始化。 
+	}
+
+。。。。。
+
+}
+
+那就看一下这个函数 nf_nat_setup_info 是谁调用的，它应该是 下发SNAT DNAT的过程中的末端执行者。
+？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？上面这行
+
+

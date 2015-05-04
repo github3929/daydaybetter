@@ -1,0 +1,375 @@
+
+★自动下发iptables规则的方法，网上看到的方法：
+
+●谢谢了，我已经吧我的iptables脚本ip.sh 写入  /etc/rc.d/rc.local  了，现在重启自动加载这个小脚本，虽然它只有2行，嘿嘿
+
+●每次只有手动执行一次写的ip.sh
+
+★
+你可以发现手机在没有获得IP地址的情况下，敲命令 iptables -t nat -vL发现iptable里已经有表项了。
+所以这个表现的添加不是动态的，应该是 系统上电 初始化的时候设置的。
+
+iptable_nat.c
+中有对iptable进行查询的操作：
+
+static unsigned int nf_nat_rule_find(struct sk_buff *skb, unsigned int hooknum,
+				     const struct net_device *in,
+				     const struct net_device *out,
+				     struct nf_conn *ct)
+{
+	struct net *net = nf_ct_net(ct);
+	unsigned int ret;
+
+	ret = ipt_do_table(skb, hooknum, in, out, net->ipv4.nat_table); -------》这里
+	if (ret == NF_ACCEPT) {
+		if (!nf_nat_initialized(ct, HOOK2MANIP(hooknum)))
+			ret = alloc_null_binding(ct, hooknum);
+	}
+	return ret;
+}
+
+★进一步跟踪发现这个查询和添加iptable的地方如下：
+
+ip_tables.c
+
+
+EXPORT_SYMBOL(ipt_register_table);
+EXPORT_SYMBOL(ipt_unregister_table);
+EXPORT_SYMBOL(ipt_do_table);
+
+★再进一步搜索 ipt_register_table发现调用它的地方：
+
+
+static int __net_init iptable_nat_net_init(struct net *net)
+{
+	struct ipt_replace *repl;
+
+	repl = ipt_alloc_initial_table(&nf_nat_ipv4_table);
+	if (repl == NULL)
+		return -ENOMEM;
+	net->ipv4.nat_table = ipt_register_table(net, &nf_nat_ipv4_table, repl);
+	kfree(repl);
+	return PTR_RET(net->ipv4.nat_table);
+}
+
+在上面的初始化中，定义了一个nat表变量 nf_nat_ipv4_table，你要修改nat配置，肯定是要更新到这个变量里的。
+
+★在nf_nat_core.c文件中有如下函数：
+unsigned int
+nf_nat_setup_info(struct nf_conn *ct,
+		  const struct nf_nat_range *range,
+		  enum nf_nat_manip_type maniptype)
+{
+ 加个打印看看，是否有被调用。-----》核实过了，被调用过的
+}
+
+sousou 看看， 它是否就是初始化nat配置的地方。
+
+继续看它在哪里被调用的：
+static unsigned int netmap_tg4(struct sk_buff *skb, const struct xt_action_param *par)
+{
+	/* Hand modified range to generic setup. */
+	return nf_nat_setup_info(ct, &newrange, HOOK2MANIP(par->hooknum));
+}
+
+
+★然后就在xt_NETMAP.c文件中，发现了定义这个规则表变量的地方：
+static struct xt_target netmap_tg_reg[] __read_mostly = {
+	{
+		.name       = "NETMAP",
+		.family     = NFPROTO_IPV6,
+		.revision   = 0,
+		.target     = netmap_tg6,
+		.targetsize = sizeof(struct nf_nat_range),
+		.table      = "nat",
+		.hooks      = (1 << NF_INET_PRE_ROUTING) |
+		              (1 << NF_INET_POST_ROUTING) |
+		              (1 << NF_INET_LOCAL_OUT) |
+		              (1 << NF_INET_LOCAL_IN),
+		.checkentry = netmap_tg6_checkentry,
+		.me         = THIS_MODULE,
+	},
+	{
+		.name       = "NETMAP",
+		.family     = NFPROTO_IPV4,
+		.revision   = 0,
+		.target     = netmap_tg4,
+		.targetsize = sizeof(struct nf_nat_ipv4_multi_range_compat),
+		.table      = "nat", ------------------------------------------->haha, nat表，就是这里
+		.hooks      = (1 << NF_INET_PRE_ROUTING) |
+		              (1 << NF_INET_POST_ROUTING) |
+		              (1 << NF_INET_LOCAL_OUT) |
+		              (1 << NF_INET_LOCAL_IN),
+		.checkentry = netmap_tg4_check,
+		.me         = THIS_MODULE,
+	},
+};
+
+
+★
+X_table.c
+
+/* Find target, grabs ref.  Returns ERR_PTR() on error. */
+struct xt_target * (u8 af, const char *name, u8 revision)
+{
+	struct xt_target *t;
+	int err = -ENOENT;
+
+	if (mutex_lock_interruptible(&xt[af].mutex) != 0)
+		return ERR_PTR(-EINTR);
+
+	list_for_each_entry(t, &xt[af].target, list) { ------》这里有用到 &xt[af].target
+		if (strcmp(t->name, name) == 0) {
+			if (t->revision == revision) {
+				if (try_module_get(t->me)) {
+					mutex_unlock(&xt[af].mutex);
+					return t;
+				}
+			} else
+				err = -EPROTOTYPE; /* Found something. */
+		}
+	}
+	mutex_unlock(&xt[af].mutex);
+
+	if (af != NFPROTO_UNSPEC)
+		/* Try searching again in the family-independent list */
+		return xt_find_target(NFPROTO_UNSPEC, name, revision);
+
+	return ERR_PTR(err);
+}
+
+★发现有一个函数的调用关系为：但是些函数调用信息，每隔一段时间就会打印，因此怀疑不是nat配置下发的地方。
+
+nf_nat_ipv4_fn  ---》 nf_nat_rule_find  ---》 alloc_null_binding ---》 nf_nat_setup_info ---》 
+
+★你可以看看 iptables -t nat -vL 这个命令的实现的地方，然后看看它打印的是哪个表，搜一下都谁修改过这个表。
+
+答：
+？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+
+★关注2个文件，一个是netfilter.c文件，一个是ip_tables.c文件
+
+还有iptable_nat.c
+
+★有意思的函数 做nat转换么？----或许从来没有被调到过。
+
+/* Do packet manipulations according to nf_nat_setup_info. */
+unsigned int nf_nat_packet(struct nf_conn *ct,
+			   enum ip_conntrack_info ctinfo,
+			   unsigned int hooknum,
+			   struct sk_buff *skb)
+{}
+
+
+★你实验一下自己手动敲入一个iptables的命令行，看这个nat的下发过程，调到了哪些函数？
+
+
+★
+
+
+★在手机上可以执行如下命令查看iptable的相关配置：
+
+shell@scx35l_sp9630ea:/ $ cat proc/net/ip                                      
+ip6_flowlabel       ip6_tables_targets  ip_conntrack_expect ip_tables_targets  
+ip6_tables_matches  ip6t_hashlimit/     ip_tables_matches   ipt_hashlimit/     
+ip6_tables_names    ip_conntrack        ip_tables_names     ipv6_route         
+shell@scx35l_sp9630ea:/ 
+
+★具体到 ip_tables_matches 这个表就是如下再具体细分，可以查看udp等子项的信息。
+shell@scx35l_sp9630ea:/proc/net # cat ip_tables_matches udp                    
+u32
+time
+string
+statistic
+state
+quota
+owner
+pkttype
+mac
+limit
+helper
+conntrack
+conntrack
+conntrack
+connlimit
+comment
+connmark
+mark
+ah
+icmp
+socket
+socket
+quota2
+policy
+length
+iprange
+ttl
+hashlimit
+ecn
+udplite
+udp
+tcp
+  sl  local_address rem_address   st tx_queue rx_queue tr tm->when retrnsmt   uid  timeout inode ref pointer drops             
+   39: 00000000:9827 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 14841 2 00000000 0                 
+   43: 00000000:802B 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 14779 2 00000000 0                 
+   90: 00000000:8E5A 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15043 2 00000000 0                 
+   99: 00000000:8863 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15173 2 00000000 0                 
+  131: 00000000:9283 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 14937 2 00000000 0                 
+  149: 00000000:8E95 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15270 2 00000000 0                 
+  212: 00000000:D4D4 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 14875 2 00000000 0                 
+  216: 00000000:E2D8 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15204 2 00000000 0                 
+  292: 00000000:BF24 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 14810 2 00000000 0                 
+  299: 00000000:C72B 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15008 2 00000000 0                 
+  356: 00000000:E564 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15235 2 00000000 0                 
+  385: 00000000:C581 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15106 2 00000000 0                 
+  409: 00000000:9799 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15305 2 00000000 0                 
+  434: 00000000:CBB2 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15075 2 00000000 0                 
+  482: 00000000:ADE2 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 14906 2 00000000 0                 
+  510: 00000000:A3FE 00000000:0000 07 00000000:00000000 00:00000000 00000000     0        0 15142 2 00000000 0                 
+shell@scx35l_sp9630ea:/proc/net # cat ip_tables_matches udp        
+
+
+
+===================================================================================================
+
+
+★根据命令行输出来搜索代码
+
+shell@scx35l_sp9630ea:/ # iptables -t nat -vL
+
+
+Chain POSTROUTING (policy ACCEPT 330 packets, 22988 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+  330 22988 natctrl_nat_POSTROUTING  all  --  any    any     anywhere             anywhere            
+  330 22988 st_nat_POSTROUTING  all  --  any    any     anywhere             anywhere 
+
+
+★
+
+Natcontroller.cpp 文件中，找到了下发natctrl_nat_POSTROUTING nat的地方：
+
+先是搜索 natctrl_nat_POSTROUTING， 然后根据下面的定义再搜索LOCAL_NAT_POSTROUTING
+
+const char* NatController::LOCAL_NAT_POSTROUTING = "natctrl_nat_POSTROUTING";
+
+//  0    1       2       3       4            5
+// nat enable intface extface addrcnt nated-ipaddr/prelength
+int NatController::enableNat(const int argc, char **argv) {
+
+......
+
+    // add this if we are the first added nat
+    if (natCount == 0) {
+        const char *cmd[] = {
+                IPTABLES_PATH,
+                "-t",
+                "nat",
+                "-A",
+                LOCAL_NAT_POSTROUTING,
+                "-o",
+                extIface,
+                "-j",
+                "MASQUERADE"
+        };
+        if (runCmd(ARRAY_SIZE(cmd), cmd)) {
+            ALOGE("Error seting postroute rule: iface=%s", extIface);
+            // unwind what's been done, but don't care about success - what more could we do?
+            routesOp(false, intIface, extIface, argv, addrCount);
+            setDefaults();
+            return -1;
+        }
+    }
+......
+}
+
+
+首先搜索st_nat_POSTROUTING
+
+在secondaryTableController.cpp
+const char* SecondaryTableController::LOCAL_NAT_POSTROUTING = "st_nat_POSTROUTING";
+
+
+int SecondaryTableController::setFwmarkRule(const char *iface, bool add) {
+    // Because the mark gets set after the intial routing decision the source IP address is that
+    // of the original out interface. The only way to change the source IP address to that of the
+    // VPN iface is using source NAT.
+    // TODO: Remove this when we get the mark set correctly before the first routing pass.
+    ret = execIptables(V4,
+            "-t",
+            "nat",
+            add ? "-A" : "-D",
+            LOCAL_NAT_POSTROUTING,
+            "-o",
+            iface,
+            "-m",
+            "mark",
+            "--mark",
+            mark_str,
+            "-j",
+            "MASQUERADE",
+            NULL);
+
+}
+
+
+int SecondaryTableController::runCmd(int argc, const char **argv) {
+    int ret = 0;
+
+    ret = android_fork_execvp(argc, (char **)argv, NULL, false, false);
+    return ret;
+}
+
+★在NatController.cpp文件中，貌似是android关于nat配置管理的代码。
+
+
+★这个类里，有好多函数好像是和nat相关的。
+class SecondaryTableController {
+
+public:
+    SecondaryTableController(UidMarkMap *map);
+    virtual ~SecondaryTableController();
+
+    int addRoute(SocketClient *cli, char *iface, char *dest, int prefixLen, char *gateway);
+    int removeRoute(SocketClient *cli, char *iface, char *dest, int prefixLen, char *gateway);
+    int findTableNumber(const char *iface);
+    int modifyFromRule(int tableIndex, const char *action, const char *addr);
+    int modifyLocalRoute(int tableIndex, const char *action, const char *iface, const char *addr);
+    int addUidRule(const char *iface, int uid_start, int uid_end);
+    int removeUidRule(const char *iface, int uid_start, int uid_end);
+    int addFwmarkRule(const char *iface);
+    int removeFwmarkRule(const char *iface);
+    int addFwmarkRoute(const char* iface, const char *dest, int prefix);
+    int removeFwmarkRoute(const char* iface, const char *dest, int prefix);
+    int addHostExemption(const char *host);
+    int removeHostExemption(const char *host);
+    void getUidMark(SocketClient *cli, int uid);
+    void getProtectMark(SocketClient *cli);
+
+    int setupIptablesHooks();
+
+    static const char* LOCAL_MANGLE_OUTPUT;
+    static const char* LOCAL_MANGLE_POSTROUTING;
+    static const char* LOCAL_NAT_POSTROUTING;
+
+
+private:
+    UidMarkMap *mUidMarkMap;
+
+    int setUidRule(const char* iface, int uid_start, int uid_end, bool add);
+    int setFwmarkRule(const char *iface, bool add);
+    int setFwmarkRoute(const char* iface, const char *dest, int prefix, bool add);
+    int setHostExemption(const char *host, bool add);
+    int modifyRoute(SocketClient *cli, const char *action, char *iface, char *dest, int prefix,
+            char *gateway, int tableIndex);
+
+    char mInterfaceTable[INTERFACES_TRACKED][IFNAMSIZ + 1];
+    int mInterfaceRuleCount[INTERFACES_TRACKED];
+    void modifyRuleCount(int tableIndex, const char *action);
+    int verifyTableIndex(int tableIndex);
+    const char *getVersion(const char *addr);
+    IptablesTarget getIptablesTarget(const char *addr);
+
+    int runCmd(int argc, const char **argv);
+};
+
+

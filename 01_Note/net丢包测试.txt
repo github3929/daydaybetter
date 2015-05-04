@@ -1,0 +1,21 @@
+
+
+在手机上查看udp丢包情况
+shell@scx35l_sp9630ea:/ # 
+shell@scx35l_sp9630ea:/ # cat /proc/net/snmp | grep Udp                        
+Udp: InDatagrams NoPorts InErrors OutDatagrams RcvbufErrors SndbufErrors InCsumErrors
+Udp: 96 24 0 214 0 0 0
+UdpLite: InDatagrams NoPorts InErrors OutDatagrams RcvbufErrors SndbufErrors InCsumErrors
+UdpLite: 0 0 0 0 0 0 0
+shell@scx35l_sp9630ea:/ # 
+shell@scx35l_sp9630ea:/ # 
+
+
+在PC上查看udp丢包情况
+~/multi-os/out/host/linux-x86/bin$ cat /proc/net/snmp | grep Udp
+Udp: InDatagrams NoPorts InErrors OutDatagrams RcvbufErrors SndbufErrors
+Udp: 121887 36851 0 590477 0 154
+UdpLite: InDatagrams NoPorts InErrors OutDatagrams RcvbufErrors SndbufErrors
+UdpLite: 0 0 0 0 0 0
+~/multi-os/out/host/linux-x86/bin$ 
+

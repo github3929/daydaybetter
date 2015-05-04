@@ -1,3 +1,14 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+
+#ifndef QEMU_NET_DEBUG
+#define QEMU_NET_DEBUG 1
+#endif
+
+#ifdef QEMU_NET_DEBUG
+#endif
+
 
 lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
 
@@ -5,7 +16,12 @@ lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
 
 ./iperf -s -P 0 -i 1 -p 5001 -f k
 
-./iperf -c 192.168.43.1 -P 1 -i 1 -p 5001 -f k -t 10 -d -L 5001 -T 1
+./iperf -c 192.168.1.101 -P 1 -i 1 -p 5001 -f k -t 10 -d -L 5001 -T 1
+
+
+//从PC上抓获了发向Guest或者Host的报文后，测试报文的发送命令：
+sudo tcpreplay --loop=100 --intf1=eth0 -M 0.1 ./ping_pac.single
+
 
 sudo ifconfig eth0 192.168.1.110 netmask 255.255.255.0 up
 
@@ -41,9 +57,70 @@ cp /data/slog/qemu.log sdcard/
 ~/qmlog$ sudo adb pull sdcard/qemu.log qemu.log
 
 =======
+
+dmesg > sdcard/ker.log
+~/kerlog$ sudo adb pull sdcard/ker.log ker.log
+
+=======
+
+#ifdef QEMU_NET_DEBUG
 	//add by jason-jiang
 	error_printf("\n in %s line:%d", __func__, __LINE__);
+#endif
 
+
+#ifdef QEMU_NET_DEBUG
 	//add by jason-jiang
 	printk("\n in func:virtio_net_flush_tx. line:%d", __LINE__);
+#endif
+
+
+#define QEMU_IPTABLES_DEBUG 1
+#ifdef QEMU_IPTABLES_DEBUG
+
+#define QEMU_IPTABLES_DEBUG 1
+#ifdef QEMU_IPTABLES_DEBUG
+	//add by jason-jiang
+	printk("\n in func:virtio_net_flush_tx. line:%d", __LINE__);
+#endif
+
+	//add by jason-jiang
+#define QEMU_NET_TEST 1
+#endif
+
+
+=======
+
+iptables -t nat -vL  
+
+
+来自网页http://blog.163.com/anonymous_ch/blog/static/206824190201378114316409/的测试命令：
+iptables -t nat -A PREROUTING -d 192.168.1.100 -p tcp -m tcp --dport 8000 -j DNAT --to-destination 192.168.132.3:80
+然后你可以执行 iptables -t nat -vL 来查看结果。
+
+=======
+
+tcp  GUEST ----》PC 上行测试
+无法测试：
+
+tcp  PC ----》GUEST 下行测试
+
+PC: iperf -s -P 0 -i 1 -p 5001 -f k -w 1M -l 1M
+
+PHONE: iperf -c 192.168.1.101 -P 1 -i 1 -p 5001 -f k -t 10  -T 1 -w 1M -l 1M
+
+
+udp  GUEST ----》PC 上行测试
+无法测试：
+
+udp  GUEST ----》PC 下行测试
+
+PC: iperf -s -P 0 -i 1 -p 5001 -f k
+
+PHONE: iperf -c 192.168.1.101 -P 1 -i 1 -p 5001 -f k -t 10 -d -L 5001 -T 1
+
+=======
+1.记得测试iperf的时候，guest这边执行iperf必须用手动在屏幕上操作，
+  如果通过telnet上guest，那样会造成冗余的报文交互，测试结果就不准确了。
+
 
