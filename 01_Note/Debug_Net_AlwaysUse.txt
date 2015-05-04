@@ -14,9 +14,9 @@ lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
 
 /data/data/com.magicandroidapps.iperf/bin
 
-./iperf -s -P 0 -i 1 -p 5001 -f k
+./iperf -s -u -P 0 -i 5 -p 5001 -f k
 
-./iperf -c 192.168.1.101 -P 1 -i 1 -p 5001 -f k -t 10 -d -L 5001 -T 1
+./iperf -c 192.168.1.101 -u -P 1 -i 5 -p 5001 -f k -b 10M -t 10 -T 1
 
 
 //从PC上抓获了发向Guest或者Host的报文后，测试报文的发送命令：
