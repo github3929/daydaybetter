@@ -1,0 +1,458 @@
+ 2554 ?        Ss     0:00 ssh-agent
+ssh-agent added
+~/multi-os$ adb shell
+root@scx35l_sp9630ea:/ # gdbserver --help                                      
+Usage:	gdbserver [OPTIONS] COMM PROG [ARGS ...]
+	gdbserver [OPTIONS] --attach COMM PID
+	gdbserver [OPTIONS] --multi COMM
+
+COMM may either be a tty device (for serial debugging), or 
+HOST:PORT to listen for a TCP connection.
+
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#VAR_KERNEL_DEBUG="-S -gdb tcp::1238"
+#VAR_KGDB_CFG="kgdboc=ttyAMA1,115200 kgdbwait"
+gdbserver :1238 \
+/system/usr/local/bin/qemu-system-arm >/data/slog/qemu.log 2>&1 \
+        $VAR_KERNEL_DEBUG \
+        -monitor telnet::1234,server,nowait  \
+        -serial telnet::1235,server,nowait  \
+        -serial telnet::1236,server,nowait  \
+        -serial telnet::1237,server,nowait  \
+        -nographic        \
+        -k en-us       \
+        -enable-kvm    \
+        -kernel /storage/sdcard0/vImage  \
+        -m 384          \
+        -M vexpress-a15 \
+        -cpu cortex-a15 \
+        -smp $VAR_MAX_CPUS \
+        -d guest_errors  \
+        -D /data/slog/qemu.log  \
+        -drive file=/dev/block/mmcblk1p1,id=virtio-blk,if=none \
+        -device virtio-blk-device,drive=virtio-blk \
+        -netdev user,id=net0,net=10.0.10.0/24,tftp=/data/local/tmp \
+        -device virtio-net-device,netdev=net0,mac=52:54:00:12:34:62 \
+        -redir tcp:2323:10.0.10.15:23 \
+        -device virtio-serial-device \
+        -chardev socket,path=/dev/socket/switchos,server,nowait,id=switchos \
+        -device virtserialport,chardev=switchos,name=sprd.vport.1 \
+        -chardev socket,path=/dev/socket/rilproxy,server,nowait,id=rilproxy \
+        -device virtserialport,chardev=rilproxy,name=sprd.vport.2 \
+        -chardev socket,path=/dev/socket/audioctl,server,nowait,id=audioctl \
+        -device virtserialport,chardev=audioctl,name=sprd.vport.3 \
+        -chardev socket,path=/dev/socket/audiocap,server,nowait,id=audiocap \
+        -device virtserialport,chardev=audiocap,name=sprd.vport.4 \
+root@scx35l_sp9630ea:/ # stop qemud
+root@scx35l_sp9630ea:/ # busybox vi /system/bin/qemu_start.sh                  
+130|root@scx35l_sp9630ea:/ # start qemud                                       
+130|root@scx35l_sp9630ea:/ # stop qemud                                        
+root@scx35l_sp9630ea:/ # start qemud                                           
+root@scx35l_sp9630ea:/ # stop qemud                                            
+root@scx35l_sp9630ea:/ # stop qemud                                            
+root@scx35l_sp9630ea:/ # stop qemud                                            
+root@scx35l_sp9630ea:/ # stop qemud                                            
+root@scx35l_sp9630ea:/ # stop qemud                                            
+root@scx35l_sp9630ea:/ # stop qemud                                            
+root@scx35l_sp9630ea:/ # ps|grep qemu 
+root      3266  1     725436 191820 ffffffff 002da136 S /system/usr/local/bin/qemu-system-arm
+root@scx35l_sp9630ea:/ # cd /system/bin/                                       
+tart.sh qemu_start_d.sh                                                       <
+root@scx35l_sp9630ea:/system/bin # ll
+-rwxr-xr-x root     shell     1700068 2015-04-15 01:24 GPSenseEngine
+-rwxr-xr-x root     shell      109012 2015-04-14 22:36 adb
+-rwxr-xr-x root     shell       34156 2015-04-14 22:36 akmd8963
+-rwxr-xr-x root     shell         210 2015-04-14 22:36 am
+-rwxr-xr-x root     shell        9564 2015-04-14 22:36 app_process
+-rwxr-xr-x root     shell       53664 2015-04-14 22:36 applypatch
+-rwxr-xr-x root     shell       17956 2015-04-14 22:36 atrace
+-rwxr-xr-x root     shell       84464 2015-04-14 22:36 autotest
+-rwxr-xr-x root     shell       75384 2015-04-14 22:37 batterysrv
+-rwxr-xr-x root     shell        9684 2015-04-14 22:37 bdt
+-rwxr-xr-x root     shell        1992 2015-04-15 01:24 bih_config.sh
+-rwxr-xr-x root     shell        9576 2015-04-14 22:37 blkid
+-rwxr-xr-x root     shell       36316 2015-04-14 22:37 blkparse
+-rwxr-xr-x root     shell        9624 2015-04-14 22:37 blkrawverify
+-rwxr-xr-x root     shell       27756 2015-04-14 22:37 blktrace
+-rwxr-xr-x root     shell         199 2015-04-14 16:09 bmgr
+-rwxr-xr-x root     shell       88056 2015-04-14 22:37 boot_complete
+-rwxr-xr-x root     shell       25952 2015-04-14 22:37 bootanimation
+-rwxr-xr-x root     shell       14928 2015-04-14 22:37 btcapture
+-rwxr-xr-x root     shell         156 2015-04-14 22:37 bu
+-rwxr-xr-x root     shell        5412 2015-04-14 22:37 bugreport
+-rwxr-xr-x root     shell        5476 2015-04-14 22:37 calibration_init
+-rwxr-xr-x root     shell         206 2015-04-14 22:37 capture_blktrace.sh
+-rwxr-xr-x root     shell        1182 2015-04-14 22:37 capture_ftrace.sh
+-rwxr-xr-x root     shell         854 2015-04-14 22:37 capture_oprofile.sh
+lrwxr-xr-x root     shell             2015-04-14 22:37 cat -> toolbox
+-rwxr-xr-x root     shell      263972 2015-04-14 22:37 charge
+lrwxr-xr-x root     shell             2015-04-14 22:37 chcon -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:37 chmod -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:37 chown -> toolbox
+-rwxr-xr-x root     shell       21848 2015-04-14 22:37 clatd
+lrwxr-xr-x root     shell             2015-04-14 22:37 clear -> toolbox
+-rwxr-xr-x root     shell        5416 2015-04-14 22:37 cmd_services
+lrwxr-xr-x root     shell             2015-04-14 22:37 cmp -> toolbox
+-rwxr-xr-x root     shell      219260 2015-04-14 22:37 collect_apr
+-rwxr-xr-x root     shell         207 2015-04-14 22:37 content
+-rwxr-xr-x root     shell        5424 2015-04-14 22:37 corrupt_gdt_free_blocks
+lrwxr-xr-x root     shell             2015-04-14 22:37 cp -> toolbox
+-rwxr-xr-x root     shell      116756 2015-04-14 22:38 cpu
+lrwxr-xr-x root     shell             2015-04-14 22:38 crc -> toolbox
+-rwxr-xr-x root     shell        9508 2015-04-14 22:38 dalvikvm
+lrwxr-xr-x root     shell             2015-04-14 22:38 date -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:38 dd -> toolbox
+-rwxr-xr-x root     shell       26008 2015-04-14 22:38 debuggerd
+-rwxr-xr-x root     shell        9456 2015-04-14 22:38 dexopt
+lrwxr-xr-x root     shell             2015-04-14 22:38 df -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:38 dfex -> toolbox
+-rwxr-xr-x root     shell       91584 2015-04-14 22:39 dhcp6s
+-rwxr-xr-x root     shell       71136 2015-04-14 22:39 dhcpcd
+lrwxr-xr-x root     shell             2015-04-14 22:39 dmesg -> toolbox
+-rwxr-xr-x root     shell       26228 2015-04-14 22:39 dns6
+-rwxr-xr-x root     shell      105872 2015-04-14 22:39 dnsmasq
+-rwxr-xr-x root     shell       54620 2015-04-14 22:39 drmserver
+lrwxr-xr-x root     shell             2015-04-14 22:39 du -> toolbox
+-rwxr-xr-x root     shell       42344 2015-04-14 22:39 dumpstate
+-rwxr-xr-x root     shell        9508 2015-04-14 22:39 dumpsys
+-rwxr-xr-x root     shell      122576 2015-04-14 22:39 e2fsck
+-rwxr-xr-x root     shell        9520 2015-04-14 22:39 emulator_renderer
+-rwxr-xr-x root     shell      100188 2015-04-14 22:39 engpc
+-rwxr-xr-x root     shell        2095 2015-04-15 01:24 ext_data.sh
+-rwxr-xr-x root     shell        1120 2015-04-15 01:24 ext_kill.sh
+-rwxr-xr-x root     shell     1273456 2015-04-14 22:39 factorytest
+-rwxr-xr-x root     shell       26204 2015-04-14 22:39 fsck_msdos
+-rwxr-xr-x root     shell      397672 2015-04-14 22:39 gdbserver
+lrwxr-xr-x root     shell             2015-04-14 22:39 getenforce -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:39 getevent -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:39 getprop -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:39 getsebool -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:39 grep -> toolbox
+-rwxr-xr-x root     shell       38320 2015-04-14 22:39 gsnap
+-rwxr-xr-x root     shell        9504 2015-04-14 22:39 gzip
+lrwxr-xr-x root     shell             2015-04-14 22:39 hd -> toolbox
+-rwxr-xr-x root     shell      453264 2015-04-14 22:40 hostapd
+-rwxr-xr-x root     shell       34388 2015-04-14 22:40 hostapd_cli
+lrwxr-xr-x root     shell             2015-04-14 22:40 id -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:40 ifconfig -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:40 iftop -> toolbox
+-rwxr-xr-x root     shell         194 2015-04-14 16:09 ime
+-rwxr-xr-x root     shell         201 2015-04-14 16:09 input
+-rwxr-xr-x root     shell         258 2015-04-15 01:24 inputfreq.sh
+lrwxr-xr-x root     shell             2015-04-14 22:40 insmod -> toolbox
+-rwxr-xr-x root     shell       30252 2015-04-14 22:40 installd
+lrwxr-xr-x root     shell             2015-04-14 22:40 ioctl -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:40 ionice -> toolbox
+-rwxr-xr-x root     shell      169644 2015-04-14 22:40 ip
+-rwxr-xr-x root     shell      187432 2015-04-14 22:40 ip6tables
+-rwxr-xr-x root     shell      196320 2015-04-14 22:40 iptables
+-rwxr-xr-x root     shell        9860 2015-04-14 22:40 iqdata_daemon
+-rwxr-xr-x root     shell       18504 2015-04-14 22:40 iwnpi
+-rwxr-xr-x root     shell       38348 2015-04-14 22:40 keystore
+-rwxr-xr-x root     shell        9576 2015-04-14 22:40 keystore_cli
+lrwxr-xr-x root     shell             2015-04-14 22:40 kill -> toolbox
+-rwxr-xr-x root     shell       63672 2015-04-14 22:40 linker
+lrwxr-xr-x root     shell             2015-04-14 22:40 ln -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:40 load_policy -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:40 log -> toolbox
+-rwxr-xr-x root     shell       13656 2015-04-14 22:40 logcat
+-rwxr-xr-x root     shell       13680 2015-04-14 22:40 logwrapper
+-rwxr-xr-x root     shell       13624 2015-04-14 22:40 lookat
+lrwxr-xr-x root     shell             2015-04-14 22:40 ls -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:40 lsmod -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:40 lsof -> toolbox
+-rwxr-xr-x root     shell        9572 2015-04-14 22:40 make_ext4fs
+lrwxr-xr-x root     shell             2015-04-14 22:40 md5 -> toolbox
+-rwxr-xr-x root     shell      271840 2015-04-14 22:40 mdnsd
+-rwxr-xr-x root     shell         210 2015-04-14 22:40 media
+-rwxr-xr-x root     shell       13608 2015-04-14 22:43 mediaserver
+lrwxr-xr-x root     shell             2015-04-14 22:43 mkdir -> toolbox
+-rwxr-xr-x root     shell      153400 2015-04-14 22:43 mksh
+lrwxr-xr-x root     shell             2015-04-14 22:43 mkswap -> toolbox
+-rwxr-xr-x root     shell       22376 2015-04-14 22:43 modem_control
+-rwxr-xr-x root     shell       42348 2015-04-14 22:43 modemd
+-rwxr-xr-x root     shell         217 2015-04-14 16:09 monkey
+lrwxr-xr-x root     shell             2015-04-14 22:43 mount -> toolbox
+-rwxr-xr-x root     shell        9508 2015-04-14 22:43 mplayer
+-rwxr-xr-x root     shell       17916 2015-04-14 22:43 mtpd
+lrwxr-xr-x root     shell             2015-04-14 22:43 mv -> toolbox
+-rwxr-xr-x root     shell       13664 2015-04-14 22:43 nandflash_bbctest
+-rwxr-xr-x root     shell        9468 2015-04-14 22:43 nandflash_rwtest
+lrwxr-xr-x root     shell             2015-04-14 22:43 nandread -> toolbox
+-rwxr-xr-x root     shell        5356 2015-04-14 22:43 ndc
+-rwxr-s--- root     inet         5540 2015-04-14 22:43 netcfg
+-rwxr-xr-x root     shell       91880 2015-04-14 22:43 netd
+lrwxr-xr-x root     shell             2015-04-14 22:43 netstat -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:43 newfs_msdos -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:43 notify -> toolbox
+-rwxr-xr-x root     shell       16980 2015-04-14 22:43 nvitemd
+-rwxr-xr-x root     shell       68620 2015-04-14 22:43 phoneserver
+-rwxr-xr-x root     root        26132 2015-04-14 22:43 ping
+-rwxr-xr-x root     shell       30492 2015-04-14 22:43 ping6
+-rwxr-xr-x root     shell         191 2015-04-14 16:09 pm
+-rwxr-xr-x root     shell       17800 2015-04-14 22:43 pngtest
+-rwxr-xr-x root     shell      276500 2015-04-14 22:43 poweroff_alarm
+-rwxr-xr-x root     shell      137832 2015-04-14 22:43 pppd
+lrwxr-xr-x root     shell             2015-04-14 22:43 printenv -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:43 ps -> toolbox
+-rwxr-xr-x root     shell        1861 2012-01-01 09:33 qemu_start_d.sh
+-rwxr-xr-x root     shell       92156 2015-04-14 22:43 query_task_fd
+lrwxr-xr-x root     shell             2015-04-14 22:43 r -> toolbox
+-rwxr-xr-x root     shell      162772 2015-04-14 22:43 racoon
+-rwxr-xr-x root     shell        5368 2015-04-14 22:43 radiooptions
+-rwxr-xr-x root     shell        5368 2015-04-14 22:43 radiooptions_sp
+-rwxr-xr-x root     shell       63688 2015-04-14 22:43 radvd
+lrwxr-xr-x root     shell             2015-04-14 22:43 readlink -> toolbox
+-rwxr-xr-x root     shell        5360 2015-04-14 22:43 reboot
+-rwxr-xr-x root     shell         250 2015-04-15 01:24 recoveryfreq.sh
+-rwxr-xr-x root     shell       13656 2015-04-14 22:43 refnotify
+lrwxr-xr-x root     shell             2015-04-14 22:43 renice -> toolbox
+-rwxr-xr-x root     shell         188 2015-04-14 22:43 requestsync
+lrwxr-xr-x root     shell             2015-04-14 22:43 restorecon -> toolbox
+-rwxr-xr-x root     shell        9568 2015-04-14 22:43 rild_sp
+-rwxr-xr-x root     shell        9508 2015-04-14 22:43 rilproxy
+-rwxr-xr-x root     shell        5364 2015-04-14 22:43 rilproxyd
+lrwxr-xr-x root     shell             2015-04-14 22:43 rm -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:43 rmdir -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:43 rmmod -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:43 route -> toolbox
+-rwxr-x--- root     shell        9504 2015-04-14 22:43 run-as
+lrwxr-xr-x root     shell             2015-04-14 22:43 runcon -> toolbox
+-rwxr-xr-x root     shell        5364 2015-04-14 22:43 schedtest
+lrwxr-xr-x root     shell             2015-04-14 22:43 schedtop -> toolbox
+-rwxr-xr-x root     shell        9460 2015-04-14 22:43 screencap
+-rwxr-xr-x root     shell       17872 2015-04-14 22:43 screenrecord
+-rwxr-xr-x root     shell       42424 2015-04-14 22:43 screenshot
+-rwxr-xr-x root     shell       17752 2015-04-14 22:43 sdcard
+lrwxr-xr-x root     shell             2015-04-14 22:43 sendevent -> toolbox
+-rwxr-xr-x root     shell        5416 2015-04-14 22:44 sensorservice
+-rwxr-xr-x root     shell        9508 2015-04-14 22:44 service
+-rwxr-xr-x root     shell        9672 2015-04-14 22:44 servicemanager
+-rwxr-xr-x root     shell        5420 2015-04-14 22:44 set_ext4_err_bit
+lrwxr-xr-x root     shell             2015-04-14 22:44 setconsole -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:44 setenforce -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:44 setprop -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:44 setsebool -> toolbox
+-rwxr-xr-x root     shell         178 2015-04-14 22:44 settings
+lrwxr-xr-x root     shell             2015-04-14 22:44 sh -> mksh
+-rwxr-xr-x root     shell        9568 2015-04-14 22:44 showlease
+lrwxr-xr-x root     shell             2015-04-14 22:44 sleep -> toolbox
+-rwxr-xr-x root     shell      157728 2015-04-14 22:44 slog
+-rwxr-xr-x root     shell      100332 2015-04-14 22:44 slogctl
+lrwxr-xr-x root     shell             2015-04-14 22:44 smd -> toolbox
+-rwxr-xr-x root     shell       13760 2015-04-14 22:44 sprd_res_monitor
+lrwxr-xr-x root     shell             2015-04-14 22:44 start -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:44 stop -> toolbox
+-rwxr-xr-x root     shell        5368 2015-04-14 22:44 surfaceflinger
+-rwxr-xr-x root     shell         192 2015-04-14 16:09 svc
+lrwxr-xr-x root     shell             2015-04-14 22:44 swapoff -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:44 swapon -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:44 sync -> toolbox
+-rwxr-xr-x root     shell       48132 2015-04-14 22:44 tar
+-rwxr-xr-x root     shell       67148 2015-04-14 22:44 tc
+-rwxr-xr-x root     shell      652948 2015-04-14 22:44 tcp
+-rwxr-xr-x root     shell       99876 2015-04-14 22:44 test_drm
+-rwxr-xr-x root     shell         609 2015-04-14 22:44 theme_init.sh
+-rwxr-xr-x root     shell        5408 2015-04-14 22:44 tinycap
+-rwxr-xr-x root     shell        9456 2015-04-14 22:44 tinymix
+-rwxr-xr-x root     shell        9508 2015-04-14 22:44 tinyplay
+-rwxr-xr-x root     shell      143144 2015-04-14 22:37 toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:44 top -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:44 touch -> toolbox
+-rwxr-xr-x root     shell        3814 2015-04-14 22:44 uiautomator
+lrwxr-xr-x root     shell             2015-04-14 22:44 umount -> toolbox
+lrwxr-xr-x root     shell             2015-04-14 22:44 uptime -> toolbox
+-rwxr-xr-x root     shell        5356 2015-04-14 22:44 vdc
+-rwxr-xr-x root     shell        5416 2015-04-14 22:44 verify_blkparse
+-rwxr-xr-x root     shell       13600 2015-04-14 22:44 vhub
+lrwxr-xr-x root     shell             2015-04-14 22:44 vmstat -> toolbox
+-rwxr-xr-x root     shell       95964 2015-04-14 22:44 vold
+lrwxr-xr-x root     shell             2015-04-14 22:44 watchprops -> toolbox
+-rwxr-xr-x root     shell       30096 2015-04-14 22:44 wcnd
+-rwxr-xr-x root     shell        5412 2015-04-14 22:44 wcnd_cli
+lrwxr-xr-x root     shell             2015-04-14 22:44 wipe -> toolbox
+-rwxr-xr-x root     shell         190 2015-04-14 22:44 wm
+-rwxr-xr-x root     shell       61788 2015-04-14 22:44 wpa_cli
+-rwxr-xr-x root     shell      859020 2015-04-14 22:45 wpa_supplicant
+root@scx35l_sp9630ea:/system/bin # ll qemu_start_d.sh                          
+-rwxr-xr-x root     shell        1861 2012-01-01 09:33 qemu_start_d.sh
+root@scx35l_sp9630ea:/system/bin # sync
+rroot@scx35l_sp9630ea:/system/bin # reboot
+~/multi-os$ adb shell
+root@scx35l_sp9630ea:/ # ps|grep qemu
+1|root@scx35l_sp9630ea:/ # qemu_start_d.sh                                     
+root@scx35l_sp9630ea:/ # ps|grep qemu
+1|root@scx35l_sp9630ea:/ # ps|grep qemu                                        
+1|root@scx35l_sp9630ea:/ # qemu_start_d.sh                                     
+^C
+130|root@scx35l_sp9630ea:/ # 
+130|root@scx35l_sp9630ea:/ # ps|grep qemu                                      
+130|root@scx35l_sp9630ea:/ # ls /system/bin/qe                                 
+qemu-system-arm qemu_start_d.sh 
+stem/bin/qemu-system-arm                                                      <
+/system/bin/qemu-system-arm
+root@scx35l_sp9630ea:/ # ll /system/bin/qemu-system-arm                        
+-rwxrwxrwx root     root     14926834 2015-05-13 21:13 qemu-system-arm
+root@scx35l_sp9630ea:/ # cat  /system/bin/qemu_start_d.sh                      
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#VAR_KERNEL_DEBUG="-S -gdb tcp::1238"
+#VAR_KGDB_CFG="kgdboc=ttyAMA1,115200 kgdbwait"
+gdbserver :1238 \
+/system/usr/local/bin/qemu-system-arm >/data/slog/qemu.log 2>&1 \
+	$VAR_KERNEL_DEBUG \
+	-monitor telnet::1234,server,nowait  \
+	-serial telnet::1235,server,nowait  \
+	-serial telnet::1236,server,nowait  \
+	-serial telnet::1237,server,nowait  \
+	-nographic        \
+	-k en-us       \
+	-enable-kvm    \
+	-kernel /storage/sdcard0/vImage  \
+	-m 384          \
+	-M vexpress-a15 \
+	-cpu cortex-a15 \
+	-smp $VAR_MAX_CPUS \
+	-d guest_errors  \
+	-D /data/slog/qemu.log  \
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#VAR_KERNEL_DEBUG="-S -gdb tcp::1238"
+#VAR_KGDB_CFG="kgdboc=ttyAMA1,115200 kgdbwait"
+#gdbserver :1238 \
+/system/usr/local/bin/qemu-system-arm >/data/slog/qemu.log 2>&1 \
+        $VAR_KERNEL_DEBUG \
+        -monitor telnet::1234,server,nowait  \
+        -serial telnet::1235,server,nowait  \
+        -serial telnet::1236,server,nowait  \
+        -serial telnet::1237,server,nowait  \
+        -nographic        \
+        -k en-us       \
+        -enable-kvm    \
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#VAR_KERNEL_DEBUG="-S -gdb tcp::1238"
+#VAR_KGDB_CFG="kgdboc=ttyAMA1,115200 kgdbwait"
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#VAR_KERNEL_DEBUG="-S -gdb tcp::1238"
+#VAR_KGDB_CFG="kgdboc=ttyAMA1,115200 kgdbwait"
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#!/bin/sh
+#!/bin/sh
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#VAR_KERNEL_DEBUG="-S -gdb tcp::1238"
+#VAR_KGDB_CFG="kgdboc=ttyAMA1,115200 kgdbwait"
+gdbserver :1238 \
+/system/usr/local/bin/qemu-system-arm >/data/slog/qemu.log 2>&1 \
+        $VAR_KERNEL_DEBUG \
+        -monitor telnet::1234,server,nowait  \
+        -serial stdio  \                     
+        -serial telnet::1236,server,nowait  \
+        -serial telnet::1237,server,nowait  \
+        -nographic        \
+        -k en-us       \
+        -enable-kvm    \
+        -kernel /storage/sdcard0/vImage  \
+        -m 384          \
+        -M vexpress-a15 \
+        -cpu cortex-a15 \
+        -smp $VAR_MAX_CPUS \
+        -d guest_errors  \
+        -D /data/slog/qemu.log  \
+        -drive file=/dev/block/mmcblk1p1,id=virtio-blk,if=none \
+        -device virtio-blk-device,drive=virtio-blk \
+        -netdev user,id=net0,net=10.0.10.0/24,tftp=/data/local/tmp \
+        -device virtio-net-device,netdev=net0,mac=52:54:00:12:34:62 \
+        -redir tcp:2323:10.0.10.15:23 \
+        -device virtio-serial-device \
+        -chardev socket,path=/dev/socket/switchos,server,nowait,id=switchos \
+        -device virtserialport,chardev=switchos,name=sprd.vport.1 \
+        -chardev socket,path=/dev/socket/rilproxy,server,nowait,id=rilproxy \
+        -device virtserialport,chardev=rilproxy,name=sprd.vport.2 \
+        -chardev socket,path=/dev/socket/audioctl,server,nowait,id=audioctl \
+        -device virtserialport,chardev=audioctl,name=sprd.vport.3 \
+        -chardev socket,path=/dev/socket/audiocap,server,nowait,id=audiocap \
+        -device virtserialport,chardev=audiocap,name=sprd.vport.4 \
+root@scx35l_sp9630ea:/ # busybox vi system/bin/qemu_start_d.sh                 
+130|root@scx35l_sp9630ea:/ # qe
+qemu-system-arm qemu_start_d.sh 
+130|root@scx35l_sp9630ea:/ # qemu-system-arm                                   
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#VAR_KERNEL_DEBUG="-S -gdb tcp::1238"
+#VAR_KGDB_CFG="kgdboc=ttyAMA1,115200 kgdbwait"
+#!/bin/sh
+#!/bin/sh
+
+VAR_MAX_CPUS=4
+
+###  FOR DEBUG USE ###
+#VAR_KERNEL_DEBUG="-S -gdb tcp::1238"
+#VAR_KGDB_CFG="kgdboc=ttyAMA1,115200 kgdbwait"
+gdbserver :1238 \
+/system/usr/local/bin/qemu-system-arm >/data/slog/qemu.log 2>&1 \
+        $VAR_KERNEL_DEBUG \
+        -monitor telnet::1234,server,nowait  \
+        -serial telnet::1235,server,nowait  \
+        -serial telnet::1236,server,nowait  \
+        -serial telnet::1237,server,nowait  \
+        -nographic        \                  
+        -k en-us       \   
+        -enable-kvm    \
+        -kernel /storage/sdcard0/vImage  \
+        -m 384          \                 
+        -M vexpress-a15 \
+        -cpu cortex-a15 \
+        -smp $VAR_MAX_CPUS \
+        -d guest_errors  \  
+        -D /data/slog/qemu.log  \
+        -drive file=/dev/block/mmcblk1p1,id=virtio-blk,if=none \
+        -device virtio-blk-device,drive=virtio-blk \            
+        -netdev user,id=net0,net=10.0.10.0/24,tftp=/data/local/tmp \
+        -device virtio-net-device,netdev=net0,mac=52:54:00:12:34:62 \
+        -redir tcp:2323:10.0.10.15:23 \                              
+        -device virtio-serial-device \ 
+        -chardev socket,path=/dev/socket/switchos,server,nowait,id=switchos \
+        -device virtserialport,chardev=switchos,name=sprd.vport.1 \          
+        -chardev socket,path=/dev/socket/rilproxy,server,nowait,id=rilproxy \
+        -device virtserialport,chardev=rilproxy,name=sprd.vport.2 \          
+        -chardev socket,path=/dev/socket/audioctl,server,nowait,id=audioctl \
+        -device virtserialport,chardev=audioctl,name=sprd.vport.3 \          
+        -chardev socket,path=/dev/socket/audiocap,server,nowait,id=audiocap \
+        -device virtserialport,chardev=audiocap,name=sprd.vport.4 \          
+root@scx35l_sp9630ea:/ # qemu_start_d.sh                                       
+
+

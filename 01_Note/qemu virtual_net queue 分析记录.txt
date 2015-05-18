@@ -304,8 +304,12 @@ static int virtio_net_device_init(VirtIODevice *vdev)  ----》一定要注意，
 
 static int virtio_net_device_init(VirtIODevice *vdev)
 {
+
+    virtio_init(VIRTIO_DEVICE(n), "virtio-net", VIRTIO_ID_NET, ---->这里边会调用后面函数对vq进行初始化    vdev->vq = g_malloc0(sizeof(VirtQueue) * VIRTIO_PCI_QUEUE_MAX); 
+                                  n->config_size); ----》注意这个访问是VirtIONet的父类VirtIODevice结构体里的queue的初始化
+
     给队列分配空间
-    n->vqs = g_malloc0(sizeof(VirtIONetQueue) * n->max_queues);
+    n->vqs = g_malloc0(sizeof(VirtIONetQueue) * n->max_queues);---》这里才是VirtIONet的自己的queue的初始化
 
     在这里给qemu模拟的virtio_net网卡添加了收包队列，并绑定了队列 handle函数
     n->vqs[0].rx_vq = virtio_add_queue(vdev, 256, virtio_net_handle_rx);  ----》注意virtio_net_handle_rx这个函数在qemu向guest的虚拟网卡驱动传包的过程中，通过观察qemu的调试信息，发现没有被调到，所以估计和 普通数据 收发 没有关系。

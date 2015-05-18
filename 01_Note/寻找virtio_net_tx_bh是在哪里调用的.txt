@@ -1,0 +1,449 @@
+
+现在的问题是，知道它肯定触发了一个软中断，(其实就是tx发包就绪中断)在下面
+/* the notify function used when creating a virt queue */
+static void vp_notify(struct virtqueue *vq)
+{
+	struct virtio_pci_device *vp_dev = to_vp_device(vq->vdev);
+
+	/* we write the queue's selector into the notification register to
+	 * signal the other end */
+	iowrite16(vq->index, vp_dev->ioaddr + VIRTIO_PCI_QUEUE_NOTIFY);
+}
+
+
+然后会调用到qemu的pci_io_write
+
+但是中断处理函数的接口在哪里，又是怎么一步步调到了 virtio_net_tx_bh
+
+http://www.ibm.com/developerworks/cn/linux/1402_caobb_virtio/
+
+l1. vring_interrupt
+
+l2.
+
+=========================
+
+当guest向host发包的时候，怎么调用到的 virtio_net_tx_bh
+调用之后的顺序如下
+virtio_net_tx_bh
+
+virtio_net_flush_tx
+
+qemu_sendv_packet_async
+
+nc_sendv_compat 
+
+在 nc_sendv_compat函数中 调用 nc->info->receive(nc, buffer, offset); ---> receive指针挂接的就是 net_slirp_receive(slirp设备)
+
+===========================
+
+static int vp_try_to_find_vqs(struct virtio_device *vdev, unsigned nvqs,
+			      struct virtqueue *vqs[],
+			      vq_callback_t *callbacks[],
+			      const char *names[],
+			      bool use_msix,
+			      bool per_vq_vectors)
+{
+	struct virtio_pci_device *vp_dev = to_vp_device(vdev);
+	u16 msix_vec;
+	int i, err, nvectors, allocated_vectors;
+
+	for (i = 0; i < nvqs; ++i) {
+		if (!names[i]) {
+			vqs[i] = NULL;
+			continue;
+		} else if (!callbacks[i] || !vp_dev->msix_enabled)
+			msix_vec = VIRTIO_MSI_NO_VECTOR;
+		else if (vp_dev->per_vq_vectors)
+			msix_vec = allocated_vectors++;
+		else
+			msix_vec = VP_MSIX_VQ_VECTOR;
+		vqs[i] = setup_vq(vdev, i, callbacks[i], names[i], msix_vec);  ---->挂接queue的回调函数
+	........
+}
+
+
+
+static const struct virtio_config_ops virtio_pci_config_ops = {
+	.get		= vp_get,
+	.set		= vp_set,
+	.get_status	= vp_get_status,
+	.set_status	= vp_set_status,
+	.reset		= vp_reset,
+	.find_vqs	= vp_find_vqs,  ------》这里最终会调到上面的 vp_try_to_find_vqs
+	.del_vqs	= vp_del_vqs,
+	.get_features	= vp_get_features,
+	.finalize_features = vp_finalize_features,
+	.bus_name	= vp_bus_name,
+	.set_vq_affinity = vp_set_vq_affinity,
+};
+
+
+============================
+
+初始化vqs的地方在如下：-----》但是这些queue是那个rx和tx queue，不是bh queue
+
+virtio_net.c
+
+static int virtnet_probe(struct virtio_device *vdev)
+{
+
+	/* Allocate/initialize the rx/tx queues, and invoke find_vqs */
+	err = init_vqs(vi);
+	if (err)
+		goto free_index;
+
+
+}
+
+static int init_vqs(struct virtnet_info *vi)
+{
+
+	/* Allocate send & receive queues */
+	ret = virtnet_alloc_queues(vi);
+	if (ret)
+		goto err;
+
+	ret = virtnet_find_vqs(vi);  ------>这里
+	if (ret)
+		goto err_free;
+}
+
+
+static int virtnet_find_vqs(struct virtnet_info *vi) -----》给虚拟网卡驱动的tx和rx队列 设置回调函数
+{
+
+	/* Allocate/initialize parameters for send/receive virtqueues */
+	for (i = 0; i < vi->max_queue_pairs; i++) {
+		callbacks[rxq2vq(i)] = skb_recv_done; -----》这里附上callback函数
+		callbacks[txq2vq(i)] = skb_xmit_done;
+		sprintf(vi->rq[i].name, "input.%d", i);
+		sprintf(vi->sq[i].name, "output.%d", i);
+		names[rxq2vq(i)] = vi->rq[i].name;
+		names[txq2vq(i)] = vi->sq[i].name;
+	}
+
+	ret = vi->vdev->config->find_vqs(vi->vdev, total_vqs, vqs, callbacks, -----》这里把callback函数挂上了
+					 names);
+}
+
+
+==========================================
+
+一定要分清楚了，上面的queue说的是虚拟网卡的驱动的队列，位置在/kernel/drivers/net/virtio_net.c
+
+
+而我们要找的是虚拟设备的队列，和初始化函数，位置在/vendor/qemu/hw/net/virtio-net.c
+
+
+static int virtio_net_device_init(VirtIODevice *vdev)
+{
+
+    n->vqs[0].rx_vq = virtio_add_queue(vdev, 256, virtio_net_handle_rx); -----》这2个queue就是和上面驱动网卡的rx 和 tx queue对应的，指向的是同样的内存空间
+
+        n->vqs[0].tx_vq = virtio_add_queue(vdev, 256, virtio_net_handle_tx_bh); ----》同上
+
+        n->vqs[0].tx_bh = qemu_bh_new(virtio_net_tx_bh, &n->vqs[0]);
+
+
+}
+
+
+=============================================
+
+int main_loop_wait(int nonblocking)
+{
+
+#ifdef CONFIG_SLIRP
+    slirp_pollfds_fill(gpollfds, &timeout);----》这个fill，就是将socket的poll接口挂接到 g_array_append_val(pollfds, pfd);
+#endif
+
+    qemu_iohandler_fill(gpollfds); ----》这个fill，就是io handle的poll接口挂接到系统，然后下边的poll就是开始调用了
+
+    ret = os_host_main_loop_wait(timeout_ns);
+
+    qemu_iohandler_poll(gpollfds, ret); ---->这个poll就是io_handlers的事件监听，是qemu在侦听IO事件，或者你可以理解为 vcpu在 当guest发报时，
+
+#ifdef CONFIG_SLIRP
+    slirp_pollfds_poll(gpollfds, (ret < 0));  -----》这个poll，是qemu在侦听host发过来的socket报文，和上面的poll干的不是一个事情
+#endif
+
+
+}
+
+void qemu_iohandler_poll(GArray *pollfds, int ret) ---》隆重说一下
+{
+    if (ret > 0) {
+        IOHandlerRecord *pioh, *ioh;
+
+        QLIST_FOREACH_SAFE(ioh, &io_handlers, next, pioh) {
+            int revents = 0;
+
+            if (!ioh->deleted && ioh->pollfds_idx != -1) {
+                GPollFD *pfd = &g_array_index(pollfds, GPollFD,
+                                              ioh->pollfds_idx);
+                revents = pfd->revents;
+            }
+
+            if (!ioh->deleted && ioh->fd_read &&
+                (revents & (G_IO_IN | G_IO_HUP | G_IO_ERR))) {
+                ioh->fd_read(ioh->opaque);  -----》这个就是IO 读的执行，调用挂接的read接口
+            }
+            if (!ioh->deleted && ioh->fd_write &&
+                (revents & (G_IO_OUT | G_IO_ERR))) {
+                ioh->fd_write(ioh->opaque);  -----》这个就是IO 写的执行,write接口
+            }
+
+            /* Do this last in case read/write handlers marked it for deletion */
+            if (ioh->deleted) {
+                QLIST_REMOVE(ioh, next);
+                g_free(ioh);
+            }
+        }
+    }
+}
+
+
+
+
+=============================================================
+
+io poll 调用到了
+
+QEMUBH *qemu_bh_new(QEMUBHFunc *cb, void *opaque)  -----cb就是virtio_net_tx_bh
+{
+    return aio_bh_new(qemu_aio_context, cb, opaque);
+}
+
+
+QEMUBH *aio_bh_new(AioContext *ctx, QEMUBHFunc *cb, void *opaque)
+{
+    QEMUBH *bh;
+    bh = g_malloc0(sizeof(QEMUBH));
+    bh->ctx = ctx;
+    bh->cb = cb; -----------》就是这里挂接上了virtio_net_tx_bh
+    bh->opaque = opaque;
+    qemu_mutex_lock(&ctx->bh_lock);
+    bh->next = ctx->first_bh;
+    /* Make sure that the members are ready before putting bh into list */
+    smp_wmb();
+    ctx->first_bh = bh;
+    qemu_mutex_unlock(&ctx->bh_lock);
+    return bh;
+}
+
+然后调用的地方在：
+
+vendor/sprd/qemu/async.c
+
+/* Multiple occurrences of aio_bh_poll cannot be called concurrently */
+
+int aio_bh_poll(AioContext *ctx) ---------》这个poll，就是guest向host发报文，然后guest退出，进入qemu全权代理guest把这个报文发送出去的入口
+{
+    QEMUBH *bh, **bhp, *next;
+    int ret;
+
+    ctx->walking_bh++;
+
+    ret = 0;
+    for (bh = ctx->first_bh; bh; bh = next) {
+        /* Make sure that fetching bh happens before accessing its members */
+        smp_read_barrier_depends();
+        next = bh->next;
+        if (!bh->deleted && bh->scheduled) {
+            bh->scheduled = 0;
+            /* Paired with write barrier in bh schedule to ensure reading for
+             * idle & callbacks coming after bh's scheduling.
+             */
+            smp_rmb();
+            if (!bh->idle)
+                ret = 1;
+            bh->idle = 0;
+            bh->cb(bh->opaque); ----->这里，这里。。。。调用了cb函数来处理queue的callback，也就是virtio_net_tx_bh
+        }
+    }
+
+    ctx->walking_bh--;
+
+    /* remove deleted bhs */
+    if (!ctx->walking_bh) {
+        qemu_mutex_lock(&ctx->bh_lock);
+        bhp = &ctx->first_bh;
+        while (*bhp) {
+            bh = *bhp;
+            if (bh->deleted) {
+                *bhp = bh->next;
+                g_free(bh);
+            } else {
+                bhp = &bh->next;
+            }
+        }
+        qemu_mutex_unlock(&ctx->bh_lock);
+    }
+
+    return ret;
+}
+
+==========================================
+
+
+所以，我总结一下，guest 发送报文 大体处理 经过了三个程序：
+
+
+Guest OS (这个其实是qemu初始化的一个线程即QEMU的while(true)循环)  ------》  KVM(KVM的while循环)  -------》 QEMU进程(就是那个vl.c的main_loop_wait)
+
+那么当guest发生IO操作的时候，首先会触发cpu trap，然后从QEMU的guest_enter那里(就是qemu的while(true)循环)退出了，
+然后就进入KVM 的那个while(true)循环了，然后KVM再把异常信息告知QEMU进程，就是那个vl.c的main_loop，处理完毕guest发包的事情后。
+
+再返回到KVM，然后从KVM的那个while(true)循环，触发KVM_RUM，从而再次进入QEMU的while(true)循环，也就是guest_enter.
+
+上面说的KVM的while循环就是
+
+kernel/arch/arm/kvm/arm.c
+int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu, struct kvm_run *run)
+{
+	while (ret > 0) {
+		kvm_guest_enter();
+
+		ret = kvm_call_hyp(__kvm_vcpu_run, vcpu);
+
+		kvm_guest_exit();
+
+		ret = handle_exit(vcpu, run, ret);---->处理退出的原因
+	}
+}
+
+QEMU的while循环就是---->也就是虚拟操作系统，或者叫VCPU
+
+vendor/sprd/qemu/kvm-all.c
+int kvm_cpu_exec(CPUState *cpu) -----》这里是用户态的qemu，qemu发起了run kvm，随后进入内核态enter_guest
+{
+    do {
+
+        run_ret = kvm_vcpu_ioctl(cpu, KVM_RUN, 0); ----->启动kvm
+
+        switch (run->exit_reason) { -----》qemu 查看guest cpu trap后，进入内核态的kvm，再被kvm跳转到用户态的qemu并被注入退出原因。
+        case KVM_EXIT_IO:
+            DPRINTF("handle_io\n");
+            kvm_handle_io(run->io.port,
+                          (uint8_t *)run + run->io.data_offset,
+                          run->io.direction,
+                          run->io.size,
+                          run->io.count);
+            ret = 0;
+            break;
+        case KVM_EXIT_MMIO:
+		........
+        }
+    } while (ret == 0);
+
+	........
+}
+
+
+
+这部分的内容，参考文档 cpu trap后进入kvm，又跳到qemu，接着再回到guest os的过程的分析.txt
+
+==============================================================================
+那进一步分析， kvm是如何把事件通知到 qemu 的那个aio_poll, ====？？？？前后2者暂时没找到调用关系====就是qemu进程vl.c(main_loop)。
+					      aio_poll又是隶属与qemu的哪个thread，因为这个poll说白了就是等事件。？？？？？？
+
+
+vendor/sprd/qemu/main-loop.c
+int main_loop_wait(int nonblocking)
+{
+.....
+    /* poll any events */
+    g_array_set_size(gpollfds, 0); /* reset for new iteration */  ----》这里就是在poll 任何可能的event
+.....
+
+}
+
+这个有兴趣的话，你看一下下面这堆代码，应该有收获，
+
+kvm-all.c
+
+static MemoryListener kvm_io_listener = {  ----》IO地址空间注册的read/write函数接口
+    .eventfd_add = kvm_io_ioeventfd_add,
+    .eventfd_del = kvm_io_ioeventfd_del,
+    .priority = 10,
+};
+
+
+static void kvm_handle_io(uint16_t port, void *data, int direction, int size,
+                          uint32_t count)
+{
+    int i;
+    uint8_t *ptr = data;
+
+    for (i = 0; i < count; i++) {
+        address_space_rw(&address_space_io, port, ptr, size,  ----》从IO空间读或者写数据的处理
+                         direction == KVM_EXIT_IO_OUT);
+        ptr += size;
+    }
+}
+
+
+#ifdef CONFIG_POSIX
+void qemu_aio_set_fd_handler(int fd,
+                             IOHandler *io_read,
+                             IOHandler *io_write,
+                             void *opaque)
+{
+    aio_set_fd_handler(qemu_aio_context, fd, io_read, io_write, opaque); ----》设置了aio类型的fd的handler接口，即io_read/io_write
+}
+#endif
+
+
+void aio_notify(AioContext *ctx)
+{
+    event_notifier_set(&ctx->notifier); ----》写event给aio_poll--->最后调到aio_bh_poll
+}
+
+PS：插入几句，上面这部分关于io_handler，可以参考 http://blog.csdn.net/defeattroy/article/details/9000398 和 http://blog.chinaunix.net/uid-26000137-id-4422813.html
+    aio应该是 acomplish io的意思。
+
+void qemu_notify_event(void)
+{
+    if (!qemu_aio_context) {
+        return;
+    }
+    aio_notify(qemu_aio_context);-----》这里写了一个event给aio_poll所属的线程
+}
+
+int qemu_set_fd_handler2(int fd,
+                         IOCanReadHandler *fd_read_poll,
+                         IOHandler *fd_read,
+                         IOHandler *fd_write,
+                         void *opaque)
+{
+    IOHandlerRecord *ioh;
+
+    assert(fd >= 0);
+
+    if (!fd_read && !fd_write) {
+        QLIST_FOREACH(ioh, &io_handlers, next) {
+            if (ioh->fd == fd) {
+                ioh->deleted = 1;
+                break;
+            }
+        }
+    } else {
+        QLIST_FOREACH(ioh, &io_handlers, next) {
+            if (ioh->fd == fd)
+                goto found;
+        }
+        ioh = g_malloc0(sizeof(IOHandlerRecord));
+        QLIST_INSERT_HEAD(&io_handlers, ioh, next);
+    found:
+        ioh->fd = fd;
+        ioh->fd_read_poll = fd_read_poll;
+        ioh->fd_read = fd_read;      ----------》然后这里也挂接了fd_read和write函数
+        ioh->fd_write = fd_write;
+        ioh->opaque = opaque;
+        ioh->pollfds_idx = -1;
+        ioh->deleted = 0;
+        qemu_notify_event(); -----》这里调用了qemu_notify_event
+    }
+    return 0;
+}

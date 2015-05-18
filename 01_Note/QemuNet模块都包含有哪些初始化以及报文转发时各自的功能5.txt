@@ -1,0 +1,101 @@
+struct qemu_signalfd_siginfo {
+    uint32_t ssi_signo;   /* Signal number */
+    int32_t  ssi_errno;   /* Error number (unused) */
+    int32_t  ssi_code;    /* Signal code */
+    uint32_t ssi_pid;     /* PID of sender */
+    uint32_t ssi_uid;     /* Real UID of sender */
+    int32_t  ssi_fd;      /* File descriptor (SIGIO) */
+    uint32_t ssi_tid;     /* Kernel timer ID (POSIX timers) */
+    uint32_t ssi_band;    /* Band event (SIGIO) */
+    uint32_t ssi_overrun; /* POSIX timer overrun count */
+    uint32_t ssi_trapno;  /* Trap number that caused signal */
+    int32_t  ssi_status;  /* Exit status or signal (SIGCHLD) */
+    int32_t  ssi_int;     /* Integer sent by sigqueue(2) */
+    uint64_t ssi_ptr;     /* Pointer sent by sigqueue(2) */
+    uint64_t ssi_utime;   /* User CPU time consumed (SIGCHLD) */
+    uint64_t ssi_stime;   /* System CPU time consumed (SIGCHLD) */
+    uint64_t ssi_addr;    /* Address that generated signal
+                             (for hardware-generated signals) */
+    uint8_t  pad[48];     /* Pad size to 128 bytes (allow for
+                             additional fields in the future) */
+};
+
+static void sigfd_handler(void *opaque)
+{
+    int fd = (intptr_t)opaque;
+    struct qemu_signalfd_siginfo info; ---》这个结构体就是signal即opaque提取出来的所有信息。见上面定义
+    struct sigaction action;
+    ssize_t len;
+
+    while (1) {
+        do {
+            len = read(fd, &info, sizeof(info));
+        } while (len == -1 && errno == EINTR);
+
+        if (len == -1 && errno == EAGAIN) {
+            break;
+        }
+
+        if (len != sizeof(info)) {
+            printf("read from sigfd returned %zd: %m\n", len);
+            return;
+        }
+
+        sigaction(info.ssi_signo, NULL, &action);  ---》根据signal id查询并获取signal对应的action
+        if ((action.sa_flags & SA_SIGINFO) && action.sa_sigaction) {
+            action.sa_sigaction(info.ssi_signo,
+                                (siginfo_t *)&info, NULL);
+        } else if (action.sa_handler) {
+            action.sa_handler(info.ssi_signo); ----》这里是最终的处理，即调用action注册的回调函数 action.sa_handler
+        }
+    }
+}
+
+
+static int qemu_signal_init(void)
+{
+
+    qemu_set_fd_handler2(sigfd, NULL, sigfd_handler, NULL, ---》注册sigfd_handler
+                         (void *)(intptr_t)sigfd);
+}
+
+参考网页：http://blog.csdn.net/qiushanjushi/article/details/38333391
+当IO thread捕获其中一个信号，signalfd因此会变成可读状态，select()函数返回并调用该事件的回调函数sigfd_handler(), sigfd_handler()会调用为该信号注册的回调函数sa_handler。
+
+static void qemu_init_child_watch(void)
+{
+    struct sigaction act;
+    sigchld_bh = qemu_bh_new(sigchld_bh_handler, NULL);
+
+    act.sa_handler = sigchld_handler; ----》注册sigfd_handler的地方，值为sigchld_handler
+    act.sa_flags = SA_NOCLDSTOP;
+    sigaction(SIGCHLD, &act, NULL);
+}
+
+static void sigchld_handler(int signal)
+{
+    qemu_bh_schedule(sigchld_bh); ----》^_^，i see you.这里就是调度那个队列的东西。
+}
+
+后记：发现一个async.c文件。文件头写的是qemu系统模拟器，这里莫非就是qemu的中枢么？
+/*
+ * QEMU System Emulator
+*/
+
+void qemu_bh_schedule(QEMUBH *bh)
+{
+    if (bh->scheduled)
+        return;
+    bh->idle = 0;
+    /* Make sure that idle & any writes needed by the callback are done
+     * before the locations are read in the aio_bh_poll.
+     */
+    smp_wmb();
+    bh->scheduled = 1;
+    aio_notify(bh->ctx);
+}
+
+后记：
+bh的意思 就是 bottom half,就是中断处理的后半部分。
+
+

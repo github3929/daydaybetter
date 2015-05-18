@@ -1,0 +1,348 @@
+1.就是guest在发送报文给qemu的时候，
+
+首先将数据填充到tx_queue中，然后向PCI配置空间的一个寄存器，写了一个标志，然后触发了cpu trap，
+然后cpu从kvm又切换到qemu，然后qemu会去查询哪个queue发生了请求，并且调用对应的队列的handleout处理函数。
+
+写的具体标志的位置在？？
+
+static void virtio_ioport_write(void *opaque, uint32_t addr, uint32_t val)
+{
+    case VIRTIO_PCI_QUEUE_NOTIFY:
+        if (val < VIRTIO_PCI_QUEUE_MAX) {
+            virtio_queue_notify(vdev, val);
+        }
+        break;
+
+}
+
+
+创建队列的时候，向PCI配置空间的QUEUE字段写入queue id。
+/* the notify function used when creating a virt queue */
+static void vp_notify(struct virtqueue *vq)
+{
+	struct virtio_pci_device *vp_dev = to_vp_device(vq->vdev);
+
+	/* we write the queue's selector into the notification register to
+	 * signal the other end */
+	iowrite16(vq->index, vp_dev->ioaddr + VIRTIO_PCI_QUEUE_NOTIFY);
+}
+
+2.那么cpu trap到kvm_exit,又再切换到qemu的进程执行，是怎么处理的呢？qemu又是怎么找到那个该读取待发送报文的queue呢？
+
+搜索VIRTIO_PCI_QUEUE_NOTIFY，又发现新的线索：
+
+static int virtio_pci_set_host_notifier_internal(VirtIOPCIProxy *proxy,
+                                                 int n, bool assign, bool set_handler)
+{
+    VirtIODevice *vdev = virtio_bus_get_device(&proxy->bus);
+    VirtQueue *vq = virtio_get_queue(vdev, n);
+    EventNotifier *notifier = virtio_queue_get_host_notifier(vq);
+    int r = 0;
+
+    if (assign) {
+        r = event_notifier_init(notifier, 1);
+        if (r < 0) {
+            error_report("%s: unable to init event notifier: %d",
+                         __func__, r);
+            return r;
+        }
+        virtio_queue_set_host_notifier_fd_handler(vq, true, set_handler);
+        memory_region_add_eventfd(&proxy->bar, VIRTIO_PCI_QUEUE_NOTIFY, 2,
+                                  true, n, notifier);
+    } else {
+        memory_region_del_eventfd(&proxy->bar, VIRTIO_PCI_QUEUE_NOTIFY, 2,
+                                  true, n, notifier);
+        virtio_queue_set_host_notifier_fd_handler(vq, false, false);
+        event_notifier_cleanup(notifier);
+    }
+    return r;
+}
+
+
+3.
+
+
+
+==========================================================================
+说有2个地方，弄清楚：
+1.在ip_input.c的ip_input函数中，
+为什么要区分tcp和udp和icmp三种类型。
+答：
+ip_input()主要做了哪些工作
+{
+	IP报文结构检查
+	IP报文如果是分片的，负责重组之。
+	switch 协议报文类型
+	{
+		进入tcp和udp和icmp各自的4层报文处理接口
+	}
+}
+
+并且作为guest的网关，它的tcp_input中对于要转发给host的报文，有做过多处理么？
+答：
+
+没有。
+
+它怎么区分出哪些报文是给网关自己的，哪些是给host的？
+
+答：
+void
+icmp_input(struct mbuf *m, int hlen)
+{
+
+    if (ip->ip_dst.s_addr == slirp->vhost_addr.s_addr) {
+      icmp_reflect(m); ------》给网关自己的，要回应icmp答复。---》调用ip_output发送回应报文
+    } else if (slirp->restricted) {
+        goto freeit;
+    } else {
+	。。。。转发给host的
+    }
+}
+
+
+类似在udp_input中
+
+void
+udp_input(register struct mbuf *m, int iphlen)
+{
+	。。。。。。。。
+        /*
+         *  handle DHCP/BOOTP
+         */
+        if (ntohs(uh->uh_dport) == BOOTP_SERVER &&
+            (ip->ip_dst.s_addr == slirp->vhost_addr.s_addr ||  -------->如果目的IP是网关自己
+             ip->ip_dst.s_addr == 0xffffffff)) {
+                bootp_input(m);
+                goto bad; ----------->其实不是bad，叫goto end更正确，就是到这里就处理完了。
+            }
+
+        /*
+         *  handle TFTP
+         */
+        if (ntohs(uh->uh_dport) == TFTP_SERVER &&
+            ip->ip_dst.s_addr == slirp->vhost_addr.s_addr) {
+            tftp_input(m); 
+            goto bad;----------->其实不是bad，叫goto end更正确，就是到这里就处理完了。
+        }
+
+        if (slirp->restricted) {
+            goto bad;
+        }
+	。。。。。。。。
+}
+
+
+udp和tcp也是类似的。对于是网关回给guest的报文，用 if_start 发送，否则通过socket发送。
+
+并且roc问的那个每次发送都构造socket么，答案如下：
+
+不是，guest和外部设备通信，每一个通信链路，对应了一个socket，索引就是双方的IP地址，如果没有找到，那么创建一个新的socket。
+证明如下：
+void
+udp_input(register struct mbuf *m, int iphlen)
+{
+。。。。。
+	/*
+	 * Locate pcb for datagram.
+	 */
+	so = slirp->udp_last_so;
+	if (so->so_lport != uh->uh_sport ||
+	    so->so_laddr.s_addr != ip->ip_src.s_addr) {
+		struct socket *tmp;
+
+		for (tmp = slirp->udb.so_next; tmp != &slirp->udb;
+		     tmp = tmp->so_next) {
+			if (tmp->so_lport == uh->uh_sport &&
+			    tmp->so_laddr.s_addr == ip->ip_src.s_addr) {
+				so = tmp;
+				break;
+			}
+		}
+}
+
+以及：
+findso:
+	so = slirp->tcp_last_so;
+	if (so->so_fport != ti->ti_dport ||
+	    so->so_lport != ti->ti_sport ||
+	    so->so_laddr.s_addr != ti->ti_src.s_addr ||
+	    so->so_faddr.s_addr != ti->ti_dst.s_addr) {
+		so = solookup(&slirp->tcb, ti->ti_src, ti->ti_sport,
+			       ti->ti_dst, ti->ti_dport);
+		if (so)
+			slirp->tcp_last_so = so;
+	}
+
+跟踪了一下linux kernel的icmp_send（不同与qemu的，有2个icmp_send接口），发现人家的socket是固定的。
+void icmp_send(struct sk_buff *skb_in, int type, int code, __be32 info)
+{
+	sk = icmp_xmit_lock(net);----》获取socket指针
+
+	rt = icmp_route_lookup(net, &fl4, skb_in, iph, saddr, tos, ---->查询路由
+			       type, code, &icmp_param);
+}
+
+static inline struct sock *icmp_xmit_lock(struct net *net)
+{
+	sk = icmp_sk(net); ---->如果是转发icmp报文的话，调这个发送，并且socket是固定的，不是每次发送都重新构造。
+}
+
+static struct sock *icmp_sk(struct net *net)
+{
+	return net->ipv4.icmp_sk[smp_processor_id()];
+}
+
+
+
+2.cpu trap，就是guest将数据发给host的时候，怎么notify qemu去获取数据的？具体函数调用。
+答：
+
+找到了guest退出，然后调用kvm_exit_handle的地方，如下
+
+int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu, struct kvm_run *run) ----》这个是guest run
+{
+		kvm_guest_enter();
+		vcpu->mode = IN_GUEST_MODE;
+
+		ret = kvm_call_hyp(__kvm_vcpu_run, vcpu);  ---->guest 运行
+
+		vcpu->mode = OUTSIDE_GUEST_MODE;
+		vcpu->arch.last_pcpu = smp_processor_id();
+		kvm_guest_exit();
+
+		ret = handle_exit(vcpu, run, ret); ---->guest退出后返回到kvm的处理，就是这里，然后ret参数就是发生guest退出的原因
+}
+
+
+/*
+ * Return > 0 to return to guest, < 0 on error, 0 (and set exit_reason) on
+ * proper exit to userspace.
+ */
+int handle_exit(struct kvm_vcpu *vcpu, struct kvm_run *run,
+		       int exception_index)
+{
+	exit_handle_fn exit_handler;
+
+	switch (exception_index) {
+	case ARM_EXCEPTION_IRQ:
+		return 1;
+	case ARM_EXCEPTION_UNDEFINED:
+		kvm_err("Undefined exception in Hyp mode at: %#08lx\n",
+			kvm_vcpu_get_hyp_pc(vcpu));
+		BUG();
+		panic("KVM: Hypervisor undefined exception!\n");
+	case ARM_EXCEPTION_DATA_ABORT:
+	case ARM_EXCEPTION_PREF_ABORT:
+	case ARM_EXCEPTION_HVC:
+		/*
+		 * See ARM ARM B1.14.1: "Hyp traps on instructions
+		 * that fail their condition code check"
+		 */
+		if (!kvm_condition_valid(vcpu)) {
+			kvm_skip_instr(vcpu, kvm_vcpu_trap_il_is32bit(vcpu));
+			return 1;
+		}
+
+		exit_handler = kvm_get_exit_handler(vcpu);  --------》在这里根据exit原因查询 对应的 处理函数，然后赋值给exit_handler
+
+		return exit_handler(vcpu, run); ---》处理异常，我们net调用的是？？？？？？
+	default:
+		kvm_pr_unimpl("Unsupported exception type: %d",
+			      exception_index);
+		run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
+		return 0;
+	}
+}
+
+
+而异常id的读取，是读取的 VCPU  HSR REG，如下寄存器：
+
+/* Hyp Syndrome Register (HSR) bits */
+#define HSR_EC_SHIFT	(26)
+#define HSR_EC		(0x3fU << HSR_EC_SHIFT)
+#define HSR_IL		(1U << 25)
+#define HSR_ISS		(HSR_IL - 1)
+#define HSR_ISV_SHIFT	(24)
+#define HSR_ISV		(1U << HSR_ISV_SHIFT)
+#define HSR_SRT_SHIFT	(16)
+#define HSR_SRT_MASK	(0xf << HSR_SRT_SHIFT)
+#define HSR_FSC		(0x3f)
+#define HSR_FSC_TYPE	(0x3c)
+#define HSR_SSE		(1 << 21)
+#define HSR_WNR		(1 << 6)
+#define HSR_CV_SHIFT	(24)
+#define HSR_CV		(1U << HSR_CV_SHIFT)
+#define HSR_COND_SHIFT	(20)
+#define HSR_COND	(0xfU << HSR_COND_SHIFT)
+
+
+
+
+接着上面说：继续分析如何从exit_handler()调用到queue的handle_out处理函数的。。。
+
+struct virtio_config_ops {
+	void (*get)(struct virtio_device *vdev, unsigned offset,
+		    void *buf, unsigned len);
+	void (*set)(struct virtio_device *vdev, unsigned offset,
+		    const void *buf, unsigned len);
+	u8 (*get_status)(struct virtio_device *vdev);
+	void (*set_status)(struct virtio_device *vdev, u8 status);
+	void (*reset)(struct virtio_device *vdev);
+	int (*find_vqs)(struct virtio_device *, unsigned nvqs,
+			struct virtqueue *vqs[],
+			vq_callback_t *callbacks[],
+			const char *names[]);
+	void (*del_vqs)(struct virtio_device *);
+	u32 (*get_features)(struct virtio_device *vdev);
+	void (*finalize_features)(struct virtio_device *vdev);
+	const char *(*bus_name)(struct virtio_device *vdev);
+	int (*set_vq_affinity)(struct virtqueue *vq, int cpu);
+};
+
+
+
+static int virtio_net_device_init(VirtIODevice *vdev)
+{
+    virtio_init(VIRTIO_DEVICE(n), "virtio-net", VIRTIO_ID_NET,n->config_size); ---》这里调用 virtio_init 做初始化
+}
+
+void virtio_init(VirtIODevice *vdev, const char *name,
+                 uint16_t device_id, size_t config_size)
+{
+    int i;
+    vdev->device_id = device_id;
+    vdev->status = 0;
+    vdev->isr = 0;
+    vdev->queue_sel = 0;
+    vdev->config_vector = VIRTIO_NO_VECTOR;
+    vdev->vq = g_malloc0(sizeof(VirtQueue) * VIRTIO_PCI_QUEUE_MAX);
+    vdev->vm_running = runstate_is_running();
+    for (i = 0; i < VIRTIO_PCI_QUEUE_MAX; i++) {
+        vdev->vq[i].vector = VIRTIO_NO_VECTOR;
+        vdev->vq[i].vdev = vdev;
+        vdev->vq[i].queue_index = i;
+    }
+
+    vdev->name = name;
+    vdev->config_len = config_size;
+    if (vdev->config_len) {
+        vdev->config = g_malloc0(config_size);
+    } else {
+        vdev->config = NULL;
+    }
+    vdev->vmstate = qemu_add_vm_change_state_handler(virtio_vmstate_change,
+                                                     vdev);
+}
+
+
+
+
+
+
+
+后记：
+Guest OS有IO访问请求时，会被KVM捕获，并交由Qemu处理。
+
+在胶片 KVM and Virtualization Introduction.pptx 中发现了其中有说c文件 handle_exit.c 是负责Guest发生trap后的处理，arm_exit_handlers
+里边还提到了两本虚拟化的参考书
+

@@ -12,12 +12,28 @@ sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jian
 
 lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
 
+lunch vsharkffos-userdebug && make
+
+====
+
+hudson上64号build的pac是把guest挪到emmc里面的版本，大家可以试用。代码已经merge。
+
+因为采用了sparse格式，整个pac大小还可以。guest有三个分区：
+一个挂载到host根目录的firmboot，大小256M
+一个包含system目录的内容，大小512M
+一个是data分区，大小2000M
+
+本地packguestimg命令在lunch vsharkffos-userdebug后仍然可用，会生成firmboot.img, firmsys.img 和 firmdata.img，分别替换pac中同名分区的文件烧入即可。
+
+====
+
 /data/data/com.magicandroidapps.iperf/bin
 
-./iperf -s -u -P 0 -i 5 -p 5001 -f k
+./iperf -s -u -P 0 -i 5 -p 5001 -f k   --->udp
 
 ./iperf -c 192.168.1.101 -u -P 1 -i 5 -p 5001 -f k -b 10M -t 10 -T 1
 
+./iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K --->tcp
 
 //从PC上抓获了发向Guest或者Host的报文后，测试报文的发送命令：
 sudo tcpreplay --loop=100 --intf1=eth0 -M 0.1 ./ping_pac.single
@@ -87,6 +103,27 @@ dmesg > sdcard/ker.log
 	//add by jason-jiang
 #define QEMU_NET_TEST 1
 #endif
+
+
+	//add by jason-jiang
+#ifdef QEMU_KVM_DEBUG
+	printk("\n in func:virtio_net_flush_tx. line:%d", __LINE__);
+#endif
+
+	//temp-------------------------------------temp one
+	//add by jason-jiang for aio_poll
+	error_printf("\n in %s line:%d", __func__, __LINE__);
+
+======================================
+调试开关的定义
+
+kvm.c
+#define DEBUG_KVM  //mod by jason-jiang for debug kvm
+
+
+kvm-all.c
+#define DEBUG_KVM //mod by jason-jiang for debug kvm
+
 
 
 =======

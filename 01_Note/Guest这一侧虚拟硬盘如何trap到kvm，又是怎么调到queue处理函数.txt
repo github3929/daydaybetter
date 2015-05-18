@@ -1,0 +1,54 @@
+就是cpu_trap之后，guest退出，得到退出原因，调用对应的函数，然后函数写一个事件。
+
+那边的loop函数，一直在等事件，等到事件之后，就依次poll各个虚拟设备，然后虚拟网卡
+会事件处理中调用virtio_net_tx_bh，这个就开始提取guest虚拟网卡驱动想要发送的数据
+
+
+============================================================================
+
+在李永波的VirtIO Block 报告中已经很明确的提到了，
+
+是使用 kvm_handle_io 来做的，搜索一下，就可以知道：
+
+
+static void qemu_kvm_start_vcpu(CPUState *cpu)
+{
+    qemu_thread_create(cpu->thread, qemu_kvm_cpu_thread_fn, cpu,
+                       QEMU_THREAD_JOINABLE);
+
+}
+
+static void *qemu_kvm_cpu_thread_fn(void *arg)
+{
+    r = kvm_init_vcpu(cpu);
+
+    while (1) {
+        if (cpu_can_run(cpu)) {
+            r = kvm_cpu_exec(cpu);
+            if (r == EXCP_DEBUG) {
+                cpu_handle_guest_debug(cpu);
+            }
+        }
+        qemu_kvm_wait_io_event(cpu);
+    }
+}
+
+int kvm_cpu_exec(CPUState *cpu)
+{
+
+        run_ret = kvm_vcpu_ioctl(cpu, KVM_RUN, 0);
+
+        switch (run->exit_reason) {
+        case KVM_EXIT_IO:
+            DPRINTF("handle_io\n");
+            kvm_handle_io(run->io.port,  --------》这里负责处理guest退出后，去调用vq 注册的function
+                          (uint8_t *)run + run->io.data_offset,
+                          run->io.direction,
+                          run->io.size,
+                          run->io.count);
+            ret = 0;
+            break;
+
+}
+
+

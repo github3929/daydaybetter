@@ -1247,24 +1247,343 @@ http://blog.csdn.net/liang890319/article/details/8258518
 1. linux的用户名是spreadtrum\jason.jiang
 
 
-通过virtio_ring.c文件里的如下函数接口：可以将输入类型的设备 or 输出类型的设备添加到设备链表里
-int virtqueue_add_outbuf(struct virtqueue *vq,
-			 struct scatterlist sg[], unsigned int num,
-			 void *data,
-			 gfp_t gfp)
+=========================================================Day:20150504 evening start=========================================================
+
+1. 血一般的教训，你在代码中加入的调试信息，延迟了报文的收发，导致测量网速性能不准确。
+   切记，下次加调试代码，一定要加宏括住。
+
+
+
+=========================================================Day:20150505 start=========================================================
+
+1.上午测试NET性能数据--OK
+
+a 将调试信息删除掉，从新编译，然后发现#ifdef括住的代码仍然被执行，原因是你定义了#define QEMU_NET_DEBUG 0
+  不管定义为1还是0，都是定义了，所以调试信息的代码依然会被执行。
+b 将TCP测试从单线程，更改为多线程。
+c 我自己的串口是故障的，有时好有时坏，会影响自己判断调试信息是否删除完毕。
+d 更改了TCP Window和TCP Buffer参数，这个影响有限。
+
+2.下午，整理测试报告，以及代码理解报告。下班前，输出。--OK
+
+3.ktap这个linux func跟踪工具可以看看。寻找一种可以输出函数调用关系的方法。--OK？？
+
+4.寻找一种可以在编译代码的时候，控制输出调试信息的一种方法。--OK？？
+
+5.看明白gps模块--OK？？
+
+AOSP："Android Open-Source Project"的缩写
+
+这篇文章介绍了android模拟器加载的 android4.0 goldfish的代码的编译结果，即android系统。
+
+http://blog.csdn.net/flydream0/article/details/7070392
+
+QEMU, KVM, QEMU-KVM 和 Goldfish 这几个个东西之间的关系
+http://blog.csdn.net/span76/article/details/19165345
+
+
+注册了一个在线画流程图的网站：
+网站地址：https://cacoo.com/
+name:公司邮箱名
+pwd:Hello@800
+
+=========================================================Day:20150506 start=========================================================
+
+1.linux有一个backup功能，今天早上笔记本弹出来个框提示备份，改天再备吧。
+
+2.下载一套最新的dual-os的代码。
+
+3.上午，完成昨天遗留的东西。
+
+
+实际工作：
+
+1.上午，和roc从10点45开始沟通到11点半.
+  之前，在搜集gps的相关信息，以及gps模块的实现等。
+
+2.下午，晚上，分析虚拟网卡的创建部分，还有guest一侧虚拟网卡驱动挂接的部分，分析虚拟网卡发包的流程。
+  另外，还分析了一下guest发送报文，会写数据到tx_queue，那么它怎么触发了guest退出，进入kvm，进而又回到qemu
+        然后qemu再去寻找guest退出的原因，进而找到该去处理哪个队列。
+
+  剩下疑问：
+        1.cpu trap是怎么发生，以及发生后host怎么找到那个该处理的队列的。
+        2.qemu网关的报文处理入口即ip_input里，一堆的代码，除了转发guest过来的报文，还要处理给网关的报文，
+          那么它是怎么区分的，为什么ip_input里还要分udp_input tcp_input icmp_input呢？
+
+
+
+=========================================================Day:20150507 start=========================================================
+上午：
+1.补齐昨天的日志。
+
+2.解决昨天遗留的疑问。
+
+  2.1弄明白了qemu网关报文和qemu要转发给host的报文是如何区分的，以及socket是否是每次都要创建。以及为什么要区分tcp_input和udp_input。
+
+3.理解一下Android中HAL如何向上层提供接口的，HAL是什么，代码在什么位置。--OK
+/home/apuser/multi-os/hardware/libhardware/modules
+
+4.GPS的代码在什么位置，获取GPS坐标信息的函数接口是哪个。
+/home/apuser/multi-os/frameworks
+
+func:  mLocation = getLocation();
+
+5.发现在android代码中
+/home/apuser/multi-os/developers/samples/android 这个目录有对开发者的示例代码。
+
+
+
+下午：  tips:多回头看看multi-os公共目录下的那些guide文档，会有新发现。
+1.找到了获取gps信息的代码的位置。
+
+./base/location/java/android/location/LocationManager.java
+./base/services/java/com/android/server/LocationManagerService.java
+./base/services/java/com/android/server/location/GpsLocationProvider.java
+
+./base/location/java/android/location/LocationRequest.java
+./base/location/java/android/location/LocationListener.java
+
+2.从下午2点半开始，寻找guest填充了报文数据后，是怎么trap，进入kvm，又从kvm跳转到qemu的队列回调函数接口的。---》还是60%明白，对比block设备看看吧。
+
+晚上：
+绘制完流程图
+
+=========================================================Day:20150508 start=========================================================
+上午：
+1.弄清楚了虚拟网卡设备驱动的 notify函数挂的是哪个，又是在什么时候注册给系统的。10：20截至(包括上wc time)
+  
+2.把测试数据补充一下，把分析报告完善后发出。
+
+下午：
+1.整理报告
+
+晚上：
+1.整理报告
+2.看到了李咏波是怎么处理block 设备 cpu trap后，调到handle_output的。在文档里有写。
+
+遗留：
+1.看一下邮箱里自己给自己发的邮件。
+2.自己打开了 代码里的 DEBUG_KVM开关，看看你的net设备 cpu trap后，返回的exit_reason是不是跟block device一样是io
+
+int kvm_cpu_exec(CPUState *cpu)
 {
-	return virtqueue_add(vq, &sg, sg_next_arr, num, 0, 1, 0, data, gfp);
+        switch (run->exit_reason) { --->打印出来这个，我怀疑，我根本就没有退出
+
 }
 
-int virtqueue_add_inbuf(struct virtqueue *vq,
-			struct scatterlist sg[], unsigned int num,
-			void *data,
-			gfp_t gfp)
-{
-	return virtqueue_add(vq, &sg, sg_next_arr, 0, num, 0, 1, data, gfp);
-}
+补充：
+周六和周日，来公司完善了一下分析报告，收工了。
+
+=========================================================Day:20150511 start=========================================================
+上午
+1.解决一下周六日遗留的需要思考的问题。
 
 
-	return virtqueue_add_outbuf(sq->vq, sq->sg, num_sg, skb, GFP_ATOMIC);
+调试开关的定义
+
+kvm.c
+#define DEBUG_KVM  //mod by jason-jiang for debug kvm
+
+
+kvm-all.c
+#define DEBUG_KVM //mod by jason-jiang for debug kvm
+
+
+2.把那个sensor的代码整理的东西，合入到服务器上。
+
+
+下午：
+开了一个下午的会。
+
+晚上：
+1.学习了网页 http://blog.jobbole.com/67931/ 
+2.找到了sharklt8 5.1的jenkins的发布版本的网页。---》但是好像下载不下来。不过可以自己去网上自己下载
+
+=========================================================Day:20150512 start=========================================================
+
+上午：
+1.有个网页 http://www.2cto.com/Article/201401/269759.html 讲了三星的knox技术即container实现的虚拟系统下，secure boot部分的实现。
+2.这个网页，讲secure boot 更棒， http://www.tuicool.com/articles/M7v6nuN -----？
+3.看2，顺带熟悉了一下签名机制，发现一篇不错文章 http://wenku.baidu.com/link?url=s4e2HoDITgEsC9ftxGBs2g2MjChk9Aj7WWhGoKfEtnHjNtbtEJ2qHltARAD8oS2-gdpqRNNgmEDD1weUp3nBBxonun8lz98hw0FvqQhC3pq
+4.找到一个android大牛的网上文库收藏大集合，地址 http://www.400gb.com/u/3872089/6202038
+
+5.挤粗时间，看了http://www.myhack58.com/Article/60/76/2013/38887_7.htm 讲SEAndroid，即selinux的安卓变本。---?
+6.挤出时间，看了大牛写的tap模式下qemu怎么负责guest和host的报文收发。 http://luoye.me/2014/07/26/netdev-virtual-3/---？
+
+
+
+下午：
+1.看了一下matt.ma的那个关于传感器故障的修改，就是将读数据的地方，让传感器永远返回离的很远。
+
+kernel/drivers/input/misc/ltr_558als.c ---》注意这个跟sprd_lpsensor.c不同，这个是真是的物理传感器。
+
+         if ((0x03 == (status & 0x03)) && (LTR_PLS_MODE == LTR_PLS_558)) {/*is 558 PS*/
+                 value = ltr558_i2c_read_2_bytes(LTR558_PS_DATA_0);
+                 PRINT_DBG("LTR_PLS_MODE is pls 558, LTR558_PS_DATA_0 = %d\n", value);
++                value = 0x5DC;
+                 if (value >= 0x60E) {     // 3cm //high
+                         ltr558_i2c_write_1_byte(LTR558_PS_THRES_UP_0, 0xff);
+                         ltr558_i2c_write_1_byte(LTR558_PS_THRES_UP_1, 0x07);
+
+2.看了一篇关于TEE（TRUST EXCLUTIVE ENVIRENMENT)可信任执行环境还有secure boot的介绍
+
+http://www.liwenhaosuper.com/blog/2014/07/02/%E5%88%A9%E7%94%A8arm-trustzone%E5%9C%A8%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8F%8C%E7%B3%BB%E7%BB%9F%E8%BF%90%E8%A1%8C/
+http://www.liwenhaosuper.com/blog/2014/05/26/tee-and-arm-trustzone/
+
+3.看到了host android 的启动配置文件如下：在手机上根目录下：
+shell@scx35l_sp9630ea:/ # ls *.rc                                              
+init.board.rc
+init.environ.rc
+init.rc
+init.sc8830.rc
+init.sc8830.usb.rc
+init.storage.rc
+init.trace.rc
+init.usb.rc
+ueventd.rc
+ueventd.sc8830.rc
+shell@scx35l_sp9630ea:/ # 
+
+4.android其实从4.4.2（7731） ，我们的multi-os是4.4.4（9630）版本的，所以不存在移植全磁盘加密的问题，只是multi-os的磁盘加密没有开启的菜单项。
+
+
+PS:注册了一个网上资料下载的帐号，是为了下载 http://www.400gb.com/u/3872089/6202038 
+addr:http://newhome.400gb.com/
+name:wangtongpanpan
+reg email:jiangta3929@sina.com
+pwd:Hello800
+
+5.全磁盘加密的功能实现在如下code中:
+
+base_dir/system/vold/cryptfs.c
+
+kernel/security/keys/encrypted-keys/encrypted.c --->这个貌似是对密钥进行加密的，看bosibi的胶片有多个文件
+
+
+6.
+linux ps命令显示一个特定的进程信息，如下说明
+只查看该进程：ps -ef | grep 11345
+查看该进程打开的文件：lsof -p 11345
+查看内存分配：lcat /proc/11345/maps
+查看堆栈：pstack 11345
+查看发出的系统调用:strace -p 11345
+查看调用库函数:ltrace -p 11345
+
+=========================================================Day:20150513 start=========================================================
+
+上午：
+1.http://blog.chinaunix.net/uid-27119491-id-3346430.html ---》讲linux内核收发包的
+1.1 http://blog.chinaunix.net/uid-7960587-id-2035509.html
+    http://www.ibm.com/developerworks/cn/linux/kernel/interrupt/ ---》将linux软中断机制的
+
+2.看完昨天遗留的文章
+
+3.寻找guest触发trap后，是如何调用到virtio_net_tx_bh的
+
+下午：
+1.接着分析上午的 guest触发trap后，是如何调用到virtio_net_tx_bh的
+
+=========================================================Day:20150514 start=========================================================
+
+上午：
+1.看完http://www.cnblogs.com/bastard/archive/2012/12/03/2799298.html --->讲述vold的工作机制就是android存储设备的核心管理
+
+2.gdb 调试qemu的熟悉
+
+3.你可以看到android的代码中，有个system目录，下面有如下几个目录
+core  extras  media  netd  security  vold
+重点关注 netd securtiy 和 vold
+
+4. Vold进程启动过程的代码位置在
+cat /home/apuser/multi-os/system/core/rootdir/init.rc
+
+service vold /system/bin/vold
+    class core
+    socket vold stream 0660 root mount
+    ioprio be 2 
+
+5.关于android的init.rc的具体的解释，参考 http://blog.csdn.net/zhandoushi1982/article/details/5767634 和 http://blog.csdn.net/mr_raptor/article/details/7666906
+init进程对应的代码在android源码目录中的：system/core/init/init.c中
+
+6.得知调试linux内核的方法如下：
+  6.1可以通过qemu去调试，参 http://www.linuxidc.com/Linux/2014-08/105510.htm
+  6.2可以通过printk jtag kgdb ftrace 参 http://my.oschina.net/fgq611/blog/113249
+
+下午：
+1.学习TEE的网页：可惜是外文的http://www.liwenhaosuper.com/blog/2014/05/26/tee-and-arm-trustzone/
+  TEE：是一种arm实现的硬件的安全解决方案，别名叫trustzone，就是三星的nexus系列使用
+       然后它的方案中，分为normal world 和 secure world
+
+2.马俊的一个关于驱动描述，参考它的邮件 Hi：下阶段的action反馈，看后很有意思
+
+3.解决那个sensor优化后代码提交git，然后gerrit要验证通过
+
+4.写UT单元测试用例
+
+5.了解手机的基本组成，基带BB+射频RF
+
+
+=========================================================Day:20150515 start=========================================================
+上午：9：30
+1.截至到10:10，把昨天写的ut发给roc
+
+2.熟悉了在新版的去除sd卡的软件版本上，如何更新guest版本。--guest的烧写跟host一模一样了。
+
+3.编译a.multos的guest版本
+
+4.更新笔记本上的a.mutios的代码---》偶然发现yuming更了几个和channel相关的，如下：看看改了啥
+
+project vendor/sprd/proprietories-source/
+Updating efa617b..a1e2ee5
+Fast-forward
+ phoneserver/channel_manager.c |    2 +-
+ phoneserver/receive_thread.c  |    3 ---
+ phoneserver/send_thread.c     |    4 ----
+ ril/sprd_libril/sprd_ril.cpp  |    2 +-
+ ril/sprd_ril/sprd_ril.c       |   12 ++++++------
+ 5 files changed, 8 insertions(+), 15 deletions(-)
+
+~/a.multi-os$ 
+
+5.熟悉一下要做的firmguard的内容，理解并分析主要节点，。
+
+6.找到ren geng写的一篇讲怎么用eclipse 调试android的文章，位置：http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/SYSSW/training/
+
+
+下午：
+1.提醒:把分析文档重新收拾一下，发给roc
+
+2.再次遇到笔记本电脑的鼠标左键点击不管用后，可以用触摸板的左键点击任何地方，激活一下就恢复了。
+
+3.pipe的东西挺多的，matt
+
+4.弄清楚了guest的分区结构，以及都mount到了哪里。
+
+5.看明白vmchannel的代码，virtio.pdf文件中有channel一章
+
+后记：公司的网站有各个模块的资料共享，可以see see有关selinux 和 TEE FDE ，还有network的http浏览器模块的介绍
+http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/SYSSW/development/
+
+http://wikiserver.spreadtrum.com/Projects/SoftwareSystem/wiki/%E5%B1%95%E8%AE%AF%E6%96%87%E6%A1%A3%E7%AE%80%E4%BB%8B
+
+http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/SYSSW/training/
+
+=========================================================Day:20150517 start=========================================================
+9.14来的
+
+上午：
+1.完成考评填写
+
+2.完成日志补齐
+
+3.gdb调试qemu，local socket代码编写或者找参考代码。
+
+
+下午：
+1.
+
+2.
+
+
 
 

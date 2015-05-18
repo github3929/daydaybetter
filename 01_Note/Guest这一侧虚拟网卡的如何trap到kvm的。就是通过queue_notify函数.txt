@@ -1,0 +1,188 @@
+虚拟网卡驱动，发包的流程，看看它怎么让kvm_exit的
+
+
+static const struct net_device_ops virtnet_netdev = {
+	.ndo_open            = virtnet_open,
+	.ndo_stop   	     = virtnet_close,
+	.ndo_start_xmit      = start_xmit,
+	.ndo_validate_addr   = eth_validate_addr,
+	.ndo_set_mac_address = virtnet_set_mac_address,
+	.ndo_set_rx_mode     = virtnet_set_rx_mode,
+	.ndo_change_mtu	     = virtnet_change_mtu,
+	.ndo_get_stats64     = virtnet_stats,
+	.ndo_vlan_rx_add_vid = virtnet_vlan_rx_add_vid,
+	.ndo_vlan_rx_kill_vid = virtnet_vlan_rx_kill_vid,
+	.ndo_select_queue     = virtnet_select_queue,
+#ifdef CONFIG_NET_POLL_CONTROLLER
+	.ndo_poll_controller = virtnet_netpoll,
+#endif
+};
+
+
+static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+{
+
+	virtqueue_kick(sq->vq);
+
+}
+
+void virtqueue_kick(struct virtqueue *vq)
+{
+	if (virtqueue_kick_prepare(vq))
+		virtqueue_notify(vq); ----->这里调用的就是
+}
+
+
+==============================================
+
+
+
+static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+{
+	virtqueue_kick(sq->vq);
+}
+
+void virtqueue_kick(struct virtqueue *vq)
+{
+	if (virtqueue_kick_prepare(vq))
+		virtqueue_notify(vq);
+}
+
+
+void virtqueue_notify(struct virtqueue *_vq)
+{
+	struct vring_virtqueue *vq = to_vvq(_vq);
+
+	/* Prod other side to tell it about changes. */
+	vq->notify(_vq);
+}
+
+
+
+上面这段就分析了一下使用 vq->notify 的地方，下面再分析一下它什么时候被挂接的，挂接的是哪个处理函数。
+===============================================================================
+
+而调用上面的这个地方,即堆notify进行挂接的地方，在如下地方：
+
+接着，上面，来分析一下
+
+static const struct virtio_config_ops virtio_pci_config_ops = {
+	.get		= vp_get,
+	.set		= vp_set,
+	.get_status	= vp_get_status,
+	.set_status	= vp_set_status,
+	.reset		= vp_reset,
+	.find_vqs	= vp_find_vqs, --------》这里
+	.del_vqs	= vp_del_vqs,
+	.get_features	= vp_get_features,
+	.finalize_features = vp_finalize_features,
+	.bus_name	= vp_bus_name,
+	.set_vq_affinity = vp_set_vq_affinity,
+};
+
+
+/* the config->find_vqs() implementation */
+static int vp_find_vqs(struct virtio_device *vdev, unsigned nvqs,
+		       struct virtqueue *vqs[],
+		       vq_callback_t *callbacks[],
+		       const char *names[])
+{
+	int err;
+
+	/* Try MSI-X with one vector per queue. */
+	err = vp_try_to_find_vqs(vdev, nvqs, vqs, callbacks, names, true, true);
+	if (!err)
+		return 0;
+	/* Fallback: MSI-X with one vector for config, one shared for queues. */
+	err = vp_try_to_find_vqs(vdev, nvqs, vqs, callbacks, names,
+				 true, false);
+	if (!err)
+		return 0;
+	/* Finally fall back to regular interrupts. */
+	return vp_try_to_find_vqs(vdev, nvqs, vqs, callbacks, names,  ------》这里
+				  false, false);
+}
+
+
+static int vp_try_to_find_vqs(struct virtio_device *vdev, unsigned nvqs,
+			      struct virtqueue *vqs[],
+			      vq_callback_t *callbacks[],
+			      const char *names[],
+			      bool use_msix,
+			      bool per_vq_vectors)
+{
+。。。。。。
+		vqs[i] = setup_vq(vdev, i, callbacks[i], names[i], msix_vec); ---->here
+
+。。。。。。
+}
+
+
+static struct virtqueue *setup_vq(struct virtio_device *vdev, unsigned index,
+				  void (*callback)(struct virtqueue *vq),
+				  const char *name,
+				  u16 msix_vec)
+{
+.....
+	/* create the vring */
+	vq = vring_new_virtqueue(index, info->num, VIRTIO_PCI_VRING_ALIGN, vdev,
+				 true, info->queue, vp_notify, callback, name); ------->here 挂接上了 vp_notify 给了 vq->notify
+
+.....
+
+}
+
+struct virtqueue *vring_new_virtqueue(unsigned int index,
+				      unsigned int num,
+				      unsigned int vring_align,
+				      struct virtio_device *vdev,
+				      bool weak_barriers,
+				      void *pages,
+				      void (*notify)(struct virtqueue *),
+				      void (*callback)(struct virtqueue *),
+				      const char *name)
+{
+
+
+	vq->notify = notify; ----->这里进行了挂接操作。挂接的就是 vp_notify。
+
+}
+
+后记1：有关Vring和上面这部分notify的机制可以参考 http://www.ibm.com/developerworks/cn/linux/1402_caobb_virtio/
+
+后记2：搜索 virtio_config_ops 可以找到代码中所有 类型的 虚拟设备 的ops，进而也就知道了设备的notify函数。
+---- virtio_config_ops Matches (9 in 8 files) ----
+Kvm_virtio.c (z:\home\apuser\multi-os\kernel\drivers\s390\kvm):static const struct virtio_config_ops kvm_vq_configspace_ops = {
+Lguest_device.c (z:\home\apuser\multi-os\kernel\drivers\lguest):static const struct virtio_config_ops lguest_config_ops = {
+Remoteproc_virtio.c (z:\home\apuser\multi-os\kernel\drivers\remoteproc):static const struct virtio_config_ops rproc_virtio_config_ops = {
+Virtio.h (z:\home\apuser\multi-os\kernel\include\linux):	const struct virtio_config_ops *config;
+Virtio_ccw.c (z:\home\apuser\multi-os\kernel\drivers\s390\kvm):static struct virtio_config_ops virtio_ccw_config_ops = {
+Virtio_config.h (z:\home\apuser\multi-os\kernel\include\linux): * virtio_config_ops - operations for configuring a virtio device
+Virtio_config.h (z:\home\apuser\multi-os\kernel\include\linux):struct virtio_config_ops {
+Virtio_mmio.c (z:\home\apuser\multi-os\kernel\drivers\virtio):static const struct virtio_config_ops virtio_mmio_config_ops = {
+Virtio_pci.c (z:\home\apuser\multi-os\kernel\drivers\virtio):static const struct virtio_config_ops virtio_pci_config_ops = {
+
+
+=========================================================================================
+
+进一步，找到挂接的哪个notify函数后， notify函数都干了些什么呢？
+
+/* the notify function used when creating a virt queue */
+static void vp_notify(struct virtqueue *vq)
+{
+	struct virtio_pci_device *vp_dev = to_vp_device(vq->vdev);
+
+	/* we write the queue's selector into the notification register to  ---》这里说的很clear了，就是
+	 * signal the other end */         ----》写一个queue id给nofity寄存器，告知另外一端。
+	iowrite16(vq->index, vp_dev->ioaddr + VIRTIO_PCI_QUEUE_NOTIFY); ------就是向PCI配置空间的一个子成员，写了一个vq->index值。
+}
+
+=========================================================================================
+
+进一步，guest退出后，返回到kvm的代码arm.c int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu, struct kvm_run *run)
+
+我们说，guest返回到kvm后，kvm和qemu是绑定的，而且kvm是内核态的程序，kvm捕获这种异常后，肯定会交给用户态的qemu来
+做进一步处理，也就是会到qemu的进程 main_loop_wait。
+
+然后下面的处理，参考另外一个文档  QemuNet模块都包含有哪些初始化以及报文转发时各自的功能4.txt
+

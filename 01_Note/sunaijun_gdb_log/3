@@ -1,0 +1,462 @@
+ 2554 ?        Ss     0:00 ssh-agent
+ssh-agent added
+~/a.multi-os$ cd ..
+~$ 
+~$ 
+~$ ps
+  PID TTY          TIME CMD
+17058 pts/5    00:00:00 bash
+26325 pts/5    00:00:00 ps
+~$ 
+~$ 
+~$ 
+~$ 
+~$ 
+~$ sudo adb root
+~$ 
+~$ 
+~$ iperf -c 192.168.1.101 -u -P 1 -i 5 -p 5001 -f k -b 10M -t 10 -T 1
+------------------------------------------------------------
+Client connecting to 192.168.1.101, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.1.101 port 38327 connected with 192.168.1.101 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0- 5.0 sec  3050 KBytes  4997 Kbits/sec
+[  3]  5.0-10.0 sec  3050 KBytes  4997 Kbits/sec
+[  3]  0.0-10.0 sec  6101 KBytes  4997 Kbits/sec
+[  3] Sent 8505 datagrams
+read failed: Connection refused
+[  3] WARNING: did not receive ack of last datagram after 2 tries.
+~$ 
+~$ 
+~$ 
+~$ iperf -c 192.168.1.101 -u -P 1 -i 5 -p 5001 -f k -b 10M -t 10 -T 1
+------------------------------------------------------------
+Client connecting to 192.168.1.101, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  3] local 192.168.1.101 port 36000 connected with 192.168.1.101 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0- 5.0 sec  3050 KBytes  4997 Kbits/sec
+[  3]  5.0-10.0 sec  3050 KBytes  4997 Kbits/sec
+[  3]  0.0-10.0 sec  6101 KBytes  4997 Kbits/sec
+[  3] Sent 8505 datagrams
+read failed: Connection refused
+[  3] WARNING: did not receive ack of last datagram after 2 tries.
+~$ iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size:  256 KByte (WARNING: requested  256 KByte)
+------------------------------------------------------------
+[  4] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48147
+[  5] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48148
+[  6] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48149
+[  7] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48150
+[  8] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48151
+[  9] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48152
+[ 10] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48153
+[ 11] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48154
+[ 12] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48155
+[ 13] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48156
+[ 14] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48157
+[ 15] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48158
+[ 16] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48159
+[ 17] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48160
+[ 18] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48161
+[ 19] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48162
+[ 20] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48163
+[ 21] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48164
+[ 22] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48165
+[ 23] local 192.168.1.101 port 5001 connected with 192.168.1.100 port 48166
+[ ID] Interval       Transfer     Bandwidth
+[ 19]  0.0-10.0 sec  2882 KBytes  2361 Kbits/sec
+[ 20]  0.0-10.0 sec  2751 KBytes  2253 Kbits/sec
+[  7]  0.0-10.0 sec   296 KBytes   242 Kbits/sec
+[ 12]  0.0-10.0 sec  46.7 KBytes  38.2 Kbits/sec
+[  6]  0.0-10.0 sec   234 KBytes   191 Kbits/sec
+[  4]  0.0-10.0 sec  26.9 KBytes  22.0 Kbits/sec
+[ 23]  0.0-10.0 sec   349 KBytes   286 Kbits/sec
+[ 14]  0.0-10.0 sec   365 KBytes   299 Kbits/sec
+[ 17]  0.0-10.0 sec  2506 KBytes  2053 Kbits/sec
+[ 10]  0.0-10.0 sec  2909 KBytes  2383 Kbits/sec
+[ 10]  0.0-12.3 sec  3200 KBytes  2125 Kbits/sec
+[ 19]  0.0-12.4 sec  3200 KBytes  2123 Kbits/sec
+[ 17]  0.0-12.5 sec  2880 KBytes  1889 Kbits/sec
+[ 22]  0.0-10.0 sec   180 KBytes   147 Kbits/sec
+[ 11]  0.0-10.0 sec  92.2 KBytes  75.5 Kbits/sec
+[ 15]  0.0-10.0 sec   228 KBytes   187 Kbits/sec
+[ 16]  0.0-10.0 sec  1066 KBytes   873 Kbits/sec
+[ 20]  0.0-13.1 sec  3200 KBytes  2004 Kbits/sec
+[ 23]  0.0-13.2 sec   960 KBytes   597 Kbits/sec
+[ 14]  0.0-13.3 sec   960 KBytes   590 Kbits/sec
+[SUM]  0.0-13.3 sec  28331 KBytes  17415 Kbits/sec
+[ 18]  0.0-10.0 sec  1473 KBytes  1207 Kbits/sec
+[ 21]  0.0-10.0 sec  1535 KBytes  1257 Kbits/sec
+[  7]  0.0-14.3 sec   960 KBytes   548 Kbits/sec
+[ 13]  0.0-10.0 sec   119 KBytes  97.4 Kbits/sec
+[  5]  0.0-10.0 sec  75.0 KBytes  61.4 Kbits/sec
+[  9]  0.0-10.0 sec  28.3 KBytes  23.2 Kbits/sec
+[  8]  0.0-10.0 sec  45.3 KBytes  37.1 Kbits/sec
+[ 13]  0.0-16.9 sec   640 KBytes   310 Kbits/sec
+[  4]  0.0-16.9 sec   640 KBytes   310 Kbits/sec
+[ 11]  0.0-17.0 sec   640 KBytes   309 Kbits/sec
+[  6]  0.0-17.5 sec   640 KBytes   300 Kbits/sec
+[ 12]  0.0-17.9 sec   640 KBytes   294 Kbits/sec
+[ 15]  0.0-19.6 sec   960 KBytes   402 Kbits/sec
+[ 22]  0.0-19.9 sec   960 KBytes   395 Kbits/sec
+[ 16] 10.0-20.0 sec   532 KBytes   435 Kbits/sec
+[ 16]  0.0-20.0 sec  1600 KBytes   655 Kbits/sec
+[  8] 10.0-20.0 sec  82.0 KBytes  67.2 Kbits/sec
+[ 18] 10.0-20.0 sec   259 KBytes   212 Kbits/sec
+[ 21] 10.0-20.0 sec   257 KBytes   211 Kbits/sec
+[ 21]  0.0-21.9 sec  2240 KBytes   837 Kbits/sec
+[ 18]  0.0-22.2 sec  2240 KBytes   828 Kbits/sec
+[  9] 10.0-20.0 sec   311 KBytes   255 Kbits/sec
+[  5] 10.0-20.0 sec   264 KBytes   217 Kbits/sec
+[  8]  0.0-24.0 sec   640 KBytes   218 Kbits/sec
+[  9]  0.0-24.2 sec   640 KBytes   217 Kbits/sec
+[  5]  0.0-24.3 sec   640 KBytes   216 Kbits/sec
+[SUM]  0.0-24.3 sec  17355 KBytes  5861 Kbits/sec
+^C~$ ^C
+~$ ^C
+~$ 
+~$ 
+~$ sudo 
+^Cusage: sudo [-D level] -h | -K | -k | -V
+usage: sudo -v [-AknS] [-D level] [-g groupname|#gid] [-p prompt] [-u user name|#uid]
+usage: sudo -l[l] [-AknS] [-D level] [-g groupname|#gid] [-p prompt] [-U user name] [-u user name|#uid] [-g groupname|#gid] [command]
+usage: sudo [-AbEHknPS] [-C fd] [-D level] [-g groupname|#gid] [-p prompt] [-u user name|#uid] [-g groupname|#gid] [VAR=value] [-i|-s]
+            [<command>]
+usage: sudo -e [-AknS] [-C fd] [-D level] [-g groupname|#gid] [-p prompt] [-u user name|#uid] file ...
+~$ 
+~$ 
+~$ 
+~$ sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+Password: 
+~$ 
+~$ 
+~$ cd multi-os/out/target/product/scx35l_sp9630ea/
+~/multi-os/out/target/product/scx35l_sp9630ea$ ls
+android-info.txt              boot.img        fake_packages        previous_build_config.mk  recovery      system
+bak_20150501_host_tx_disable  clean_steps.mk  installed-files.txt  prodnv                    recovery.img  system.img
+bak_20150504_disable_iptable  data            kernel               ramdisk.img               root
+bak_20150505_test_net_ok      dt.img          obj                  ramdisk-recovery.img      symbols
+~/multi-os/out/target/product/scx35l_sp9630ea$ 
+~/multi-os/out/target/product/scx35l_sp9630ea$ 
+~/multi-os/out/target/product/scx35l_sp9630ea$ ps -A|grep telnet
+ 9434 pts/2    00:00:00 telnet
+ 9574 pts/7    00:00:00 telnet
+~/multi-os/out/target/product/scx35l_sp9630ea$ sudo killall telnet
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb forward tcp:1238 tcp:1238
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb forward tcp:1235 tcp:1235
+~/multi-os/out/target/product/scx35l_sp9630ea$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+
+
+Connection closed by foreign host.
+~/multi-os/out/target/product/scx35l_sp9630ea$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+[    4.418053] c0 jffs2: version 2.2. (NAND) © 2001-2006 Red Hat, Inc.
+[    4.486031] c0 msgmni has been set to 747
+[    4.614832] c0 io scheduler noop registered (default)
+[    4.683507] c0  enter into sprd_virt_backlight_probe
+[    4.702370] c0 ----sprd_virt_backlight : 99 0x1c1d0000 0xf81d0000-----
+[    4.752652] c0 success to register backlight device
+[    4.807411] c0 [SPRD_VIRT_BACKLIGHT_DBG] user requested brightness = 127, caculated brightness = 127
+[    4.852953] c0 sprd_virtfb_probe, id = -1
+[    4.856654] c0 setup_virtfb_mem: smem_start=18000000, size=4096, screen_base=0xd88ac000
+[    4.883152] c0 setup_virtfb_mem: smem_start=18000000, size=4608000, screen_base=0xd9000000
+[    5.416929] c3 ion_init,result:0
+[    5.444947] c3  vda: unknown partition table
+[    5.671379] c3 smsc911x: Driver version 2008-10-21
+[    5.682796] c3 smsc911x 1a000000.ethernet (unregistered net_device): couldn't get clock -2
+[    5.912290] c3 smsc911x: Device not READY in 100ms aborting
+[    5.949645] c3 nxp-isp1760 1b000000.usb: NXP ISP1760 USB Host Controller
+[    5.956598] c3 nxp-isp1760 1b000000.usb: new USB bus registered, assigned bus number 1
+[    5.962342] c3 nxp-isp1760 1b000000.usb: Scratch test failed.
+[    5.965927] c3 nxp-isp1760 1b000000.usb: can't setup
+[    5.990977] c3 nxp-isp1760 1b000000.usb: USB bus 1 deregistered
+[    6.097434] c3 usbcore: registered new interface driver usb-storage
+[    6.106367] c3 mousedev: PS/2 mouse device common for all mice
+[    6.126602] c3 ---------goldfish events probe!!!-------------------
+[    6.130819] c3 ----goldfish events : 188 -----
+[    6.133346] c3 ----goldfish events : 193 0x1c1b0000 0xf81b0000-----
+[    6.150157] c3 ----goldfish events : 198 -----
+[    6.196440] c3 input: sprdinput as /devices/platform/goldfish_events/input/input0
+[    6.226717] c3 input: accelerometer as /devices/platform/sprd_virt_gsensor/input/input1
+[    6.278849] c3 input: alps_pxy as /devices/platform/sprd_virt_lpsensor/input/input2
+[    6.412714] c3 rtc-pl031 1c170000.rtc: rtc core: registered pl031 as rtc0
+[    6.491249] c3 sprdfgu_virt_init end
+[    6.542681] c3 [sprd_virt_power.c]: sprd_virt_battery_probe has been finished...
+[    6.611681] c1 mmci-pl18x 1c050000.mmci: mmc0: PL181 manf 41 rev0 at 0x1c050000 irq 41,42 (pio)
+[    6.689120] c1 *** register_pm_notifier, nb->notifier_call:mmc_pm_notify ***
+[    6.832872] c1 usbcore: registered new interface driver usbhid
+[    6.915431] c1 usbhid: USB HID core driver
+[    6.946239] c1 ashmem: initialized
+[    6.989607] c1 logger: created 256K log 'log_main'
+[    7.001651] c1 logger: created 256K log 'log_events'
+[    7.044467] c1 logger: created 256K log 'log_radio'
+[    7.093900] c1 logger: created 256K log 'log_system'
+[    7.283173] c1 aaci-pl041 1c040000.aaci: ARM AC'97 Interface PL041 rev0 at 0x1c040000, irq 43
+[    7.288511] c1 aaci-pl041 1c040000.aaci: FIFO 512 entries
+[    7.507649] c1 oprofile: using timer interrupt.
+[    7.516152] c1 TCP: cubic registered
+[    7.576227] c3 NET: Registered protocol family 10
+[    7.609551] c3 NET: Registered protocol family 17
+[    7.659104] VFP support v0.3: implementor 41 architecture 2 part 30 variant 7 rev 5
+[    7.896183] c3 rtc-pl031 1c170000.rtc: setting system clock to 2012-01-01 01:35:25 UTC (1325381725)
+[    7.954821] c3 ALSA device list:
+[    7.959184] c3   #0: ARM AC'97 Interface PL041 rev0 at 0x1c040000, irq 43
+[    7.983461] c0 EXT3-fs (vda): error: couldn't mount because of unsupported optional features (240)
+[    8.043324] c0 EXT2-fs (vda): error: couldn't mount because of unsupported optional features (244)
+[    8.806478] c0 EXT4-fs (vda): recovery complete
+[    8.815715] c0 EXT4-fs (vda): mounted filesystem with ordered data mode. Opts: (null)
+[    8.820660] c0 VFS: Mounted root (ext4 filesystem) on device 254:0.
+[    8.835478] c0 Freeing unused kernel memory: 204K (c0528000 - c055b000)
+[    8.892700] c0 init: property init
+[    8.907458] c0 init: reading config file
+[    8.921879] init: found import '/init.environ.rc', adding to import listinit: found import '/init.usb.rc', adding to import listinit: found import '/init.vshark.rc', adding to import listinit: found import '/init.trace.rc', adding to import listinit: /init.rc: 223: invalid command '/*'
+[    9.016938] init: importing '/init.environ.rc'init: importing '/init.usb.rc'init: importing '/init.vshark.rc'init: found import '/init.board.rc', adding to import listinit: found import '/init.vshark.usb.rc', adding to import listinit: importing '/init.board.rc'init: importing '/init.vshark.usb.rc'init: could not import file '/init.vshark.usb.rc' from '/init.vshark.rc'
+[    9.096573] init: importing '/init.trace.rc'init: processing action 0x3e220 (early-init)
+[    9.125239] c0 init (1): /proc/1/oom_adj is deprecated, please use /proc/1/oom_score_adj instead.
+[    9.169796] c0 init: command 'write' r=0
+[    9.172656] c0 init: command 'setcon' r=0
+[    9.177458] c0 init: starting 'ueventd'
+[    9.228482] c0 init: command 'start' r=0
+[    9.233013] c0 init: command 'mkdir' r=0
+[    9.236326] c0 init: processing action 0x459c0 (early-init)
+[    9.265397] c0 init: command 'mount' r=0
+[    9.277918] c0 init: command 'export' r=0
+[    9.281518] c0 init: command 'export' r=0
+[    9.284800] c0 init: command 'setrlimit' r=0
+[    9.297384] c0 init: command 'write' r=0
+[    9.299824] c0 init: processing action 0x47f90 (wait_for_coldboot_done)
+[    9.303683] c0 init: wait for /dev/.coldboot_done
+[   11.451605] c1 init: command 'wait_for_coldboot_done' r=0
+[   11.475380] c1 init: processing action 0x47fd8 (mix_hwrng_into_linux_rng)
+[   11.479399] c1 init: /dev/hw_random not found
+[   11.502119] c1 init: command 'mix_hwrng_into_linux_rng' r=0
+[   11.506227] c1 init: processing action 0x48020 (keychord_init)
+[   11.511347] c1 init: command 'keychord_init' r=0
+[   11.514369] c1 init: processing action 0x48068 (console_init)
+[   11.521137] c1 init: cannot open '/initlogo.rle'
+[   11.524357] c1 init: command 'console_init' r=0
+[   11.527130] c1 init: processing action 0x3e2e8 (init)
+[   11.530355] c1 init: command 'sysclktz' r=0
+[   11.684107] c0 init: /dev/hw_random not found
+[   11.872287] c0 init: cannot find '/system/bin/rild', disabling 'ril-daemon'
+[   11.931201] c0 init: cannot find '/system/etc/install-recovery.sh', disabling 'flash_recovery'
+[   12.322662] c1 binder: 901:901 transaction failed 29189, size 0-0
+[   12.588464] c1 init: cannot execve('/system/bin/telnetd_start.sh'): Permission denied
+[   12.818963] c3 init: property 'sys.powerctl' doesn't exist while expanding '${sys.powerctl}'
+[   12.827225] c3 init: powerctl: cannot expand '${sys.powerctl}'
+[   12.830627] c3 init: property 'sys.sysctl.extra_free_kbytes' doesn't exist while expanding '${sys.sysctl.extra_free_kbytes}'
+[   12.902876] c3 init: cannot expand '${sys.sysctl.extra_free_kbytes}' while writing to '/proc/sys/vm/extra_free_kbytes'
+[   12.960162] c2 init: property 'sys.sysctl.tcp_def_init_rwnd' doesn't exist while expanding '${sys.sysctl.tcp_def_init_rwnd}'
+[   12.985547] c2 init: cannot expand '${sys.sysctl.tcp_def_init_rwnd}' while writing to '/proc/sys/net/ipv4/tcp_default_init_rwnd'
+[   13.004231] c0 warning: `dhcpcd' uses 32-bit capabilities (legacy support in use)
+[   13.716280] c0 healthd: battery l=70 v=3953 t=20.0 h=2 st=2 chg=u
+root@vshark:/ # [   28.634852] c1 healthd: battery l=70 v=3948 t=20.0 h=2 st=2 chg=u
+[   37.448104] c2 healthd: battery l=70 v=3950 t=20.0 h=2 st=2 chg=u
+[   46.518939] c2 healthd: battery l=70 v=3950 t=20.0 h=2 st=2 chg=u
+[   46.596093] c2 request_suspend_state: wakeup (3->0) at 45032112352 (2012-01-01 01:36:04.669950895 UTC)
+[   49.558529] c2 init: no such service 'wpa_supplicant'
+[   55.030114] c2 init: no such service 'wpa_supplicant'
+
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # [   58.286768] c2 healthd: battery l=70 v=3944 t=20.0 h=2 st=2 chg=u
+
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # [   73.204716] c1 healthd: battery l=70 v=3950 t=20.0 h=2 st=2 chg=u
+
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # 
+130|root@vshark:/ # [   96.728883] c1 healthd: battery l=70 v=3944 t=20.0 h=2 st=2 chg=u
+[  102.943087] c1 healthd: battery l=70 v=3953 t=20.0 h=2 st=2 chg=u
+[  117.723013] c1 healthd: battery l=70 v=3945 t=20.0 h=2 st=2 chg=u
+Connection closed by foreign host.
+~/multi-os/out/target/product/scx35l_sp9630ea$ sudo adb root
+error: device not found
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb root
+error: device not found
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb root
+error: device not found
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb root
+~/multi-os/out/target/product/scx35l_sp9630ea$ sudo adb root^C
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb forward tcp:1238 tcp:1238
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb root
+adbd is already running as root
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb forward tcp:1238 tcp:1238
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb forward tcp:1235 tcp:1235
+~/multi-os/out/target/product/scx35l_sp9630ea$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+Connection closed by foreign host.
+~/multi-os/out/target/product/scx35l_sp9630ea$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+Connection closed by foreign host.
+~/multi-os/out/target/product/scx35l_sp9630ea$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+[    1.841073] c0 EXT4-fs (vda): recovery complete
+[    1.847135] c0 EXT4-fs (vda): mounted filesystem with ordered data mode. Opts: (null)
+[    1.849989] c0 VFS: Mounted root (ext4 filesystem) on device 254:0.
+[    1.852369] c0 Freeing unused kernel memory: 204K (c0528000 - c055b000)
+[    1.901800] c0 init: property init
+[    1.906436] c0 init: reading config file
+[    1.909553] init: found import '/init.environ.rc', adding to import listinit: found import '/init.usb.rc', adding to import listinit: found import '/init.vshark.rc', adding to import listinit: found import '/init.trace.rc', adding to import listinit: /init.rc: 223: invalid command '/*'
+[    1.922701] init: importing '/init.environ.rc'init: importing '/init.usb.rc'init: importing '/init.vshark.rc'init: found import '/init.board.rc', adding to import listinit: found import '/init.vshark.usb.rc', adding to import listinit: importing '/init.board.rc'init: importing '/init.vshark.usb.rc'init: could not import file '/init.vshark.usb.rc' from '/init.vshark.rc'
+[    1.944221] init: importing '/init.trace.rc'init: processing action 0x3e220 (early-init)
+[    1.949546] c0 init (1): /proc/1/oom_adj is deprecated, please use /proc/1/oom_score_adj instead.
+[    1.954206] c0 init: command 'write' r=0
+[    1.956265] c0 init: command 'setcon' r=0
+[    1.958820] c0 init: starting 'ueventd'
+[    1.961189] c0 init: command 'start' r=0
+[    1.964618] c0 init: command 'mkdir' r=0
+[    1.967148] c0 init: processing action 0x459c0 (early-init)
+[    1.970723] c0 init: command 'mount' r=0
+[    1.973089] c0 init: command 'export' r=0
+[    1.974954] c0 init: command 'export' r=0
+[    1.977561] c0 init: command 'setrlimit' r=0
+[    1.980441] c0 init: command 'write' r=0
+[    1.982341] c0 init: processing action 0x47f90 (wait_for_coldboot_done)
+[    1.985966] c0 init: wait for /dev/.coldboot_done
+[    2.162139] c0 init: command 'wait_for_coldboot_done' r=0
+[    2.166503] c0 init: processing action 0x47fd8 (mix_hwrng_into_linux_rng)
+[    2.169829] c0 init: /dev/hw_random not found
+[    2.172109] c0 init: command 'mix_hwrng_into_linux_rng' r=0
+[    2.174873] c0 init: processing action 0x48020 (keychord_init)
+[    2.177302] c0 init: command 'keychord_init' r=0
+[    2.179252] c0 init: processing action 0x48068 (console_init)
+[    2.182753] c0 init: cannot open '/initlogo.rle'
+[    2.185094] c0 init: command 'console_init' r=0
+[    2.187532] c0 init: processing action 0x3e2e8 (init)
+[    2.189749] c0 init: command 'sysclktz' r=0
+[    2.251573] c0 init: /dev/hw_random not found
+[    2.331118] c1 binder: 895:895 transaction failed 29189, size 0-0
+[    2.339097] c0 init: cannot find '/system/bin/rild', disabling 'ril-daemon'
+[    2.341760] c0 init: cannot find '/system/etc/install-recovery.sh', disabling 'flash_recovery'
+[    2.352486] c3 init: cannot execve('/system/bin/telnetd_start.sh'): Permission denied
+[    2.382873] c0 init: property 'sys.powerctl' doesn't exist while expanding '${sys.powerctl}'
+[    2.400759] c2 init: powerctl: cannot expand '${sys.powerctl}'
+[    2.403228] c2 init: property 'sys.sysctl.extra_free_kbytes' doesn't exist while expanding '${sys.sysctl.extra_free_kbytes}'
+[    2.407175] c2 init: cannot expand '${sys.sysctl.extra_free_kbytes}' while writing to '/proc/sys/vm/extra_free_kbytes'
+[    2.411253] c2 init: property 'sys.sysctl.tcp_def_init_rwnd' doesn't exist while expanding '${sys.sysctl.tcp_def_init_rwnd}'
+[    2.415166] c2 init: cannot expand '${sys.sysctl.tcp_def_init_rwnd}' while writing to '/proc/sys/net/ipv4/tcp_default_init_rwnd'
+[    2.851659] c0 warning: `rilproxy' uses 32-bit capabilities (legacy support in use)
+root@vshark:/ # Connection closed by foreign host.
+~/multi-os/out/target/product/scx35l_sp9630ea$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+[   85.818026] c1 healthd: battery l=73 v=4008 t=20.0 h=2 st=2 chg=u
+Connection closed by foreign host.
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb forward tcp:1238 tcp:1238
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb forward tcp:1235 tcp:1235
+~/multi-os/out/target/product/scx35l_sp9630ea$ adb forward tcp:1235 tcp:1235
+~/multi-os/out/target/product/scx35l_sp9630ea$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+
+root@vshark:/ # [   17.389013] c0 healthd: battery l=73 v=3969 t=20.0 h=2 st=2 chg=u
+
+root@vshark:/ # 
+root@vshark:/ # 
+root@vshark:/ # [   21.225449] c2 init: no such service 'wpa_supplicant'
+[   32.265178] c0 healthd: battery l=74 v=4005 t=20.0 h=2 st=2 chg=u
+[   61.974969] c0 healthd: battery l=74 v=4010 t=20.0 h=2 st=2 chg=u
+[   67.151617] c0 healthd: battery l=74 v=4008 t=20.0 h=2 st=2 chg=u
+Connection closed by foreign host.
+~/multi-os/out/target/product/scx35l_sp9630ea$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+Connection closed by foreign host.
+~/multi-os/out/target/product/scx35l_sp9630ea$ ^C
+~/multi-os/out/target/product/scx35l_sp9630ea$ ^C
+(reverse-i-search)`for': adb ^Crward tcp:1235 tcp:1235
+~/multi-os/out/target/product/scx35l_sp9630ea$ cd 
+~$ 
+~$ adb forward tcp:1238 tcp:1238
+~$ adb forward tcp:1235 tcp:1235
+~$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+Connection closed by foreign host.
+~$ telnet 127.0.0.1 1235
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+[    2.442448] c0 EXT4-fs (vda): recovery complete
+[    2.451384] c0 EXT4-fs (vda): mounted filesystem with ordered data mode. Opts: (null)
+[    2.458029] c0 VFS: Mounted root (ext4 filesystem) on device 254:0.
+[    2.465894] c0 Freeing unused kernel memory: 204K (c0528000 - c055b000)
+[    2.515858] c0 init: property init
+[    2.522243] c0 init: reading config file
+[    2.528192] init: found import '/init.environ.rc', adding to import listinit: found import '/init.usb.rc', adding to import listinit: found import '/init.vshark.rc', adding to import listinit: found import '/init.trace.rc', adding to import listinit: /init.rc: 223: invalid command '/*'
+[    2.558592] init: importing '/init.environ.rc'init: importing '/init.usb.rc'init: importing '/init.vshark.rc'init: found import '/init.board.rc', adding to import listinit: found import '/init.vshark.usb.rc', adding to import listinit: importing '/init.board.rc'init: importing '/init.vshark.usb.rc'init: could not import file '/init.vshark.usb.rc' from '/init.vshark.rc'
+[    2.608524] init: importing '/init.trace.rc'init: processing action 0x3e220 (early-init)
+[    2.618900] c0 init (1): /proc/1/oom_adj is deprecated, please use /proc/1/oom_score_adj instead.
+[    2.623568] c0 init: command 'write' r=0
+[    2.627756] c0 init: command 'setcon' r=0
+[    2.631273] c0 init: starting 'ueventd'
+[    2.634449] c0 init: command 'start' r=0
+[    2.642647] c0 init: command 'mkdir' r=0
+[    2.646578] c0 init: processing action 0x459c0 (early-init)
+[    2.655131] c0 init: command 'mount' r=0
+[    2.657930] c0 init: command 'export' r=0
+[    2.661306] c0 init: command 'export' r=0
+[    2.665963] c0 init: command 'setrlimit' r=0
+[    2.672768] c0 init: command 'write' r=0
+[    2.678273] c0 init: processing action 0x47f90 (wait_for_coldboot_done)
+[    2.685922] c0 init: wait for /dev/.coldboot_done
+[    2.832915] c0 init: command 'wait_for_coldboot_done' r=0
+[    2.841533] c0 init: processing action 0x47fd8 (mix_hwrng_into_linux_rng)
+[    2.846883] c0 init: /dev/hw_random not found
+[    2.852849] c0 init: command 'mix_hwrng_into_linux_rng' r=0
+[    2.860806] c0 init: processing action 0x48020 (keychord_init)
+[    2.867390] c0 init: command 'keychord_init' r=0
+[    2.872511] c0 init: processing action 0x48068 (console_init)
+[    2.882056] c0 init: cannot open '/initlogo.rle'
+[    2.887286] c0 init: command 'console_init' r=0
+[    2.894445] c0 init: processing action 0x3e2e8 (init)
+[    2.897340] c0 init: command 'sysclktz' r=0
+[    2.965007] c0 init: /dev/hw_random not found
+[    3.014985] c3 binder: 900:900 transaction failed 29189, size 0-0
+[    3.025745] c0 init: cannot find '/system/bin/rild', disabling 'ril-daemon'
+[    3.040561] c0 init: cannot find '/system/etc/install-recovery.sh', disabling 'flash_recovery'
+[    3.053398] c1 init: cannot execve('/system/bin/telnetd_start.sh'): Permission denied
+[    3.185251] c0 init: property 'sys.powerctl' doesn't exist while expanding '${sys.powerctl}'
+[    3.191427] c0 init: powerctl: cannot expand '${sys.powerctl}'
+[    3.198649] c0 init: property 'sys.sysctl.extra_free_kbytes' doesn't exist while expanding '${sys.sysctl.extra_free_kbytes}'
+[    3.212486] c0 init: cannot expand '${sys.sysctl.extra_free_kbytes}' while writing to '/proc/sys/vm/extra_free_kbytes'
+[    3.219804] c0 init: property 'sys.sysctl.tcp_def_init_rwnd' doesn't exist while expanding '${sys.sysctl.tcp_def_init_rwnd}'
+[    3.230643] c0 init: cannot expand '${sys.sysctl.tcp_def_init_rwnd}' while writing to '/proc/sys/net/ipv4/tcp_default_init_rwnd'
+[    3.443835] c2 warning: `dhcpcd' uses 32-bit capabilities (legacy support in use)
+[    3.443839] c0 warning: `rilproxy' uses 32-bit capabilities (legacy support in use)
+root@vshark:/ # 
+

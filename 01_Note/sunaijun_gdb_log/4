@@ -1,0 +1,1345 @@
+ 2554 ?        Ss     0:00 ssh-agent
+ssh-agent added
+~/multi-os$ sudo adb forward tcp:1238 tcp:1238
+~/multi-os$ telnet 127.0.0.1 1238
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.
+
+^C^C^C^Z^Z^CTerminated
+~/multi-os$ ls
+abi     bootable  cts         development  external    ker.log  libnativehelper  minicom (copy).cap  packages   repo_init_log  tools
+art     build     dalvik      device       frameworks  kernel   Makefile         ndk                 pdk        sdk            u-boot
+bionic  chipram   developers  docs         hardware    libcore  minicom.cap      out                 prebuilts  system         vendor
+~/multi-os$ ll prebuilts/gcc/linux-x86/
+arm/  host/ mips/ x86/  
+~/multi-os$ ll prebuilts/gcc/linux-x86/
+arm/  host/ mips/ x86/  
+~/multi-os$ ll prebuilts/gcc/linux-x86/arm/
+arm-eabi-4.6/                       arm-linux-androideabi-4.6/          gcc-linaro-arm-linux-gnueabihf-4.8/
+arm-eabi-4.7/                       arm-linux-androideabi-4.7/          
+~/multi-os$ export PATH=$PATH: prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/
+bash: export: `prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/': not a valid identifier
+~/multi-os$ export PATH=$PATH:$PWD/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/
+~/multi-os$ cd vendor/sprd/qemu/
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm 
+GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+:1238: Connection timed out.
+(gdb) target remote :1238
+:1238: Connection timed out.
+(gdb) target remote :1238
+Remote debugging using :1238
+0x002da134 in __libc_csu_fini ()
+(gdb) b virtio_net_tx_bh
+Breakpoint 1 at 0x1a135c: file /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c, line 1291.
+(gdb) c
+Continuing.
+
+Program received signal SIGSEGV, Segmentation fault.
+0x00c61f60 in ?? ()
+(gdb) bt
+#0  0x00c61f60 in ?? ()
+#1  0x001a135e in virtio_net_tx_bh (opaque=0x12da340) at /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c:1291
+#2  0x001a135e in virtio_net_tx_bh (opaque=0x12da340) at /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c:1291
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) c
+Continuing.
+
+Program terminated with signal SIGSEGV, Segmentation fault.
+The program no longer exists.
+(gdb) target remote :1238
+Remote debugging using :1238
+0x00011b18 in _start ()
+(gdb) b virtio_net_tx_bh
+Note: breakpoint 1 also set at pc 0x1a135c.
+Breakpoint 2 at 0x1a135c: file /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c, line 1291.
+(gdb) c
+Continuing.
+
+Program received signal SIGSEGV, Segmentation fault.
+0x00c61f60 in ?? ()
+(gdb) bvt
+Undefined command: "bvt".  Try "help".
+(gdb) bt
+#0  0x00c61f60 in ?? ()
+#1  0x001a135e in virtio_net_tx_bh (opaque=0x13a97e8) at /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c:1291
+#2  0x001a135e in virtio_net_tx_bh (opaque=0x13a97e8) at /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c:1291
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb)  c
+Continuing.
+
+Program terminated with signal SIGSEGV, Segmentation fault.
+The program no longer exists.
+(gdb) q
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm 
+GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+Remote debugging using :1238
+0x00011b18 in _start ()
+(gdb) b virtio_net_tx_bh
+Breakpoint 1 at 0x1a135c: file /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c, line 1291.
+(gdb) c
+Continuing.
+
+Program received signal SIGSEGV, Segmentation fault.
+0x00c61f60 in ?? ()
+(gdb) bt
+#0  0x00c61f60 in ?? ()
+#1  0x001a135e in virtio_net_tx_bh (opaque=0x1f81590) at /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c:1291
+#2  0x001a135e in virtio_net_tx_bh (opaque=0x1f81590) at /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c:1291
+Backtrace stopped: previous frame identical to this frame (corrupt stack?)
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [process 1521] will be killed.
+
+Quit anyway? (y or n) y
+~/multi-os/vendor/sprd/qemu$ cd vendor/sprd/qemu/^C
+~/multi-os/vendor/sprd/qemu$ cd ../../..
+~/multi-os$ . build/envsetup.sh 
+including device/asus/grouper/vendorsetup.sh
+including device/asus/tilapia/vendorsetup.sh
+including device/asus/flo/vendorsetup.sh
+including device/asus/deb/vendorsetup.sh
+including device/sprd/scx15_sp8815ga/vendorsetup.sh
+including device/sprd/scx35_sp7731gea/vendorsetup.sh
+including device/sprd/scx35_sp7730ga/vendorsetup.sh
+including device/sprd/scx35_sp7731gea_fwvga/vendorsetup.sh
+including device/sprd/scx35l_coreprimelite/vendorsetup.sh
+including device/sprd/scx15_young2/vendorsetup.sh
+including device/sprd/scx35_sp8830gea/vendorsetup.sh
+including device/sprd/scx35_sp7731geaopenphone/vendorsetup.sh
+including device/sprd/scx15_sp7715ea/vendorsetup.sh
+including device/sprd/scx35_sp5735c1ea/vendorsetup.sh
+including device/sprd/scx35_sp7730gga/vendorsetup.sh
+including device/sprd/scx15_vivalto/vendorsetup.sh
+including device/sprd/scx35l_pikelfpga/vendorsetup.sh
+including device/sprd/scx15_sp6815ga/vendorsetup.sh
+including device/sprd/scx35l_sp9630ea3mn/vendorsetup.sh
+including device/sprd/scx15_sp7715ga/vendorsetup.sh
+including device/sprd/scx35_sp7731gea_lc/vendorsetup.sh
+including device/sprd/scx35l_sp9630ea_3592m_3mod/vendorsetup.sh
+including device/sprd/scx15_sp7715eaopenphone/vendorsetup.sh
+including device/sprd/scx35_sc9620fpga/vendorsetup.sh
+including device/sprd/scx35_sp8830ga/vendorsetup.sh
+including device/sprd/scx15_sp7715gatrisim/vendorsetup.sh
+including device/sprd/scx35_tsharkwsamsung/vendorsetup.sh
+including device/sprd/scx15_pocket2/vendorsetup.sh
+including device/sprd/vshark/vendorsetup.sh
+including device/sprd/scx35_kanas_w/vendorsetup.sh
+including device/sprd/scx35_sc9620openphone/vendorsetup.sh
+including device/sprd/scx35_sp5735ea/vendorsetup.sh
+including device/sprd/scx35_sp7730gga_lc/vendorsetup.sh
+including device/sprd/scx35_sp8830ec/vendorsetup.sh
+including device/sprd/scx35_sp7730ec/vendorsetup.sh
+including device/sprd/scx15_sp7715eatrisim/vendorsetup.sh
+including device/sprd/scx15_sp8815gaopenphone/vendorsetup.sh
+including device/sprd/scx35_sc9620openphone_zt/vendorsetup.sh
+including device/sprd/scx35l64_sptsharklfpga/vendorsetup.sh
+including device/sprd/scx35l_sp9630fpga/vendorsetup.sh
+including device/sprd/scx35l_sp9630ea/vendorsetup.sh
+including device/sprd/scx35_sp8730sea/vendorsetup.sh
+including device/sprd/scx35_pikeayoung2dtv/vendorsetup.sh
+including device/sprd/scx35l_sp9630ea_4mod/vendorsetup.sh
+including device/sprd/scx35_sp7731gga_lc/vendorsetup.sh
+including device/sprd/scx15_corsica_ve/vendorsetup.sh
+including device/sprd/scx35_sp7730ectrisim/vendorsetup.sh
+including device/sprd/scx35l_sp9630ea4mn/vendorsetup.sh
+including device/sprd/scx15_higgs/vendorsetup.sh
+including device/sprd/scx35_kanas_td/vendorsetup.sh
+including device/sprd/scx35_core3/vendorsetup.sh
+including device/sprd/scx35_sp7730ggaopenphone/vendorsetup.sh
+including device/sprd/scx35l_coreprimelite_marlin/vendorsetup.sh
+including device/samsung/manta/vendorsetup.sh
+including device/generic/x86/vendorsetup.sh
+including device/generic/armv7-a-neon/vendorsetup.sh
+including device/generic/mips/vendorsetup.sh
+including device/lge/mako/vendorsetup.sh
+including device/lge/hammerhead/vendorsetup.sh
+including vendor/sprd/open-source/vendorsetup.sh
+including sdk/bash_completion/adb.bash
+~/multi-os$ lunch
+
+You're building on Linux
+
+Lunch menu... pick a combo:
+     1. aosp_arm-eng
+     2. aosp_x86-eng
+     3. aosp_mips-eng
+     4. vbox_x86-eng
+     5. aosp_grouper-userdebug
+     6. aosp_tilapia-userdebug
+     7. aosp_flo-userdebug
+     8. aosp_deb-userdebug
+     9. scx15_sp8815gabase-userdebug
+     10. scx15_sp8815gaplus-userdebug
+     11. scx15_sp8815gacmccspecAplus_UUI-userdebug
+     12. scx35_sp7731geaplus-userdebug
+     13. scx35_sp7731geaplus_dt-userdebug
+     14. scx35_sp7731geacuccspecAplus_UUI-userdebug
+     15. scx35_sp7731geacuccspecAplus_UUI_dt-userdebug
+     16. scx35_sp7731geaplus_UUI_dt-userdebug
+     17. scx35_sp7731geaplus_UUI_Multilang_dt-userdebug
+     18. scx35_sp7731geacuccspecBplus_UUI_dt-userdebug
+     19. scx35_sp7731geacuccspecAplus_UUI_dt_origlaun-userdebug
+     20. scx35_sp7731geaplus_UUI_dt_origlaun-userdebug
+     21. scx35_sp7731geaplus_dt_origlaun-userdebug
+     22. scx35_sp7730gabase-userdebug
+     23. scx35_sp7730gaplus-userdebug
+     24. scx35_sp7730gacuccspecAplus_UUI-userdebug
+     25. scx35_sp7731gea_fwvgaplus-userdebug
+     26. scx35_sp7731gea_fwvgaplus_dt-userdebug
+     27. scx35_sp7731gea_fwvgaplus_UUI_dt-userdebug
+     28. scx35l_coreprimelite-userdebug
+     29. scx15_young2-userdebug
+     30. scx35_sp8830geabase-userdebug
+     31. scx35_sp8830geaplus-userdebug
+     32. scx35_sp8830geaplus_dt-userdebug
+     33. scx35_sp8830geacmccspecAplus_UUI-userdebug
+     34. scx35_sp8830geacmccspec5plus_UUI_dt-userdebug
+     35. scx35_sp8830geacmccspec5plus_UUI-userdebug
+     36. scx35_sp7731geaopenphoneplus_dt-userdebug
+     37. scx35_sp7731geaopenphonecuccspecAplus_UUI_dt-userdebug
+     38. scx15_sp7715eabase-userdebug
+     39. scx15_sp7715eaplus-userdebug
+     40. scx15_sp7715eacuccspecAplus_UUI-userdebug
+     41. scx15_sp7715eaplus_dt-userdebug
+     42. scx35_sp5735c1eabase-userdebug
+     43. scx35_sp5735c1eaplus-userdebug
+     44. scx35_sp5735c1eabase_UUI-userdebug
+     45. scx35_sp5735c1eaplus_UUI-userdebug
+     46. scx35_sp7730ggabase-userdebug
+     47. scx35_sp7730ggaplus-userdebug
+     48. scx35_sp7730ggaplus_dt-userdebug
+     49. scx35_sp7730ggacuccspecAplus_UUI-userdebug
+     50. scx35_sp7730ggacuccspecAplus_UUI_dt-userdebug
+     51. scx35_sp7730ggacuccspecBplus_UUI-userdebug
+     52. scx35_sp7730ggaplus_UUI-userdebug
+     53. scx35_sp7730ggacuccspecBplus_UUI_dt-userdebug
+     54. scx15_vivalto-userdebug
+     55. scx35l_pikelfpga-userdebug
+     56. scx15_sp6815gabase-userdebug
+     57. scx15_sp6815gaplus-userdebug
+     58. scx15_sp6815gaplus_UUI-userdebug
+     59. scx15_sp6815gatrisim-userdebug
+     60. scx35l_sp9630ea3mn_dt_plus_cmccspec3_UUI-userdebug
+     61. scx15_sp7715gabase-userdebug
+     62. scx15_sp7715gaplus-userdebug
+     63. scx15_sp7715gaplushvga-userdebug
+     64. scx15_sp7715gacuccspecAplus_UUI-userdebug
+     65. scx15_sp7715gaplus_UUIhvga-userdebug
+     66. scx35_sp7731gea_lcplus-userdebug
+     67. scx35_sp7731gea_lcplus_UUIFWVGA-userdebug
+     68. scx35l_sp9630ea_3592m_3mod-userdebug
+     69. scx35l_sp9630ea_3592m_3mod_dt-userdebug
+     70. scx35l_sp9630ea_3592m_3mod_dt_base-userdebug
+     71. scx35l_sp9630ea_3592m_3mod_dt_plus-userdebug
+     72. scx35l_sp9630ea_3592m_3mod_dt_base_cmccspec3_UUI-userdebug
+     73. scx35l_sp9630ea_3592m_3mod_dt_plus_cmccspec3_UUI-userdebug
+     74. scx35l_sp9630ea_3592m_3mod_dt_base_UUI-userdebug
+     75. scx15_sp7715eaopenphonebase-userdebug
+     76. scx15_sp7715eaopenphoneplus-userdebug
+     77. scx35_sc9620fpgabase-userdebug
+     78. scx35_sp8830gabase-userdebug
+     79. scx35_sp8830gaplus-userdebug
+     80. scx35_sp8830gacmccspecAplus_UUI-userdebug
+     81. scx15_sp7715gatrisim-userdebug
+     82. scx35_tsharkwsamsung-userdebug
+     83. scx35_tsharkwsamsung_dt-userdebug
+     84. scx15_pocket2-userdebug
+     85. vsharkffos-userdebug
+     86. scx35_kanas_w-userdebug
+     87. scx35_kanas_w_dt-userdebug
+     88. scx35_sc9620openphonebase-userdebug
+     89. scx35_sc9620openphonecsfbbase-userdebug
+     90. scx35_sc9620basecmccspec5_UUI-userdebug
+     91. scx35_sc9620openphonecsfbbase_UUI-userdebug
+     92. scx35_sp5735eabase-userdebug
+     93. scx35_sp5735eaplus-userdebug
+     94. scx35_sp5735eabase_UUI-userdebug
+     95. scx35_sp5735eaplus_UUI-userdebug
+     96. scx35_sp7730gga_lcplus_UUIFWVGA-userdebug
+     97. scx35_sp8830ecbase-userdebug
+     98. scx35_sp8830ecplus-userdebug
+     99. scx35_sp8830eccmccspecAplus_UUI-userdebug
+     100. scx35_sp8830eccmccspec5plus_UUI-userdebug
+     101. scx35_sp8830ecplus_dt-userdebug
+     102. scx35_sp7730ecbase-userdebug
+     103. scx35_sp7730ecplus-userdebug
+     104. scx35_sp7730eccuccspecBplus_UUI-userdebug
+     105. scx15_sp7715eatrisim-userdebug
+     106. scx15_sp8815gaopenphonebase-userdebug
+     107. scx15_sp8815gaopenphoneplus-userdebug
+     108. scx35_sc9620basecmccspec5_UUI_zt-userdebug
+     109. scx35_sc9620basecmccspec5_UUI_zt-user
+     110. scx35_sc9620basecmccspec3_UUI_zt-user
+     111. scx35_sc9620basecmccspec3_UUI_zt-userdebug
+     112. scx35l64_sptsharklfpga-userdebug
+     113. scx35l_sp9630fpga-userdebug
+     114. scx35l_sp9630fpga_dt-userdebug
+     115. scx35l_sp9630ea-userdebug
+     116. scx35l_sp9630ea_dt-userdebug
+     117. scx35l_sp9630ea_dt_base-userdebug
+     118. scx35l_sp9630ea_dt_plus-userdebug
+     119. scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+     120. scx35l_sp9630ea_dt_plus_cmccspec3_UUI-userdebug
+     121. scx35l_sp9630ea_dt_plus_cmccspec3_UUI_1350MHZ-userdebug
+     122. scx35l_sp9630ea_dt_base_UUI-userdebug
+     123. scx35l_sp9630ea_dt_plus_cmccspec3_UUI_nowcn-userdebug
+     124. scx35_sp8730seaplus_dt-userdebug
+     125. scx35_pikeayoung2dtv-userdebug
+     126. scx35_pikeayoung2dtv_dt-userdebug
+     127. scx35l_sp9630ea_4mod_dt_base_cuccspec_UUI-userdebug
+     128. scx35l_sp9630ea_4mod_dt_plus_cuccspec_UUI-userdebug
+     129. scx35_sp7731gga_lcplus-userdebug
+     130. scx35_sp7731gga_lcplus_dt-userdebug
+     131. scx35_sp7731gga_lcplus_UUIFWVGA-userdebug
+     132. scx35_sp7731gga_lcplus_UUIFWVGA_dt-userdebug
+     133. scx15_corsica_ve-userdebug
+     134. scx15_corsica_ve_0_1_A-userdebug
+     135. scx15_corsica_ve_dt-userdebug
+     136. scx35_sp7730ectrisim-userdebug
+     137. scx35l_sp9630ea4mn_dt_plus_cuccspec3_UUI-userdebug
+     138. scx35l_sp9630ea4mn_dt_plus_cuccspec3_UUI_1350MHZ-userdebug
+     139. scx15_higgs-userdebug
+     140. scx15_higgs_dt-userdebug
+     141. scx35_kanas_td-userdebug
+     142. scx35_core3-userdebug
+     143. scx35_sp7730ggaopenphoneplus-userdebug
+     144. scx35_sp7730ggaopenphonecuccspecAplus_UUI-userdebug
+     145. scx35l_coreprimelite_marlin-userdebug
+     146. aosp_manta-userdebug
+     147. mini_x86-userdebug
+     148. mini_armv7a_neon-userdebug
+     149. mini_mips-userdebug
+     150. aosp_mako-userdebug
+     151. aosp_hammerhead-userdebug
+
+Which would you like? [aosp_arm-eng] ^C
+~/multi-os$ lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=4.4.4
+TARGET_PRODUCT=scx35l_sp9630ea_dt_base_cmccspec3_UUI
+TARGET_BUILD_VARIANT=userdebug
+TARGET_BUILD_TYPE=release
+TARGET_BUILD_APPS=
+TARGET_ARCH=arm
+TARGET_ARCH_VARIANT=armv7-a-neon
+TARGET_CPU_VARIANT=cortex-a7
+HOST_ARCH=x86
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-3.5.0-23-generic-x86_64-with-Ubuntu-12.04-precise
+HOST_BUILD_TYPE=release
+BUILD_ID=KTU84P
+OUT_DIR=out
+============================================
+
+~/multi-os$ type cfgqemu 
+cfgqemu is a function
+cfgqemu () 
+{ 
+    T=$(gettop);
+    if [ ! "$T" ]; then
+        echo "Couldn't locate the top of the tree.  Try setting TOP.";
+        return;
+    fi;
+    QEMU_SRC=$T/vendor/sprd/qemu;
+    QEMU_CROSS_COMPILER=$T/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8;
+    cd $QEMU_SRC;
+    echo "Config QEMU";
+    make distclean;
+    ./configure --target-list=arm-softmmu --cross-prefix=$QEMU_CROSS_COMPILER/bin/arm-linux-gnueabihf- --enable-fdt --enable-kvm --disable-werror --extra-cflags="-march=armv7-a" --static;
+    echo "Config QEMU Complete";
+    cd $T
+}
+~/multi-os$ arm-linux-gnueabihf-^C^C
+~/multi-os$ ^C
+~/multi-os$ ^C
+~/multi-os$ QEMU_CROSS_COMPILER=$T/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4^C
+~/multi-os$ ./configure --target-list=arm-softmmu --cross-prefix=$QEMU_CROSS_COMPILER/bin/arm-linux-gnueabihf- --enable-fdt --enable-kvm --disable-werror --extra-cflags="-march=armv7-a" --static^C
+~/multi-os$ cd -
+/home/apuser/multi-os/vendor/sprd/qemu
+~/multi-os/vendor/sprd/qemu$ ./configure --target-list=arm-softmmu  --enable-fdt --enable-kvm --disable-werror --extra-cflags="-march=armv7-a" --static --enable-debug
+
+ERROR: "cc" either does not exist or does not work
+
+~/multi-os/vendor/sprd/qemu$ ./configure --target-list=arm-softmmu  --enable-fdt --enable-kvm --disable-werror --extra-cflags="-march=armv7-a" --static --enable-debug^C
+~/multi-os/vendor/sprd/qemu$ export QEMU_CROSS_COMPILER=~/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8
+~/multi-os/vendor/sprd/qemu$ ./configure --target-list=arm-softmmu --cross-prefix=$QEMU_CROSS_COMPILER/bin/arm-linux-gnueabihf- --enable-fdt --enable-kvm --disable-werror --extra-cflags="-march=armv7-a" --static --enable-debug
+Install prefix    /usr/local
+BIOS directory    /usr/local/share/qemu
+binary directory  /usr/local/bin
+library directory /usr/local/lib
+libexec directory /usr/local/libexec
+include directory /usr/local/include
+config directory  /usr/local/etc
+local state directory   /usr/local/var
+Manual directory  /usr/local/share/man
+ELF interp prefix /usr/gnemul/qemu-%M
+Source path       /home/apuser/multi-os/vendor/sprd/qemu
+C compiler        /home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/arm-linux-gnueabihf-gcc
+Host C compiler   cc
+C++ compiler      /home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/arm-linux-gnueabihf-g++
+Objective-C compiler clang
+ARFLAGS           rv
+CFLAGS            -g 
+QEMU_CFLAGS        -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -Wstrict-prototypes -Wredundant-decls -Wall -Wundef -Wwrite-strings -Wmissing-prototypes -fno-strict-aliasing -march=armv7-a  -Wendif-labels -Wmissing-include-dirs -Wempty-body -Wnested-externs -Wformat-security -Wformat-y2k -Winit-self -Wignored-qualifiers -Wold-style-declaration -Wold-style-definition -Wtype-limits -fstack-protector-all -I/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/include/pixman-1   -I$(SRC_PATH)/dtc/libfdt
+LDFLAGS           -Wl,--warn-common -static -g 
+make              make
+install           install
+python            python -B
+smbd              /usr/sbin/smbd
+host CPU          arm
+host big endian   no
+target list       arm-softmmu
+tcg debug enabled yes
+gprof enabled     no
+sparse enabled    no
+strip binaries    no
+profiler          no
+static build      yes
+-Werror enabled   no
+pixman            system
+SDL support       no
+GTK support       no
+curses support    yes
+curl support      no
+mingw32 support   no
+Audio drivers     oss
+Block whitelist (rw) 
+Block whitelist (ro) 
+VirtFS support    no
+VNC support       yes
+VNC TLS support   no
+VNC SASL support  no
+VNC JPEG support  no
+VNC PNG support   no
+VNC WS support    no
+xen support       no
+brlapi support    no
+bluez  support    no
+Documentation     no
+GUEST_BASE        yes
+PIE               no
+vde support       no
+Linux AIO support no
+ATTR/XATTR support yes
+Install blobs     yes
+KVM support       yes
+RDMA support      no
+TCG interpreter   no
+fdt support       yes
+preadv support    yes
+fdatasync         yes
+madvise           yes
+posix_madvise     yes
+sigev_thread_id   yes
+uuid support      no
+libcap-ng support no
+vhost-net support yes
+vhost-scsi support yes
+Trace backend     nop
+Trace output file trace-<pid>
+spice support     no (/)
+rbd support       no
+xfsctl support    no
+nss used          no
+libusb            no
+usb net redir     no
+GLX support       no
+libiscsi support  no
+build guest agent yes
+QGA VSS support   no
+seccomp support   no
+coroutine backend ucontext
+coroutine pool    yes
+GlusterFS support no
+virtio-blk-data-plane no
+gcov              gcov
+gcov enabled      no
+TPM support       no
+libssh2 support   no
+TPM passthrough   no
+QOM debugging     yes
+vhdx              no
+~/multi-os/vendor/sprd/qemu$ make -j4
+/home/apuser/multi-os/vendor/sprd/qemu/hw/buffer_share/Makefile.objs:1: +++++++++++++++ -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -Wstrict-prototypes -Wredundant-decls -Wall -Wundef -Wwrite-strings -Wmissing-prototypes -fno-strict-aliasing -march=armv7-a  -Wendif-labels -Wmissing-include-dirs -Wempty-body -Wnested-externs -Wformat-security -Wformat-y2k -Winit-self -Wignored-qualifiers -Wold-style-declaration -Wold-style-definition -Wtype-limits -fstack-protector-all -I/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/include/pixman-1   -I/home/apuser/multi-os/vendor/sprd/qemu/dtc/libfdt -pthread -I/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/include/glib-2.0 -I/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/lib/glib-2.0/include  ++++++++++++++++++++++++
+  GEN   config-host.h
+  GEN   trace/generated-tracers.h
+	CHK version_gen.h
+  CC    qapi-types.o
+  CC    qapi-visit.o
+  CC    qga/commands.o
+  CC    qga/guest-agent-command-state.o
+  CC    qga/main.o
+  CC    qga/commands-posix.o
+  CC    qga/channel-posix.o
+  CC    qga/qapi-generated/qga-qapi-types.o
+  CC    qga/qapi-generated/qga-qapi-visit.o
+  CC    qga/qapi-generated/qga-qmp-marshal.o
+  CC    qapi/qapi-visit-core.o
+  CC    qapi/qapi-dealloc-visitor.o
+  CC    qapi/qmp-input-visitor.o
+  CC    qapi/qmp-output-visitor.o
+  CC    qapi/qmp-registry.o
+  CC    qapi/qmp-dispatch.o
+  CC    qapi/string-input-visitor.o
+  CC    qapi/string-output-visitor.o
+  CC    qapi/opts-visitor.o
+  CC    qobject/qint.o
+  CC    qobject/qstring.o
+  CC    qobject/qdict.o
+  CC    qobject/qlist.o
+  CC    qobject/qfloat.o
+  CC    qobject/qbool.o
+  CC    qobject/qjson.o
+  CC    qobject/json-streamer.o
+  CC    qobject/json-lexer.o
+  CC    qobject/json-parser.o
+  CC    qobject/qerror.o
+  CC    trace/generated-events.o
+  CC    trace/default.o
+  CC    trace/control.o
+  GEN   trace/generated-tracers.c
+  CC    util/osdep.o
+  CC    util/cutils.o
+  CC    util/unicode.o
+  CC    util/qemu-timer-common.o
+  CC    util/oslib-posix.o
+  CC    util/qemu-thread-posix.o
+  CC    util/event_notifier-posix.o
+  CC    util/qemu-openpty.o
+  CC    util/envlist.o
+  CC    util/path.o
+  CC    util/host-utils.o
+  CC    util/module.o
+  CC    util/bitmap.o
+  CC    util/bitops.o
+  CC    util/hbitmap.o
+  CC    util/fifo8.o
+  CC    util/acl.o
+  CC    util/error.o
+  CC    util/qemu-error.o
+  CC    util/compatfd.o
+  CC    util/iov.o
+  CC    util/aes.o
+  CC    util/qemu-config.o
+  CC    util/qemu-sockets.o
+  CC    util/notify.o
+  CC    util/qemu-option.o
+  CC    util/qemu-progress.o
+  CC    util/hexdump.o
+  CC    util/crc32c.o
+  CC    util/throttle.o
+  CC    stubs/arch-query-cpu-def.o
+  CC    stubs/clock-warp.o
+  CC    stubs/cpu-get-clock.o
+  CC    stubs/dump.o
+  CC    stubs/cpu-get-icount.o
+  CC    stubs/fdset-add-fd.o
+  CC    stubs/fdset-find-fd.o
+  CC    stubs/fdset-get-fd.o
+  CC    stubs/fdset-remove-fd.o
+  CC    stubs/gdbstub.o
+  CC    stubs/get-fd.o
+  CC    stubs/get-vm-name.o
+  CC    stubs/iothread-lock.o
+  CC    stubs/migr-blocker.o
+  CC    stubs/mon-is-qmp.o
+  CC    stubs/mon-printf.o
+  CC    stubs/mon-print-filename.o
+  CC    stubs/mon-protocol-event.o
+  CC    stubs/mon-set-error.o
+  CC    stubs/pci-drive-hot-add.o
+  CC    stubs/reset.o
+  CC    stubs/set-fd-handler.o
+  CC    stubs/slirp.o
+  CC    stubs/sysbus.o
+  CC    stubs/uuid.o
+  CC    stubs/vm-stop.o
+  CC    stubs/vmstate.o
+  CC    stubs/cpus.o
+  CC    qemu-nbd.o
+  CC    async.o
+  CC    thread-pool.o
+  CC    nbd.o
+  CC    block.o
+  CC    blockjob.o
+  CC    main-loop.o
+  CC    iohandler.o
+  CC    aio-posix.o
+  CC    qemu-timer.o
+  CC    qemu-io-cmds.o
+  CC    qemu-coroutine.o
+  CC    qemu-coroutine-lock.o
+  CC    qemu-coroutine-io.o
+  CC    qemu-coroutine-sleep.o
+  CC    coroutine-ucontext.o
+  CC    block/raw_bsd.o
+  CC    block/cow.o
+  CC    block/qcow.o
+  CC    block/vdi.o
+  CC    block/vmdk.o
+  CC    block/cloop.o
+  CC    block/dmg.o
+  CC    block/bochs.o
+  CC    block/vpc.o
+  CC    block/vvfat.o
+  CC    block/qcow2.o
+  CC    block/qcow2-refcount.o
+  CC    block/qcow2-cluster.o
+  CC    block/qcow2-snapshot.o
+  CC    block/qcow2-cache.o
+  CC    block/qed.o
+  CC    block/qed-gencb.o
+  CC    block/qed-l2-cache.o
+  CC    block/qed-table.o
+  CC    block/qed-cluster.o
+  CC    block/qed-check.o
+  CC    block/parallels.o
+  CC    block/blkdebug.o
+  CC    block/blkverify.o
+  CC    block/snapshot.o
+  CC    block/qapi.o
+  CC    block/raw-posix.o
+  CC    block/nbd.o
+  CC    block/sheepdog.o
+  CC    qemu-img.o
+  CC    qemu-io.o
+  CC    qemu-bridge-helper.o
+  CC    blockdev.o
+  CC    blockdev-nbd.o
+  CC    readline.o
+  CC    qdev-monitor.o
+  CC    device-hotplug.o
+  CC    os-posix.o
+  CC    migration.o
+  CC    migration-tcp.o
+  CC    qemu-char.o
+  CC    block-migration.o
+  CC    page_cache.o
+  CC    xbzrle.o
+  CC    migration-exec.o
+  CC    migration-unix.o
+  CC    migration-fd.o
+  CC    bt-host.o
+  CC    bt-vhci.o
+  CC    dma-helpers.o
+  CC    vl.o
+  CC    tpm.o
+  CC    qmp-marshal.o
+  CC    qmp.o
+  CC    hmp.o
+  CC    qemu-log.o
+  CC    tcg-runtime.o
+  CC    audio/audio.o
+  CC    audio/noaudio.o
+  CC    audio/wavaudio.o
+  CC    audio/mixeng.o
+  CC    audio/ossaudio.o
+  CC    audio/wavcapture.o
+  CC    backends/rng.o
+  CC    backends/rng-egd.o
+  CC    backends/rng-random.o
+  CC    backends/msmouse.o
+  CC    block/stream.o
+  CC    block/commit.o
+  CC    block/mirror.o
+  CC    block/backup.o
+  CC    disas/arm.o
+  CC    fsdev/qemu-fsdev-dummy.o
+  CC    fsdev/qemu-fsdev-opts.o
+  CC    net/net.o
+  CC    net/queue.o
+  CC    net/checksum.o
+  CC    net/hub.o
+  CC    net/socket.o
+  CC    net/dump.o
+  CC    net/eth.o
+  CC    net/tap.o
+  CC    net/tap-linux.o
+  CC    net/slirp.o
+  CC    qom/object.o
+  CC    qom/container.o
+  CC    qom/qom-qobject.o
+  CC    qom/cpu.o
+  CC    slirp/cksum.o
+  CC    slirp/if.o
+  CC    slirp/ip_icmp.o
+  CC    slirp/ip_input.o
+  CC    slirp/ip_output.o
+  CC    slirp/dnssearch.o
+  CC    slirp/slirp.o
+  CC    slirp/mbuf.o
+  CC    slirp/misc.o
+  CC    slirp/sbuf.o
+  CC    slirp/socket.o
+  CC    slirp/tcp_input.o
+  CC    slirp/tcp_output.o
+  CC    slirp/tcp_subr.o
+  CC    slirp/tcp_timer.o
+  CC    slirp/udp.o
+  CC    slirp/bootp.o
+  CC    slirp/tftp.o
+  CC    slirp/arp_table.o
+  CC    sprd-pipe/looper-qemu.o
+  CC    sprd-pipe/hw-pipe-net.o
+  CC    sprd-pipe/sockets.o
+  CC    sprd-pipe/adb-qemud.o
+  CC    sprd-pipe/adb-server.o
+  CC    sprd-pipe/hw-qemud.o
+  CC    ui/keymaps.o
+  CC    ui/console.o
+  CC    ui/cursor.o
+  CC    ui/input.o
+  CC    ui/qemu-pixman.o
+  CC    ui/curses.o
+  CC    ui/vnc.o
+  CC    ui/vnc-enc-zlib.o
+  CC    ui/vnc-enc-hextile.o
+  CC    ui/vnc-enc-tight.o
+  CC    ui/vnc-palette.o
+  CC    ui/vnc-enc-zrle.o
+  CC    ui/vnc-jobs.o
+  CC    hw/audio/es1370.o
+  CC    hw/audio/ac97.o
+  CC    hw/audio/intel-hda.o
+  CC    hw/audio/hda-codec.o
+  CC    hw/audio/wm8750.o
+  CC    hw/audio/pl041.o
+  CC    hw/audio/lm4549.o
+  CC    hw/audio/marvell_88w8618.o
+  CC    hw/backlight/sprd_backlight.o
+  CC    hw/battery/sprd_battery.o
+  CC    hw/block/block.o
+  CC    hw/block/cdrom.o
+  CC    hw/block/hd-geometry.o
+hw/battery/sprd_battery.c: In function ‘sprd_battery_read’:
+hw/battery/sprd_battery.c:259:12: warning: passing argument 2 of ‘read_data_from_str’ discards ‘const’ qualifier from pointer target type [enabled by default]
+            O_RDONLY | O_CLOEXEC);
+            ^
+hw/battery/sprd_battery.c:113:12: note: expected ‘const char **’ but argument is of type ‘const char * const*’
+ static int read_data_from_str(const char *path, const char *str_value[],
+            ^
+hw/battery/sprd_battery.c:277:12: warning: passing argument 2 of ‘read_data_from_str’ discards ‘const’ qualifier from pointer target type [enabled by default]
+            O_RDONLY | O_CLOEXEC);
+            ^
+hw/battery/sprd_battery.c:113:12: note: expected ‘const char **’ but argument is of type ‘const char * const*’
+ static int read_data_from_str(const char *path, const char *str_value[],
+            ^
+hw/battery/sprd_battery.c:283:12: warning: passing argument 2 of ‘read_data_from_str’ discards ‘const’ qualifier from pointer target type [enabled by default]
+            O_RDONLY | O_CLOEXEC);
+            ^
+hw/battery/sprd_battery.c:113:12: note: expected ‘const char **’ but argument is of type ‘const char * const*’
+ static int read_data_from_str(const char *path, const char *str_value[],
+            ^
+  CC    hw/block/m25p80.o
+  CC    hw/block/nand.o
+  CC    hw/block/pflash_cfi01.o
+  CC    hw/block/pflash_cfi02.o
+  CC    hw/block/ecc.o
+  CC    hw/block/onenand.o
+  CC    hw/block/nvme.o
+  CC    hw/bt/core.o
+  CC    hw/bt/l2cap.o
+  CC    hw/bt/sdp.o
+  CC    hw/bt/hci.o
+  CC    hw/bt/hid.o
+  CC    hw/bt/hci-csr.o
+  CC    hw/char/tpci200.o
+  CC    hw/char/ipoctal232.o
+  CC    hw/char/ipack.o
+  CC    hw/char/pl011.o
+  CC    hw/char/serial.o
+  CC    hw/char/serial-isa.o
+  CC    hw/char/serial-pci.o
+  CC    hw/char/virtio-console.o
+  CC    hw/char/cadence_uart.o
+  CC    hw/char/imx_serial.o
+  CC    hw/core/qdev.o
+  CC    hw/core/qdev-properties.o
+  CC    hw/core/irq.o
+  CC    hw/core/ptimer.o
+  CC    hw/core/sysbus.o
+  CC    hw/core/null-machine.o
+  CC    hw/core/loader.o
+  CC    hw/core/qdev-properties-system.o
+  CC    hw/display/ads7846.o
+  CC    hw/display/pl110.o
+  CC    hw/display/ssd0303.o
+  CC    hw/display/ssd0323.o
+  CC    hw/display/blizzard.o
+  CC    hw/display/exynos4210_fimd.o
+  CC    hw/display/framebuffer.o
+  CC    hw/display/tc6393xb.o
+  CC    hw/dma/pl080.o
+  CC    hw/dma/pl330.o
+  CC    hw/gpio/max7310.o
+  CC    hw/gpio/pl061.o
+  CC    hw/gpio/zaurus.o
+  CC    hw/i2c/core.o
+  CC    hw/i2c/smbus.o
+  CC    hw/i2c/smbus_eeprom.o
+  CC    hw/i2c/versatile_i2c.o
+  CC    hw/i2c/bitbang_i2c.o
+  CC    hw/i2c/exynos4210_i2c.o
+  CC    hw/ide/core.o
+  CC    hw/ide/atapi.o
+  CC    hw/ide/qdev.o
+  CC    hw/ide/pci.o
+  CC    hw/ide/microdrive.o
+  CC    hw/ide/ahci.o
+  CC    hw/ide/ich.o
+  CC    hw/input/hid.o
+  CC    hw/input/sprd-input.o
+  CC    hw/input/sprd_gsensor.o
+  CC    hw/input/sprd_lpsensor.o
+  CC    hw/input/lm832x.o
+  CC    hw/input/pl050.o
+  CC    hw/input/ps2.o
+  CC    hw/input/stellaris_input.o
+  CC    hw/input/tsc2005.o
+  CC    hw/intc/pl190.o
+  CC    hw/intc/imx_avic.o
+  CC    hw/intc/realview_gic.o
+  CC    hw/intc/arm_gic_common.o
+  CC    hw/intc/arm_gic.o
+  CC    hw/isa/isa-bus.o
+  CC    hw/misc/max111x.o
+  CC    hw/misc/tmp105.o
+  CC    hw/misc/pci-testdev.o
+  CC    hw/misc/arm_l2x0.o
+  CC    hw/misc/arm_integrator_debug.o
+  CC    hw/misc/a9scu.o
+  CC    hw/misc/arm11scu.o
+  CC    hw/net/ne2000.o
+  CC    hw/net/eepro100.o
+  CC    hw/net/pcnet-pci.o
+  CC    hw/net/pcnet.o
+  CC    hw/net/e1000.o
+  CC    hw/net/rtl8139.o
+  CC    hw/net/vmxnet_tx_pkt.o
+  CC    hw/net/vmxnet_rx_pkt.o
+hw/net/vmxnet_tx_pkt.c: In function ‘vmxnet_tx_pkt_do_sw_fragmentation’:
+hw/net/vmxnet_tx_pkt.c:529:4: warning: implicit declaration of function ‘error_printf’ [-Wimplicit-function-declaration]
+    error_printf("\n in func:vmxnet_tx_pkt_do_sw_fragmentation.");
+    ^
+hw/net/vmxnet_tx_pkt.c:529:4: warning: nested extern declaration of ‘error_printf’ [-Wnested-externs]
+  CC    hw/net/vmxnet3.o
+  CC    hw/net/smc91c111.o
+  CC    hw/net/lan9118.o
+  CC    hw/net/xgmac.o
+  CC    hw/net/cadence_gem.o
+  CC    hw/net/stellaris_enet.o
+  CC    hw/nvram/eeprom93xx.o
+  CC    hw/nvram/fw_cfg.o
+  CC    hw/pci-bridge/pci_bridge_dev.o
+  CC    hw/pci-bridge/ioh3420.o
+  CC    hw/pci-bridge/xio3130_upstream.o
+  CC    hw/pci-bridge/xio3130_downstream.o
+  CC    hw/pci-bridge/i82801b11.o
+  CC    hw/pci-host/pam.o
+  CC    hw/pci-host/versatile.o
+  CC    hw/pci/pci.o
+  CC    hw/pci/pci_bridge.o
+  CC    hw/pci/msix.o
+  CC    hw/pci/msi.o
+  CC    hw/pci/shpc.o
+  CC    hw/pci/slotid_cap.o
+  CC    hw/pci/pci_host.o
+  CC    hw/pci/pcie_host.o
+  CC    hw/pci/pcie.o
+  CC    hw/pci/pcie_aer.o
+  CC    hw/pci/pcie_port.o
+  CC    hw/pci/pci-stub.o
+  CC    hw/pcmcia/pcmcia.o
+  CC    hw/scsi/scsi-disk.o
+  CC    hw/scsi/scsi-generic.o
+  CC    hw/scsi/scsi-bus.o
+  CC    hw/scsi/lsi53c895a.o
+  CC    hw/scsi/megasas.o
+  CC    hw/scsi/vmw_pvscsi.o
+  CC    hw/scsi/esp.o
+  CC    hw/scsi/esp-pci.o
+  CC    hw/sd/pl181.o
+  CC    hw/sd/ssi-sd.o
+  CC    hw/sd/sd.o
+  CC    hw/sd/sdhci.o
+  CC    hw/ssi/pl022.o
+  CC    hw/ssi/ssi.o
+  CC    hw/ssi/xilinx_spips.o
+  CC    hw/timer/arm_timer.o
+  CC    hw/timer/arm_mptimer.o
+  CC    hw/timer/cadence_ttc.o
+  CC    hw/timer/ds1338.o
+  CC    hw/timer/pl031.o
+  CC    hw/timer/twl92230.o
+  CC    hw/timer/imx_epit.o
+  CC    hw/timer/imx_gpt.o
+  CC    hw/usb/core.o
+  CC    hw/usb/combined-packet.o
+  CC    hw/usb/bus.o
+  CC    hw/usb/desc.o
+  CC    hw/usb/libhw.o
+  CC    hw/usb/hcd-uhci.o
+  CC    hw/usb/hcd-ohci.o
+  CC    hw/usb/hcd-ehci.o
+  CC    hw/usb/hcd-ehci-pci.o
+  CC    hw/usb/hcd-ehci-sysbus.o
+  CC    hw/usb/hcd-xhci.o
+  CC    hw/usb/hcd-musb.o
+  CC    hw/usb/dev-hub.o
+  CC    hw/usb/dev-hid.o
+  CC    hw/usb/dev-wacom.o
+  CC    hw/usb/dev-storage.o
+  CC    hw/usb/dev-uas.o
+  CC    hw/usb/dev-audio.o
+  CC    hw/usb/dev-serial.o
+  CC    hw/usb/dev-network.o
+  CC    hw/usb/dev-bluetooth.o
+  CC    hw/usb/dev-smartcard-reader.o
+  CC    hw/usb/ccid-card-passthru.o
+  CC    hw/usb/host-stub.o
+  CC    hw/virtio/virtio-rng.o
+  CC    hw/virtio/virtio-pci.o
+  CC    hw/virtio/virtio-bus.o
+  CC    hw/virtio/virtio-mmio.o
+  CC    hw/watchdog/watchdog.o
+  CC    hw/watchdog/wdt_i6300esb.o
+  AR    libqemustub.a
+  LINK  qemu-bridge-helper
+  AR    libqemuutil.a
+  LINK  qemu-ga
+  LINK  qemu-nbd
+/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/lib/libglib-2.0.a(libglib_2_0_la-gutils.o): In function `g_get_user_database_entry':
+gutils.c:(.text+0xc0): warning: Using 'getpwuid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x70): warning: Using 'getpwnam_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x170): warning: Using 'getpwuid_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+  LINK  qemu-img
+  LINK  qemu-io
+/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/lib/libglib-2.0.a(libglib_2_0_la-gutils.o): In function `g_get_user_database_entry':
+gutils.c:(.text+0xc0): warning: Using 'getpwuid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x70): warning: Using 'getpwnam_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x170): warning: Using 'getpwuid_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+libqemuutil.a(qemu-sockets.o): In function `inet_listen_opts':
+/home/apuser/multi-os/vendor/sprd/qemu/util/qemu-sockets.c:138: warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/home/apuser/multi-os/vendor/sprd/qemu/hw/buffer_share/Makefile.objs:1: +++++++++++++++ -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -Wstrict-prototypes -Wredundant-decls -Wall -Wundef -Wwrite-strings -Wmissing-prototypes -fno-strict-aliasing -march=armv7-a  -Wendif-labels -Wmissing-include-dirs -Wempty-body -Wnested-externs -Wformat-security -Wformat-y2k -Winit-self -Wignored-qualifiers -Wold-style-declaration -Wold-style-definition -Wtype-limits -fstack-protector-all -I/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/include/pixman-1   -I/home/apuser/multi-os/vendor/sprd/qemu/dtc/libfdt  -I../linux-headers -I.. -I/home/apuser/multi-os/vendor/sprd/qemu/target-arm -DNEED_CPU_H -I/home/apuser/multi-os/vendor/sprd/qemu/include -pthread -I/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/include/glib-2.0 -I/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/lib/glib-2.0/include  ++++++++++++++++++++++++
+/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/lib/libglib-2.0.a(libglib_2_0_la-gutils.o): In function `g_get_user_database_entry':
+gutils.c:(.text+0xc0): warning: Using 'getpwuid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x70): warning: Using 'getpwnam_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x170): warning: Using 'getpwuid_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+libqemuutil.a(qemu-sockets.o): In function `inet_listen_opts':
+/home/apuser/multi-os/vendor/sprd/qemu/util/qemu-sockets.c:138: warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/lib/libglib-2.0.a(libglib_2_0_la-gutils.o): In function `g_get_user_database_entry':
+gutils.c:(.text+0xc0): warning: Using 'getpwuid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x70): warning: Using 'getpwnam_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x170): warning: Using 'getpwuid_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+libqemuutil.a(qemu-sockets.o): In function `inet_listen_opts':
+/home/apuser/multi-os/vendor/sprd/qemu/util/qemu-sockets.c:138: warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/lib/libglib-2.0.a(libglib_2_0_la-gutils.o): In function `g_get_user_database_entry':
+gutils.c:(.text+0xc0): warning: Using 'getpwuid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x70): warning: Using 'getpwnam_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x170): warning: Using 'getpwuid_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+libqemuutil.a(qemu-sockets.o): In function `inet_listen_opts':
+/home/apuser/multi-os/vendor/sprd/qemu/util/qemu-sockets.c:138: warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+  GEN   arm-softmmu/config-target.h
+  CC    arm-softmmu/exec.o
+  CC    arm-softmmu/translate-all.o
+  CC    arm-softmmu/tcg/tcg.o
+  CC    arm-softmmu/cpu-exec.o
+  CC    arm-softmmu/tcg/optimize.o
+  CC    arm-softmmu/fpu/softfloat.o
+  CC    arm-softmmu/disas.o
+  CC    arm-softmmu/gdbstub-xml.o
+  CC    arm-softmmu/arch_init.o
+  CC    arm-softmmu/cpus.o
+  CC    arm-softmmu/monitor.o
+  CC    arm-softmmu/gdbstub.o
+  CC    arm-softmmu/balloon.o
+  CC    arm-softmmu/ioport.o
+  CC    arm-softmmu/qtest.o
+  CC    arm-softmmu/device_tree.o
+  CC    arm-softmmu/kvm-all.o
+  CC    arm-softmmu/memory.o
+  CC    arm-softmmu/savevm.o
+  CC    arm-softmmu/cputlb.o
+  CC    arm-softmmu/memory_mapping.o
+  CC    arm-softmmu/dump.o
+  CC    arm-softmmu/xen-stub.o
+  CC    arm-softmmu/hw/arm/boot.o
+  CC    arm-softmmu/hw/arm/collie.o
+  CC    arm-softmmu/hw/arm/exynos4_boards.o
+  CC    arm-softmmu/hw/arm/gumstix.o
+  CC    arm-softmmu/hw/arm/highbank.o
+  CC    arm-softmmu/hw/arm/integratorcp.o
+  CC    arm-softmmu/hw/arm/kzm.o
+  CC    arm-softmmu/hw/arm/mainstone.o
+  CC    arm-softmmu/hw/arm/musicpal.o
+  CC    arm-softmmu/hw/arm/nseries.o
+  CC    arm-softmmu/hw/arm/omap_sx1.o
+  CC    arm-softmmu/hw/arm/palm.o
+  CC    arm-softmmu/hw/arm/realview.o
+  CC    arm-softmmu/hw/arm/spitz.o
+  CC    arm-softmmu/hw/arm/stellaris.o
+  CC    arm-softmmu/hw/arm/tosa.o
+  CC    arm-softmmu/hw/arm/versatilepb.o
+  CC    arm-softmmu/hw/arm/vexpress.o
+  CC    arm-softmmu/hw/arm/xilinx_zynq.o
+  CC    arm-softmmu/hw/arm/z2.o
+  CC    arm-softmmu/hw/arm/armv7m.o
+  CC    arm-softmmu/hw/arm/exynos4210.o
+  CC    arm-softmmu/hw/arm/pxa2xx.o
+  CC    arm-softmmu/hw/arm/pxa2xx_gpio.o
+  CC    arm-softmmu/hw/arm/pxa2xx_pic.o
+  CC    arm-softmmu/hw/arm/omap1.o
+  CC    arm-softmmu/hw/arm/omap2.o
+  CC    arm-softmmu/hw/arm/strongarm.o
+  CC    arm-softmmu/target-arm/arm-semi.o
+  CC    arm-softmmu/target-arm/machine.o
+  CC    arm-softmmu/target-arm/kvm.o
+  CC    arm-softmmu/target-arm/translate.o
+  CC    arm-softmmu/target-arm/op_helper.o
+  CC    arm-softmmu/target-arm/helper.o
+  CC    arm-softmmu/target-arm/cpu.o
+  CC    arm-softmmu/target-arm/neon_helper.o
+  CC    arm-softmmu/target-arm/iwmmxt_helper.o
+  CC    arm-softmmu/target-arm/gdbstub.o
+  CC    arm-softmmu/hw/block/virtio-blk.o
+  CC    arm-softmmu/hw/buffer_share/sprd_buffer_share.o
+  CC    arm-softmmu/hw/char/exynos4210_uart.o
+  CC    arm-softmmu/hw/char/omap_uart.o
+  CC    arm-softmmu/hw/char/virtio-serial-bus.o
+  CC    arm-softmmu/hw/cpu/arm11mpcore.o
+  CC    arm-softmmu/hw/cpu/realview_mpcore.o
+  CC    arm-softmmu/hw/cpu/a9mpcore.o
+  CC    arm-softmmu/hw/cpu/a15mpcore.o
+  CC    arm-softmmu/hw/display/omap_dss.o
+  CC    arm-softmmu/hw/display/omap_lcdc.o
+  CC    arm-softmmu/hw/display/pxa2xx_lcd.o
+  CC    arm-softmmu/hw/display/vga.o
+  CC    arm-softmmu/hw/display/sprd_framebuffer.o
+  CC    arm-softmmu/hw/dma/omap_dma.o
+  CC    arm-softmmu/hw/dma/soc_dma.o
+  CC    arm-softmmu/hw/dma/pxa2xx_dma.o
+  CC    arm-softmmu/hw/gpio/omap_gpio.o
+  CC    arm-softmmu/hw/i2c/omap_i2c.o
+  CC    arm-softmmu/hw/input/pxa2xx_keypad.o
+  CC    arm-softmmu/hw/input/tsc210x.o
+  CC    arm-softmmu/hw/intc/arm_gic_kvm.o
+  CC    arm-softmmu/hw/intc/armv7m_nvic.o
+  CC    arm-softmmu/hw/intc/exynos4210_gic.o
+  CC    arm-softmmu/hw/intc/exynos4210_combiner.o
+  CC    arm-softmmu/hw/intc/omap_intc.o
+  CC    arm-softmmu/hw/misc/ivshmem.o
+  CC    arm-softmmu/hw/misc/vfio.o
+  CC    arm-softmmu/hw/misc/arm_sysctl.o
+  CC    arm-softmmu/hw/misc/cbus.o
+  CC    arm-softmmu/hw/misc/exynos4210_pmu.o
+  CC    arm-softmmu/hw/misc/imx_ccm.o
+  CC    arm-softmmu/hw/misc/mst_fpga.o
+  CC    arm-softmmu/hw/misc/omap_clk.o
+  CC    arm-softmmu/hw/misc/omap_gpmc.o
+  CC    arm-softmmu/hw/misc/omap_l4.o
+  CC    arm-softmmu/hw/misc/omap_sdrc.o
+  CC    arm-softmmu/hw/misc/omap_tap.o
+  CC    arm-softmmu/hw/misc/zynq_slcr.o
+  CC    arm-softmmu/hw/net/virtio-net.o
+  CC    arm-softmmu/hw/net/vhost_net.o
+  CC    arm-softmmu/hw/pcmcia/pxa2xx.o
+  CC    arm-softmmu/hw/pipe/sprd_pipe.o
+  CC    arm-softmmu/hw/scsi/virtio-scsi.o
+  CC    arm-softmmu/hw/scsi/vhost-scsi.o
+  CC    arm-softmmu/hw/sd/omap_mmc.o
+  CC    arm-softmmu/hw/sd/pxa2xx_mmci.o
+  CC    arm-softmmu/hw/ssi/omap_spi.o
+  CC    arm-softmmu/hw/timer/exynos4210_mct.o
+  CC    arm-softmmu/hw/timer/exynos4210_pwm.o
+  CC    arm-softmmu/hw/timer/exynos4210_rtc.o
+  CC    arm-softmmu/hw/timer/omap_gptimer.o
+  CC    arm-softmmu/hw/timer/omap_synctimer.o
+  CC    arm-softmmu/hw/timer/pxa2xx_timer.o
+  CC    arm-softmmu/hw/timer/tusb6010.o
+  CC    arm-softmmu/hw/virtio/virtio.o
+  CC    arm-softmmu/hw/virtio/virtio-balloon.o
+  CC    arm-softmmu/hw/virtio/vhost.o
+  LINK  arm-softmmu/qemu-system-arm
+../os-posix.o: In function `change_process_uid':
+/home/apuser/multi-os/vendor/sprd/qemu/os-posix.c:205: warning: Using 'initgroups' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+../os-posix.o: In function `os_parse_cmd_args':
+/home/apuser/multi-os/vendor/sprd/qemu/os-posix.c:178: warning: Using 'getpwnam' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+../net/slirp.o: In function `slirp_smb':
+/home/apuser/multi-os/vendor/sprd/qemu/net/slirp.c:580: warning: Using 'getpwuid' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/../arm-linux-gnueabihf/libc/usr/lib/libglib-2.0.a(libglib_2_0_la-gutils.o): In function `g_get_user_database_entry':
+gutils.c:(.text+0x70): warning: Using 'getpwnam_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+gutils.c:(.text+0x170): warning: Using 'getpwuid_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+../sprd-pipe/sockets.o: In function `sock_address_init_resolve':
+/home/apuser/multi-os/vendor/sprd/qemu/sprd-pipe/sockets.c:644: warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+../net/net.o: In function `parse_host_port':
+/home/apuser/multi-os/vendor/sprd/qemu/net/net.c:124: warning: Using 'gethostbyname' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+~/multi-os/vendor/sprd/qemu$ adb remount
+remount succeeded
+~/multi-os/vendor/sprd/qemu$ adb push arm-softmmu/qemu-system-arm /system/bin
+5139 KB/s (14926834 bytes in 2.836s)
+~/multi-os/vendor/sprd/qemu$ ./configure --target-list=arm-softmmu  --enable-fdt --enable-kvm --disable-werror --extra-cflags="-march=armv7-a" --static --enable-debug^C
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+Remote debugging using :1238
+Cannot access memory at address 0xa1ddac
+Cannot access memory at address 0xa1dda8
+(gdb) q
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm 
+GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+Remote debugging using :1238
+Cannot access memory at address 0xa1ddac
+Cannot access memory at address 0xa1dda8
+(gdb) target remote :1238
+Remote debugging using :1238
+Ignoring packet error, continuing...
+warning: unrecognized item "timeout" in "qSupported" response
+Remote connection closed
+(gdb) q
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm 
+GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+Remote debugging using :1238
+Cannot access memory at address 0xa1ddac
+Cannot access memory at address 0xa1dda8
+(gdb) q
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm 
+GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+Remote debugging using :1238
+Cannot access memory at address 0xa1ddac
+Cannot access memory at address 0xa1dda8
+(gdb) l
+2818	    }
+2819	
+2820	    object_property_add_child(container_get(object_get_root(), "/objects"),
+2821	                              id, obj, NULL);
+2822	
+2823	    return 0;
+2824	}
+2825	
+2826	int main(int argc, char **argv, char **envp)
+2827	{
+(gdb) exit
+Undefined command: "exit".  Try "help".
+(gdb) q
+(reverse-i-search)`adb root': sudo ^Cb root
+~/multi-os/vendor/sprd/qemu$ adb root
+adbd is already running as root
+(reverse-i-search)`r': ./configure --target-list=arm-softmmu --cross-p^Cfix=$QEMU_CROSS_COMPILER/bin/arm-linux-gnueabihf- --enable-fdt --enable-kvm --disable-werror --extra-cflags="-march=armv7-a" --static --enable-debug
+~/multi-os/vendor/sprd/qemu$ ^C
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm 
+GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+Remote debugging using :1238
+Cannot access memory at address 0xa1ddac
+Cannot access memory at address 0xa1dda8
+(gdb) q
+~/multi-os/vendor/sprd/qemu$ sudo adb forward tcp:1238 tcp:1238
+~/multi-os/vendor/sprd/qemu$  adb forward tcp:1238 tcp:1238
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm 
+GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+Remote debugging using :1238
+Cannot access memory at address 0xa1ddac
+Cannot access memory at address 0xa1dda8
+(gdb) q
+~/multi-os/vendor/sprd/qemu$ adb push arm-softmmu/qemu-system-arm /system/bin^C
+~/multi-os/vendor/sprd/qemu$ adb root
+error: device not found
+~/multi-os/vendor/sprd/qemu$ adb root
+restarting adbd as root
+~/multi-os/vendor/sprd/qemu$ adb remount
+remount succeeded
+~/multi-os/vendor/sprd/qemu$ adb push arm-softmmu/qemu-system-arm /system/usr/local/bin/
+5168 KB/s (14926834 bytes in 2.820s)
+~/multi-os/vendor/sprd/qemu$ adb remount^C
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm 
+GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+Remote debugging using :1238
+0x0000a20c in _start ()
+(gdb) b virtio_net_tx_bh
+Breakpoint 1 at 0x297810: file /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c, line 1292.
+(gdb) c
+Continuing.
+
+Program received signal SIGTTOU, Stopped (tty output).
+0x00400344 in __libc_do_syscall ()
+(gdb) bt
+#0  0x00400344 in __libc_do_syscall ()
+#1  0x0043323c in tcsetattr ()
+#2  0x001a48e8 in qemu_chr_set_echo_stdio (chr=0x29799d8, echo=false) at qemu-char.c:974
+#3  0x001a80bc in qemu_chr_fe_set_echo (chr=0x29799d8, echo=false) at qemu-char.c:3387
+#4  0x001a49e4 in qemu_chr_open_stdio (opts=0x2967010) at qemu-char.c:1002
+#5  0x001a8932 in qmp_chardev_add (id=0x296c1a0 "serial0", backend=0x2978f30, errp=0xbedfcf40) at qemu-char.c:3790
+#6  0x001a7d7e in qemu_chr_new_from_opts (opts=0x2979998, init=0x0, errp=0xbedfcf40) at qemu-char.c:3287
+#7  0x001a8014 in qemu_chr_new (label=0xbedfcf64 "serial0", filename=0xbedfd5cf "stdio", init=0x0) at qemu-char.c:3372
+#8  0x001f19c0 in serial_parse (devname=0xbedfd5cf "stdio") at vl.c:2476
+#9  0x001f18f0 in foreach_device_config (type=2, func=0x1f1931 <serial_parse>) at vl.c:2456
+#10 0x001f5978 in main (argc=61, argv=0xbedfd374, envp=0xbedfd46c) at vl.c:4217
+(gdb) c
+Continuing.
+
+Program received signal SIGTTOU, Stopped (tty output).
+0x00400344 in __libc_do_syscall ()
+(gdb) bt
+#0  0x00400344 in __libc_do_syscall ()
+#1  0x0043323c in tcsetattr ()
+#2  0x001a48e8 in qemu_chr_set_echo_stdio (chr=0x29799d8, echo=false) at qemu-char.c:974
+#3  0x001a80bc in qemu_chr_fe_set_echo (chr=0x29799d8, echo=false) at qemu-char.c:3387
+#4  0x001a49e4 in qemu_chr_open_stdio (opts=0x2967010) at qemu-char.c:1002
+#5  0x001a8932 in qmp_chardev_add (id=0x296c1a0 "serial0", backend=0x2978f30, errp=0xbedfcf40) at qemu-char.c:3790
+#6  0x001a7d7e in qemu_chr_new_from_opts (opts=0x2979998, init=0x0, errp=0xbedfcf40) at qemu-char.c:3287
+#7  0x001a8014 in qemu_chr_new (label=0xbedfcf64 "serial0", filename=0xbedfd5cf "stdio", init=0x0) at qemu-char.c:3372
+#8  0x001f19c0 in serial_parse (devname=0xbedfd5cf "stdio") at vl.c:2476
+#9  0x001f18f0 in foreach_device_config (type=2, func=0x1f1931 <serial_parse>) at vl.c:2456
+#10 0x001f5978 in main (argc=61, argv=0xbedfd374, envp=0xbedfd46c) at vl.c:4217
+(gdb) handle ignore SIGTTOU 
+Signal        Stop	Print	Pass to program	Description
+SIGTTOU       Yes	Yes	Yes		Stopped (tty output)
+(gdb) c
+Continuing.
+[New Thread 1589]
+
+Program received signal SIGTTOU, Stopped (tty output).
+[Switching to Thread 1589]
+0x003fe652 in write ()
+(gdb) handle SIGTTOU nostop noprint
+Signal        Stop	Print	Pass to program	Description
+SIGTTOU       No	No	Yes		Stopped (tty output)
+(gdb) c
+Continuing.
+^C
+Program received signal SIGINT, Interrupt.
+[Switching to Thread 1562]
+0x00400344 in __libc_do_syscall ()
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [process 1562] will be killed.
+
+Quit anyway? (y or n) y   
+Remote connection closed
+(gdb) q
+~/multi-os/vendor/sprd/qemu$ arm-linux-gnueabihf-gdb arm-softmmu/qemu-system-arm 
+GNU gdb (crosstool-NG linaro-1.13.1-4.8-2013.11 - Linaro GCC 2013.10) 7.6.1-2013.10
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i686-build_pc-linux-gnu --target=arm-linux-gnueabihf".
+For bug reporting instructions, please see:
+<https://bugs.launchpad.net/gcc-linaro>...
+Reading symbols from /home/apuser/multi-os/vendor/sprd/qemu/arm-softmmu/qemu-system-arm...done.
+(gdb) target remote :1238
+Remote debugging using :1238
+0x0000a20c in _start ()
+(gdb) b virtio_net_tx_bh
+Breakpoint 1 at 0x297810: file /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c, line 1292.
+(gdb) c
+Continuing.
+
+Breakpoint 1, virtio_net_tx_bh (opaque=0xeaf590) at /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c:1292
+1292	    VirtIONetQueue *q = opaque;
+(gdb) bt
+#0  virtio_net_tx_bh (opaque=0xeaf590) at /home/apuser/multi-os/vendor/sprd/qemu/hw/net/virtio-net.c:1292
+#1  0x0000a98e in aio_bh_poll (ctx=0xcaf0c0) at async.c:84
+#2  0x0000a6dc in aio_poll (ctx=0xcaf0c0, blocking=false) at aio-posix.c:191
+#3  0x0000acb8 in aio_ctx_dispatch (source=0xcaf0c0, callback=0x0, user_data=0x0) at async.c:208
+#4  0x00351a78 in g_main_context_dispatch ()
+#5  0x00179a1a in glib_pollfds_poll () at main-loop.c:189
+#6  0x00179b1e in os_host_main_loop_wait (timeout=499000000) at main-loop.c:234
+#7  0x00179c02 in main_loop_wait (nonblocking=0) at main-loop.c:483
+#8  0x001ef8a0 in main_loop () at vl.c:2021
+#9  0x001f5d56 in main (argc=61, argv=0xbed4c364, envp=0xbed4c45c) at vl.c:4383
+(gdb) 
+

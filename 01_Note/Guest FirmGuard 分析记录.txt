@@ -1,0 +1,22 @@
+/home/apuser/Downloads/MIPS Virtualization VZ and security.ppt
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+﻿★GUEST系统上的分区情况：
+
+boot分区，system分区，data分区，guest共3个分区，3个分区中只有boot分区被挂载到了host这边。
+
+yu.hou的邮件答复，详细参考他的邮件：
+vImage ->kernel
+ramdisk.img ->rootfs
+system 在另一个分区，make production时候生成的system.img
+
+﻿★HOST系统上的分区情况：
+root分区(这个有待核实...) system分区 data分区
+
+★你实现的firmguard需要做2件事情，
+
+对Guest这一边，要实现接受guest发来的更新文件，告知guest校验结果，通知guest ----》通过vport来实现
+
+对SwitchOS这一边，要实现在Guest OS进入recovery模式后，将Guest OS升级的状态(这些信息也是guest OS通过vport告知qemu的)，
+发送给SwitchOS，用于用户显示。
+

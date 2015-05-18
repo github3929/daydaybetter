@@ -1,0 +1,63 @@
+
+下面分析一下 如何调用到 virtio_net_tx_bh 这个队列回调函数。。。。
+
+static void virtio_net_handle_tx_bh(VirtIODevice *vdev, VirtQueue *vq)
+{
+    VirtIONet *n = VIRTIO_NET(vdev);
+    VirtIONetQueue *q = &n->vqs[vq2q(virtio_get_queue_index(vq))];
+
+    if (unlikely(q->tx_waiting)) {
+        return;
+    }
+    q->tx_waiting = 1;
+    /* This happens when device was stopped but VCPU wasn't. */
+    if (!vdev->vm_running) {
+        return;
+    }
+    virtio_queue_set_notification(vq, 0);
+    qemu_bh_schedule(q->tx_bh);
+}
+
+
+QEMUBH *qemu_bh_new(QEMUBHFunc *cb, void *opaque)
+{
+    return aio_bh_new(qemu_aio_context, cb, opaque);
+}
+
+static int virtio_net_device_init(VirtIODevice *vdev)
+{
+        n->vqs[0].tx_bh = qemu_bh_new(virtio_net_tx_bh, &n->vqs[0]);  ---->这就相当与在新增了一个被调度的队列，队列的callback函数即调度到后执行virtio_net_tx_bh
+}
+上面这部分的理解，参考网页 http://blog.chinaunix.net/uid-26000137-id-3768700.html 中如下部分的描述：
+下半部要添加调度函数由qemu_bh_new 和qemu_bh_schedule完成的。
+EMUBH *qemu_bh_new(QEMUBHFunc *cb, void *opaque)  ------》添加队列的回调函数
+void qemu_bh_schedule(QEMUBH *bh) ------》调度该队列的回调函数
+
+
+
+下边也是参照上面提到的网页，来说下队列的调度部分，如下
+
+int main_loop_wait(int nonblocking)
+{
+    ret = os_host_main_loop_wait(timeout_ns);
+}
+
+
+static int os_host_main_loop_wait(int64_t timeout) --->注意这函数有win和linux两个同名函数，是linxu那个
+{
+        select_ret = select(nfds + 1, &rfds, &wfds, &xfds, &tv0); ---->等待队列事件的发生
+        然后发生事件后，调用对应的队列回调函数，对于网络部分就是virtio_net_tx_bh
+
+    if (g_poll_ret > 0) {
+        for (i = 0; i < w->num; i++) {
+            w->revents[i] = poll_fds[n_poll_fds + i].revents;
+        }
+        for (i = 0; i < w->num; i++) {
+            if (w->revents[i] && w->func[i]) {
+                w->func[i](w->opaque[i]); -------》这里就调用了
+            }
+        }
+    }
+}
+
+

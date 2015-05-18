@@ -1,0 +1,48 @@
+仿佛就是host这一侧接受qemu发送的socket的地方：
+
+kernel\net\socket.c
+
+
+SYSCALL_DEFINE6(recvfrom, int, fd, void __user *, ubuf, size_t, size,
+		unsigned int, flags, struct sockaddr __user *, addr,
+		int __user *, addr_len)
+{
+	struct socket *sock;
+	struct iovec iov;
+	struct msghdr msg;
+	struct sockaddr_storage address;
+	int err, err2;
+	int fput_needed;
+
+	if (size > INT_MAX)
+		size = INT_MAX;
+	sock = sockfd_lookup_light(fd, &err, &fput_needed);
+	if (!sock)
+		goto out;
+
+	msg.msg_control = NULL;
+	msg.msg_controllen = 0;
+	msg.msg_iovlen = 1;
+	msg.msg_iov = &iov;
+	iov.iov_len = size;
+	iov.iov_base = ubuf;
+	msg.msg_name = (struct sockaddr *)&address;
+	msg.msg_namelen = sizeof(address);
+	if (sock->file->f_flags & O_NONBLOCK)
+		flags |= MSG_DONTWAIT;
+	err = sock_recvmsg(sock, &msg, size, flags);
+
+
+
+
+
+
+
+
+搜索 recvfrom 结果，最有可能的2处地方：
+
+Socket.c (z:\home\apuser\multi-os\kernel\net):SYSCALL_DEFINE6(recvfrom, int, fd, void __user *, ubuf, size_t, size,
+
+Syscall.c (z:\home\apuser\multi-os\vendor\sprd\qemu\linux-user):        ret = get_errno(recvfrom(fd, host_msg, len, flags, addr, &addrlen));
+
+

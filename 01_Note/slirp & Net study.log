@@ -126,7 +126,7 @@ int main_loop_wait(int nonblocking)
 #endif
 
 #ifdef CONFIG_SLIRP
-    slirp_pollfds_fill(gpollfds, &timeout);
+    slirp_pollfds_poll(gpollfds, (ret < 0));
 #endif
 
 }
@@ -140,6 +140,28 @@ int main(int argc, char **argv, char **envp)
 ★接上：
  qemu_deliver_packet ----> 在函数体qemu_deliver_packet内调用 nc->info->receive ----> virtio_net_receive (virtio_net设备)
 
+
+
+static ssize_t virtio_net_receive(NetClientState *nc, const uint8_t *buf, size_t size)
+{
+
+        /* signal other side */
+        virtqueue_fill(q->rx_vq, &elem, total, i++);---->填充报文数据
+
+    virtio_notify(vdev, q->rx_vq); ---->在这里上报中断
+
+}
+
+void virtio_notify(VirtIODevice *vdev, VirtQueue *vq)
+{
+    if (!vring_notify(vdev, vq)) {
+        return;
+    }
+
+    trace_virtio_notify(vdev, vq);
+    vdev->isr |= 0x01;
+    virtio_notify_vector(vdev, vq->vector);  ----》上报中断
+}
 
 ★(Flag-##)找到了slirp_input 最开始的地方。就是一个收包队列的回调函数
 

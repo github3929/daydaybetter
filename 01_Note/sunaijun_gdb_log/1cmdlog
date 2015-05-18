@@ -1,0 +1,1000 @@
+ 1042  sudo adb shell
+ 1043  sudo adb reboot bootloader
+ 1044  sudo adb shell
+ 1045  cd /etc/
+ 1046  ll
+ 1047  cat sysctl.conf
+ 1048  cd .
+ 1049  cd ..
+ 1050  sudo minicom
+ 1051  cd multi-os/
+ 1052  source build/envsetup.sh 
+ 1053  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1054  make bootimage
+ 1055  source build/envsetup.sh 
+ 1056  sudo adb root
+ 1057  sudo adb reboot bootloader
+ 1058  cd out/host/linux-x86/bin/
+ 1059  sudo ./fastboot devices
+ 1060  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img
+ 1061  sudo adb reboot
+ 1062  sudo ./fastboot reboot
+ 1063  sudo adb reboot bootloader
+ 1064  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img
+ 1065  cd ~/
+ 1066  sudo minicom
+ 1067  cd multi-os/
+ 1068  sudo adb root
+ 1069  sudo adb shell
+ 1070  ifconfig
+ 1071  sudo ifconfig eth0 down
+ 1072  sudo ifconfig eth0 up
+ 1073  sudo cp /media/KINGSTON/share_pay_style\&facebook_next_target.ppt ~/
+ 1074  cd /media/KINGSTON/
+ 1075  ls
+ 1076  mkdir hello
+ 1077  sudo cp share_pay_style\&facebook_next_target.ppt ~/Downloads/
+ 1078  cd ~/github3929/
+ 1079  ls
+ 1080  cd daydaybetter/01_Note/
+ 1081  ls
+ 1082  git status 
+ 1083  git add .
+ 1084  git commit 
+ 1085  ls
+ 1086  ssh-add ~/.ssh/id_rsa
+ 1087  git fetch
+ 1088  git push
+ 1089  ping 192.168.1.101
+ 1090  ifconfig
+ 1091  sudo adb shell
+ 1092  cd multi-os/
+ 1093  source build/envsetup.sh 
+ 1094  sudo adb shell
+ 1095  sudo adb root
+ 1096  lsusb
+ 1097  sudo adb root
+ 1098  sudo adb shel
+ 1099  sudo adb forward tcp:1235 tcp:1235
+ 1100  telnet 127.0.0.1 1235
+ 1101  ping 192.168.1.100
+ 1102  ping 10.0.10.15
+ 1103  ping 10.0.10.2
+ 1104  iperf -s -P 0 -i 1 -p 5001 -f k
+ 1105  cd ..
+ 1106  cd ./Downloads/
+ 1107  ls
+ 1108  cd ..
+ 1109  ls
+ 1110  ssh-add ~/.ssh/id_rsa
+ 1111  cd ../github3929/daydaybetter/
+ 1112  ls
+ 1113  cd 01_Note/
+ 1114  ls
+ 1115  git fetch 
+ 1116  git merge origin/master 
+ 1117  git fetch 
+ 1118  git merge origin/master 
+ 1119  exit
+ 1120  cd ..
+ 1121  iperf -s -P 0 -i 1 -p 5001 -f k
+ 1122  '
+ 1123  iperf -s -P 0 -i 1 -p 5001 -f k
+ 1124  '
+ 1125  iperf -s -P 0 -i 1 -p 5001 -f k -w 1M -l 1M
+ 1126  iperf -s -P 0 -i 1 -p 5001 -f k -w 16 -l 1M
+ 1127  iperf -s -P 0 -i 1 -p 5001 -f k  -l 1M
+ 1128  iperf -s -P 0 -i 1 -p 5001 -f k 
+ 1129  iperf -s -P 0 -i 1 -p 5001 -f k -w 1M -l 1M
+ 1130  iperf -s -P 0 -i 1 -p 5001 -f k  -l 1M
+ 1131  iperf -s -P 0 -i 1 -p 5001 -f k 
+ 1132  sudo adb forward tcp:1235 tcp:1235
+ 1133  telnet 127.0.0.1 1235
+ 1134  ifconfig
+ 1135  iperf -c 192.168.1.2 -f k -t 60   
+ 1136  iperf -s -P 0 -i 1 -p 5001 -f k
+ 1137  iperf -s -P 0 -i 1 -p 5001 -f k -w 512K
+ 1138  iperf -s -P 0 -i 1 -p 5001 -f k -w 512K -l 512K
+ 1139  iperf --version
+ 1140  iperf -s -P 0 -i 1 -p 5001 -f k -w 512K -l 512K
+ 1141  iperf -s -P 0 -i 1 -p 5001 -f k -w 1M -l 512K
+ 1142  iperf -s -P 0 -i 1 -p 5001 -f k -w 256K -l 256K
+ 1143  iperf -s -P 0 -i 1 -p 5002 -f k -w 256K -l 256K
+ 1144  iperf -s -P 0 -i 1 -f k -w 256K -l 256K
+ 1145  iperf -s -P 0 -i 1 -f k -w 256K -l 256K -b 80
+ 1146  iperf -s -P 0 -i 1 -f k -w 256K -l 256K
+ 1147  iperf -c 192.168.1.101 -f k -t 10
+ 1148  iperf -c 192.168.1.100 -f k -t 10
+ 1149  iperf -c 192.168.1.100 -f k -t 10 -W 1M
+ 1150  iperf -c 192.168.1.100 -f k -t 10 -w 1M
+ 1151  iperf -c 192.168.1.100 -f k -t 10 
+ 1152  iperf -c 192.168.1.100 -f k -t 10 -W 512K
+ 1153  iperf -c 192.168.1.100 -f k -t 10 -w 512K
+ 1154  iperf -c 192.168.1.100 -f k -t 10 -w 512
+ 1155  iperf -c 192.168.1.100 -f k -t 10 -w 1M
+ 1156  iperf -c 192.168.1.100 -f k -t 10 -w 512
+ 1157  iperf -c 192.168.1.100 -f k -t 10 -w 512K
+ 1158  iperf -c 192.168.1.100 -f k -t 10 -w 1K
+ 1159  iperf -c 192.168.1.100 -f k -t 10 -w 1K -p 5001
+ 1160  iperf -c 192.168.1.100 -f k -t 10 -w 1M -p 5001
+ 1161  iperf -s -u -P 0 -i 1 -p 5001 -f k
+ 1162  ifconfig
+ 1163  iperf -s -u -P 0 -i 1 -p 5001 -f k
+ 1164  iperf -c 192.168.1.103 -f k -u -b100m -p 5001 -t 10
+ 1165  iperf -c 192.168.1.103 -f k -u -b10m -p 5001 -t 10
+ 1166  iperf -c 192.168.1.103 -f k -u -b100m -p 5001 -t 10
+ 1167  sudo cp -r -f  /media/KINGSTON/jperf/ ~/
+ 1168  cd /media/KINGSTON/
+ 1169  ls
+ 1170  cd jperf/
+ 1171  ls
+ 1172  ll
+ 1173  ls
+ 1174  ll
+ 1175  cd ..
+ 1176  ll
+ 1177  pwd
+ 1178  exit
+ 1179  cd ~/multi-os/
+ 1180  sudo minicom
+ 1181  sudo adb pull sdcard/qemu.log qemu.log
+ 1182  sudo adb shell
+ 1183  cd multi-os/
+ 1184  ls
+ 1185  source build/envsetup.sh
+ 1186  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1187  make bootimage
+ 1188  make systemimage
+ 1189  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1190  sudo cp out/target/product/scx35l_sp9630ea/boot.img ~/Disk_Server_ToInternal/
+ 1191  sudo cp out/target/product/scx35l_sp9630ea/system.img ~/Disk_Server_ToInternal/
+ 1192  make bootimage
+ 1193  make systemimage
+ 1194  sudo cp out/target/product/scx35l_sp9630ea/boot.img ~/Disk_Server_ToInternal/
+ 1195  sudo cp out/target/product/scx35l_sp9630ea/system.img ~/Disk_Server_ToInternal/
+ 1196  ping 192.168.1.101
+ 1197  ping 192.168.1.100
+ 1198  ping 192.168.1.102
+ 1199  source build/envsetup.sh 
+ 1200  sudo adb shell
+ 1201  sudo adb reboot bootloader
+ 1202  cd ./out/
+ 1203  ls
+ 1204  cd host/linux-x86/
+ 1205  ls
+ 1206  cd bin/
+ 1207  sudo ./fastboot devices
+ 1208  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1209  sudo ./fastboot reboot
+ 1210  sudo ./fastboot devices
+ 1211  ping 192.168.1.102
+ 1212  sudo adb shell
+ 1213  sudo adb device
+ 1214  lsusb
+ 1215  sudo adb shell
+ 1216  ifconfig -S eth0
+ 1217  cat /proc/net/snmp | grep Udp
+ 1218  ls
+ 1219  ./dmtracedump --help
+ 1220  sudo wireshark
+ 1221  ping www.baidu.com
+ 1222  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1223  cd ~/Disk_Server_ToInternal/
+ 1224  ls
+ 1225  cp -r -f ./jperf-2.0.2 ~/
+ 1226  cd ../
+ 1227  cd jperf
+ 1228  cd jperf-2.0.2/
+ 1229  cd ..
+ 1230  cd ./jperf
+ 1231  sudo rmdir ./jperf
+ 1232  sudo rm -r -f ./jperf
+ 1233  cd ./jperf-2.0.2/
+ 1234  ls
+ 1235  sudo ./jperf.sh 
+ 1236  ls
+ 1237  ll
+ 1238  chmod 777 ./jperf.sh
+ 1239  ./jperf.sh 
+ 1240  cd ..
+ 1241  cd multi-os/
+ 1242  source build/envsetup.sh 
+ 1243  sudo adb shell
+ 1244  cd ../jperf-2.0.2/
+ 1245  ls
+ 1246  sudo ./jperf.sh 
+ 1247  ls
+ 1248  chmod 777 jperf.sh 
+ 1249  sudo ./jperf.sh 
+ 1250  ls
+ 1251  ll
+ 1252  cd ./bin/
+ 1253  ls
+ 1254  cd ..
+ 1255  ls
+ 1256  cd jperf-2.0.2/
+ 1257  ./jperf.sh 
+ 1258  ifconfig
+ 1259  vi /etc/sysctl.conf
+ 1260  sudo wireshark
+ 1261  ifconfig
+ 1262  exit
+ 1263  sudo minicom
+ 1264  busyb
+ 1265  ifconifg
+ 1266  ifconfig
+ 1267  ping 192.168.1.100
+ 1268  cd multi-os/
+ 1269  ls
+ 1270  ifconfig
+ 1271  ping 192.168.1.100
+ 1272  source build/envsetup.sh 
+ 1273  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1274  sudo adb shell
+ 1275  ls
+ 1276  make bootimage
+ 1277  make systemimage
+ 1278  source build/envsetup.sh 
+ 1279  sudo adb shell
+ 1280  sudo adb reboot bootloader
+ 1281  cd out/host/linux-x86/bin/
+ 1282  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1283  sudo ./fastboot reboot
+ 1284  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1285  sudo ./fastboot reboot
+ 1286  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1287  cd ..
+ 1288  cd ~/multi-os/
+ 1289  source build/envsetup.sh 
+ 1290  sudo adb shell
+ 1291  sudo adb reboot bootloader
+ 1292  sudo adb shell
+ 1293  sudo adb reboot bootloader
+ 1294  sudo adb shell
+ 1295  sudo adb reboot bootloader
+ 1296  sudo adb shell
+ 1297  cd ~/
+ 1298  mkdir kerlog
+ 1299  cd kerlog/
+ 1300  sudo adb pull sdcard/ker.log ker.log
+ 1301  cd ..
+ 1302  sudo adb shell
+ 1303  sudo minicom
+ 1304  source build/envsetup.sh 
+ 1305  cd ../kerlog/
+ 1306  sudo adb pull sdcard/ker.log ker.log
+ 1307  sudo minicom
+ 1308  sudo minicom -s
+ 1309  sudo minicom
+ 1310  source build/envsetup.sh 
+ 1311  sudo adb shell
+ 1312  lsusb
+ 1313  sudo adb shell
+ 1314  cd /proc/
+ 1315  cd ..
+ 1316  sudo 
+ 1317  ifconfig
+ 1318  exit
+ 1319  sudo adb minicom
+ 1320  sudo minicom
+ 1321  cd ~/multi-os/system/netd/
+ 1322  git version
+ 1323  git reflog 
+ 1324  git log ./SecondaryTableController.cpp
+ 1325  cd ~/
+ 1326  cd multi-os/
+ 1327  source build/envsetup.sh 
+ 1328  sudo adb shell
+ 1329  lsusb
+ 1330  sudo adb shell
+ 1331  cd ~/multi-os/
+ 1332  source build/envsetup.sh 
+ 1333  sudo adb reboot bootloader
+ 1334  sudo adb shell
+ 1335  lsusb
+ 1336  d
+ 1337  sudo adb shell
+ 1338  sudo adb shel
+ 1339  sudo adb shell
+ 1340  adb logcat NetdConnector:D NetworkManagementService*:S
+ 1341  sudo adb shell
+ 1342  sudo adb logcat NetdConnector:D NetworkManagementService*:S
+ 1343  sudo adb shell
+ 1344  lsusb
+ 1345  sudo adb root
+ 1346  sudo adb shell
+ 1347  lsusb
+ 1348  sudo adb shell
+ 1349  lsusb
+ 1350  sudo adb shell
+ 1351  cd multi-os/
+ 1352  ls
+ 1353  sudo adb shell
+ 1354  source build/envsetup.sh 
+ 1355  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1356  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1357  cd ~/Disk_Server_ToInternal/
+ 1358  cp boot.img ~/
+ 1359  cd ..
+ 1360  cd multi-os/
+ 1361  cd out/host/linux-x86/
+ 1362  cd bin/
+ 1363  sudo ./fastboot flash boot ~/boot.img 
+ 1364  ls
+ 1365  sudo ./fastboot devices
+ 1366  iptables -t nat -vL
+ 1367  pwd
+ 1368  iptables --help
+ 1369  cd ~/multi-os/vendor/sprd/qemu/
+ 1370  ls *.hx
+ 1371  ifconfig
+ 1372  ping 192.168.1.102
+ 1373  source build/envsetup.sh 
+ 1374  cd out/host/linux-x86/bin/
+ 1375  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1376  sudo ./fastboot reboot
+ 1377  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1378  sudo cp ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img ~/Disk_Server_ToInternal/
+ 1379  sudo cp ~/multi-os/out/target/product/scx35l_sp9630ea/system.img ~/Disk_Server_ToInternal/
+ 1380  ping 192.168.1.103
+ 1381  sudo tcpreplay --loop=1 --intf1=eth0 ../ping_pac.single 
+ 1382  telnet 127.0.0.1 1235
+ 1383  cd multi-os/
+ 1384  source build/envsetup.sh 
+ 1385  sudo adb shell
+ 1386  sudo adb forward tcp:1234 tcp:1234
+ 1387  telnet 127.0.0.1 1234
+ 1388  sudo adb shell
+ 1389  cd ..
+ 1390  sudo adb forward tcp:1235 tcp:1235
+ 1391  sudo telnet 127.0.0.1 1235
+ 1392  cd ..
+ 1393  sudo tcpreplay --loop=1 --intf1=eth0 ./ping_pac.single 
+ 1394  tcpdump --help
+ 1395  man tcpreplay
+ 1396  sudo tcpreplay --loop=1000 --intf1=eth0 ./ping_pac.single 
+ 1397  sudo tcpreplay --loop=100 --intf1=eth0 ./ping_pac.single 
+ 1398  iperf -c 192.168.1.103 -P 1 -i 1 -p 5001 -f k -t 10 -d -L 5001 -T 1
+ 1399  sudo tcpreplay --loop=100 --intf1=eth0 ./ping_pac.single 
+ 1400  sudo tcpreplay --loop=100 --intf1=eth0 ./ping_pac.single -M 1 
+ 1401  sudo tcpreplay --help
+ 1402  sudo tcpreplay --loop=100 --intf1=eth0 -M 1 ./ping_pac.single 
+ 1403  sudo tcpreplay --loop=100 --intf1=eth0 -M 0.1 ./ping_pac.single 
+ 1404  sudo tcpreplay --loop=100 --intf1=eth0 -M 0.2 ./ping_pac.single 
+ 1405  sudo tcpreplay --loop=100 --intf1=eth0 -M 0.5 ./ping_pac.single 
+ 1406  sudo tcpreplay --loop=100 --intf1=eth0 -M 0.9 ./ping_pac.single 
+ 1407  iperf -s -P 0 -i 1 -p 5001 -f k
+ 1408  iperf -s -u -P 0 -i 1 -p 5001 -f k
+ 1409  sudo minicom
+ 1410  exit
+ 1411  sudo adb shell
+ 1412  ls
+ 1413  make systemimage
+ 1414  source build/envsetup.sh 
+ 1415  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1416  make systemimage
+ 1417  sudo cp ./out/target/product/scx35l_sp9630ea/system.img ~/Disk_Server_ToInternal/
+ 1418  sudo cp ./out/target/product/scx35l_sp9630ea/boot.img ~/Disk_Server_ToInternal/
+ 1419  make systemimage
+ 1420  make bootimage
+ 1421  sudo cp ./out/target/product/scx35l_sp9630ea/boot.img ~/Disk_Server_ToInternal/
+ 1422  cd out/host/linux-x86/
+ 1423  ls
+ 1424  cd bin/
+ 1425  cd ..
+ 1426  sudo cp ~/multi-os/out/target/product/scx35l_sp9630ea/system.img  ~/Disk_Server_ToInternal/
+ 1427  cd multi-os/
+ 1428  source build/envsetup.sh 
+ 1429  sudo adb root
+ 1430  sudo adb shell
+ 1431  ifconfig
+ 1432  sudo adb pull sdcard/ker.log ker.log
+ 1433  sudo cp ~/Google_iDrive.ppt ~/Disk_Server_ToInternal/
+ 1434  cd ~/Disk_Server_ToInternal/
+ 1435  ls
+ 1436  cd ..
+ 1437  sudo wireshark
+ 1438  sudo adb shell
+ 1439  sudo adb remount
+ 1440  adb remount
+ 1441  sudo adb remount
+ 1442  source build/envsetup.sh 
+ 1443  adb remount 
+ 1444  sudo adb remount
+ 1445  sudo adb root
+ 1446  sudo adb remount
+ 1447  sudo adb shell
+ 1448  sudo wireshark
+ 1449  sudo adb shell
+ 1450  adb remount
+ 1451  sudo adb shell
+ 1452  lsusb
+ 1453  sudo adb shell
+ 1454  lsusb
+ 1455  sudo adb shell
+ 1456  iptables -nL --line-number
+ 1457  sudo adb shell
+ 1458  lsusb
+ 1459  ls
+ 1460  cd multi-os/
+ 1461  source build/envsetup.sh 
+ 1462  sudo adb shell
+ 1463  lsusb
+ 1464  sudo adb root
+ 1465  sudo adb shell
+ 1466  lssub
+ 1467  lsusb
+ 1468  sudo adb shell
+ 1469  sudo minicom
+ 1470  cd multi-os/out/target/product/scx35l_sp9630ea/system/
+ 1471  find . -name qemu_start
+ 1472  find . -name qemu_start.sh
+ 1473  cd ~/
+ 1474  cd multi-os/
+ 1475  source build/envsetup.sh 
+ 1476  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1477  make bootimage
+ 1478  sudo adb root
+ 1479  sudo adb shell
+ 1480  sudo adb reboot bootloader
+ 1481  sudo adb shell
+ 1482  iptables --v
+ 1483  iptables -vL
+ 1484  sudo iptables -t nat -vL
+ 1485  sudo iptables -help
+ 1486  find . -name *libiptc*
+ 1487  locate libiptc
+ 1488  sudo adb shell
+ 1489  sudo adb root
+ 1490  sudo adb shell
+ 1491  sudo adb shel
+ 1492  sudo adb shell
+ 1493  lsusb
+ 1494  sudo adb root
+ 1495  sudo adb install ~/Downloads/tcpudpdbg.apk 
+ 1496  source build/envsetup.sh 
+ 1497  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1498  sudo adb reboot bootloader
+ 1499  lsusb
+ 1500  sudo adb reboot bootloader
+ 1501  cd ..
+ 1502  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1503  exit
+ 1504  cd multi-os/
+ 1505  source build/envsetup.sh 
+ 1506  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1507  make bootimage
+ 1508  cd /kernel
+ 1509  ls
+ 1510  cd kernel/
+ 1511  make mrproper
+ 1512  cd ..
+ 1513  kuconfig 
+ 1514  make bootimage
+ 1515  kuconfig 
+ 1516  cd kernel/
+ 1517  make mrproper
+ 1518  ls
+ 1519  cd ..
+ 1520  ls
+ 1521  make mrproper
+ 1522  make bootimage
+ 1523  sudo cp out/target/product/scx35l_sp9630ea/boot.img ~/Disk_Server_ToInternal/
+ 1524  sudo cp out/target/product/scx35l_sp9630ea/system.img ~/Disk_Server_ToInternal/
+ 1525  lsusb
+ 1526  ifconfig
+ 1527  sudo adb shell
+ 1528  ping 192.168.1.101
+ 1529  sudo adb shell
+ 1530  ping 192.168.1.102
+ 1531  sudo adb shell
+ 1532  sudo adb forward tcp:1235 tcp:1235
+ 1533  telnet 127.0.0.1
+ 1534  cd out/host/linux-x86/bin/
+ 1535  sudo ./fastboot devices
+ 1536  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1537  sudo ./fastboot devices
+ 1538  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1539  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1540  sudo cp ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img ~/Disk_Server_ToInternal/
+ 1541  cd ~/multi-os/
+ 1542  source build/envsetup.sh 
+ 1543  iperf -s -P 0 -i 1 -p 5001 -f k
+ 1544  sudo minicom
+ 1545  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1546  cd ~/Disk_Server_ToInternal/
+ 1547  ls
+ 1548  ll
+ 1549  rm 2323.tar.gz
+ 1550  ll
+ 1551  sudo rm 2323.tar.gz*
+ 1552  sudo rm 2323.tar.gz
+ 1553  ll
+ 1554  sudo rm ./2313.tar.gz
+ 1555  sudo rm ./Google_iDrive.ppt 
+ 1556  ls
+ 1557  ll
+ 1558  exit
+ 1559  cd multi-os/
+ 1560  source build/envsetup.sh 
+ 1561  lunch  scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1562  sudo minicom
+ 1563  sudo wireshare
+ 1564  sudo wireshark
+ 1565  cd ~/multi-os/
+ 1566  ls
+ 1567  source build/envsetup.sh 
+ 1568  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1569  knconfig
+ 1570  kconfig
+ 1571  kuconfig
+ 1572  PWD
+ 1573  pwd
+ 1574  cd kernel/
+ 1575  pwd
+ 1576  ls
+ 1577  git diff
+ 1578  git status -s
+ 1579  git checkout arch/arm/configs/sp9630ea_dt_defconfig
+ 1580  git status -s
+ 1581  cd ..
+ 1582  printconfig
+ 1583  kdconfig
+ 1584  kuconfig
+ 1585  source build/envsetup.sh n
+ 1586  source build/envsetup.sh 
+ 1587  make mrproper
+ 1588  cd ./kernel/
+ 1589  make mrproper
+ 1590  cd ..
+ 1591  kuconfig
+ 1592  iperf -s -u -P 0 -i 5 -p 5001 -f k
+ 1593  iperf -s -u -P 0 -i 10 -p 5001 -f k
+ 1594  iperf -s -u -P 0 -i 5 -p 5001 -f k
+ 1595  iperf -s -u -P 0 -i 10 -p 5001 -f k
+ 1596  iperf -s -P 0 -i 10 -p 5001 -f k
+ 1597  iperf -s -P 0 -i 10 -p 5001 -f k -w 85.3K
+ 1598  iperf -s -P 0 -i 10 -p 5001 -f k -l 85.3K
+ 1599  iperf -s -P 0 -i 10 -p 5001 -f k -l 512K
+ 1600  iperf -s -P 0 -i 10 -p 5001 -f k -l 512K -w 512K
+ 1601  iperf -s -P 0 -i 10 -p 5001 -f k -l 512K -w 256K
+ 1602  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1603  iperf -s -u -P 0 -i 5 -p 5001 -f k
+ 1604  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1605  iperf -s -u -P 0 -i 5 -p 5001 -f k
+ 1606  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1607  sudo adb shell
+ 1608  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1609  iperf -s -P 0 -i 10 -p 5001 -f k -l 19.6K -w 19.6K
+ 1610  ifconfig
+ 1611  iperf -s -P 0 -i 10 -p 5001 -f k -l 19.6K -w 19.6K
+ 1612  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1613  iperf -s -P 0 -i 10 -p 5001 -f k -l 19.6K -w 19.6K
+ 1614  iperf -s -u -P 0 -i 5 -p 5001 -f k
+ 1615  iperf -s -P 0 -i 10 -p 5001 -f k -l 19.6K -w 19.6K
+ 1616  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1617  iperf -s -P 0 -i 10 -p 5001 -f k -l 19.6K -w 19.6K
+ 1618  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1619  history 
+ 1620  make bootimage
+ 1621  ls build/en*
+ 1622  source build/envsetup.sh
+ 1623  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1624  make bootimage
+ 1625  make systemimage
+ 1626  history
+ 1627  sudo cp ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img ~/Disk_Server_ToInternal/
+ 1628  sudo cp out/target/product/scx35l_sp9630ea/system.img ~/Disk_Server_ToInternal/
+ 1629  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1630  sudo cp out/target/product/scx35l_sp9630ea/system.img ~/Disk_Server_ToInternal/
+ 1631  make bootimage
+ 1632  sudo cp ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img ~/Disk_Server_ToInternal/
+ 1633  make bootimage
+ 1634  cd ~/Disk_Server_ToInternal/
+ 1635  ls
+ 1636  cd ..
+ 1637  cd multi-os/
+ 1638  make bootimage
+ 1639  sudo adb shell
+ 1640  source build/envsetup.sh 
+ 1641  lunch vsharkffos-userdebug && make
+ 1642  ssh-add ~/.ssh/id_rsa
+ 1643  cd github3929/daydaybetter/
+ 1644  cd 01_Note/
+ 1645  ls
+ 1646  git status 
+ 1647  git add .
+ 1648  git fetch 
+ 1649  git merge origin/master 
+ 1650  git commit 
+ 1651  git status 
+ 1652  git push
+ 1653  git status 
+ 1654  git add .
+ 1655  git commit 
+ 1656  git push
+ 1657  passwd 
+ 1658  cd ~/multi-os/
+ 1659  source build/envsetup.sh 
+ 1660  sudo adb install ~/iperf.apk 
+ 1661  sudo adb reboot bootloader
+ 1662  cd out/host/linux-x86/bin/
+ 1663  sudo ./fastboot devices
+ 1664  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1665  sudo adb install ~/iperf.apk 
+ 1666  ifconfig
+ 1667  sudo adb reboot bootloader
+ 1668  sudo ./fastboot devices
+ 1669  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1670  sudo adb root
+ 1671  sudo adb shell
+ 1672  sudo adb reboot bootloader
+ 1673  sudo ./fastboot devices
+ 1674  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1675  sudo adb reboot bootloader
+ 1676  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1677  sudo adb shell
+ 1678  lsusb
+ 1679  sudo adb shell
+ 1680  lsusb
+ 1681  sudo adb shell
+ 1682  adb forward tcp:1235 tcp:1235
+ 1683  telnet 127.0.0.1 1235
+ 1684  cd ..
+ 1685  cd ./jperf-2.0.2/
+ 1686  ll
+ 1687  sudo ./jperf.sh 
+ 1688  ./jperf.
+ 1689  ./jperf.sh
+ 1690  cd ..
+ 1691  sudo minicom
+ 1692  ktap
+ 1693  cd multi-os/
+ 1694  source build/envsetup.sh 
+ 1695  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1696  iperf -s -u -P 0 -i 10 -p 5001 -f k
+ 1697  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1698  cd ..
+ 1699  cd multi-os/
+ 1700  cd out/target/product/scx35l_sp9630ea/
+ 1701  ls
+ 1702  ll
+ 1703  mkdir bak_20150505_test_net_ok
+ 1704  cp boot.img bak_20150505_test_net_ok/
+ 1705  cp system.img bak_20150505_test_net_ok/
+ 1706  sudo adb shell
+ 1707  lsusb
+ 1708  cd ~/and_goldfish/
+ 1709  ls
+ 1710  git clone http://android.googlesource.com/kernel/goldfish.git 
+ 1711  ps -h
+ 1712  cd multi-os/
+ 1713  find . -name *.java
+ 1714  exit
+ 1715  jls
+ 1716  ls
+ 1717  ll
+ 1718  cd Desktop/
+ 1719  ls
+ 1720  cd ..
+ 1721  ls
+ 1722  exit
+ 1723  sudo adb shell
+ 1724  ps
+ 1725  sudo adb shell
+ 1726  lsusb
+ 1727  sudo adb forward tcp:1235 tcp:1235
+ 1728  telnet 127.0.0.1 1235
+ 1729  sudo wireshark
+ 1730  cd multi-os/
+ 1731  cd frameworks/
+ 1732  find . -name *location*.java
+ 1733  find . -name *Location*.java
+ 1734  find . -name GpsLocation*.java
+ 1735  find . -name *.cpp
+ 1736  find . -name *GpsLocation.cpp
+ 1737  find . -name *Location.cpp
+ 1738  cd ..
+ 1739  find . -name *Location.cpp
+ 1740  source build/envsetup.sh 
+ 1741  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1742  make bootimage
+ 1743  source build/envsetup.sh 
+ 1744  sudo adb shell
+ 1745  sudo adb reboot bootloader
+ 1746  cd out/host/linux-x86/bin/
+ 1747  sudo ./fastboot devices
+ 1748  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1749  sudo ./fastboot devices
+ 1750  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1751  sudo adb shell
+ 1752  sudo adb reboot bootloader
+ 1753  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1754  sudo ./fastboot devices
+ 1755  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1756  sudo ./fastboot devices
+ 1757  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1758  sudo ./fastboot devices
+ 1759  cd ~/
+ 1760  cd multi-os/
+ 1761  source build/envsetup.sh 
+ 1762  sudo ./fastboot devices
+ 1763  cd out/host/linux-x86/bin/
+ 1764  sudo ./fastboot devices
+ 1765  sudo adb shell
+ 1766  sudo ./fastboot devices
+ 1767  sudo ./fastboot flash boot ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 1768  cd multi-os/
+ 1769  ls
+ 1770  source build/envsetup.sh 
+ 1771  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1772  sudo adb shell
+ 1773  lsusb
+ 1774  sudo adb shel
+ 1775  sudo adb shell
+ 1776  lsusb
+ 1777  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1778  sudo cp ~/Downloads/scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug-native_3592CF.pac.gz ~/Disk_Server_ToInternal/
+ 1779  cd ..
+ 1780  ls
+ 1781  pwd
+ 1782  w
+ 1783  ll
+ 1784  cd multi-os/
+ 1785  source build/envsetup.sh 
+ 1786  sudo adb shell
+ 1787  lsusb
+ 1788  sudo adb shell
+ 1789  iperf -s -u -P 0 -i 10 -p 5001 -f k
+ 1790  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1791  iperf -s -u -P 0 -i 5 -p 5001 -f k
+ 1792  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1793  iperf -s -P 0 -i 10 -p 5001 -f k -l 320K -w 320K
+ 1794  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1795  iperf -s -P 0 -i 10 -p 5001 -f k -l 320K -w 320K
+ 1796  ifconfig
+ 1797  cd multi-os/
+ 1798  source  build/envsetup.sh 
+ 1799  sudo adb install ~/iperf.apk 
+ 1800  sudo adb shell
+ 1801  sudo adb root
+ 1802  sudo adb install ~/iperf.apk 
+ 1803  sudo adb shell
+ 1804  cd ..
+ 1805  sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
+ 1806  sudo cp ~/multi-os/out/target/product/scx35l_sp9630ea/bak_20150505_test_net_ok/boot.img ~/Disk_Server_ToInternal/
+ 1807  sudo cp ~/multi-os/out/target/product/scx35l_sp9630ea/bak_20150505_test_net_ok/system.img ~/Disk_Server_ToInternal/
+ 1808  ifconfig
+ 1809  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1810  exit
+ 1811  iperf -c 192.168.1.101 -i 10 -f k -t 11 -P 30 -w 256k -l 256k
+ 1812  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1813  w
+ 1814  cd multi-os/
+ 1815  source build/envsetup.sh 
+ 1816  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1817  ifconfig
+ 1818  ifconfig eth0 192.168.1.101 netmask
+ 1819  ifconfig eth0 192.168.1.101 netmask 255.255.255.0 up
+ 1820  sudo ifconfig eth0 192.168.1.101 netmask 255.255.255.0 up
+ 1821  ifconfig
+ 1822  ping 192.168.1.1
+ 1823  ifconfig
+ 1824  sudo ifconfig eth0 down
+ 1825  sudo ifconfig eth0 up
+ 1826  ifconfig
+ 1827  sudo ifconfig eth0 down
+ 1828  sudo ifconfig eth0 up
+ 1829  ifconfig
+ 1830  sudo ifconfig eth0 up
+ 1831  sudo ifconfig eth0 down
+ 1832  sudo ifconfig eth0 up
+ 1833  ifconfig
+ 1834  ping 192.168.1.1
+ 1835  sudo ifconfig eth0 192.168.1.101 netmask 255.255.255.0 up
+ 1836  ping 192.168.1.1
+ 1837  sudo ifconfig eth0 192.168.1.101 netmask 255.255.255.0 up
+ 1838  ifconfig
+ 1839  sudo ifconfig eth0 192.168.1.101 netmask 255.255.255.0
+ 1840  sudo ifconfig eth0 192.168.1.101 netmask 255.255.255.0 up
+ 1841  ping 192.168.1.1
+ 1842  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1843  locate a.pdf
+ 1844  find . -name a.pdf
+ 1845  iperf -s -P 0 -i 10 -p 5001 -f k -l 256K -w 256K
+ 1846  -P 0 -i 10 -p 5001 -f k -l 320K -w 320K
+ 1847  cd github3929/daydaybetter/01_Note/
+ 1848  find -iname '*.*' | xargs grep -nHR 'arp'
+ 1849  find -iname '*.txt' | xargs grep -nHR 'arp'
+ 1850  su
+ 1851  sudo find -iname '*.txt' | xargs grep -nHR 'arp'
+ 1852  cd ~/multi-os/
+ 1853  source build/envsetup.sh 
+ 1854  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1855  make bootimage
+ 1856  source build/envsetup.sh 
+ 1857  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 1858  sudo adb root
+ 1859  sudo adb shell
+ 1860  ifconfig
+ 1861  sudo adb shell
+ 1862  sudo adb forward tcp:1235 tcp:1235
+ 1863  telnet 127.0.0.1 1235
+ 1864  cd ..
+ 1865  cd Downloads/
+ 1866  l
+ 1867  ls
+ 1868  cd astyle/
+ 1869  ls
+ 1870  cd build/
+ 1871  ls
+ 1872  ll
+ 1873  cd gcc/
+ 1874  ls
+ 1875  cd ..
+ 1876  ls
+ 1877  cd ..
+ 1878  ll
+ 1879  cd astyle/
+ 1880  ll
+ 1881  cd build/
+ 1882  ls
+ 1883  make install
+ 1884  cd ~/
+ 1885  ll
+ 1886  cd sensor_astyle
+ 1887  ls
+ 1888  ll
+ 1889  cd ../a.multi-os/
+ 1890  l
+ 1891  git status 
+ 1892  git status -remote
+ 1893  git branch -remote
+ 1894  cd ..
+ 1895  ssh-add  ~/.ssh/id_rsa
+ 1896  cd a.multi-os/
+ 1897  git status 
+ 1898  repo --help
+ 1899  git branch 
+ 1900  cd kernel/drivers/
+ 1901  find . -name sprd_virt_gsensor.c 
+ 1902  cd ../..
+ 1903  git status 
+ 1904  repo start --all sprdroid4.4_3.10_multios
+ 1905  git status 
+ 1906  git branch 
+ 1907  git status 
+ 1908  git branch 
+ 1909  git log
+ 1910  git init
+ 1911  git log
+ 1912  git branch 
+ 1913  git branch  -r
+ 1914  git status 
+ 1915  ll
+ 1916  cd ./.git/
+ 1917  ls
+ 1918  cd ..
+ 1919  rm -r -f ./.git/
+ 1920  git status 
+ 1921  repo status
+ 1922  repo sync
+ 1923  cd kernel/
+ 1924  repo sync -d -c -q -j8
+ 1925  cd ..
+ 1926  git status 
+ 1927  repo status
+ 1928  repo start --all sprdroid4.4_3.10_multios
+ 1929  cd vendor/
+ 1930  cd sprd/qemu/hw/input/
+ 1931  repo upload
+ 1932  git branch 
+ 1933  git branch -r
+ 1934  repo sync
+ 1935  repo upload
+ 1936  ls
+ 1937  git status 
+ 1938  git add .
+ 1939  git commit 
+ 1940  git status 
+ 1941  repo upload
+ 1942  git config --global user.name jason.jiang
+ 1943  git config --global user.email jason.jiang@spreadtrum.com
+ 1944  git config --global core.editor vim
+ 1945  git config --global core.ui auto
+ 1946  repo upload
+ 1947  ssh-add ~/.ssh/id_rsa
+ 1948  repo upload
+ 1949  kernel/
+ 1950  ls
+ 1951  find . -name "sprd_virt_gsensor.c"
+ 1952  cd drivers/input/virtual/
+ 1953  cp sprd_virt_gsensor.c ~/bak_astyle_sprd_virt_gsenscd ..
+ 1954  cd a.multi-os/
+ 1955  ls
+ 1956  cd vendor/sprd/qemu/hw/input/
+ 1957  cp sprd_lpsensor.c ~/bak_astyle_sprd_lpsensor.c
+ 1958  cp sprd_gsensor.c ~/bak_astyle_sprd_gsensor.c
+ 1959  cd a.multi-os/
+ 1960  cd vendor/
+ 1961  ls
+ 1962  cd sprd/
+ 1963  ls
+ 1964  cd qemu/include/
+ 1965  cd ..
+ 1966  ls
+ 1967  cd ../..
+ 1968  repo upload
+ 1969  ssh-keygen -f "/data/zhizhoutian/.ssh/known_hosts" -R [review.source.spreadtrum.com]:29418
+ 1970  ssh-keygen -f "/data/apuser/.ssh/known_hosts" -R [review.source.spreadtrum.com]:29418
+ 1971  ssh-keygen -f "/data/apuser/.ssh/id_rsa" -R [review.source.spreadtrum.com]:29418
+ 1972  ssh-keygen -f "/home/apuser/.ssh/known_hosts" -R [review.source.spreadtrum.com]:29418
+ 1973  repo uplad
+ 1974  repo upload
+ 1975  ssh-add /home/apuser/.ssh/id_rsa
+ 1976  repo upload
+ 1977  git config 
+ 1978  git config --global jason.jiang
+ 1979  git config --global user.email jason.jiang@spreadtrum.com
+ 1980  git config --global user.name jason.jiang
+ 1981  repo upload
+ 1982  cd ~/.ssh
+ 1983  ls
+ 1984  ll
+ 1985  pwd
+ 1986  cd ../multi-os/
+ 1987  find . -name sprd_virt_gsensor.c
+ 1988  cd a.multi-os/
+ 1989  ls
+ 1990  git status 
+ 1991  git branch 
+ 1992  cd ../a.multi-os/
+ 1993  ls
+ 1994  cd vendor/sprd/qemu/hw/input/
+ 1995  ls
+ 1996  gitlog
+ 1997  git log
+ 1998  ls
+ 1999  ll
+ 2000  cd ~/a.multi-os/
+ 2001  find . -name encrypted.c
+ 2002  ls
+ 2003  pwd
+ 2004  pdiinfo
+ 2005  pidinfo
+ 2006  info pid
+ 2007  ps aux
+ 2008  pgrep httpd
+ 2009  pgrep -l httpd
+ 2010  pgrep -l adb
+ 2011  pgrep -l kworker
+ 2012  pgrep -l net
+ 2013  pgrep -l terminal
+ 2014  s
+ 2015  sudo wireshark 
+ 2016  pgrep -l firefox
+ 2017  pgrep -l terminal
+ 2018  cd ../
+ 2019  cd multi-os/
+ 2020  source build/envsetup.sh 
+ 2021  sudo adb root
+ 2022  cd out/host/linux-x86/bin/
+ 2023  sudo ./fastboot devices
+ 2024  sudo ./fastboot reboot bootloader
+ 2025  lsusb
+ 2026  sudo ./fastboot reboot bootloader
+ 2027  sudo adb reboot bootloader
+ 2028  sudo ./fastboot devices
+ 2029  sudo ./fastboot flash boot.image
+ 2030  sudo ./fastboot flash ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 2031  sudo ./fastboot flash boot  ~/multi-os/out/target/product/scx35l_sp9630ea/boot.img 
+ 2032  sudo ./fastboot reboot
+ 2033  cd ~/multi-os/
+ 2034  make systemimage
+ 2035  source build/envsetup.sh 
+ 2036  lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
+ 2037  make systemimage
+ 2038  sudo adb root
+ 2039  sudo adb forward tcp:1234 tcp:1234
+ 2040  telnet 127.0.0.1 1234
+ 2041  history > /home/apuser/github3929/daydaybetter/01_Note/sunaijun_gdb_log/1cmdlog 

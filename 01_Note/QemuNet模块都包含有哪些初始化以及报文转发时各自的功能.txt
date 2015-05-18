@@ -1,0 +1,132 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+★QemuNet初始化部分关于Net都有哪些？
+
+vl.c
+main()
+{
+负责对下边这一堆的东西进行解析和执行。
+	-netdev user,id=net0,net=10.0.10.0/24,tftp=/data/local/tmp \
+	-device virtio-net-device,netdev=net0,mac=52:54:00:12:34:62 \
+	-redir tcp:2323:10.0.10.15:23 \
+
+
+    //负责创建一堆的device
+    /* init generic devices */
+    if (qemu_opts_foreach(qemu_find_opts("device"), device_init_func, NULL, 1) != 0)
+        exit(1);
+
+}
+
+
+static int device_init_func(QemuOpts *opts, void *opaque)
+{
+    DeviceState *dev;
+
+    dev = qdev_device_add(opts);
+    if (!dev)
+        return -1;
+    object_unref(OBJECT(dev));
+    return 0;
+}
+
+
+DeviceState *qdev_device_add(QemuOpts *opts)
+{
+
+    dc = DEVICE_CLASS(oc);----》得到class
+
+
+    /* create device, set properties */
+    dev = DEVICE(object_new(driver));----》得到实例，也就是为这个device分配内存空间。
+
+
+}
+
+然后创建完了，就会走到 static void virtio_net_class_init(ObjectClass *klass, void *data)那里做设备初始化了。
+
+
+然后就有了一个虚拟网卡设备对象。然后设备调用 static int virtio_net_device_init(VirtIODevice *vdev) 初始化设备。
+
+★虚拟网卡的创建是怎么个流程，创建后的网卡，在后续报文转发中，主要的处理流程都有哪些？==============
+
+然后virtio-net就相当与一个模块，就被注册到系统中了。
+
+http://blog.csdn.net/heron804/article/details/7714476有助与你理解module init
+
+static void virtio_register_types(void)
+{
+    type_register_static(&virtio_net_info);
+}
+
+static const TypeInfo virtio_net_info = {
+    .name = TYPE_VIRTIO_NET,
+    .parent = TYPE_VIRTIO_DEVICE,
+    .instance_size = sizeof(VirtIONet),
+    .instance_init = virtio_net_instance_init,
+    .class_init = virtio_net_class_init,---------》挂接的init接口
+};
+
+static void virtio_net_class_init(ObjectClass *klass, void *data)
+{
+    DeviceClass *dc = DEVICE_CLASS(klass);
+    VirtioDeviceClass *vdc = VIRTIO_DEVICE_CLASS(klass);
+
+#ifdef QEMU_NET_DEBUG
+    //add by jason-jiang
+    //printk("\n jason-jiang in virtio_net_class_init %d", __LINE__);
+    //sdkfladskfldskfl
+    error_printf("\n jason-jiang in virtio_net_class_init %d", __LINE__);
+#endif
+
+    dc->props = virtio_net_properties;
+    set_bit(DEVICE_CATEGORY_NETWORK, dc->categories);
+    vdc->init = virtio_net_device_init; --------------》设备初始化func
+    vdc->exit = virtio_net_device_exit;
+    vdc->get_config = virtio_net_get_config;
+    vdc->set_config = virtio_net_set_config;  -----------》设置属性
+    vdc->get_features = virtio_net_get_features;
+    vdc->set_features = virtio_net_set_features;
+    vdc->bad_features = virtio_net_bad_features;
+    vdc->reset = virtio_net_reset;
+    vdc->set_status = virtio_net_set_status;
+    vdc->guest_notifier_mask = virtio_net_guest_notifier_mask;
+    vdc->guest_notifier_pending = virtio_net_guest_notifier_pending;
+}
+
+
+★QemuNet报文转发部分时候各个模块都发挥了哪些作用？==============
+
+
+
+
+
+
+
+
+
+★将模块分层化，然后说说每层的大体负责什么功能==============
+
+Host Linux Kernel					Guest Linux Kernel
+
+Application 层 						Application 层
+
+IP层							IP层
+
+
+传输层----->网卡驱动  -----------  Qemu 网络层 --------------- 传输层
+
+
+★NAT的实现是在哪里？
+
+
+★guest 向 host发送报文，数据写入vring之后，是怎么trap到Host的。即KVM_EXIT()
+
+
+★VRing这个东西是怎么实现的？
+
+
+★Host Linux IP核，数据流的流程如何？Host Linux是在什么位置接受了qemu发送过来的socket。
+
+
+

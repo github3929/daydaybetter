@@ -1,0 +1,8 @@
+~/multi-os$ echo $PATH
+/usr/java/jdk1.6.0_29/bin:/home/apuser/multi-os/out/host/linux-x86/bin:/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.7/bin:/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:/home/apuser/multi-os/prebuilts/gcc/linux-x86/mips/mipsel-linux-android-4.7/bin:/home/apuser/multi-os/development/emulator/qtools:/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.7/bin:/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:/home/apuser/multi-os/development/scripts:/home/apuser/multi-os/prebuilts/devtools/tools:/usr/java/jdk1.6.0_29/bin:/usr/java/jdk1.6.0_29/jre/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games::/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/gcc-linaro-arm-linux-gnueabihf-4.8/bin/
+~/multi-os$ 
+
+~/multi-os$ echo $PATH
+/usr/java/jdk1.6.0_29/bin:/home/apuser/multi-os/out/host/linux-x86/bin:/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.7/bin:/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:/home/apuser/multi-os/prebuilts/gcc/linux-x86/mips/mipsel-linux-android-4.7/bin:/home/apuser/multi-os/development/emulator/qtools:/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.7/bin:/home/apuser/multi-os/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:/home/apuser/multi-os/development/scripts:/home/apuser/multi-os/prebuilts/devtools/tools:/usr/java/jdk1.6.0_29/bin:/usr/java/jdk1.6.0_29/jre/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+~/multi-os$ 
+

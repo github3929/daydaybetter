@@ -1,0 +1,170 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+kernel 里的kvm代码只是负责guest os trap操作，如下：
+
+
+
+
+
+
+guest os trap后，又要返回到qemu去，返回qemu的地方就在如下：---》这里其实就是qemu的vcpu thread
+
+
+int kvm_cpu_exec(CPUState *cpu)
+{
+    do {
+
+        run_ret = kvm_vcpu_ioctl(cpu, KVM_RUN, 0); ---->vcpu正常运行，也就是guest如果不退出的话
+
+
+        switch (run->exit_reason) {  ----》如果退出，那么根据退出原因调用相应的处理函数，处理完后接着运行guest
+        case KVM_EXIT_IO:
+            DPRINTF("handle_io\n");
+            kvm_handle_io(run->io.port,
+                          (uint8_t *)run + run->io.data_offset,
+                          run->io.direction,
+                          run->io.size,
+                          run->io.count);  -----》这个kvm_handle_io就是调用的？？？哪个io接口呢
+            ret = 0;
+            break;
+        case KVM_EXIT_MMIO:
+            DPRINTF("handle_mmio\n");
+            cpu_physical_memory_rw(run->mmio.phys_addr,
+                                   run->mmio.data,
+                                   run->mmio.len,
+                                   run->mmio.is_write);
+            ret = 0;
+            break;
+        case KVM_EXIT_IRQ_WINDOW_OPEN:
+            DPRINTF("irq_window_open\n");
+            ret = EXCP_INTERRUPT;
+            break;
+        case KVM_EXIT_SHUTDOWN:
+            DPRINTF("shutdown\n");
+            qemu_system_reset_request();
+            ret = EXCP_INTERRUPT;
+            break;
+        case KVM_EXIT_UNKNOWN:
+            fprintf(stderr, "KVM: unknown exit, hardware reason %" PRIx64 "\n",
+                    (uint64_t)run->hw.hardware_exit_reason);
+            ret = -1;
+            break;
+        case KVM_EXIT_INTERNAL_ERROR:
+            ret = kvm_handle_internal_error(cpu, run);
+            break;
+        default:
+            DPRINTF("kvm_arch_handle_exit\n");
+            ret = kvm_arch_handle_exit(cpu, run);
+            break;
+        }
+}
+
+
+=================================
+
+
+下面就是用户态的qemu 启动kvm虚拟机，然后进入guest，然后如果无异常，就一直反复enter guest，如果trap，那么回归到qemu调用kvm_run的地方，然后处理
+的过程。
+
+vendor/sprd/qemu/kvm-all.c
+int kvm_cpu_exec(CPUState *cpu) -----》这里是用户态的qemu，qemu发起了run kvm，随后进入内核态enter_guest
+{
+    do {
+
+        run_ret = kvm_vcpu_ioctl(cpu, KVM_RUN, 0); ----->启动kvm
+
+        switch (run->exit_reason) { -----》qemu 查看guest cpu trap后，进入内核态的kvm，再被kvm跳转到用户态的qemu并被注入退出原因。
+        case KVM_EXIT_IO:
+            DPRINTF("handle_io\n");
+            kvm_handle_io(run->io.port,
+                          (uint8_t *)run + run->io.data_offset,
+                          run->io.direction,
+                          run->io.size,
+                          run->io.count);
+            ret = 0;
+            break;
+        case KVM_EXIT_MMIO:
+		........
+        }
+    } while (ret == 0);
+
+	........
+}
+
+kernel/virt/kvm/kvm_main.c
+static long kvm_vcpu_ioctl(struct file *filp,
+			   unsigned int ioctl, unsigned long arg)
+{
+
+	switch (ioctl) {
+	case KVM_RUN:
+		r = -EINVAL;
+		if (arg)
+			goto out;
+		r = kvm_arch_vcpu_ioctl_run(vcpu, vcpu->run); ----》当guest退出的时候，会从内核态的kvm_arch_vcpu_ioctl_run中的while处理中跳出，一步一步返回到这里
+		trace_kvm_userspace_exit(vcpu->run->exit_reason, r);
+		break;
+		。。。。。。
+	default:
+		r = kvm_arch_vcpu_ioctl(filp, ioctl, arg);
+	}
+out:
+	vcpu_put(vcpu);
+	kfree(fpu);
+	kfree(kvm_sregs);
+	return r;
+}
+
+kernel/arch/arm/kvm/arm.c
+int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu, struct kvm_run *run)
+{
+	while (ret > 0) {
+		kvm_guest_enter();
+
+		ret = kvm_call_hyp(__kvm_vcpu_run, vcpu);
+
+		kvm_guest_exit();
+
+		ret = handle_exit(vcpu, run, ret);---->处理退出的原因
+	}
+}
+
+
+====================================================================
+
+Guest OS中网络数据包的发送的时候，会将数据包的内容写入待发送的skbuffer的地址空间中，同时将待发送的skbuffer地址放入发送ring中，
+
+配置网卡的发送寄存器而将数据包发送出去，同时这个配置PCI空间寄存器的动作，会触发guest exit即cpu trap，那下面
+
+分析一下这个cpu trap一步一步走到 qemu的处理 kvm_handle_io的时候，qemu是这么处理的：Qemu通过对触发io exit的地址的
+范围检测，找到对应的PIO/MMIO的地址空间，并调用地址空间注册时的一系列对应寄存器操作处理函数，那么我们的virtio_net
+注册的ops是哪个呢，就是下面的pci_ops: 
+		
+	----》!!!!插一句，这个流程跟普通网卡的发包是一个道理，发送数据要先填充数据，然后触发中断，告知CPU我要发包。
+
+kernel/drivers/virtio/virtio_pci.c
+
+static const struct virtio_config_ops virtio_pci_config_ops = {
+	.get		= vp_get,
+	.set		= vp_set,  ------->用这接口告知CPU我要发送中断，当然这个是vcpu，不是真实的CPU
+	.get_status	= vp_get_status,
+	.set_status	= vp_set_status,
+	.reset		= vp_reset,
+	.find_vqs	= vp_find_vqs,
+	.del_vqs	= vp_del_vqs,
+	.get_features	= vp_get_features,
+	.finalize_features = vp_finalize_features,
+	.bus_name	= vp_bus_name,
+	.set_vq_affinity = vp_set_vq_affinity,
+};
+
+set你在geust发送报文的时候，写到pci配置空间的那个寄存器的值，然后触发了软中断，然后进入中断处理函数？？？？？后面还不清楚
+
+？？？怎么进入virtio_net_tx_bh(从bh这个名字就联想到这个函数是一个中断处理接口)的？？？？
+
+
+﻿★然后在 网页：http://blog.chinaunix.net/uid-27119491-id-3346430.html 里说CPU发包都不用硬中断了，都是软中断，所以更加确信virtio_net_tx_bh就是一个中断处理函数。
+你找一下，这个函数挂接给了哪个中断号。
+
+
+
