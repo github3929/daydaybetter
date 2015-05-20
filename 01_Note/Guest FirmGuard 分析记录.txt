@@ -20,3 +20,252 @@ root分区(这个有待核实...) system分区 data分区
 对SwitchOS这一边，要实现在Guest OS进入recovery模式后，将Guest OS升级的状态(这些信息也是guest OS通过vport告知qemu的)，
 发送给SwitchOS，用于用户显示。
 
+★ym讲，这个东西可以参考
+/home/apuser/a.multi-os/vendor/sprd/open-source/apps目录下的
+modemd ------》这个是server
+modemassert  -----》这个是client
+
+guest os和firmguard 传送升级包是通过vport
+guest os发送消息给firmguard也是通过vport，firmguard和switch os通信是通过local socket，
+firmguard是native层，switch os是framework层，两者通信需要通过 local socket。
+
+★分析multiosservice.java文件，2个地方好玩：
+a。通过变量IsVmHost判断当前是host还是guest
+
+b。通过private final String HOST_SWITHOS_SOCKET_NAME = "/dev/multios/switchos"; guest可以获取到和host沟通的vport的设备节点。
+
+★标准的socket有3种类型，分别为：
+SOCK_STREAM：即TCP，工作在传输层，进程之间通信（IP＋端口），需要先建立连接，保证数据的完整性和有序性，有分包机制，有流量控制机制
+SOCK_DGRAM：即UDP，工作在传输层，进程之间通信（IP＋端口），无连接，不保证数据完整性，不保证有序性，有分包机制，无流量控制机制
+SOCK_RAW：即IP，工作在网络层，主机之间通信（IP），无连接，不保证数据完整性和有序性，无分包机制，无流量控制
+
+★如何查看系统，目前有哪些属性
+root@vshark:/dev # 
+root@vshark:/dev # getprop 
+[conn.connectivity_change_delay]: [0]
+[dalvik.vm.heapgrowthlimit]: [48m]
+[dalvik.vm.heapmaxfree]: [2m]
+[dalvik.vm.heapminfree]: [512k]
+[dalvik.vm.heapsize]: [64m]
+[dalvik.vm.heapstartsize]: [3m]
+[dalvik.vm.heaptargetutilization]: [0.75]
+[dalvik.vm.lockprof.threshold]: [500]
+[dalvik.vm.stack-trace-file]: [/data/anr/traces.txt]
+[debug.force_rtl]: [0]
+[debug.hwui.render_dirty_regions]: [false]
+[dev.bootcomplete]: [1]
+[dhcp.eth0.dns1]: [10.0.10.3]
+[dhcp.eth0.dns2]: []
+[dhcp.eth0.dns3]: []
+[dhcp.eth0.dns4]: []
+[dhcp.eth0.domain]: []
+[dhcp.eth0.gateway]: [10.0.10.2]
+[dhcp.eth0.ipaddress]: [10.0.10.15]
+[dhcp.eth0.leasetime]: [86400]
+[dhcp.eth0.mask]: [255.255.255.0]
+[dhcp.eth0.mtu]: []
+[dhcp.eth0.pid]: [946]
+[dhcp.eth0.reason]: [REBOOT]
+[dhcp.eth0.result]: [ok]
+[dhcp.eth0.server]: [10.0.10.2]
+[dhcp.eth0.vendorInfo]: []
+[gsm.current.phone-type]: [1]
+[gsm.network.type]: [GPRS]
+[gsm.operator.alpha]: [China Mobile]
+[gsm.operator.iso-country]: [cn]
+[gsm.operator.isroaming]: [false]
+[gsm.operator.numeric]: [46000]
+[gsm.sim.state]: [ABSENT]
+[gsm.sim1.fdn.enable]: [false]
+[gsm.version.baseband]: [FM_BASE_14C_W15.10_P1|sc9630_modem|03-04-2015 17:37:36]
+[gsm.version.ril-impl]: [android reference-ril 1.0]
+[init.svc.adbd]: [running]
+[init.svc.bootanim]: [stopped]
+[init.svc.cmd_services]: [stopped]
+[init.svc.console]: [running]
+[init.svc.debuggerd]: [running]
+[init.svc.dhcpcd_eth0]: [running]
+[init.svc.drm]: [running]
+[init.svc.healthd]: [running]
+[init.svc.installd]: [running]
+[init.svc.keystore]: [running]
+[init.svc.media]: [running]
+[init.svc.netd]: [running]
+[init.svc.phoneserver_tl]: [running]
+[init.svc.sdcard]: [running]
+[init.svc.servicemanager]: [running]
+[init.svc.surfaceflinger]: [running]
+[init.svc.telnetd]: [stopped]
+[init.svc.tlril-daemon]: [running]
+[init.svc.ueventd]: [running]
+[init.svc.vold]: [running]
+[init.svc.zygote]: [running]
+[keyguard.no_require_sim]: [true]
+[lmk.autocalc]: [false]
+[media.blkio.mspid]: [943]
+[net.bt.name]: [Android]
+[net.change]: [net.qtaguid_enabled]
+[net.hostname]: [android-93e49d6c1d5ce3c2]
+[net.qtaguid_enabled]: [0]
+[net.tcp.buffersize.default]: [4096,87380,110208,4096,16384,110208]
+[net.tcp.buffersize.edge]: [4093,26280,35040,4096,16384,35040]
+[net.tcp.buffersize.evdo]: [4094,87380,262144,4096,16384,262144]
+[net.tcp.buffersize.gprs]: [4092,8760,11680,4096,8760,11680]
+[net.tcp.buffersize.hsdpa]: [4094,87380,262144,4096,16384,262144]
+[net.tcp.buffersize.hspa]: [4094,87380,262144,4096,16384,262144]
+[net.tcp.buffersize.hspap]: [4094,87380,1220608,4096,16384,1220608]
+[net.tcp.buffersize.hsupa]: [4094,87380,262144,4096,16384,262144]
+[net.tcp.buffersize.lte]: [524288,1048576,2097152,262144,524288,1048576]
+[net.tcp.buffersize.umts]: [4094,87380,110208,4096,16384,110208]
+[net.tcp.buffersize.wifi]: [524288,1048576,2097152,262144,524288,1048576]
+[net.tcp.default_init_rwnd]: [60]
+[persist.modem.tl.cs]: [1]
+[persist.modem.tl.enable]: [1]
+[persist.modem.tl.ps]: [0]
+[persist.modem.tl.rsim]: [1]
+[persist.msms.phone_count]: [1]
+[persist.msms.phone_default]: [0]
+[persist.radio.ssda.mode]: [tdd-csfb]
+[persist.radio.ssda.testmode]: [7]
+[persist.service.bdroid.bdaddr]: [22:22:fc:6c:ca:bc]
+[persist.storage.type]: [2]
+[persist.sys.cache_on_sd]: [0]
+[persist.sys.cmdservice.enable]: [disable]
+[persist.sys.dalvik.vm.lib]: [libdvm.so]
+[persist.sys.engpc.disable]: [0]
+[persist.sys.lastbootflag]: [unnormal]
+[persist.sys.lastbootflagbak]: [unnormal]
+[persist.sys.modem.diag]: [,gser]
+[persist.sys.profiler_ms]: [0]
+[persist.sys.sprd.modemreset]: [0]
+[persist.sys.sprd.wcnreset]: [0]
+[persist.sys.support.vt]: [false]
+[persist.sys.timezone]: [Asia/Shanghai]
+[persist.sys.usb.config]: [adb]
+[persist.ttydev]: [ttyVUART0]
+[ro.adb.secure]: [0]
+[ro.allow.mock.location]: [0]
+[ro.baseband]: [unknown]
+[ro.board.platform]: [vshark]
+[ro.boot.hardware]: [vshark]
+[ro.bootloader]: [unknown]
+[ro.bootmode]: [unknown]
+[ro.build.characteristics]: [default]
+[ro.build.date.utc]: [1431663999]
+[ro.build.date]: [Fri May 15 12:26:39 CST 2015]
+[ro.build.description]: [vsharkffos-userdebug 4.4.4 KTU84P eng.spreadtrum.com.20150515.101924 test-keys]
+[ro.build.display.id]: [vsharkffos-userdebug 4.4.4 KTU84P eng.spreadtrum.com.20150515.101924 test-keys]
+[ro.build.host]: [taojiangubtpc.local]
+[ro.build.id]: [KTU84P]
+[ro.build.product]: [vshark]
+[ro.build.tags]: [test-keys]
+[ro.build.type]: [userdebug]
+[ro.build.user]: [spreadtrum.com]
+[ro.build.version.codename]: [REL]
+[ro.build.version.incremental]: [eng.spreadtrum.com.20150515.101924]
+[ro.build.version.release]: [4.4.4]
+[ro.build.version.sdk]: [19]
+[ro.carrier]: [unknown]
+[ro.com.android.dataroaming]: [false]
+[ro.com.android.dateformat]: [MM-dd-yyyy]
+[ro.config.alarm_alert]: [Alarm_Classic.ogg]
+[ro.config.low_ram]: [true]
+[ro.config.multios]: [true]
+[ro.config.notification_sound]: [pixiedust.ogg]
+[ro.config.ringtone]: [Ring_Synth_04.ogg]
+[ro.crypto.fuse_sdcard]: [true]
+[ro.crypto.state]: [unencrypted]
+[ro.debuggable]: [1]
+[ro.factorytest]: [0]
+[ro.floatkey.show]: [false]
+[ro.hardware]: [vshark]
+[ro.homekey.physical]: [true]
+[ro.modem.tl.count]: [1]
+[ro.modem.tl.diag]: [/dev/slog_lte]
+[ro.modem.tl.log]: [/dev/slog_lte]
+[ro.modem.tl.snd]: [1]
+[ro.modem.tl.tty]: [/dev/stty_lte]
+[ro.moz.omx.hw.max_height]: [1080]
+[ro.moz.omx.hw.max_width]: [1920]
+[ro.moz.ril.ipv6]: [true]
+[ro.moz.wifi.unloaddriver]: [1]
+[ro.msms.phone_count]: [1]
+[ro.multios.host]: [0]
+[ro.opengles.version]: [131072]
+[ro.product.board]: []
+[ro.product.brand]: [Spreadtrum]
+[ro.product.cpu.abi2]: [armeabi]
+[ro.product.cpu.abi]: [armeabi-v7a]
+[ro.product.device]: [vshark]
+[ro.product.hardware]: [VShark_V1.0.1]
+[ro.product.locale.language]: [en]
+[ro.product.locale.region]: [US]
+[ro.product.manufacturer]: [Spreadtrum]
+[ro.product.model]: [VShark]
+[ro.product.name]: [vsharkffos]
+[ro.revision]: [0]
+[ro.ril.ecclist]: [112,911,#911,*911,000,08,110,999,118,119,120,122,100]
+[ro.runtime.firstboot]: [1325450814126]
+[ro.secure]: [1]
+[ro.serialno]: []
+[ro.sf.lcd_density]: [240]
+[ro.sf.lcd_height]: [96]
+[ro.sf.lcd_width]: [54]
+[ro.storage.flash_type]: [2]
+[ro.wifi.channels]: []
+[ro.zygote.disable_gl_preload]: [false]
+[service.adb.tcp.port]: [5555]
+[service.bootanim.exit]: [1]
+[sys.boot_completed]: [1]
+[sys.multios.active]: [0]
+[sys.settings_secure_version]: [2]
+[sys.settings_system_version]: [2]
+[sys.tempsd.enable]: [0]
+[sys.usb.config]: [adb]
+[sys.usb.gser.count]: [4]
+[sys.usb.state]: [adb]
+[vold.post_fs_data_done]: [1]
+[wifi.interface]: [wlan0]
+[wlan.driver.status]: [unloaded]
+root@vshark:/dev # 
+root@vshark:/dev # 
+
+﻿★查看手机host端，都有哪些属性文件
+shell@scx35l_sp9630ea:/ # busybox find . -name "*.prop"
+./system/build.prop
+./default.prop
+
+shell@scx35l_sp9630ea:/ # cd /data/property/                                   
+shell@scx35l_sp9630ea:/data/property # ls
+persist.radio.ssda.testmode
+persist.sys.cache_on_sd
+persist.sys.callforwarding
+persist.sys.cmccpolicy.disable
+persist.sys.cmdservice.enable
+persist.sys.dalvik.vm.lib
+persist.sys.isfirstboot
+persist.sys.lastbootflag
+persist.sys.lastbootflagbak
+persist.sys.profiler_ms
+persist.sys.qosstate
+persist.sys.silence
+persist.sys.slog.enabled
+persist.sys.timezone
+shell@scx35l_sp9630ea:/data/property # 
+shell@scx35l_sp9630ea:/data/property # 
+
+
+
+★参考代码：
+1. native层代码 和 framewrok层代码通过local socket通信，告知guest升级状态的东西。你可以参考
+/home/apuser/a.multi-os/vendor/sprd/open-source/apps/modemassert ----》client
+
+/home/apuser/a.multi-os/vendor/sprd/open-source/apps/modemd  ---》server
+
+2.guest 和 host通过vport通信传递升级安装包的代码参考：
+
+/home/apuser/a.multi-os/vendor/sprd/open-source/apps/multios 下的switch os ----》host端---》这边是通过socket来读
+
+都是上面这个代码， multiosservice.java 代码里边通过判断IsVmHost来区分是走host还是guest ----》guest端---》这边是通过设备节点来写
+
+

@@ -1,5 +1,14 @@
 ﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
 
+linux系统内核的启动脚本
+/home/apuser/a.multi-os/out/target/product/vshark/root/init.rc
+/home/apuser/a.multi-os/out/target/product/scx35l_sp9630ea/root/init.rc
+/home/apuser/a.multi-os/system/core/rootdir/init.rc
+
+单板相关的启动脚本
+/home/apuser/multi-os/device/sprd/scx35l_sp9630ea/init.board.rc
+/home/apuser/multi-os/device/sprd/vshark/init.board.rc
+
 sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jiang/  ~/Disk_Server_ToInternal/
 
 #ifndef QEMU_NET_DEBUG

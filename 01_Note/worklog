@@ -1579,11 +1579,88 @@ http://eccs.spreadtrum.com:8080/svn/SPREADTRUM/SYSSW/training/
 3.gdb调试qemu，local socket代码编写或者找参考代码。
 
 
+下午：回家了
+
+=========================================================Day:20150518 start=========================================================
+8.45来的
+
+上午：9.33才开始正式，零零碎碎的事情耗时太久了
+
+1.gdb调试qemu，local socket代码编写或者找参考代码。
+
+2.编写出一个进程的代码，编译后生成一个bin格式的文件，然后你加载到手机上，
+然后运行，然后程序一旦运行就进入一个main_loop，开始等待事件。同时创建一个socket，告知switchos的状态。
+
+3.这边qemu的firmguard要listen guest发送升级包的消息。并对下载的升级包做RSA校验。----》仅仅是分析，还没开始动手写代码
+
+4.firmguard程序通过本地socket来和switch os进行消息交互，告知自己的状态，以及系统是否升级成功等。----》仅仅是分析，还没开始动手写代码
+
+
 下午：
-1.
+最大的收获就是自己可以用gdb调试qemu了，而这早已经被别人掌握，所以加油，奔跑吧，benben。
 
-2.
+晚上：梳理一下，自己要做firmguard，需要熟悉哪些东西。
+1. 以switch os为例，我们要添加一个vport，做guest和host之间升级包的传输的话，要做什么，guest要怎么发送， host要怎么接受？
 
+2. 我们要向switch os发送一些firmguard的状态，要怎么做？
+
+
+
+后记：
+我们的qemu编译的时候使用的默认配置文件为：
+/home/apuser/a.multi-os/vendor/sprd/qemu/default-configs/arm-softmmu.mak
+
+
+terminal下，执行Ctrl+r 可以搜索历史命令
+
+=========================================================Day:20150519 start=========================================================
+
+上午：9.38come to status
+1.看书"深入理解android卷1"，我们关心的部分的阅读
+
+
+2.看一遍ren写的那篇文章
+
+3.分析一下init.rc的处理，http://blog.csdn.net/happy08god/article/details/17798179
+  android的代码结构，我们写一个进程，加入android启动流程
+
+
+下午：
+
+1.请教了yuming，关于利用local socket使qemu和firmguard通信的方法。firmguard是工作在native层。
+  但是qemu扩展了vport后，guest那一侧访问这个设备节点，发送升级包数据，以及qemu这一侧，firmguard创建socket来读取数据，还是有点？？
+
+2.看完了"深入理解android卷1"我们关心的部分，不过对init.rc，还有property，还有service还不太明白。
+
+3.下载了secure-crt这个程序
+
+晚上：
+1.研究如何利用eclipse 来调试安卓的app，但是后来发现adt下载总是失败，貌似是google服务器无法访问。
+
+2.网上寻找android开发教程，但是收获不大，讲android底层开发的少，很多都是说android应用开发的，不过找到几个不错的开发论坛，加到收藏了
+
+如下这个网页，讲解了android开发的分类，以及知识点
+http://zhidao.baidu.com/link?url=gvgI6LLhbzR2VvJnSTmnu8Fc3JoJPF2h4HpK4Qz_3cIFv2lzvFQtwLljy4Zhfu7RHipjW5HT9kOlgwSLfcwNt_
+
+3.发现在新的a.multi-os代码中， 编译完毕host的app后，再编译guest的app，结果返回头再次编译host的app，发现
+编译是按照make clean后那样重编的，不是增量编译，太耗时间了。
+
+=========================================================Day:20150520 start=========================================================
+
+上午：
+1.编写vport部分的实现代码。调试，修改qemu_sh，新增一个vm channel。
+  疑问：vm channel ？= vport么？ 
+  答：确认了，就是一个东西。
+
+1.1写一个小程序，ko或者可执行文件，push到手机上运行，功能就是访问特定的设备节点，read&write
+
+1.2编译完成之后，如何我知道新增的firmguard模块被编进版本里了。编译生成的*.o文件在哪里
+
+2.搞明白init.rc里边要添加什么东西，才能在android启动的时候，加载上你新增的这个service。
+
+3.注册了一个论坛的帐号：http://www.eoeandroid.com
+name:andsuc
+pwd:Hello@bj
 
 
 
