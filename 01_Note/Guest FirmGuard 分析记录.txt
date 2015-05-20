@@ -276,8 +276,8 @@ linux系统内核的启动脚本
 /home/apuser/a.multi-os/system/core/rootdir/init.rc
 
 单板相关的启动脚本
-/home/apuser/multi-os/device/sprd/scx35l_sp9630ea/init.board.rc
-/home/apuser/multi-os/device/sprd/vshark/init.board.rc
+/home/apuser/a.multi-os/device/sprd/scx35l_sp9630ea/init.board.rc
+/home/apuser/a.multi-os/device/sprd/vshark/init.board.rc
 
 /home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/scx35l_sp9630ea/root/init.board.rc ---》不是
 /home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/vshark/root/init.board.rc ---》不是
@@ -287,6 +287,6 @@ sh文件：
 /home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/vendor/sprd/qemu/qemu_start.sh
 
 /home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/vshark/firmboot/qemu_start.sh --》不是
-/home/likewise-open/SPREADTRUM/jason.jiang/emmc_multi-os/out/target/product/scx35l_sp9630ea/system/bin/qemu_start.sh ---》不是
+/home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/scx35l_sp9630ea/system/bin/qemu_start.sh ---》不是
 
 
