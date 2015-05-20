@@ -1655,6 +1655,8 @@ http://zhidao.baidu.com/link?url=gvgI6LLhbzR2VvJnSTmnu8Fc3JoJPF2h4HpK4Qz_3cIFv2l
 1.1写一个小程序，ko或者可执行文件，push到手机上运行，功能就是访问特定的设备节点，read&write
 
 1.2编译完成之后，如何我知道新增的firmguard模块被编进版本里了。编译生成的*.o文件在哪里
+答：/a.multi-os/out/target/product/scx35l_sp9630ea/system/app/MultiOs.apk
+    /a.multi-os/out/target/product/vshark/system/app/MultiOs.apk
 
 2.搞明白init.rc里边要添加什么东西，才能在android启动的时候，加载上你新增的这个service。
 

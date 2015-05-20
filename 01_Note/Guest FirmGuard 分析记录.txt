@@ -269,3 +269,24 @@ shell@scx35l_sp9630ea:/data/property #
 都是上面这个代码， multiosservice.java 代码里边通过判断IsVmHost来区分是走host还是guest ----》guest端---》这边是通过设备节点来写
 
 
+★增加channel需要修改的地方：
+linux系统内核的启动脚本
+/home/apuser/a.multi-os/out/target/product/vshark/root/init.rc--不是
+/home/apuser/a.multi-os/out/target/product/scx35l_sp9630ea/root/init.rc ---》不是
+/home/apuser/a.multi-os/system/core/rootdir/init.rc
+
+单板相关的启动脚本
+/home/apuser/multi-os/device/sprd/scx35l_sp9630ea/init.board.rc
+/home/apuser/multi-os/device/sprd/vshark/init.board.rc
+
+/home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/scx35l_sp9630ea/root/init.board.rc ---》不是
+/home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/vshark/root/init.board.rc ---》不是
+
+
+sh文件：
+/home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/vendor/sprd/qemu/qemu_start.sh
+
+/home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/vshark/firmboot/qemu_start.sh --》不是
+/home/likewise-open/SPREADTRUM/jason.jiang/emmc_multi-os/out/target/product/scx35l_sp9630ea/system/bin/qemu_start.sh ---》不是
+
+
