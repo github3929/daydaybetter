@@ -1,0 +1,7 @@
+1.host和guest各自运行一个bin可执行文件。
+2.host和guest的文件分别编译，host和guest的编译参考
+/home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/vendor/sprd/open-source/apps/modemd
+下的android.mk
+3.需要修改qemu.sh，然后还要添加init.rc或者board_init.rc文件。
+  修改完毕qemu.sh后，只需要停下来qemu，然后从新运行即可。--》在代码添加了selinux后就不能这么做了
+

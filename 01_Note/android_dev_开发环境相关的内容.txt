@@ -1,0 +1,41 @@
+﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
+
+★分支1
+在~/android-sdk-linux/tools$ ./android执行下载android sdk没有成功
+
+★分支2
+打开eclipse的install new software安装adt，成功一部分
+
+★分支3--成功，安装了android新的开发套件，运行方法如下：
+~/android-studio/bin$ 
+~/android-studio/bin$ ./studio.sh 
+
+另外，还有一些说明文档，没有细看，也没有执行，遇到困难再说
+~/android-studio/Install-Linux-tar.txt
+
+附上下载studio的地址：
+http://developer.android.com/tools/help/adt.html
+
+★另外在DS5目录下有一堆的android开发组件：
+Warning: You are installing software that contains unsigned content. The authenticity or validity of this software cannot be established. Do you want to continue with the installation?
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/plugins/com.android.ide.eclipse.adt_23.0.6.1720515.jar
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/features/com.android.ide.eclipse.adt.feature_23.0.6.1720515
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/plugins/com.android.ide.eclipse.base_23.0.6.1720515.jar
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/plugins/com.android.ide.eclipse.ddms_23.0.6.1720515.jar
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/features/com.android.ide.eclipse.ddms.feature_23.0.6.1720515
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/plugins/com.android.ide.eclipse.gldebugger_23.0.6.1720515.jar
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/features/com.android.ide.eclipse.gldebugger.feature_23.0.6.1720515
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/plugins/com.android.ide.eclipse.hierarchyviewer_23.0.6.1720515.jar
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/features/com.android.ide.eclipse.hierarchyviewer.feature_23.0.6.1720515
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/plugins/com.android.ide.eclipse.ndk_23.0.6.1720515.jar
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/features/com.android.ide.eclipse.ndk.feature_23.0.6.1720515
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/plugins/com.android.ide.eclipse.traceview_23.0.6.1720515.jar
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/features/com.android.ide.eclipse.traceview.feature_23.0.6.1720515
+  /home/likewise-open/SPREADTRUM/jason.jiang/.ds-5/workbench/plugins/overlay.com.android.ide.eclipse.adt.overlay_23.0.6.1720515.jar
+
+★有关android sdk开发的事情还可一看看这些东西
+
+http://wikiserver.spreadtrum.com/Projects/SoftwareSystem/wiki/fen.xie
+
+http://wikiserver.spreadtrum.com/Projects/SoftwareSystem/wiki/Anriod%20SDK
+
