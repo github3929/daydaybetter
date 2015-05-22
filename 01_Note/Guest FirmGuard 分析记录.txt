@@ -262,11 +262,26 @@ shell@scx35l_sp9630ea:/data/property #
 
 /home/apuser/a.multi-os/vendor/sprd/open-source/apps/modemd  ---》server
 
+
 2.guest 和 host通过vport通信传递升级安装包的代码参考：
+/home/apuser/a.multi-os/vendor/sprd/open-source/apps/modemd
 
-/home/apuser/a.multi-os/vendor/sprd/open-source/apps/multios 下的switch os ----》host端---》这边是通过socket来读
 
-都是上面这个代码， multiosservice.java 代码里边通过判断IsVmHost来区分是走host还是guest ----》guest端---》这边是通过设备节点来写
+guest一侧的设备节点是如下：
+root@vshark:/dev # ll
+lrwxrwxrwx root     root              2012-01-01 15:20 modemd -> /dev/vport3p2
+
+guest一侧的通信，代码在：
+
+
+host一侧的socket通信，代码在：
+
+
+3.guest 和 host通过vport通信传递升级安装包的代码参考：---》不建议参考这个，这个是在java层实现的，和我们的目标代码不一致
+
+/home/apuser/a.multi-os/vendor/sprd/open-source/apps/multios 下的switch os 的multiosservice.java----》host端---》这边是通过socket来读
+
+还是上面的目录下的这个代码， multiosservice.java 代码里边通过判断IsVmHost来区分是走host还是guest ----》guest端---》这边是通过设备节点来写
 
 
 ★增加channel需要修改的地方：
@@ -277,10 +292,12 @@ linux系统内核的启动脚本
 
 单板相关的启动脚本
 /home/apuser/a.multi-os/device/sprd/scx35l_sp9630ea/init.board.rc
-/home/apuser/a.multi-os/device/sprd/vshark/init.board.rc
+/home/apuser/a.multi-os/device/sprd/vshark/init.board.rc----》错误的，不用这个
+/home/apuser/a.multi-os/device/sprd/vshark/init.vshark.rc
 
 /home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/scx35l_sp9630ea/root/init.board.rc ---》不是
-/home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/vshark/root/init.board.rc ---》不是
+/home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/vshark/root/init.board.rc ---》错误，不用这个
+/home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/vshark/root/init.vshark.rc
 
 
 sh文件：
@@ -288,5 +305,10 @@ sh文件：
 
 /home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/vshark/firmboot/qemu_start.sh --》不是
 /home/likewise-open/SPREADTRUM/jason.jiang/a.multi-os/out/target/product/scx35l_sp9630ea/system/bin/qemu_start.sh ---》不是
+
+★分析一下在host端和guest端需要怎么修改init.board.rc文件，qemu_start.sh文件按照yuming的说法，就是仅仅添加2行创建vport device的语句
+on property:sys.multios.startguest=1
+    start firmos
+备注：rc这块的修改，参考tianzhizhou的问题单 438456
 
 
