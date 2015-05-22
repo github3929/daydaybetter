@@ -1,5 +1,7 @@
 ﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
 
+busybox tftp -g -l fgg -r fgg 10.0.10.2
+
 repo init -u gitosis@sprdroid.git.spreadtrum.com.cn:android/platform/manifest -b sprdroid4.4_3.10_multios
 repo sync -d -c -q -j8
 
