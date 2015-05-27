@@ -1842,4 +1842,49 @@ http://blog.csdn.net/xxxxxx91116/article/details/10068555
 
 理论上来说最大内存可以到3G
 
-4.
+4.找到matt.ma的那个单子，然后看看recovery现在功能是个啥样。
+
+5.grep命令使用方法： grep QEMU_VERSION -r -n ./
+
+
+6.据matt介绍，guest现在的启动流程，
+
+shell@scx35l_sp9630ea:/system/bin # cat firmosboot.sh                          
+#!/bin/sh
+/firmboot/qemu_start.sh $1
+
+
+7.哪个service是负责不断的调用qemu_start.sh的，即stop firmos这个service为啥在list里找不到。
+root@scx35l_sp9630ea:/ # service list                                          
+Found 82 services:
+
+
+8.start firmos 和 stop firmos这2个开关service的命令，最终会执行什么命令？？？？？？？？？
+
+我看到了firmosboot.sh，但是又是在哪个rc文件中，开启了一个service，然后调用了firmosboot.sh呢？？？？？？
+？？？？？？？？？？？？？
+
+8.1两边可以通过设置property的方式来切换host和guest系统的运行，当被设置为unactive模式的时候，
+就会暂时屏蔽掉该系统所有的按键还有触屏的操作请求。
+
+
+9.如果android系统进入recovery模式，那么它开机启动的应用程序是不一样的。启动的是如下程序v：
+
+root      935   1     11044  2948  ffffffff 00058154 S /sbin/recovery
+
+那我很奇怪，如果不是进入recovery模式，那么它启动的应用程序又是谁呢？？？？？？？
+----》进不进recovery，会加载不通的image文件。
+
+10.看一下qemu_start.sh文件在烧firmboot的时候，它的安全上下文是谁给赋的值。
+同时，OTA升级为什么就可以将这些文件的安全上下文设置为一模一样的。
+
+----》哦，我好像猜到了，因为OTA升级的时候，加载的img文件是ranmdisk.img而不是system.img
+     所以guest在OTA阶段运行的系统是存放在内存中的ramdisk，所以它里边的程序就可以做
+     覆盖system分区这种事情，因为运行的程序没有存放在system分区上，不会影响自身运行。
+     
+     
+11.经过sun aijun的指点，找到了recovery的代码位置。
+
+/home/apuser/a.multi-os/bootable ---》这个目录下有bootrom和recovery的代码
+
+12.通过secureboot还有ota可以熟悉一下android的启动流程。
