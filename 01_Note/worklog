@@ -1738,3 +1738,108 @@ wrok to do::::
 
 2.上网上找个client和server互传文件的代码示例
   保证传输的正确性，文件要足够大，50M
+
+=========================================================Day:20150523 start=========================================================
+
+1.guest端就是用个命令的执行来模拟guest收到更新包并触发升级的事件。
+  然后升级包就是把几个程序文件用tar打成一个包。
+
+2.host端就是一个线程在等待这个升级的事件，如果等到，那么开始就传输的文件的个数，文件的类型和guest沟通，
+
+
+3.然后传输结束后，host开始对文件的签名用公钥进行验证。
+
+4.验证OK，则向shell打印一个升级包OK，并且触发QEMU重启。
+
+=========================================================Day:20150525 start=========================================================
+PS：9点来的，9点22才进入状态
+
+上午：
+1.罗列了一下目前，实现OTA还可能存在的技术瓶颈:
+  a.ota升级文件包的组织架构,--->这个升级包是要最终接受recovery deamon的验证有效性的，所以它的格式不是随便定义的，而是要参照公司规范来。
+  b.ota升级包的合法性判断，即对签名信息的验证工作。---》这个是recoveryd做的事情，我们不用管。
+  c.进入recoveryd后，host这一侧的firmguard还需要和guest保持通讯，接受升级进度的信息。
+  d.如何触发guest一侧重启自己，进入qemu的recovery模式。
+
+2.问了一下matt.ma那个关于修改qemu进入recovery模式的问题单。
+
+3.上网上自己搜索到了AES加密和解密，以及DSA签名和验证的相关资料。
+
+下午：从2点开始到3点30参加中科创达的会议。
+
+1.整理文件传输的代码，输出报文的格式定义。--》暂时未提供定义的报文格式，仅仅定义了命令种类
+1.1晚上firmguard向multi-os发送guest的消息的代码。
+
+2.验证qemu recovery模式是否能正常进入。--》未完成
+
+=========================================================Day:20150526 start=========================================================
+9:07到岗
+上午：
+1.完成昨天遗留的qemu recovery验证
+
+2.完成升级包的制作，以及升级包的解压缩，解出来3个文件，然后依次传送3个文件，你可以先模拟出3个文件，然后让firmguard去替换。
+  也就是说先不去做替换真正的文件。
+
+3.然后下载完毕后，通告guest准备重启，guest那一侧做完该保存的东西后，恢复可以重启，然后host就开始reboot虚拟机了。
+
+4.问下matt那个我如果程序覆盖了qemu_start.sh等文件，那么文件的安全上下文是否还可以正常启动。
+
+下午：
+1.问了一下ym关于升级包的结构，原来是我们这边定义的。初步设想：将firmboot.img system还有data的image文件都打包压缩到一个文件中。
+  然后下载到本地后，解压缩出来firm的img，然后再mount到linux上，然后从中拷贝并且打包压缩为一个tar.gz文件，然后传送过来。
+  然后host这一侧收到这个文件后，再解压缩到某个地方，然后再做替换操作。
+
+2.遇到一个问题，在host shell，关闭selinux后，---》这个问题跟关闭selinux操作没有关系，就是不关，stop再start就出错。
+通过stop firmos，然后再重新start firmos，结果guest起不来。--->这个问题是yuming5.8改的一个问题单，改好了，参考5月8号yuming所有的merge的修改。
+
+
+3.matt.ma改了重启qemu进入recovery模式，问题单id432283，在如下网页打开
+http://review.source.spreadtrum.com/gerrit/#/q/owner:%22Anonymous+Coward+%253Cmatt.ma%2540spreadtrum.com%253E%22,n,z
+
+houyu 问题单：430395
+
+4.我需要验证一下在host shell里，修改原始的qemu_start.sh文件的名称，安全上下文(ls -Z显示)是否会更改。---》结论不会
+
+而且，我试过了，如果再把名字改回去，然后这个文件依然可以正常引导guest启动起来。
+
+但是如果你拷贝这个文件为一个新的文件，那么那个新的文件就不能正确引导guest启动起来。即使你把它名字改成qemu_start.sh。---》因为它的安全上下文不同。
+
+区别如下：
+
+shell@scx35l_sp9630ea:/firmboot $ ls -Z
+drwx------ root     root              u:object_r:firmos_boot:s0 lost+found
+-rwxrwxrwx root     root              u:object_r:firmos_boot:s0 q.sh ---》这个是原生的，被我修改了文件名
+drwxr-xr-x root     root              u:object_r:firmos_boot:s0 qemu
+-rw-rw-rw- root     root              u:object_r:firmos_boot:s0 qemu.tar
+-rwxrwxrwx root     root              u:object_r:firmos_exec:s0 qemu_start.sh ----》这个是自己拷贝的。
+-rw-r--r-- root     root              u:object_r:firmos_boot:s0 ramdisk-recovery.img
+-rw-r--r-- root     root              u:object_r:firmos_boot:s0 ramdisk.img
+-rw-r--r-- root     root              u:object_r:firmos_boot:s0 vImage
+
+5.研究一种方法，可以修改文件的安全上下文，改成和原生的一样，然后引导系统试试看。---》晚上07：48验证这个方法OK。
+
+哈哈，功夫用到自会有结果。执行下面的命令，就可以利用新的sh文件引导系统了。
+
+chcon --reference=/firmboot/bak_qemu_start.sh /firmboot/qemu_start.sh
+
+6.韩玉明改的mutios重启失败的问题，问题单号是：435799，该了2个文件，上gerrit上看看就知道了。
+
+  注意：这个修改要编译host版本，更新host版本，才能纠正，我刚开始更新了guest版本，发现没有纠正，给弄错了。。。。。
+  
+
+=========================================================Day:20150526 start=========================================================
+9：05到的。
+上午：
+1.答复roc昨天回复的邮件，从9点20到9点45.
+
+2.linux的线程栈大小可以使用ulimit -s查看，对于ubunt 2.6的内核线程栈的默认大小为8M，如下：
+
+shine@shine-bupt:~/Program/C$ ulimit -s
+8192
+
+3.linux malloc申请大内存的方法，参考如下网页：
+http://blog.csdn.net/xxxxxx91116/article/details/10068555
+
+理论上来说最大内存可以到3G
+
+4.
