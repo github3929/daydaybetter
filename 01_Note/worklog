@@ -1827,7 +1827,7 @@ chcon --reference=/firmboot/bak_qemu_start.sh /firmboot/qemu_start.sh
   注意：这个修改要编译host版本，更新host版本，才能纠正，我刚开始更新了guest版本，发现没有纠正，给弄错了。。。。。
   
 
-=========================================================Day:20150526 start=========================================================
+=========================================================Day:20150527 start=========================================================
 9：05到的。
 上午：
 1.答复roc昨天回复的邮件，从9点20到9点45.
@@ -1888,3 +1888,88 @@ root      935   1     11044  2948  ffffffff 00058154 S /sbin/recovery
 /home/apuser/a.multi-os/bootable ---》这个目录下有bootrom和recovery的代码
 
 12.通过secureboot还有ota可以熟悉一下android的启动流程。
+
+13.
+	1).找一下firmguard向multios发送消息的参考文件，就是参考guest告知host短信和电话之类的。
+
+	2).那个升级包的准备，然后guest一侧要弄个命令之类的模拟
+  ota正式的程序，一旦执行会告诉recoveryd升级文件的位置---》这个后来想了想，不用，就固定在某个目录，然后recoveryd自己去找去。
+  要在ota加载的ramdisk.img中实现一个ota service，告知升级的进度，通过vport。
+
+
+=========================================================Day:20150528 start=========================================================
+昨晚to do的thing汇总：
+有几个地方，还是没有验证，要释放一下风险。
+
+1.OTA包在guest这一侧的解压缩，调用系统命令去解开这个包。
+
+2.调用系统命令去重命名文件。
+
+3.替换后的新文件的SELINUX那个安全上下文是否有未知问题。
+
+4.把代码整理到真正的系统里，不要再用push bin的方式。要起一个service。
+
+5.要确保guest重启后，host的firmguard还可以和guest的ota service连上。
+
+6.要加个host对文件进行MD5验证。
+
+7.验证代码里，stop firmos，start firmos
+
+8.host 重启 guest，让它进入recovery模式，而不是system模式的具体方式，我目前是临时修改了一下firmboot.sh，但是人家里边是要你传一个参数。
+
+后记：
+1.firmosboot.sh的位置
+~/b.multi-os/vendor/sprd/open-source/apps/scripts$ ls
+bih_config.sh  ext_data.sh  ext_kill.sh  firmosboot.sh  inputfreq.sh  recoveryfreq.sh  telnetd_start.sh
+~/b.multi-os/vendor/sprd/open-source/apps/scripts$ ls firmosboot.sh ----》这里
+firmosboot.sh
+~/b.multi-os/vendor/sprd/open-source/apps/scripts$
+
+2.找到怎么启动firmos的recovery模式了，就是通过判断init.board.rc文件中
+两个属性值做到的。具体如下：
+
+~/b.multi-os/device/sprd/scx35l_sp9630ea$ grep firm -r -n ./
+./scx35l_sp9630ea.mk:98:$(call inherit-product, hardware/broadcom/wlan/bcmdhd/firmware/bcm4343s/device-bcm.mk)
+./BoardConfig.mk:115:WIFI_DRIVER_FW_PATH_PARAM   :="sys/module/bcmdhd/parameters/firmware_path"
+./BoardConfig.mk:116:WIFI_DRIVER_FW_PATH_STA     := "system/vendor/firmware/fw_bcmdhd.bin"
+./BoardConfig.mk:117:WIFI_DRIVER_FW_PATH_P2P     := "system/vendor/firmware/fw_bcmdhd.bin"
+./BoardConfig.mk:118:WIFI_DRIVER_FW_PATH_AP      := "system/vendor/firmware/fw_bcmdhd_apsta.bin"
+./BoardConfig.mk:119:WIFI_DRIVER_FW_PATH_MFG      := "system/vendor/firmware/fw_bcmdhd_mfg.bin"
+./BoardConfig.mk:120:WIFI_DRIVER_MODULE_ARG      := "firmware_path=system/vendor/firmware/fw_bcmdhd.bin nvram_path=system/etc/wifi/bcmdhd.cal"
+./init.board.rc:209:    start firmos  ----》这里
+./init.board.rc:211:service firmos /system/bin/firmosboot.sh boot
+./init.board.rc:216:    start firmrecovery  ----》这里
+./init.board.rc:218:service firmrecovery /system/bin/firmosboot.sh recovery
+./scx35l_sp9630ea_dt_base_cmccspec3_UUI.mk:22:        vendor/sprd/open-source/apps/scripts/firmosboot.sh:system/bin/firmosboot.sh
+./scx35l_sp9630ea_dt_plus.mk:103:$(call inherit-product, hardware/broadcom/wlan/bcmdhd/firmware/bcm4343s/device-bcm.mk)
+./scx35l_sp9630ea_dt_base.mk:98:$(call inherit-product, hardware/broadcom/wlan/bcmdhd/firmware/bcm4343s/device-bcm.mk)
+./scx35l_sp9630ea_dt.mk:101:$(call inherit-product, hardware/broadcom/wlan/bcmdhd/firmware/bcm4343s/device-bcm.mk)
+~/b.multi-os/device/sprd/scx35l_sp9630ea$
+
+
+==================================
+
+-----》但是这个有问题啊，我只是要重启guest，而你这个判断是加在host的
+init.board.rc文件中的，这个文件只有在host重启的时候才会调用啊，我不能
+为了重启一把guest，把host也重启了。
+
+~/b.multi-os/device/sprd/scx35l_sp9630ea$ vi init.board.rc
+
+on property:sys.multios.startguest=1----》这里
+    start firmos
+
+service firmos /system/bin/firmosboot.sh boot
+    user root
+    class main
+
+on property:sys.multios.startrecovery=1 ----》这里
+    start firmrecovery
+
+service firmrecovery /system/bin/firmosboot.sh recovery
+    user root
+    class main
+    disabled
+
+上午：
+1.
+
