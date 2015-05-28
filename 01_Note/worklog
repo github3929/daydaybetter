@@ -1970,6 +1970,20 @@ service firmrecovery /system/bin/firmosboot.sh recovery
     class main
     disabled
 
-上午：
-1.
+上午：9.01到的公司
+1.firmguard向multios发送消息的参考 ---》这个yuming还没弄，打算做成一个类似multios那样的接受local sockekt的apk程序。
 
+2.那个升级包的准备，然后guest一侧要弄个命令之类的模拟
+  ota正式的程序，一旦执行会告诉recoveryd升级文件的位置---》这个后来想了想，不用，就固定在某个目录，然后recoveryd自己去找去。
+  要在ota加载的ramdisk.img中实现一个ota service，告知升级的进度，通过vport。
+
+下午：
+1.发呆+观摩人家yu.hou解决1).kernel起不来(首先定位到init.rc还有kernel的config文件)。2）.kernel起不来之前qemu也起不来，看一下qemu_start.sh是否正确挂接了磁盘
+                         3).T8手机的移植，涉及2部分内容第一是在config目录下arm64目录下新建了一个我们板子的config文件，
+                            然后还要对比tshark也就是9230手机的kernel config文件，修改一下新的t8手机的kernel config文件。
+2.wine创建的磁盘的目录如下：
+/home/likewise-open/SPREADTRUM/jason.jiang/.wine/drive_c
+
+3.开会占去1个小时
+
+晚上：拼命把今天拉下的赶回来。
