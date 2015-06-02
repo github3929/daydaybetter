@@ -1987,3 +1987,98 @@ service firmrecovery /system/bin/firmosboot.sh recovery
 3.开会占去1个小时
 
 晚上：拼命把今天拉下的赶回来。
+
+=============================
+
+
+恢复文件的默认上下文信息，但是提示没有权限。也就是说shell里不允许这么做，但是我如果reference的话，就OK。
+参考网页：http://blog.chinaunix.net/uid-28216282-id-3377099.html
+restorecon /firmboot/qemu/bin/qemu-system-arm
+Could not label /firmboot/qemu/bin/qemu-system-arm with u:object_r:firmos_exec:s0:  Permission denied
+
+=========================================================Day:20150530 start=========================================================
+
+1.在代码的任意库的特定目录下，执行git diff就可以看到自己代码和库上代码的差别了。
+~/a.multi-os/device/sprd$ git diff
+
+2.下面是自己今天罗列出的程序处理流程>>>>>
+
+1.client先打开后，首先要connect到server，这个connect的函数做成单独一个函数，
+  在host等待命令的过程中，每隔一段时间，发送一次hello报文，交互一下，确保联络通畅，
+  如果断了，调用connect函数从新连接。
+
+2.连上之后，就是等待命令的过程。
+
+3.如果guest通知传输升级包的话，那么进入升级流程。升级流程过程中不做通讯侦听。
+  升级过程中，不接受除了INFO信息的其它命令。
+  然后如果收到了guest升级完毕的消息，那么host这一侧，会将传过来的文件解压，替换原来的文件，
+  然后更新上下文信息，
+  然后继续回到等待命令过程。
+
+  补充：这期间如果手机电量不够80%或者没插电，告诉用户不允许升级，这个操作是guest的OTA升级服务程序做的事情，
+  我们就负责告诉他电量信息，还有电源信息，因为如果这个条件不满足，那么连向host传输文件的操作都应该
+  不被运行。
+
+=========================================================Day:20150531 start=========================================================
+
+1.对文件传输过程进行修改：
+
+  原先是，先发送文件信息，包括文件的名称，文件的大小，然后再发送文件数据。
+  现在，在发送START——DOWNLOAD报文的时候，把文件标志(0x01表示qemu.gz.tar, 0x02表示image.gz.tar)一并发送过去。
+       并且文件的大小不再告知，而是HOST就认定如果收到了START_DOWNLOAD报文，那么就开始不停的read数据，然后写到文件中，直到读不到数据。
+
+2.【重要提示】init.rc文件的修改方法。
+可以参照modemd的方式来实现你的bin文件随系统启动，不过你的修改要添加到产品自己独有的
+/device/sprd/scx35l_sp9630ea/init.board.rc里
+
+
+~/b.multi-os/device/sprd$ grep -rn modemd *
+scx15/init.scx15.rc:260:service modemd /system/bin/modemd
+scx15/device.mk:60:    modemd \
+scx35/init.sc8830.rc:308:service modemd /system/bin/modemd
+scx35/device.mk:64:    modemd \
+scx35l64/init.sc8830.rc:272:service modemd /system/bin/modemd
+scx35l64/device.mk:61:    modemd \
+vshark/init.vshark.rc:49:    symlink /dev/vport3p2 /dev/modemd
+vshark/device.mk:66:    modemd
+~/b.multi-os/device/sprd$ 
+
+
+
+=========================================================Day:20150601 (children's day)start=========================================================
+//daily words:积极的人在每一次忧患中都看到一个机会,而消极的人则在每个机会都看到某种忧患。
+
+上午：
+1.发现一个问题，我修改了vsharkffos.mk文件的内容，将其中拷贝image文件到system目录的语句(如下)删除。
+
+	$(BOARDDIR)/image.tar.gz:system/image.tar.gz \
+	$(BOARDDIR)/qemu.tar.gz:system/qemu.tar.gz \
+	
+但是还是发现，guest的system.img在打包的时候，把qemu.tar.gz文件打进去了，后来发现，它其实很笨，它就是负责将如下目录的内容打包为image文件。
+/home/likewise-open/SPREADTRUM/jason.jiang/b.multi-os/out/target/product/vshark/system
+
+因为你没有删除存放在如下目录的qemu.tar.gz文件，所以他还是会打包进去。
+
+结论：这也间接说明，打包image的脚本不是vsharkffos.mk控制的。
+
+
+2.定位昨天那个，文件传输完毕后，字节数不对，同时tar压缩包解压失败的问题。
+
+  ---》原因是自己最后没有fclose文件，文件的末尾的标志等信息没有被写入到文件中。这个是在fclose的时候，系统自己写进去的。
+
+下午：
+
+1.开会从2点到3点
+
+2.剩下的一天的时间，都是在调试firmguard代码，修改点如下：
+  a。将代码的原先的read wait死等，修改为select。我看了看modemd也是这么做的，但是audio_hw_guest是死等。
+  b。修改bug，原先文件传送的结束，host不知道什么时候结束，临时加了个判断如果报文个数==最后一次传送的字节数，那么返回
+     现在修改为等待文件数据5s超时后，认为传输完毕。
+
+3.截至此时调试完毕为7点，效率有待提高，其实下午3点就该收工的。  
+
+=========================================================Day:20150602start=========================================================
+//
+
+1.
+
