@@ -1845,6 +1845,7 @@ http://blog.csdn.net/xxxxxx91116/article/details/10068555
 4.找到matt.ma的那个单子，然后看看recovery现在功能是个啥样。
 
 5.grep命令使用方法： grep QEMU_VERSION -r -n ./
+                  grep -rn **** ./
 
 
 6.据matt介绍，guest现在的启动流程，
@@ -2080,5 +2081,109 @@ vshark/device.mk:66:    modemd
 =========================================================Day:20150602start=========================================================
 //
 
+1.今天上午确保2个问题解决：
+  a。reboot guest，host可以再次和guest握手。
+	b。host实现reboot guest的命令。
+  c。将整个程序做到正式版本的service中，随系统启动。验证system()函数接口在那下面是否还可以用。
+
+2.发觉一点，在每次select之前，都需要FD_ZERO&FD_SET,否则select就会一直返回-1，然后具体错误，通过打印errno可看具体失败原因。附在后面：
+
+			FD_ZERO(&fds);
+			FD_SET(firmguard_fd, &fds);	
+	
+		      ret = select(firmguard_fd+1, &fds, NULL, NULL, NULL);
+		      
+具体失败的原因errno为		      
+#define	EINVAL		22	/* Invalid argument */		      
+
+3.开会从10点30到12点
+
+下午：驱动移植
 1.
 
+sprd_virt_gsensor.c  ===>ok--
+sprd_virt_lpsensor.c  ===>ok--
+sprd_virt_touch_kb.c  ===>ok--
+
+sprd_virt_pipe.c  ===>ok--
+sprd_virt_battery.c  ===>ok--
+sprd_virt_backlight.c  ===>ok--
+
+sprd_virtfb.c  ===>ok--
+
+别忘了对应目录下的Makefile文件 Kconfig文件
+
+2.kernel目录下运行make menuconfig命令，然后敲入/命令查找CONFIG_SPRD_VIRT_INPUT看这个选项是否已经存在于kernal目录下的代码中。
+
+如果存在，然后按照输出的指示，到响应的位置，打勾该选项。然后你可以通过下面的命令复查一下是否保存到了kernel config里。
+
+~/t8.muti-os/kernel$ cat .config | grep CONFIG_SPRD_VIRT_INPUT
+CONFIG_SPRD_VIRT_INPUT=y
+~/t8.muti-os/kernel$ cat .config | grep CONFIG_SPRD_VIRT_GSENSOR
+CONFIG_SPRD_VIRT_GSENSOR=y
+~/t8.muti-os/kernel$ cat .config | grep CONFIG_SPRD_VIRT_TOUCH_KB
+CONFIG_SPRD_VIRT_TOUCH_KB=y
+~/t8.muti-os/kernel$ cat .config | grep CONFIG_SPRD_VIRT_LPSENSOR
+CONFIG_SPRD_VIRT_LPSENSOR=y
+~/t8.muti-os/kernel$ 
+
+3.对kernel进行配置的命令为：
+~/t8.muti-os$ kuconfig ---》查看当前的kernel配置
+
+~/t8.muti-os$ kdconfig 恢复为默认的配置--》我自己理解的
+
+生成defconfig：kdconfig => kuconfig
+生成临时的defconfig文件:kmconfig
+
+4.对kernel的配置，不能在kernel/目录下用make menuconfig
+  而是要通过根目录下，执行如下（执行之前，若要修改kernel config运行kuconfig更改配置并保存）
+  ~/t8.muti-os$ kdconfig; make bootimage  
+
+=========================================================Day:20150603start=========================================================
+
+1.添加了临时的修改，为了保证编译t8的guest kernel通过。
+/*temp add by jason-jiang jason.jiang for compile ok*/  
+
+
+2.和matt.ma讨论了需要修改哪些地方，因为新的qemu里没有静态添加设备tree的代码，所以需要修改。详见邮件。
+
+vexpress.c
+
+static void vexpress_common_init(MachineState *machine)
+{
+    sysbus_create_simple("sprdinput", map[VE_SPRD_INPUT], pic[20]);
+
+    sysbus_create_simple("sprdfb", map[VE_SPRD_FB], pic[21]);
+    sysbus_create_simple("sprdbacklight", map[VE_SPRD_BACKLIGHT], NULL);
+    sysbus_create_simple("accelerometer", map[VE_SPRD_GSENSOR], pic[23]);
+    sysbus_create_simple("alps_pxy", map[VE_SPRD_LPSENSOR], pic[24]);
+    sysbus_create_simple("sprdpipe", map[VE_SPRD_PIPE], pic[25]);
+    sysbus_create_simple("sprdbattery", map[VE_SPRD_BATTERY], NULL);
+    sysbus_create_simple("sprd_buffer_share", map[VE_SPRD_BUFFER_SHARE], NULL);
+}
+
+3.从来了公司，就开始解决编译问题，一共二个问题。
+
+a重复定义，/kernel/drivers/staging/android/ion/sprd/sprd_ion.c
+
+static struct ion_device *idev; ---->前面应当加上static
+int num_heaps = 0;
+static struct ion_heap **heaps;
+
+b在 sprd_virt_backlight_probe (sprd_virt_backlight.c)文件中 引用了未定义的 backlight_device_register
+
+临时定义了个空函数
+
+4.还发现一个毗漏，自己的kernel的config文件中，没有打开backlight。
+
+下午：
+
+1.root@scx35l64_sp9838aea_multios:/ # mount -o remount /  文件系统就变成可写的了。
+
+=========================================================Day:20150604start=========================================================
+//daily words每次
+上午：
+1.走读设备树生成的代码（4.4），然后用gdb调试qemu。
+  走读设备驱动backlight，sensor，pipe的代码。
+
+2.

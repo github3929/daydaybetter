@@ -1,10 +1,15 @@
 ﻿★☆●○◇◆□■△▲※→←↑↓〓＃＆【】〖〗
 
+cfgqemu
+bldqemu
+
 busybox tftp -g -l fgg -r fgg 10.0.10.2
 
 repo init -u gitosis@sprdroid.git.spreadtrum.com.cn:android/platform/manifest -b sprdroid4.4_3.10_multios
 repo sync -d -c -q -j8
 
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+export PATH=/usr/lib/jvm/java-7-openjdk-amd64/bin:/usr/lib/jvm/java-7-openjdk-amd64/jre/bin:$PATH
 
 linux系统内核的启动脚本
 /home/apuser/a.multi-os/out/target/product/vshark/root/init.rc
@@ -28,6 +33,10 @@ sudo mount -t smbfs -o username=jason.jiang  //10.0.64.42/to_internal/jason.jian
 lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
 
 lunch vsharkffos-userdebug && make
+
+branch : sprdroid5.1_trunk_multios
+user os lunch: sp9838aea_multios-userdebug
+firm os lunch: vshark-userdebug
 
 ====
 
