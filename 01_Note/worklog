@@ -1820,7 +1820,7 @@ drwxr-xr-x root     root              u:object_r:firmos_boot:s0 qemu
 
 哈哈，功夫用到自会有结果。执行下面的命令，就可以利用新的sh文件引导系统了。
 
-chcon --reference=/firmboot/bak_qemu_start.sh /firmboot/qemu_start.sh
+chcon --reference=/firmboot/qemu_start.sh /firmboot/q.sh
 
 6.韩玉明改的mutios重启失败的问题，问题单号是：435799，该了2个文件，上gerrit上看看就知道了。
 
@@ -2181,9 +2181,136 @@ b在 sprd_virt_backlight_probe (sprd_virt_backlight.c)文件中 引用了未定�
 1.root@scx35l64_sp9838aea_multios:/ # mount -o remount /  文件系统就变成可写的了。
 
 =========================================================Day:20150604start=========================================================
-//daily words每次
+9:00 arrived here. 9:45进入状态，中间上趟wc
 上午：
 1.走读设备树生成的代码（4.4），然后用gdb调试qemu。
   走读设备驱动backlight，sensor，pipe的代码。
 
 2.
+
+第一步，到/home/likewise-open/SPREADTRUM/jason.jiang/b.multi-os/out/target/product/vshark/obj/KERNEL/drivers/video/backlight
+目录下，对比 /home/likewise-open/SPREADTRUM/jason.jiang/t8.muti-os/out/target/product/scx35l64_vshark/obj/KERNEL/drivers/video/backlight
+这2个目录的差别，发现自己编的目录下怎么是ko目标文件，而且文件个数也有差别，ko文件的话，这肯定会找不到目标文件的。
+
+第二步，然后通过kuconfig发现了BACKLIGHT_SPRD这个配置项是n，感觉应该是这个没打开导致。
+
+第三步，进一步通过对比如下2个地方，发现了和backlight有关的一些个区别，真实踏破铁鞋无觅处，******
+
+Z:\t8.muti-os\out\target\product\scx35l64_vshark\obj\KERNEL\defconfig
+
+Z:\b.multi-os\out\target\product\vshark\obj\KERNEL\.config
+
+发现BACKLIGHT_SPRD这个选项在4.4上是关闭的，所以第二步打开是没有用的。
+
+
+第四步：终极解决方法： ----》而且我发现前面三步，我犯了个错，我在kuconfig之前，要先lunch vshark-userdebug才可以看到正确的guest的kernel配置，否则我如果
+                        lunch 了sp9838aea_multios-userdebug，那么看到的就是host 的kernel配置。
+aijun过来帮了下忙，就是default kernel config应该设置如下：
+CONFIG_BACKLIGHT_LCD_SUPPORT=y
+# CONFIG_LCD_CLASS_DEVICE is not set
+CONFIG_BACKLIGHT_VIRT_SPRD=y
+CONFIG_BACKLIGHT_CLASS_DEVICE=y  ===》就是因为这个没有被置位
+
+我就是因为没有打开 CONFIG_BACKLIGHT_CLASS_DEVICE=y 导致老是提示 找不到目标函数的obj文件，因为压根就没去编译人家。
+drivers/built-in.o: In function `sprd_virt_backlight_probe':
+/home/likewise-open/SPREADTRUM/jason.jiang/t8.muti-os/kernel/drivers/video/backlight/sprd_virt_backlight.c:116: undefined reference to `backlight_device_register'
+
+另外，学了几招：
+1.kernel目录下执行  kmk -j8就是单独编译kernel，比make bootimage要快。
+ 2035  cd kernel/
+ 2036  git status
+ 2037  vi drivers/video/backlight/Makefile
+ 2038  touch drivers/video/backlight/sprd_virt_backlight.c
+
+2.在特定目录下的代码中搜索特定字符串。
+grep -rn backlight_device_register drivers/video/
+ 
+3.针对编译sprd_virt_backlight.c文件，提示backlight_device_register undefined的问题，是因为backlight_device_register所在的
+打开如下文件，搜索backlight.o
+vi drivers/video/backlight/Makefile
+找到如下行
+obj-$(CONFIG_BACKLIGHT_CLASS_DEVICE)	+= backlight.o
+
+就推测出backlight.o的编出来，需要定义 BACKLIGHT_CLASS_DEVICE，所以就去kernel里把 BACKLIGHT_CLASS_DEVICE这个开关给打开。
+
+
+4.在kernel目录下执行   kmconfig 效果等同与在根目录下 kuconfig
+
+4.1 在kernel目录下执行 kmk 就是编译内核
+ 
+5.在kernel目录下执行  kmk savedefconfig 等与 在kmconfig后保存内核的默认配置。
+
+晚上：
+1.合入youyu的 kernel的 patch，然后关掉kernel的SPRD_VIRTFB选项，编译通过。
+  加载该guest kernel
+  
+2.提示disk没有mount：
+
+shell@scx35l64_sp9838aea_multios:/data # ./q.sh                                
+WARNING: Image format was not specified for '/dev/block/mmcblk0p25' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+WARNING: Image format was not specified for '/dev/block/mmcblk0p24' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+Image: No such file or directory
+qemu: could not load kernel 'Image'
+1|shell@scx35l64_sp9838aea_multios:/data # 
+
+=========================================================Day:20150605start=========================================================
+8.51到岗 9：16进入状态。
+
+1.继续走读代码。整理那个ota的代码，准备提交评审。
+
+2.调试单板。
+  ----将houyu的ramdisk覆盖自己的后，启动提示：
+  
+
+3.将系统的system.img挂载到系统上，将ramdisk.img挂载上，打开看看里边都是什么。它是怎么生成的
+
+
+后记：网上有文章讲，如何在系统中划定一块内存为ramdisk，然后你可以format它，然后就可以像普通硬盘一样操纵它了。
+
+
+下午：
+1.开始将virtual driver的代码合入git库中。qemu部分还要合入另外一个新库上，新库的下载耗费了1个小时。
+2.然后后来发现aijun那里有device tree的最新改动，我也要合入。---整理它的合入到晚上8点
+
+
+=========================================================Day:20150607start=========================================================
+
+下午1：35到公司
+1.开始整理firmguard的代码。
+
+	a将报文长度统一为32字节。解决报文长度不统一，导致host读guest数据一下读了3条报文，然后当成一条报文去处理了。--ok
+	b解决握手失败问题。--ok
+
+	------>still to be finish
+  c新增reboot guest功能。-------》有残留问题，必须在root下。如何切换到root下，或者使用其它方式？？？？
+  
+
+	d重启guest，host仍然能够从新连接上。--ok
+	e测试了一下整体功能。--ok
+	f将host端的程序打包到系统的发行版本中去，看一下各项功能是否正常。--？？？？？still to be finished...
+
+
+2.上面的system命令必须在root下，执行su之后才可以，这个需要fix
+
+=========================================================Day:20150608start=========================================================
+8:50到岗
+上午：
+1.device tree部分代码的走读，然后提交一个commit单独合入这些内容。
+
+2.写Ethernet的测试用例。
+
+3.完善代码，提交review版本。
+
+4.自己编一个guest的system.img，然后更新完分区以后试验一下。看看怎么样。---》这个可以问aijun是怎么弄的。
+
+
+后记：
+1.anjun孙爱军关于device tree的临时修改包含了如下几个部分：
+新增了一个如下目录，
+t8.multi-os\kernel\drivers\platform\sprd-virt
+并修改了如下目录下的Makefile和Kconfig
+t8.multi-os\kernel\drivers\platform\

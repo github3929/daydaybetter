@@ -35,8 +35,8 @@ lunch scx35l_sp9630ea_dt_base_cmccspec3_UUI-userdebug
 lunch vsharkffos-userdebug && make
 
 branch : sprdroid5.1_trunk_multios
-user os lunch: sp9838aea_multios-userdebug
-firm os lunch: vshark-userdebug
+user os lunch sp9838aea_multios-userdebug
+firm os lunch vshark-userdebug
 
 ====
 
